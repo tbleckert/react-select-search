@@ -270,8 +270,6 @@ function valueChanged(value, props, state) {
 function onFocus() {
 	var optionsParent = (!_optionsParent) ? element.querySelector('.select-search-box__select') : _optionsParent;
 	
-	console.log(optionsParent);
-	
 	optionsParent.scrollTop = 0;
 }
 
