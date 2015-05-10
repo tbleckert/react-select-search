@@ -1,0 +1,125 @@
+@import url(http://fonts.googleapis.com/css?family=Raleway:300,400,700);
+@import url(http://weloveiconfonts.com/api/?family=fontawesome);
+
+[class*="fontawesome-"]:before {
+	font-family: 'fontawesome', sans-serif;
+}
+
+body {
+	font-family: Raleway;
+}
+
+.select-search-box {
+	width: 300px;
+	position: relative;
+}
+
+	.select-search-box::after {
+		font-family: fontawesome;
+		content:"\f078";
+		position: absolute;
+		top: 0;
+		right: 0;
+		width: 40px;
+		text-align: center;
+		line-height: 50px;
+		color: #fff;
+	}
+
+	.select-search-box__search {
+		display: block;
+		width: 100%;
+		height: 50px;
+		border: none;
+		background: #e47168;
+		border-radius: 8px;
+		outline: none;
+		font-size: 16px;
+		padding: 0 20px;
+		color: #fff;
+		-webkit-appearance: textfield;
+		-moz-box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+		box-sizing: border-box;
+		font-weight: bold;
+	}
+	
+		.select-search-box__search:focus {
+			border-radius: 8px 8px 0 0;
+		}
+	
+	input::-webkit-input-placeholder {
+		color: #fff;
+		font-style: italic;
+		font-weight: normal;
+	}
+	
+	input::-moz-placeholder {
+		color: #fff;
+		font-style: italic;
+		font-weight: normal;
+	}
+	
+	input:-moz-placeholder {
+		color: #fff;
+		font-style: italic;
+		font-weight: normal;
+	}
+	
+	input:-ms-input-placeholder {
+		color: #fff;
+		font-style: italic;
+		font-weight: normal;
+	}
+	
+	input[type='search']::-webkit-search-cancel-button, input[type='search']::-webkit-search-decoration {
+		-webkit-appearance: none;
+	}
+	
+	.select-search-box__select {
+		display: none;
+		position: absolute;
+		top: 50px;
+		left: 0;
+		right: 0;
+		background: #f7f7f1;
+		border-radius: 0 0 8px 8px;
+		height: 295px;
+		overflow: auto;
+		border-bottom: 4px solid #cac6c4;
+		box-shadow: 0 5px 25px rgba(0,0,0,.15);
+	}
+	
+		.select-search-box__select--display {
+			display: block;
+		}
+		
+		.select-search-box__select--prehide {
+			opacity: 0;
+		}
+		
+		.select-search-box__select__option {
+			font-size: 16px;
+			font-weight: 400;
+			color: #616b74;
+			padding: 20px;
+			box-shadow: 0 1px 0 rgba(0,0,0,.1);
+			cursor: pointer;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+		
+			.select-search-box__select__option--hover, .select-search-box__select__option:hover {
+				background: #eaeae5;
+			}
+			
+			.select-search-box__select__option--selected {
+				background: #616b74;
+				color: #f7f7f1;
+			}
+			
+				.select-search-box__select__option--selected:hover {
+					background: #616b74;
+					color: #f7f7f1;
+				}

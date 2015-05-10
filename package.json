@@ -1,0 +1,41 @@
+{
+  "name": "react-select-search",
+  "version": "0.0.1",
+  "description": "React powered selectbox with filter",
+  "main": "index.js",
+  "scripts": {
+    "start": "watchify -o dist/bundle.js -v -d ./index.js",
+    "example": "watchify -o examples/dist/example.js -v -d examples/example.js",
+    "build": "browserify index.js | uglifyjs -cm > dist/bundle.min.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tbleckert/react-select-search.git"
+  },
+  "keywords": [
+    "React",
+    "popup",
+    "js",
+    "minutemailer"
+  ],
+  "author": "Tobias Bleckert (hola@tobiasbleckert.se)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tbleckert/react-select-search/issues"
+  },
+  "homepage": "https://github.com/tbleckert/react-select-search",
+  "devDependencies": {
+    "browserify": "^6.2.0",
+    "object-assign": "^1.0.0",
+    "react": "^0.12.0",
+    "reactify": "^0.15.2",
+    "uglify-js": "^2.4.15",
+    "watchify": "^2.1.1",
+    "fuse.js": "^1.2.2"
+  },
+  "browserify": {
+    "transform": [
+      "reactify"
+    ]
+  }
+}
