@@ -9,7 +9,7 @@ var React          = require('react'),
     element        = document.getElementById('selectSearch'),
     exampleOptions = [ // https://gist.github.com/Keeguon/2310008
 	  {name: 'Afghanistan', value: 'AF'}, 
-	  {name: 'Ã…land Islands', value: 'AX'}, 
+	  {name: 'Åland Islands', value: 'AX'}, 
 	  {name: 'Albania', value: 'AL'}, 
 	  {name: 'Algeria', value: 'DZ'}, 
 	  {name: 'American Samoa', value: 'AS'}, 
