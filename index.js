@@ -334,7 +334,8 @@
 			
 			return (
 				<div className={className}>
-					<input ref="search" onFocus={this.onFocus} onKeyDown={this.onKeyDown} onKeyPress={this.onKeyPress} onBlur={this.onBlur} name={this.props.name} className={this._className(className, 'search')} type="search" value={this.state.search} onChange={this.onChange} placeholder={this.props.placeholder} />
+					<input type="hidden" value={this.state.value} name={this.props.name} />
+					<input ref="search" onFocus={this.onFocus} onKeyDown={this.onKeyDown} onKeyPress={this.onKeyPress} onBlur={this.onBlur} className={this._className(className, 'search')} type="search" value={this.state.search} onChange={this.onChange} placeholder={this.props.placeholder} />
 					<div ref="select" className={selectClass}>
 						{select}	
 					</div>

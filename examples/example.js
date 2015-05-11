@@ -278,6 +278,6 @@ window.react = React;
 
 /** Render popup */
 React.render(
-	<SelectSearch options={exampleOptions} optionSelected={optionSelected} onFocus={onFocus} placeholder="Choose country" />,
+	<SelectSearch name="country" options={exampleOptions} optionSelected={optionSelected} onFocus={onFocus} placeholder="Choose country" />,
 	element
 );
