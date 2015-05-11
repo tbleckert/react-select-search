@@ -8,6 +8,9 @@
 
 	var React     = require('react'),
 	    Fuse      = require('fuse.js'),
+	    _viewportHeight,
+	    _elementPos,
+	    _scroll,
 	    Component;
 
 	Component = React.createClass({
@@ -56,6 +59,47 @@
 		_className: function (base, element) {
 			return base + '__' + element;
 		},
+		
+		css: function (node, prop) {
+			return window.getComputedStyle(node)[prop];
+		},
+		
+		scrollParent: function (node) {
+			var position            = this.css(node, 'position'),
+			    parent              = node.parentNode,
+			    overflowRegex       = /(auto|scroll)/,
+			    excludeStaticParent = position === 'absolute';
+			    
+			console.log(this.css(parent, 'overflow'), this.css(parent, 'position'), this.css(parent, 'overflow'));
+			    
+			if (excludeStaticParent && this.css(parent, 'position') === 'static') {
+				return this.scrollParent(parent);
+			}
+			
+			if (overflowRegex.test(this.css(parent, 'overflow') + this.css(parent, 'overflow-y'))) {
+				if (position === 'fixed') {
+					return document;
+				}
+				
+				return parent;
+			}
+			
+			return this.scrollParent(parent);
+		},
+		
+		getNodePosition: function (node) {     
+		    var top = left = 0;
+		    while (node) {  	
+		       if (node.tagName) {
+		           top = top + node.offsetTop;
+		           left = left + node.offsetLeft;   	
+		           node = node.offsetParent;
+		       } else {
+		           node = node.parentNode;
+		       }
+		    } 
+		    return [top, left];
+		},
 
 		onChange: function (e) {
 			var value = e.target.value, foundOptions = this.filterOptions(this.props.options, value);
@@ -77,7 +121,15 @@
 				element   = this.refs.select.getDOMNode();
 				className = element.className;
 
-				element.className += ' ' + className + '--' + 'display';
+				element.className = className + ' ' + className + '--' + 'display' + ' ' + className + '--' + 'prehide';
+				
+				setTimeout(function () {
+					_viewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+					_elementPos     = element.getBoundingClientRect();
+					
+					element.className = className + ' ' + className + '--' + 'display';
+					element.style.maxHeight = _viewportHeight - _elementPos.top - 20 + 'px';
+				}, 50);
 			}
 			
 			this.props.onFocus();
