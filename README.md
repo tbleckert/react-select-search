@@ -6,6 +6,10 @@ _Example design comes from the [beautiful work](https://dribbble.com/shots/10790
 
 ![](https://dl.dropboxusercontent.com/u/6306766/react-select-search.png)
 
+## Demo
+
+Live demo can be found here: http://react-select-search.tobiasbleckert.se/
+
 ## How to use
 
     React.render(
