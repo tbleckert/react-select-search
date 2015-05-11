@@ -12,6 +12,7 @@ body {
 .select-search-box {
 	width: 300px;
 	position: relative;
+	margin-bottom: 20px;
 }
 
 	.select-search-box::after {
@@ -87,6 +88,7 @@ body {
 		overflow: auto;
 		border-bottom: 4px solid #cac6c4;
 		box-shadow: 0 5px 25px rgba(0,0,0,.15);
+		z-index: 100;
 	}
 	
 		.select-search-box__select--display {

@@ -4,10 +4,15 @@
 
 'use strict';
 
-var React          = require('react'),
-    SelectSearch   = require('../index'),
-    element        = document.getElementById('selectSearch'),
-    exampleOptions = [ // https://gist.github.com/Keeguon/2310008
+var React           = require('react'),
+    SelectSearch    = require('../index'),
+    countryElement  = document.getElementById('countrySelect'),
+    languageElement = document.getElementById('languageSelect'),
+    languageOptions = [
+		{name: 'Swedish', value: 'sv'},
+		{name: 'English', value: 'en'}
+    ],
+    countryOptions = [ // https://gist.github.com/Keeguon/2310008
 	  {name: 'Afghanistan', value: 'AF'}, 
 	  {name: 'Åland Islands', value: 'AX'}, 
 	  {name: 'Albania', value: 'AL'}, 
@@ -256,8 +261,13 @@ var React          = require('react'),
 /** React debug */
 window.react = React;
 
-/** Render popup */
+/** Render selectbox */
 React.render(
-	<SelectSearch name="country" options={exampleOptions} placeholder="Choose country" />,
-	element
+	<SelectSearch name="country" options={countryOptions} placeholder="Choose country" />,
+	countryElement
+);
+
+React.render(
+	<SelectSearch name="language" options={languageOptions} placeholder="Choose language" />,
+	languageElement
 );
