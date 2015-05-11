@@ -252,32 +252,12 @@ var React          = require('react'),
 	  {name: 'Zambia', value: 'ZM'}, 
 	  {name: 'Zimbabwe', value: 'ZW'} 
 	], _optionsParent = null, _optionsParentHeight = null, _optionHeight = null;
-	
-function optionSelected(selected, props, state) {	
-	if (!_optionsParent) {
-		_optionsParent       = element.querySelector('.select-search-box__select');
-		_optionsParentHeight = _optionsParent.offsetHeight;
-		_optionHeight        = _optionsParent.querySelector('.select-search-box__option').offsetHeight;
-	}
-	
-	_optionsParent.scrollTop = _optionHeight * selected;
-}
-
-function valueChanged(value, props, state) {
-	console.log(value);
-}
-
-function onFocus() {
-	var optionsParent = (!_optionsParent) ? element.querySelector('.select-search-box__select') : _optionsParent;
-	
-	optionsParent.scrollTop = 0;
-}
 
 /** React debug */
 window.react = React;
 
 /** Render popup */
 React.render(
-	<SelectSearch name="country" options={exampleOptions} optionSelected={optionSelected} onFocus={onFocus} placeholder="Choose country" />,
+	<SelectSearch name="country" options={exampleOptions} placeholder="Choose country" />,
 	element
 );

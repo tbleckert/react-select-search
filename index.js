@@ -10,6 +10,7 @@
 	    Fuse      = require('fuse.js'),
 	    _classes  = {},
 	    _itemHeight,
+	    _selectHeight,
 	    Component;
 
 	Component = React.createClass({
@@ -107,9 +108,16 @@
 				setTimeout(function () {
 					viewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
 					elementPos     = element.getBoundingClientRect();
+					_selectHeight  = viewportHeight - elementPos.top - 20;
+					
+					element.style.maxHeight = _selectHeight + 'px';
+					
+					if (!_itemHeight) {
+						_itemHeight = element.querySelector('.' + _classes.option).offsetHeight;
+					}
 					
 					element.className = className;
-					element.style.maxHeight = viewportHeight - elementPos.top - 20 + 'px';
+					element.scrollTop = 0;
 				}, 50);
 			}
 			
@@ -179,6 +187,13 @@
 					this.selectOption(this.selected - 1);
 				}
 			}
+			
+			this.scrollToSelected();
+		},
+		
+		scrollToSelected: function () {
+			var select = this.refs.select.getDOMNode();
+			select.scrollTop = _itemHeight * this.selected;
 		},
 
 		optionByIndex: function (index) {
