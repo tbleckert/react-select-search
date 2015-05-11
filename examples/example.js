@@ -257,7 +257,7 @@ function optionSelected(selected, props, state) {
 	if (!_optionsParent) {
 		_optionsParent       = element.querySelector('.select-search-box__select');
 		_optionsParentHeight = _optionsParent.offsetHeight;
-		_optionHeight        = _optionsParent.querySelector('.select-search-box__select__option').offsetHeight;
+		_optionHeight        = _optionsParent.querySelector('.select-search-box__option').offsetHeight;
 	}
 	
 	_optionsParent.scrollTop = _optionHeight * selected;

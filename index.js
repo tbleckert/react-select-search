@@ -8,6 +8,7 @@
 
 	var React     = require('react'),
 	    Fuse      = require('fuse.js'),
+	    _classes  = {},
 	    _itemHeight,
 	    Component;
 
@@ -42,6 +43,16 @@
 				onFocus: function () {}
 			};
 		},
+		
+		componentWillMount: function () {
+			_classes = {
+				container: this.props.className,
+				search:    this.e('search'),
+				select:    this.e('select'),
+				options:   this.e('options'),
+				option:    this.e('option')
+			};
+		},
 
 		filterOptions: function (options, value) {
 			if (options && options.length > 0 && value && value.length > 0) {
@@ -54,8 +65,21 @@
 			return options;
 		},
 
-		_className: function (base, element) {
+		e: function (element, base) {
+			base || (base = this.props.className);
+			
 			return base + '__' + element;
+		},
+		
+		m: function (modifier, base) {
+			modifier = modifier.split(' ');
+			var finalClass = [];
+			
+			modifier.forEach(function (className) {
+				finalClass.push(base + '--' + className);
+			});
+			
+			return finalClass.join(' ');
 		},
 
 		onChange: function (e) {
@@ -76,15 +100,15 @@
 
 			if (this.refs.hasOwnProperty('select')) {
 				element   = this.refs.select.getDOMNode();
-				className = element.className;
+				className = _classes.select + ' ' + this.m('display', _classes.select);
 
-				element.className = className + ' ' + className + '--' + 'display' + ' ' + className + '--' + 'prehide';
+				element.className = className + ' ' + this.m('prehide', _classes.select);
 				
 				setTimeout(function () {
 					viewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
 					elementPos     = element.getBoundingClientRect();
 					
-					element.className = className + ' ' + className + '--' + 'display';
+					element.className = className;
 					element.style.maxHeight = viewportHeight - elementPos.top - 20 + 'px';
 				}, 50);
 			}
@@ -93,7 +117,7 @@
 		},
 
 		onBlur: function (e) {
-			var element, className = this._className(this.props.className, 'select'), option;
+			var element, option;
 
 			this.focus = false;
 			this.selected = null;
@@ -106,10 +130,10 @@
 
 			if (this.refs.hasOwnProperty('select')) {
 				element = this.refs.select.getDOMNode();
-				element.className += ' ' + className + '--' + 'prehide';
+				element.className = _classes.select + ' ' + this.m('prehide', _classes.select) + ' ' + this.m('display', _classes.select);
 
 				this.hideTimer = setTimeout(function () {
-					element.className = className;
+					element.className = _classes.select;
 					this.setState({options: []});
 					this.props.onBlur();
 				}.bind(this), 200);
@@ -185,7 +209,7 @@
 		selectOption: function (value, down) {
 			var optionsParent = this.refs.selectOptions.getDOMNode(),
 			    options       = optionsParent.childNodes,
-			    className     = this._className(this._className(this.props.className, 'select'), 'option'),
+			    className     = _classes.option,
 			    selectedClass = className + ' ' + className + '--' + 'hover',
 			    totalOptions  = options.length,
 			    selected      = null,
@@ -254,11 +278,7 @@
 		},
 
 		render: function () {
-			var className = this.props.className,
-			    selectClass = this._className(this.props.className, 'select'),
-			    foundOptions,
-			    optionClass = this._className(selectClass, 'option'),
-			    optionSelectedClass = optionClass + ' ' + optionClass + '--selected',
+			var foundOptions,
 			    select = null,
 			    option = null,
 			    options = [];
@@ -270,19 +290,19 @@
 					option = this.findByValue(this.props.options, this.state.value);
 					
 					if (option) {
-						options.push(<li className={optionSelectedClass} onClick={this.chooseOption.bind(this, option.value)} key={option.value + '-option'} data-value={option.value}>{option.name}</li>);
+						options.push(<li className={_classes.option + ' ' + this.m('selected', _classes.option)} onClick={this.chooseOption.bind(this, option.value)} key={option.value + '-option'} data-value={option.value}>{option.name}</li>);
 					}
 				}
 				
 				foundOptions.forEach(function (element) {
 					if (element.value !== this.state.value) {
-						options.push(<li className={optionClass} onClick={this.chooseOption.bind(this, element.value)} key={element.value + '-option'} data-value={element.value}>{element.name}</li>);
+						options.push(<li className={_classes.option} onClick={this.chooseOption.bind(this, element.value)} key={element.value + '-option'} data-value={element.value}>{element.name}</li>);
 					}
 				}.bind(this));
 				
 				if (options.length > 0) {
 					select = (
-						<ul ref="selectOptions" className={this._className(selectClass, 'options')}>
+						<ul ref="selectOptions" className={_classes.options}>
 							{options}
 						</ul>
 					);
@@ -290,10 +310,10 @@
 			}
 			
 			return (
-				<div className={className}>
+				<div className={_classes.container}>
 					<input type="hidden" value={this.state.value} name={this.props.name} />
-					<input ref="search" onFocus={this.onFocus} onKeyDown={this.onKeyDown} onKeyPress={this.onKeyPress} onBlur={this.onBlur} className={this._className(className, 'search')} type="search" value={this.state.search} onChange={this.onChange} placeholder={this.props.placeholder} />
-					<div ref="select" className={selectClass}>
+					<input ref="search" onFocus={this.onFocus} onKeyDown={this.onKeyDown} onKeyPress={this.onKeyPress} onBlur={this.onBlur} className={_classes.search} type="search" value={this.state.search} onChange={this.onChange} placeholder={this.props.placeholder} />
+					<div ref="select" className={_classes.select}>
 						{select}	
 					</div>
 				</div>
