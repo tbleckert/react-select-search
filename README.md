@@ -1,7 +1,7 @@
-# React Select Search
-
+# React Select Search (WIP)
 React powered selectbox with filter using [fuse.js](https://github.com/krisk/Fuse) (Javascript fuzzy-search).
-
+  
+__Note__: This is a work in progress and it may be a little buggy at this time. But feel free to test it and report any found bugs  
 _Example design comes from the [beautiful work](https://dribbble.com/shots/1079035-Select-Album?list=searches&tag=select&offset=20) by [Rovane Durso](https://dribbble.com/RovaneDurso)._
 
 ![](https://dl.dropboxusercontent.com/u/6306766/react-select-search.png)
