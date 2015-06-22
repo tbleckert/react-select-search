@@ -8,6 +8,14 @@ var React           = require('react'),
     SelectSearch    = require('./react-select-search'),
     countryElement  = document.getElementById('countrySelect'),
     languageElement = document.getElementById('languageSelect'),
+    fontElement     = document.getElementById('fontSelect'),
+    fontOptions     = [
+		{name: 'Helvetica', value: 'helvetica', stack: "'Helvetica Neue',HelveticaNeue,Helvetica,Arial,sans-serif"},
+		{name: 'Courier', value: 'courier', stack: "'Courier New',Courier,'Lucida Sans Typewriter','Lucida Typewriter',monospace"},
+		{name: 'Tahoma', value: 'tahoma', stack: "Tahoma,Verdana,Segoe,sans-serif"},
+		{name: 'Impact', value: 'impact', stack: "Impact,Haettenschweiler,'Arial Narrow Bold',sans-serif"},
+		{name: 'Futura', value: 'futura', stack: "Futura,'Trebuchet MS',Arial,sans-serif"}
+    ],
     languageOptions = [
 		{name: 'Swedish', value: 'sv'},
 		{name: 'English', value: 'en'}
@@ -270,4 +278,28 @@ React.render(
 React.render(
 	<SelectSearch name="language" options={languageOptions} placeholder="Choose language" />,
 	languageElement
+);
+
+var fontStack = '';
+
+function renderOption(option) {
+	return '<span style="font-family: ' + option.stack + ';">' + option.name + '</span>';
+}
+
+function valueChanged(option) {
+	fontStack = option.stack;
+	this.refs.search.getDOMNode().style.fontFamily = fontStack;
+}
+
+function onFocus() {
+	this.refs.search.getDOMNode().style.fontFamily = '';
+}
+
+function onBlur(option) {
+	this.refs.search.getDOMNode().style.fontFamily = fontStack;
+}
+
+React.render(
+	<SelectSearch name="font" options={fontOptions} renderOption={renderOption} valueChanged={valueChanged} onBlur={onBlur} onFocus={onFocus} placeholder="Choose font" />,
+	fontElement
 );

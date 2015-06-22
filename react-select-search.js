@@ -40,8 +40,12 @@
 				name: null,
 				valueChanged: function () {},
 				optionSelected: function () {},
+				onMount: function () {},
 				onBlur: function () {},
-				onFocus: function () {}
+				onFocus: function () {},
+				renderOption: function (option) {
+					return option.name;
+				}
 			};
 		},
 		
@@ -53,6 +57,10 @@
 				options:   this.e('options'),
 				option:    this.e('option')
 			};
+		},
+		
+		componentDidMount: function () {
+			this.props.onMount.call(this);
 		},
 		
 		componentDidUpdate: function (prevProps, prevState) {
@@ -127,7 +135,7 @@
 				}, 50);
 			}
 			
-			this.props.onFocus();
+			this.props.onFocus.call(this);
 		},
 
 		onBlur: function (e) {
@@ -141,6 +149,8 @@
 			if (option) {
 				this.setState({search: option.name});
 			}
+			
+			this.props.onBlur.call(this);
 
 			if (this.refs.hasOwnProperty('select')) {
 				element = this.refs.select.getDOMNode();
@@ -149,7 +159,6 @@
 				this.hideTimer = setTimeout(function () {
 					element.className = _classes.select;
 					this.setState({options: []});
-					this.props.onBlur();
 				}.bind(this), 200);
 			}
 		},
@@ -277,7 +286,7 @@
 				option = this.findByValue(this.props.options, value);
 			}
 
-			this.props.valueChanged(option, this.state, this.props);
+			this.props.valueChanged.call(this, option, this.state, this.props);
 
 			this.setState({value: option.value, search: option.name, options: this.props.options});
 		},
@@ -310,13 +319,13 @@
 					option = this.findByValue(this.props.options, this.state.value);
 					
 					if (option) {
-						options.push(<li className={_classes.option + ' ' + this.m('selected', _classes.option)} onClick={this.chooseOption.bind(this, option.value)} key={option.value + '-option'} data-value={option.value}>{option.name}</li>);
+						options.push(<li className={_classes.option + ' ' + this.m('selected', _classes.option)} onClick={this.chooseOption.bind(this, option.value)} key={option.value + '-option'} data-value={option.value} dangerouslySetInnerHTML={{__html: this.props.renderOption(option)}} />);
 					}
 				}
 				
 				foundOptions.forEach(function (element) {
 					if (element.value !== this.state.value) {
-						options.push(<li className={_classes.option} onClick={this.chooseOption.bind(this, element.value)} key={element.value + '-option'} data-value={element.value}>{element.name}</li>);
+						options.push(<li className={_classes.option} onClick={this.chooseOption.bind(this, element.value)} key={element.value + '-option'} data-value={element.value} dangerouslySetInnerHTML={{__html: this.props.renderOption(element)}} />);
 					}
 				}.bind(this));
 				
