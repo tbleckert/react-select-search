@@ -8,7 +8,7 @@ _Example design comes from the [beautiful work](https://dribbble.com/shots/10790
 
 ## Demo
 
-Live demo can be found here: http://tbleckert.github.io/react-select-search/
+Live demo can be found here: [http://tbleckert.github.io/react-select-search/](http://tbleckert.github.io/react-select-search/)
 
 ## How to use
 
@@ -19,8 +19,11 @@ Live demo can be found here: http://tbleckert.github.io/react-select-search/
 	        placeholder="Choose country"
 	        className="my-selectbox"
 	        options={objectWithOptions}
+	        fuse={fuseJsOptions}
 	        optionSelected={callbackWhenOptionMarked}
 	        valueChanged={callbackWhenValueChanged}
+	        renderOption={modifyOptionHtml}
+	        onMount={componentDidMountCallback}
 	        onFocus={searchFocusCallback}
 	        onBlur={searchBlurCallback} />,
 	    document.getElementById('selectSearch')
