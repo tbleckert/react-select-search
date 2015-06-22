@@ -38,6 +38,10 @@
 				value: null,
 				placeholder: null,
 				name: null,
+				fuse: {
+					keys: ['name'],
+					threshold: 0.3
+				},
 				valueChanged: function () {},
 				optionSelected: function () {},
 				onMount: function () {},
@@ -71,7 +75,7 @@
 
 		filterOptions: function (options, value) {
 			if (options && options.length > 0 && value && value.length > 0) {
-				var fuse         = new Fuse(options, {keys: ['name']}),
+				var fuse         = new Fuse(options, this.props.fuse),
 			        foundOptions = fuse.search(value);
 
 			    return foundOptions;
