@@ -12,6 +12,8 @@ Live demo can be found here: [http://tbleckert.github.io/react-select-search/](h
 
 ## How to use
 
+Install it with npm (`npm install react-select-search --save`) and require it like you normally would.
+
     React.render(
 	    <SelectSearch
 	        name="country"
