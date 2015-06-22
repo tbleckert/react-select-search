@@ -8,7 +8,7 @@ _Example design comes from the [beautiful work](https://dribbble.com/shots/10790
 
 ## Demo
 
-Live demo can be found here: http://react-select-search.tobiasbleckert.se/
+Live demo can be found here: http://tbleckert.github.io/react-select-search/
 
 ## How to use
 
