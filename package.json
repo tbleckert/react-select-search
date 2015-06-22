@@ -4,9 +4,7 @@
   "description": "React powered selectbox with filter",
   "main": "index.js",
   "scripts": {
-    "start": "watchify -o dist/bundle.js -v -d ./index.js",
-    "example": "watchify -o examples/dist/example.js -v -d examples/example.js",
-    "build": "browserify index.js | uglifyjs -cm > dist/bundle.min.js"
+    "start": "watchify -o dist/bundle.js -v -d ./bootstrap.js"
   },
   "repository": {
     "type": "git",
@@ -33,7 +31,7 @@
   "dependencies": {
     "fuse.js": "^1.2.2",
     "object-assign": "^1.0.0",
-    "react": "^0.12.0",
+    "react": "^0.12.0"
   },
   "browserify": {
     "transform": [

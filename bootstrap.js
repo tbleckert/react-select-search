@@ -5,7 +5,7 @@
 'use strict';
 
 var React           = require('react'),
-    SelectSearch    = require('../index'),
+    SelectSearch    = require('./react-select-search'),
     countryElement  = document.getElementById('countrySelect'),
     languageElement = document.getElementById('languageSelect'),
     languageOptions = [
