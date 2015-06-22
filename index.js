@@ -54,6 +54,12 @@
 				option:    this.e('option')
 			};
 		},
+		
+		componentDidUpdate: function (prevProps, prevState) {
+			if (this.state.value !== prevState.value) {
+				this.refs.search.getDOMNode().blur();
+			}
+		},
 
 		filterOptions: function (options, value) {
 			if (options && options.length > 0 && value && value.length > 0) {
@@ -160,7 +166,6 @@
 				
 				if (selectedOption) {
 					this.chooseOption(selectedOption.value);
-					this.refs.search.getDOMNode().blur();
 				}
 			}
 		},
