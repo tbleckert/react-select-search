@@ -19,6 +19,8 @@ Install it with npm (`npm install react-select-search --save`) and require it li
 	        name="country"
 	        value="SE"
 	        placeholder="Choose country"
+	        multiple={false}
+	        height={height in pixels, used if multiple select}
 	        className="my-selectbox"
 	        options={objectWithOptions}
 	        fuse={fuseJsOptions}
