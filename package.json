@@ -11,10 +11,11 @@
     "url": "https://github.com/tbleckert/react-select-search.git"
   },
   "keywords": [
-    "React",
-    "popup",
+    "react",
+    "select",
     "js",
-    "minutemailer"
+    "search",
+    "react-component"
   ],
   "author": "Tobias Bleckert (hola@tobiasbleckert.se)",
   "license": "MIT",
