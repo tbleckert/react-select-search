@@ -17,6 +17,10 @@ body {
 	border-radius: 8px;
 }
 
+	.select-search-box--multiple {
+		border-radius: 8px 8px 10px 10px;
+	}
+
 	.select-search-box::after {
 		font-family: fontawesome;
 		content:"\f078";
@@ -28,6 +32,10 @@ body {
 		line-height: 50px;
 		color: #fff;
 		z-index: 1;
+	}
+	
+	.select-search-box__out {
+		display: none;
 	}
 
 	.select-search-box__search {
@@ -95,6 +103,13 @@ body {
 		border-top: 5px solid #e47168;
 		box-shadow: 0 9px 25px rgba(0,0,0,.15);
 		z-index: 100;
+	}
+	
+	.select-search-box--multiple .select-search-box__select {
+		display: block;
+		position: static;
+		box-shadow: none;
+		border: none;
 	}
 	
 		.select-search-box__select--display {

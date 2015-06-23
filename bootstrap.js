@@ -9,6 +9,7 @@ var React           = require('react'),
     countryElement  = document.getElementById('countrySelect'),
     languageElement = document.getElementById('languageSelect'),
     fontElement     = document.getElementById('fontSelect'),
+    skillsElement   = document.getElementById('skillsSelect'),
     fontOptions     = [
 		{name: 'Helvetica', value: 'helvetica', stack: "'Helvetica Neue',HelveticaNeue,Helvetica,Arial,sans-serif"},
 		{name: 'Courier', value: 'courier', stack: "'Courier New',Courier,'Lucida Sans Typewriter','Lucida Typewriter',monospace"},
@@ -19,6 +20,13 @@ var React           = require('react'),
     languageOptions = [
 		{name: 'Swedish', value: 'sv'},
 		{name: 'English', value: 'en'}
+    ],
+    skillsOptions = [
+		{name: 'JavaScript', value: 'js'},
+		{name: 'HTML', value: 'html'},
+		{name: 'CSS', value: 'css'},
+		{name: 'PHP', value: 'php'},
+		{name: 'Python', value: 'python'}
     ],
     /** https://gist.github.com/Keeguon/2310008 */
     countryOptions = require('./data/countries.json'), _optionsParent = null, _optionsParentHeight = null, _optionHeight = null;
@@ -59,4 +67,9 @@ function onBlur(option) {
 React.render(
 	<SelectSearch name="font" options={fontOptions} renderOption={renderOption} valueChanged={valueChanged} onBlur={onBlur} onFocus={onFocus} placeholder="Choose font" />,
 	fontElement
+);
+
+React.render(
+	<SelectSearch name="skills" multiple={true} height={172} options={skillsOptions} placeholder="Choose skills" />,
+	skillsElement
 );

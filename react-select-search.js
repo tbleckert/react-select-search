@@ -25,29 +25,31 @@
 
 		getInitialState: function () {
 			return {
-				search: null,
-				value: this.props.value,
+				search:  null,
+				value:   (!this.props.value && this.props.multiple) ? [] : this.props.value,
 				options: this.props.options
 			};
 		},
 
 		getDefaultProps: function () {
 			return {
-				options: [],
-				className: 'select-search-box',
-				value: null,
-				placeholder: null,
-				name: null,
+				options:        [],
+				className:      'select-search-box',
+				value:          null,
+				placeholder:    null,
+				multiple:       false,
+				height:         200,
+				name:           null,
 				fuse: {
-					keys: ['name'],
-					threshold: 0.3
+					keys:           ['name'],
+					threshold:      0.3
 				},
-				valueChanged: function () {},
+				valueChanged:   function () {},
 				optionSelected: function () {},
-				onMount: function () {},
-				onBlur: function () {},
-				onFocus: function () {},
-				renderOption: function (option) {
+				onMount:        function () {},
+				onBlur:         function () {},
+				onFocus:        function () {},
+				renderOption:   function (option) {
 					return option.name;
 				}
 			};
@@ -55,11 +57,12 @@
 		
 		componentWillMount: function () {
 			_classes = {
-				container: this.props.className,
+				container: (this.props.multiple) ? this.props.className + ' ' + this.m('multiple', this.props.className) : this.props.className,
 				search:    this.e('search'),
 				select:    this.e('select'),
 				options:   this.e('options'),
-				option:    this.e('option')
+				option:    this.e('option'),
+				out:       this.e('out')
 			};
 		},
 		
@@ -117,7 +120,7 @@
 			this.focus = true;
 			this.setState({search: null, options: this.props.options});
 
-			if (this.refs.hasOwnProperty('select')) {
+			if (!this.props.multiple && this.refs.hasOwnProperty('select')) {
 				element   = this.refs.select.getDOMNode();
 				className = _classes.select + ' ' + this.m('display', _classes.select);
 
@@ -156,7 +159,7 @@
 			
 			this.props.onBlur.call(this);
 
-			if (this.refs.hasOwnProperty('select')) {
+			if (!this.props.multiple && this.refs.hasOwnProperty('select')) {
 				element = this.refs.select.getDOMNode();
 				element.className = _classes.select + ' ' + this.m('prehide', _classes.select) + ' ' + this.m('display', _classes.select);
 
@@ -280,7 +283,9 @@
 		},
 
 		chooseOption: function (value) {
-			var foundOption,
+			var currentValue = this.state.value,
+			    foundOption,
+			    search,
 			    options,
 			    option;
 
@@ -289,47 +294,74 @@
 			} else {
 				option = this.findByValue(this.props.options, value);
 			}
+			
+			if (!currentValue) {
+				currentValue = [];
+			}
+			
+			currentValue.push(option.value);
+			
+			if (this.props.multiple) {
+				search = null;
+			} else {
+				search = option.name;
+			}
 
+			this.setState({value: currentValue, search: search, options: this.props.options});
 			this.props.valueChanged.call(this, option, this.state, this.props);
-
-			this.setState({value: option.value, search: option.name, options: this.props.options});
 		},
 
-		removeSelected: function (value) {
+		removeOption: function (value) {
 			if (!value) {
 				return false;
 			}
 			
-			var option = this.findByValue(this.props.options, value);
+			var option = this.findByValue(this.props.options, value),
+			    value  = this.state.value;
 			
-			if (!options) {
+			if (!option || value.indexOf(option.value) < 0) {
 				return false;
 			}
 			
+			value.splice(value.indexOf(option.value), 1);
+			
 			this.props.valueChanged(null, this.state, this.props);
-			this.setState({value: null, search: null});
+			this.setState({value: value, search: null});
 		},
 
 		render: function () {
 			var foundOptions,
 			    select = null,
 			    option = null,
-			    options = [];
+			    options = [],
+			    selectStyle = {},
+			    finalValue,
+			    finalValueOptions;
 			
 			foundOptions = this.state.options;
 			
 			if (foundOptions && foundOptions.length > 0) {
 				if (this.state.value) {
-					option = this.findByValue(this.props.options, this.state.value);
-					
-					if (option) {
-						options.push(<li className={_classes.option + ' ' + this.m('selected', _classes.option)} onClick={this.chooseOption.bind(this, option.value)} key={option.value + '-option'} data-value={option.value} dangerouslySetInnerHTML={{__html: this.props.renderOption(option)}} />);
+					if (!this.props.multiple) {
+						option = this.findByValue(this.props.options, this.state.value);
+						
+						if (option) {
+							options.push(<li className={_classes.option + ' ' + this.m('selected', _classes.option)} onClick={this.chooseOption.bind(this, option.value)} key={option.value + '-option'} data-value={option.value} dangerouslySetInnerHTML={{__html: this.props.renderOption(option)}} />);
+						}
 					}
 				}
 				
 				foundOptions.forEach(function (element) {
-					if (element.value !== this.state.value) {
-						options.push(<li className={_classes.option} onClick={this.chooseOption.bind(this, element.value)} key={element.value + '-option'} data-value={element.value} dangerouslySetInnerHTML={{__html: this.props.renderOption(element)}} />);
+					if (this.props.multiple) {
+						if (this.state.value.indexOf(element.value) < 0) {
+							options.push(<li className={_classes.option} onClick={this.chooseOption.bind(this, element.value)} key={element.value + '-option'} data-value={element.value} dangerouslySetInnerHTML={{__html: this.props.renderOption(element)}} />);
+						} else {
+							options.push(<li className={_classes.option + ' ' + this.m('selected', _classes.option)} onClick={this.removeOption.bind(this, element.value)} key={element.value + '-option'} data-value={element.value} dangerouslySetInnerHTML={{__html: this.props.renderOption(element)}} />);
+						}
+					} else {
+						if (element.value !== this.state.value) {
+							options.push(<li className={_classes.option} onClick={this.chooseOption.bind(this, element.value)} key={element.value + '-option'} data-value={element.value} dangerouslySetInnerHTML={{__html: this.props.renderOption(element)}} />);
+						}
 					}
 				}.bind(this));
 				
@@ -342,11 +374,38 @@
 				}
 			}
 			
+			if (this.props.multiple) {
+				selectStyle.height = this.props.height;
+				
+				if (this.state.value) {
+					finalValueOptions = [];
+					
+					this.state.value.forEach(function (value, i) {
+						option = this.findByValue(this.props.options, value);
+						finalValueOptions.push(<option key={i} value={option.value} selected>{option.name}</option>);
+					}.bind(this));
+					
+					finalValue = (
+						<select className={_classes.out} name={this.props.name} multiple>
+							{finalValueOptions}
+						</select>
+					);
+				} else {
+					finalValue = (
+						<select className={_classes.out} name={this.props.name} multiple>
+							<option>Nothing selected</option>
+						</select>
+					);
+				}
+			} else {
+				finalValue = <input type="hidden" value={this.state.value} name={this.props.name} />;
+			}
+			
 			return (
 				<div className={_classes.container}>
-					<input type="hidden" value={this.state.value} name={this.props.name} />
+					{finalValue}
 					<input ref="search" onFocus={this.onFocus} onKeyDown={this.onKeyDown} onKeyPress={this.onKeyPress} onBlur={this.onBlur} className={_classes.search} type="search" value={this.state.search} onChange={this.onChange} placeholder={this.props.placeholder} />
-					<div ref="select" className={_classes.select}>
+					<div ref="select" className={_classes.select} style={selectStyle}>
 						{select}	
 					</div>
 				</div>
