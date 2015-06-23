@@ -386,11 +386,11 @@
 					
 					this.state.value.forEach(function (value, i) {
 						option = this.findByValue(this.props.options, value);
-						finalValueOptions.push(<option key={i} value={option.value} selected>{option.name}</option>);
+						finalValueOptions.push(<option key={i} value={option.value}>{option.name}</option>);
 					}.bind(this));
 					
 					finalValue = (
-						<select className={this.classes.out} name={this.props.name} multiple>
+						<select value={this.state.value} className={this.classes.out} name={this.props.name} multiple>
 							{finalValueOptions}
 						</select>
 					);
