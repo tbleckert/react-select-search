@@ -8,9 +8,6 @@
 
 	var React     = require('react'),
 	    Fuse      = require('fuse.js'),
-	    _classes  = {},
-	    _itemHeight,
-	    _selectHeight,
 	    Component;
 
 	Component = React.createClass({
@@ -22,6 +19,12 @@
 		focus: false,
 		
 		selected: null,
+		
+		classes: {},
+		
+		itemHeight: null,
+		
+		selectHeight: null,
 
 		getInitialState: function () {
 			return {
@@ -56,7 +59,7 @@
 		},
 		
 		componentWillMount: function () {
-			_classes = {
+			this.classes = {
 				container: (this.props.multiple) ? this.props.className + ' ' + this.m('multiple', this.props.className) : this.props.className,
 				search:    this.e('search'),
 				select:    this.e('select'),
@@ -122,24 +125,24 @@
 
 			if (!this.props.multiple && this.refs.hasOwnProperty('select')) {
 				element   = this.refs.select.getDOMNode();
-				className = _classes.select + ' ' + this.m('display', _classes.select);
+				className = this.classes.select + ' ' + this.m('display', this.classes.select);
 
-				element.className = className + ' ' + this.m('prehide', _classes.select);
+				element.className = className + ' ' + this.m('prehide', this.classes.select);
 				
 				setTimeout(function () {
 					viewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
 					elementPos     = element.getBoundingClientRect();
-					_selectHeight  = viewportHeight - elementPos.top - 20;
+					this.selectHeight  = viewportHeight - elementPos.top - 20;
 					
-					element.style.maxHeight = _selectHeight + 'px';
+					element.style.maxHeight = this.selectHeight + 'px';
 					
-					if (!_itemHeight) {
-						_itemHeight = element.querySelector('.' + _classes.option).offsetHeight;
+					if (!this.itemHeight) {
+						this.itemHeight = element.querySelector('.' + this.classes.option).offsetHeight;
 					}
 					
 					element.className = className;
 					element.scrollTop = 0;
-				}, 50);
+				}.bind(this), 50);
 			}
 			
 			this.props.onFocus.call(this);
@@ -161,10 +164,10 @@
 
 			if (!this.props.multiple && this.refs.hasOwnProperty('select')) {
 				element = this.refs.select.getDOMNode();
-				element.className = _classes.select + ' ' + this.m('prehide', _classes.select) + ' ' + this.m('display', _classes.select);
+				element.className = this.classes.select + ' ' + this.m('prehide', this.classes.select) + ' ' + this.m('display', this.classes.select);
 
 				this.hideTimer = setTimeout(function () {
-					element.className = _classes.select;
+					element.className = this.classes.select;
 					this.setState({options: []});
 				}.bind(this), 200);
 			}
@@ -214,7 +217,7 @@
 		
 		scrollToSelected: function () {
 			var select = this.refs.select.getDOMNode();
-			select.scrollTop = _itemHeight * this.selected;
+			select.scrollTop = this.itemHeight * this.selected;
 		},
 
 		optionByIndex: function (index) {
@@ -245,7 +248,7 @@
 		selectOption: function (value, down) {
 			var optionsParent = this.refs.selectOptions.getDOMNode(),
 			    options       = optionsParent.childNodes,
-			    className     = _classes.option,
+			    className     = this.classes.option,
 			    selectedClass = className + ' ' + className + '--' + 'hover',
 			    totalOptions  = options.length,
 			    selected      = null,
@@ -295,15 +298,16 @@
 				option = this.findByValue(this.props.options, value);
 			}
 			
-			if (!currentValue) {
-				currentValue = [];
-			}
-			
-			currentValue.push(option.value);
-			
 			if (this.props.multiple) {
+				if (!currentValue) {
+					currentValue = [];
+				}
+				
+				currentValue.push(option.value);
+				
 				search = null;
 			} else {
+				currentValue = option.value;
 				search = option.name;
 			}
 
@@ -346,7 +350,7 @@
 						option = this.findByValue(this.props.options, this.state.value);
 						
 						if (option) {
-							options.push(<li className={_classes.option + ' ' + this.m('selected', _classes.option)} onClick={this.chooseOption.bind(this, option.value)} key={option.value + '-option'} data-value={option.value} dangerouslySetInnerHTML={{__html: this.props.renderOption(option)}} />);
+							options.push(<li className={this.classes.option + ' ' + this.m('selected', this.classes.option)} onClick={this.chooseOption.bind(this, option.value)} key={option.value + '-option'} data-value={option.value} dangerouslySetInnerHTML={{__html: this.props.renderOption(option)}} />);
 						}
 					}
 				}
@@ -354,20 +358,20 @@
 				foundOptions.forEach(function (element) {
 					if (this.props.multiple) {
 						if (this.state.value.indexOf(element.value) < 0) {
-							options.push(<li className={_classes.option} onClick={this.chooseOption.bind(this, element.value)} key={element.value + '-option'} data-value={element.value} dangerouslySetInnerHTML={{__html: this.props.renderOption(element)}} />);
+							options.push(<li className={this.classes.option} onClick={this.chooseOption.bind(this, element.value)} key={element.value + '-option'} data-value={element.value} dangerouslySetInnerHTML={{__html: this.props.renderOption(element)}} />);
 						} else {
-							options.push(<li className={_classes.option + ' ' + this.m('selected', _classes.option)} onClick={this.removeOption.bind(this, element.value)} key={element.value + '-option'} data-value={element.value} dangerouslySetInnerHTML={{__html: this.props.renderOption(element)}} />);
+							options.push(<li className={this.classes.option + ' ' + this.m('selected', this.classes.option)} onClick={this.removeOption.bind(this, element.value)} key={element.value + '-option'} data-value={element.value} dangerouslySetInnerHTML={{__html: this.props.renderOption(element)}} />);
 						}
 					} else {
 						if (element.value !== this.state.value) {
-							options.push(<li className={_classes.option} onClick={this.chooseOption.bind(this, element.value)} key={element.value + '-option'} data-value={element.value} dangerouslySetInnerHTML={{__html: this.props.renderOption(element)}} />);
+							options.push(<li className={this.classes.option} onClick={this.chooseOption.bind(this, element.value)} key={element.value + '-option'} data-value={element.value} dangerouslySetInnerHTML={{__html: this.props.renderOption(element)}} />);
 						}
 					}
 				}.bind(this));
 				
 				if (options.length > 0) {
 					select = (
-						<ul ref="selectOptions" className={_classes.options}>
+						<ul ref="selectOptions" className={this.classes.options}>
 							{options}
 						</ul>
 					);
@@ -382,17 +386,17 @@
 					
 					this.state.value.forEach(function (value, i) {
 						option = this.findByValue(this.props.options, value);
-						finalValueOptions.push(<option key={i} value={option.value} selected>{option.name}</option>);
+						finalValueOptions.push(<option key={i} value={option.value}>{option.name}</option>);
 					}.bind(this));
 					
 					finalValue = (
-						<select className={_classes.out} name={this.props.name} multiple>
+						<select value={this.state.value} className={this.classes.out} name={this.props.name} multiple>
 							{finalValueOptions}
 						</select>
 					);
 				} else {
 					finalValue = (
-						<select className={_classes.out} name={this.props.name} multiple>
+						<select className={this.classes.out} name={this.props.name} multiple>
 							<option>Nothing selected</option>
 						</select>
 					);
@@ -402,10 +406,10 @@
 			}
 			
 			return (
-				<div className={_classes.container}>
+				<div className={this.classes.container}>
 					{finalValue}
-					<input ref="search" onFocus={this.onFocus} onKeyDown={this.onKeyDown} onKeyPress={this.onKeyPress} onBlur={this.onBlur} className={_classes.search} type="search" value={this.state.search} onChange={this.onChange} placeholder={this.props.placeholder} />
-					<div ref="select" className={_classes.select} style={selectStyle}>
+					<input ref="search" onFocus={this.onFocus} onKeyDown={this.onKeyDown} onKeyPress={this.onKeyPress} onBlur={this.onBlur} className={this.classes.search} type="search" value={this.state.search} onChange={this.onChange} placeholder={this.props.placeholder} />
+					<div ref="select" className={this.classes.select} style={selectStyle}>
 						{select}	
 					</div>
 				</div>
