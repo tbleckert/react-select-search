@@ -13,6 +13,8 @@ body {
 	width: 300px;
 	position: relative;
 	margin-bottom: 20px;
+	background: #e47168;
+	border-radius: 8px;
 }
 
 	.select-search-box::after {
@@ -25,6 +27,7 @@ body {
 		text-align: center;
 		line-height: 50px;
 		color: #fff;
+		z-index: 1;
 	}
 
 	.select-search-box__search {
@@ -32,8 +35,7 @@ body {
 		width: 100%;
 		height: 50px;
 		border: none;
-		background: #e47168;
-		border-radius: 8px;
+		background: none;
 		outline: none;
 		font-size: 16px;
 		padding: 0 20px;
@@ -43,10 +45,13 @@ body {
 		-webkit-box-sizing: border-box;
 		box-sizing: border-box;
 		font-weight: bold;
+		position: relative;
+		z-index: 2;
+		cursor: pointer;
 	}
 	
 		.select-search-box__search:focus {
-			border-radius: 8px 8px 0 0;
+			cursor: text;
 		}
 	
 	input::-webkit-input-placeholder {
@@ -80,14 +85,15 @@ body {
 	.select-search-box__select {
 		display: none;
 		position: absolute;
-		top: 50px;
+		top: 44px;
 		left: 0;
 		right: 0;
 		background: #f7f7f1;
 		border-radius: 0 0 8px 8px;
 		overflow: auto;
 		border-bottom: 4px solid #cac6c4;
-		box-shadow: 0 5px 25px rgba(0,0,0,.15);
+		border-top: 5px solid #e47168;
+		box-shadow: 0 9px 25px rgba(0,0,0,.15);
 		z-index: 100;
 	}
 	
