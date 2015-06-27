@@ -13,17 +13,17 @@
 	Component = React.createClass({
 
 		displayName: 'SelectSearch',
-		
+
 		hideTimer: null,
-		
+
 		focus: false,
-		
+
 		selected: null,
-		
+
 		classes: {},
-		
+
 		itemHeight: null,
-		
+
 		selectHeight: null,
 
 		getInitialState: function () {
@@ -38,6 +38,7 @@
 			return {
 				options:        [],
 				className:      'select-search-box',
+				search:         true,
 				value:          null,
 				placeholder:    null,
 				multiple:       false,
@@ -57,7 +58,7 @@
 				}
 			};
 		},
-		
+
 		componentWillMount: function () {
 			this.classes = {
 				container: (this.props.multiple) ? this.props.className + ' ' + this.m('multiple', this.props.className) : this.props.className,
@@ -65,17 +66,28 @@
 				select:    this.e('select'),
 				options:   this.e('options'),
 				option:    this.e('option'),
-				out:       this.e('out')
+				out:       this.e('out'),
+				label:     this.e('label')
 			};
 		},
-		
+
 		componentDidMount: function () {
 			this.props.onMount.call(this);
+
+			if (!this.props.search) {
+				document.addEventListener('click', this.documentClick);
+			}
 		},
-		
+
 		componentDidUpdate: function (prevProps, prevState) {
-			if (this.state.value !== prevState.value) {
+			if (this.refs.hasOwnProperty('search') && this.state.value !== prevState.value) {
 				this.refs.search.getDOMNode().blur();
+			}
+		},
+
+		documentClick: function (e) {
+			if (e.target.className.indexOf(this.props.className) < 0) {
+				this.onBlur();
 			}
 		},
 
@@ -86,24 +98,24 @@
 
 			    return foundOptions;
 			}
-			
+
 			return options;
 		},
 
 		e: function (element, base) {
 			base || (base = this.props.className);
-			
+
 			return base + '__' + element;
 		},
-		
+
 		m: function (modifier, base) {
 			modifier = modifier.split(' ');
 			var finalClass = [];
-			
+
 			modifier.forEach(function (className) {
 				finalClass.push(base + '--' + className);
 			});
-			
+
 			return finalClass.join(' ');
 		},
 
@@ -128,23 +140,23 @@
 				className = this.classes.select + ' ' + this.m('display', this.classes.select);
 
 				element.className = className + ' ' + this.m('prehide', this.classes.select);
-				
+
 				setTimeout(function () {
 					viewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
 					elementPos     = element.getBoundingClientRect();
 					this.selectHeight  = viewportHeight - elementPos.top - 20;
-					
+
 					element.style.maxHeight = this.selectHeight + 'px';
-					
+
 					if (!this.itemHeight) {
 						this.itemHeight = element.querySelector('.' + this.classes.option).offsetHeight;
 					}
-					
+
 					element.className = className;
 					element.scrollTop = 0;
 				}.bind(this), 50);
 			}
-			
+
 			this.props.onFocus.call(this);
 		},
 
@@ -153,13 +165,13 @@
 
 			this.focus = false;
 			this.selected = null;
-			
+
 			option = this.findByValue(this.props.options, this.state.value);
-			
+
 			if (option) {
 				this.setState({search: option.name});
 			}
-			
+
 			this.props.onBlur.call(this);
 
 			if (!this.props.multiple && this.refs.hasOwnProperty('select')) {
@@ -180,9 +192,9 @@
 
 			if (e.key === 'Enter') {
 				e.preventDefault();
-				
+
 				var selectedOption = (this.selected) ? this.optionByIndex(this.selected) : this.optionByIndex(0);
-				
+
 				if (selectedOption) {
 					this.chooseOption(selectedOption.value);
 				}
@@ -211,10 +223,10 @@
 					this.selectOption(this.selected - 1);
 				}
 			}
-			
+
 			this.scrollToSelected();
 		},
-		
+
 		scrollToSelected: function () {
 			var select = this.refs.select.getDOMNode();
 			select.scrollTop = this.itemHeight * this.selected;
@@ -239,7 +251,7 @@
 			if ((!source || source.length < 1) && (!this.state.search || this.state.search.length < 1)) {
 				source = this.props.options;
 			}
-			
+
 			return source.filter(function (object) {
 				return object.value === value;
 			})[0];
@@ -265,7 +277,7 @@
 					} else {
 						node.className = selectedClass;
 					}
-					
+
 					selectedNodeName = node.textContent;
 					selected = i;
 				} else {
@@ -287,9 +299,7 @@
 
 		chooseOption: function (value) {
 			var currentValue = this.state.value,
-			    foundOption,
 			    search,
-			    options,
 			    option;
 
 			if (!value) {
@@ -297,14 +307,14 @@
 			} else {
 				option = this.findByValue(this.props.options, value);
 			}
-			
+
 			if (this.props.multiple) {
 				if (!currentValue) {
 					currentValue = [];
 				}
-				
+
 				currentValue.push(option.value);
-				
+
 				search = null;
 			} else {
 				currentValue = option.value;
@@ -313,48 +323,48 @@
 
 			this.setState({value: currentValue, search: search, options: this.props.options});
 			this.props.valueChanged.call(this, option, this.state, this.props);
+
+			if (!this.props.search) {
+				this.onBlur();
+			}
 		},
 
 		removeOption: function (value) {
 			if (!value) {
 				return false;
 			}
-			
+
 			var option = this.findByValue(this.props.options, value),
 			    value  = this.state.value;
-			
+
 			if (!option || value.indexOf(option.value) < 0) {
 				return false;
 			}
-			
+
 			value.splice(value.indexOf(option.value), 1);
-			
+
 			this.props.valueChanged(null, this.state, this.props);
 			this.setState({value: value, search: null});
 		},
 
-		render: function () {
+		renderOptions: function () {
 			var foundOptions,
 			    select = null,
 			    option = null,
 			    options = [],
-			    selectStyle = {},
-			    finalValue,
-			    finalValueOptions;
-			
+			    selectStyle = {};
+
 			foundOptions = this.state.options;
-			
+
 			if (foundOptions && foundOptions.length > 0) {
-				if (this.state.value) {
-					if (!this.props.multiple) {
-						option = this.findByValue(this.props.options, this.state.value);
-						
-						if (option) {
-							options.push(<li className={this.classes.option + ' ' + this.m('selected', this.classes.option)} onClick={this.chooseOption.bind(this, option.value)} key={option.value + '-option'} data-value={option.value} dangerouslySetInnerHTML={{__html: this.props.renderOption(option)}} />);
-						}
+				if (this.state.value && !this.props.multiple) {
+					option = this.findByValue(this.props.options, this.state.value);
+
+					if (option) {
+						options.push(<li className={this.classes.option + ' ' + this.m('selected', this.classes.option)} onClick={this.chooseOption.bind(this, option.value)} key={option.value + '-option'} data-value={option.value} dangerouslySetInnerHTML={{__html: this.props.renderOption(option)}} />);
 					}
 				}
-				
+
 				foundOptions.forEach(function (element) {
 					if (this.props.multiple) {
 						if (this.state.value.indexOf(element.value) < 0) {
@@ -368,7 +378,7 @@
 						}
 					}
 				}.bind(this));
-				
+
 				if (options.length > 0) {
 					select = (
 						<ul ref="selectOptions" className={this.classes.options}>
@@ -377,18 +387,32 @@
 					);
 				}
 			}
-			
+
 			if (this.props.multiple) {
 				selectStyle.height = this.props.height;
-				
+			}
+
+			return (
+				<div ref="select" className={this.classes.select} style={selectStyle}>
+					{select}
+				</div>
+			);
+		},
+
+		renderOutElement: function () {
+			var option = null,
+			    finalValue,
+			    finalValueOptions;
+
+			if (this.props.multiple) {
 				if (this.state.value) {
 					finalValueOptions = [];
-					
+
 					this.state.value.forEach(function (value, i) {
 						option = this.findByValue(this.props.options, value);
 						finalValueOptions.push(<option key={i} value={option.value}>{option.name}</option>);
 					}.bind(this));
-					
+
 					finalValue = (
 						<select value={this.state.value} className={this.classes.out} name={this.props.name} multiple>
 							{finalValueOptions}
@@ -404,14 +428,40 @@
 			} else {
 				finalValue = <input type="hidden" value={this.state.value} name={this.props.name} />;
 			}
-			
+
+			return finalValue;
+		},
+
+		renderSearchField: function () {
+			var option,
+			    searchField,
+				labelValue,
+				labelClassName;
+
+			if (this.props.search) {
+				searchField = <input ref="search" onFocus={this.onFocus} onKeyDown={this.onKeyDown} onKeyPress={this.onKeyPress} onBlur={this.onBlur} className={this.classes.search} type="search" value={this.state.search} onChange={this.onChange} placeholder={this.props.placeholder} />;
+			} else {
+				if (!this.state.value) {
+					labelValue     = this.props.placeholder;
+					labelClassName = this.classes.search + ' ' + this.m('placeholder', this.classes.search);
+				} else {
+					option         = this.findByValue(this.props.options, this.state.value);
+					labelValue     = option.name;
+					labelClassName = this.classes.search;
+				}
+
+				searchField = <strong onClick={this.onFocus} className={labelClassName}>{labelValue}</strong>;
+			}
+
+			return searchField;
+		},
+
+		render: function () {
 			return (
 				<div className={this.classes.container}>
-					{finalValue}
-					<input ref="search" onFocus={this.onFocus} onKeyDown={this.onKeyDown} onKeyPress={this.onKeyPress} onBlur={this.onBlur} className={this.classes.search} type="search" value={this.state.search} onChange={this.onChange} placeholder={this.props.placeholder} />
-					<div ref="select" className={this.classes.select} style={selectStyle}>
-						{select}	
-					</div>
+					{this.renderOutElement()}
+					{this.renderSearchField()}
+					{this.renderOptions()}
 				</div>
 			);
 		}

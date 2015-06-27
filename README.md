@@ -1,6 +1,6 @@
-# React Select Search (WIP)
+# React Select Search
 React powered selectbox with filter using [fuse.js](https://github.com/krisk/Fuse) (Javascript fuzzy-search).
-  
+
 _This is a work in progress and it may be a little buggy at this time. But feel free to test it and report any found bugs._  
 _Example design comes from the [beautiful work](https://dribbble.com/shots/1079035-Select-Album?list=searches&tag=select&offset=20) by [Rovane Durso](https://dribbble.com/RovaneDurso)._
 
@@ -19,6 +19,7 @@ Install it with npm (`npm install react-select-search --save`) and require it li
 	        name="country"
 	        value="SE"
 	        placeholder="Choose country"
+            search={true}
 	        multiple={false}
 	        height={height in pixels, used if multiple select}
 	        className="my-selectbox"
@@ -32,5 +33,5 @@ Install it with npm (`npm install react-select-search --save`) and require it li
 	        onBlur={searchBlurCallback} />,
 	    document.getElementById('selectSearch')
     );
-    
+
 These are all available options. The React component renders a hidden field with the __name__ property and the current __value__ to use in forms.
