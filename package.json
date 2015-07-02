@@ -1,6 +1,6 @@
 {
   "name": "react-select-search",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "description": "React powered selectbox with filter",
   "main": "index.js",
   "scripts": {
