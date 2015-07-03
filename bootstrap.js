@@ -41,7 +41,7 @@ React.render(
 );
 
 React.render(
-	<SelectSearch name="language" options={languageOptions} search={false} placeholder="Choose language" />,
+	<SelectSearch name="language" value="sv" options={languageOptions} search={false} placeholder="Choose language" />,
 	languageElement
 );
 

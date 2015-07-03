@@ -28,7 +28,7 @@
 
 		getInitialState: function () {
 			return {
-				search:  null,
+				search:  this.props.value,
 				value:   (!this.props.value && this.props.multiple) ? [] : this.props.value,
 				options: this.props.options
 			};
