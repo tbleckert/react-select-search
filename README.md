@@ -64,3 +64,23 @@ You will also need some CSS to make it look right. The important piece is the op
          .select-search-box__select--prehide {
              opacity: 0;
          }
+
+    /** UL with the options */
+    .select-search-box__options {
+
+    }
+
+    /** The option (LI), look at the state classes below */
+    .select-search-box__option {
+
+    }
+
+        /** When the option has been selected */
+        .select-search-box__option--selected {
+
+        }
+
+        /** When the option is selected (when navigation with the arrow keys, up/down) */
+        .select-search-box__option--hover, .select-search-box__option:hover {
+
+        }
