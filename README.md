@@ -34,4 +34,34 @@ Install it with npm (`npm install react-select-search --save`) and require it li
 	    document.getElementById('selectSearch')
     );
 
-These are all available options. The React component renders a hidden field with the __name__ property and the current __value__ to use in forms.
+These are all available options. The React component renders a hidden field with the __name__ property and the current __value__ to use in forms.  
+
+You will also need some CSS to make it look right. The important piece is the options.
+
+    /** The option list should not be visible by default */
+    .select-search-box__select {
+        display: none;
+    }
+
+        /** If it's a multiple select, you can style it with this selector */
+        .select-search-box--multiple .select-search-box__select {
+            display: block;
+        }
+
+        /** The list receives the modifier class "display" when the select has focus */
+        .select-search-box__select--display {
+            display: block;
+        }
+
+        /**
+         * The option list hides when the selectbox loses focus.
+         * To prevent the list from dissapearing before the option click event
+         * we use a timer that hides it after 200ms.
+         * To make it look like it dissapears right away
+         * you can use this class and set opacity to 0
+         *
+         * I found that using the mousedown event wasn't a good option.
+         */
+         .select-search-box__select--prehide {
+             opacity: 0;
+         }
