@@ -67,7 +67,8 @@
 				options:   this.e('options'),
 				option:    this.e('option'),
 				out:       this.e('out'),
-				label:     this.e('label')
+				label:     this.e('label'),
+				focus:     (this.props.multiple) ? this.props.className + ' ' + this.m('multiple focus', this.props.className) : this.props.className + ' ' + this.m('focus', this.props.className)
 			};
 		},
 
@@ -134,6 +135,7 @@
 
 			this.focus = true;
 			this.setState({search: null, options: this.props.options});
+			this.refs.container.getDOMNode().className = this.classes.focus;
 
 			if (!this.props.multiple && this.refs.hasOwnProperty('select')) {
 				element   = this.refs.select.getDOMNode();
@@ -172,6 +174,7 @@
 				this.setState({search: option.name});
 			}
 
+			this.refs.container.getDOMNode().className = this.classes.container;
 			this.props.onBlur.call(this);
 
 			if (!this.props.multiple && this.refs.hasOwnProperty('select')) {
@@ -461,7 +464,7 @@
 
 		render: function () {
 			return (
-				<div className={this.classes.container}>
+				<div className={this.classes.container} ref="container">
 					{this.renderOutElement()}
 					{this.renderSearchField()}
 					{this.renderOptions()}
