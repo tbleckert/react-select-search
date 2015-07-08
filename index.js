@@ -28,7 +28,7 @@
 
 		getInitialState: function () {
 			return {
-				search:  this.props.value,
+				search:  null,
 				value:   (!this.props.value && this.props.multiple) ? [] : this.props.value,
 				options: this.props.options
 			};
@@ -213,7 +213,11 @@
 				e.preventDefault();
 
 				if (typeof this.selected === 'undefined' || this.selected === null) {
-					this.selectOption(0, true);
+					if (this.state.value) {
+						this.selectOption(1, true);
+					} else {
+						this.selectOption(0, true);
+					}
 				} else {
 					this.selectOption(this.selected + 1, true);
 				}
@@ -236,18 +240,18 @@
 		},
 
 		optionByIndex: function (index) {
-			var option = null;
+			var options = this.refs.selectOptions.getDOMNode(),
+			    option  = options.querySelector('ul > li:nth-child(' + (index + 1) + ')'),
+				value;
 
-			this.state.options.every(function (object, i) {
-				if (index === i) {
-					option = object;
-					return false;
-				}
+			if (option) {
+				value  = option.getAttribute('data-value');
+				option = this.findByValue(this.props.options, value);
 
-				return true;
-			});
+				return option;
+			}
 
-			return option;
+			return false;
 		},
 
 		findByValue: function (source, value) {
@@ -302,9 +306,7 @@
 
 		chooseOption: function (value) {
 			var currentValue = this.state.value,
-			    foundOption,
 			    search,
-			    options,
 			    option;
 
 			if (!value) {
@@ -406,7 +408,6 @@
 
 		renderOutElement: function () {
 			var option = null,
-			    foundOptions,
 			    finalValue,
 			    finalValueOptions;
 
@@ -440,12 +441,20 @@
 
 		renderSearchField: function () {
 			var option,
+			    searchValue,
 			    searchField,
 				labelValue,
 				labelClassName;
 
 			if (this.props.search) {
-				searchField = <input ref="search" onFocus={this.onFocus} onKeyDown={this.onKeyDown} onKeyPress={this.onKeyPress} onBlur={this.onBlur} className={this.classes.search} type="search" value={this.state.search} onChange={this.onChange} placeholder={this.props.placeholder} />;
+				if (this.state.value && !this.state.search) {
+					option      = this.findByValue(this.props.options, this.state.value);
+					searchValue = (option) ? option.name : this.state.search;
+				} else {
+					searchValue = this.state.search;
+				}
+
+				searchField = <input ref="search" onFocus={this.onFocus} onKeyDown={this.onKeyDown} onKeyPress={this.onKeyPress} onBlur={this.onBlur} className={this.classes.search} type="search" value={searchValue} onChange={this.onChange} placeholder={this.props.placeholder} />;
 			} else {
 				if (!this.state.value) {
 					labelValue     = this.props.placeholder;
