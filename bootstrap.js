@@ -36,7 +36,7 @@ window.react = React;
 
 /** Render selectbox */
 React.render(
-	<SelectSearch name="country" options={countryOptions} placeholder="Choose country" />,
+	<SelectSearch name="country" options={countryOptions} value="SE" placeholder="Choose country" />,
 	countryElement
 );
 
