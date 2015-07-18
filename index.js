@@ -448,7 +448,7 @@
 					);
 				}
 			} else {
-				finalValue = <input type="text" style={{display: 'none'}} defaultValue={this.state.value} ref="outInput" name={this.props.name} />;
+				finalValue = <input type="hidden" defaultValue={this.state.value} ref="outInput" name={this.props.name} />;
 			}
 
 			return finalValue;
