@@ -89,7 +89,7 @@
 				var outElement = this.refs.outInput.getDOMNode(),
 				    event;
 
-				this.refs.outInput.getDOMNode().value = this.state.value;
+				outElement.value = this.state.value;
 
 				if ("createEvent" in document) {
 					event = document.createEvent("HTMLEvents");
