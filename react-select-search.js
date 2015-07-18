@@ -89,10 +89,6 @@
 				var outElement = this.refs.outInput.getDOMNode(),
 				    event;
 
-				outElement.addEventListener('change', function (e) {
-					console.log(e.target.value);
-				});
-
 				outElement.value = this.state.value;
 
 				if ("createEvent" in document) {
