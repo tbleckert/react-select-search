@@ -93,7 +93,7 @@
 
 				if ("createEvent" in document) {
 					event = document.createEvent("HTMLEvents");
-					event.initEvent("change", false, true);
+					event.initEvent("change", true, true);
 					outElement.dispatchEvent(event);
 				} else {
 					outElement.fireEvent("onchange");
