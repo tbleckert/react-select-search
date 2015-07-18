@@ -89,6 +89,10 @@
 				var outElement = this.refs.outInput.getDOMNode(),
 				    event;
 
+				outElement.addEventListener('change', function (e) {
+					console.log(e.target.value);
+				});
+
 				outElement.value = this.state.value;
 
 				if ("createEvent" in document) {
@@ -321,9 +325,7 @@
 
 		chooseOption: function (value) {
 			var currentValue = this.state.value,
-			    foundOption,
 			    search,
-			    options,
 			    option;
 
 			if (!value) {
@@ -425,7 +427,6 @@
 
 		renderOutElement: function () {
 			var option = null,
-			    foundOptions,
 			    finalValue,
 			    finalValueOptions;
 
@@ -451,7 +452,7 @@
 					);
 				}
 			} else {
-				finalValue = <input type="text" style={{display: 'none'}} defaultValue={this.state.value} ref="outInput" name={this.props.name} />;
+				finalValue = <input type="hidden" defaultValue={this.state.value} ref="outInput" name={this.props.name} />;
 			}
 
 			return finalValue;
