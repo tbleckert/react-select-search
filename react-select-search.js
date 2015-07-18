@@ -84,6 +84,21 @@
 			if (this.refs.hasOwnProperty('search') && this.state.value !== prevState.value) {
 				this.refs.search.getDOMNode().blur();
 			}
+
+			if (this.refs.hasOwnProperty('outInput') && this.state.value !== prevState.value) {
+				var outElement = this.refs.outInput.getDOMNode(),
+				    event;
+
+				this.refs.outInput.getDOMNode().value = this.state.value;
+
+				if ("createEvent" in document) {
+					event = document.createEvent("HTMLEvents");
+					event.initEvent("change", false, true);
+					outElement.dispatchEvent(event);
+				} else {
+					outElement.fireEvent("onchange");
+				}
+			}
 		},
 
 		documentClick: function (e) {
@@ -436,7 +451,7 @@
 					);
 				}
 			} else {
-				finalValue = <input type="hidden" value={this.state.value} name={this.props.name} />;
+				finalValue = <input type="text" style={{display: 'none'}} defaultValue={this.state.value} ref="outInput" name={this.props.name} />;
 			}
 
 			return finalValue;

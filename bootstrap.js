@@ -11,22 +11,22 @@ var React           = require('react'),
     fontElement     = document.getElementById('fontSelect'),
     skillsElement   = document.getElementById('skillsSelect'),
     fontOptions     = [
-		{name: 'Helvetica', value: 'helvetica', stack: "'Helvetica Neue',HelveticaNeue,Helvetica,Arial,sans-serif"},
-		{name: 'Courier', value: 'courier', stack: "'Courier New',Courier,'Lucida Sans Typewriter','Lucida Typewriter',monospace"},
-		{name: 'Tahoma', value: 'tahoma', stack: "Tahoma,Verdana,Segoe,sans-serif"},
-		{name: 'Impact', value: 'impact', stack: "Impact,Haettenschweiler,'Arial Narrow Bold',sans-serif"},
-		{name: 'Futura', value: 'futura', stack: "Futura,'Trebuchet MS',Arial,sans-serif"}
+    	{name: 'Helvetica', value: 'helvetica', stack: "'Helvetica Neue',HelveticaNeue,Helvetica,Arial,sans-serif"},
+    	{name: 'Courier', value: 'courier', stack: "'Courier New',Courier,'Lucida Sans Typewriter','Lucida Typewriter',monospace"},
+    	{name: 'Tahoma', value: 'tahoma', stack: "Tahoma,Verdana,Segoe,sans-serif"},
+    	{name: 'Impact', value: 'impact', stack: "Impact,Haettenschweiler,'Arial Narrow Bold',sans-serif"},
+    	{name: 'Futura', value: 'futura', stack: "Futura,'Trebuchet MS',Arial,sans-serif"}
     ],
     languageOptions = [
-		{name: 'Swedish', value: 'sv'},
-		{name: 'English', value: 'en'}
+    	{name: 'Swedish', value: 'sv'},
+    	{name: 'English', value: 'en'}
     ],
     skillsOptions = [
-		{name: 'JavaScript', value: 'js'},
-		{name: 'HTML', value: 'html'},
-		{name: 'CSS', value: 'css'},
-		{name: 'PHP', value: 'php'},
-		{name: 'Python', value: 'python'}
+    	{name: 'JavaScript', value: 'js'},
+    	{name: 'HTML', value: 'html'},
+    	{name: 'CSS', value: 'css'},
+    	{name: 'PHP', value: 'php'},
+    	{name: 'Python', value: 'python'}
     ],
     /** https://gist.github.com/Keeguon/2310008 */
     countryOptions = require('./data/countries.json'), _optionsParent = null, _optionsParentHeight = null, _optionHeight = null;
