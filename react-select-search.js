@@ -462,11 +462,15 @@
 				labelClassName;
 
 			if (this.props.search) {
-				if (this.state.value && !this.state.search) {
-					option      = this.findByValue(this.props.options, this.state.value);
-					searchValue = (option) ? option.name : this.state.search;
+				if (this.focus) {
+					searchValue = null;
 				} else {
-					searchValue = this.state.search;
+					if (this.state.value && !this.state.search) {
+						option      = this.findByValue(this.props.options, this.state.value);
+						searchValue = (option) ? option.name : this.state.search;
+					} else {
+						searchValue = this.state.search;
+					}
 				}
 
 				searchField = <input ref="search" onFocus={this.onFocus} onKeyDown={this.onKeyDown} onKeyPress={this.onKeyPress} onBlur={this.onBlur} className={this.classes.search} type="search" value={searchValue} onChange={this.onChange} placeholder={this.props.placeholder} />;
