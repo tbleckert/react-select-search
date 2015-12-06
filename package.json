@@ -2,7 +2,7 @@
   "name": "react-select-search",
   "version": "0.3.2",
   "description": "React powered selectbox with filter",
-  "main": "index.js",
+  "main": "dist/es5.js",
   "scripts": {
     "lint": "eslint index.js",
     "test": "jest"
