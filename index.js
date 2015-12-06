@@ -29,7 +29,7 @@ const defaultProps = {
     }
 };
 
-export default class Component extends React.Component {
+class Component extends React.Component {
 
     constructor(props) {
         super(props);
@@ -506,3 +506,5 @@ export default class Component extends React.Component {
 Component.displayName  = displayName;
 Component.propTypes    = propTypes;
 Component.defaultProps = defaultProps;
+
+module.exports = Component;
