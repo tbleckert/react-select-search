@@ -93,12 +93,12 @@ export default class Component extends React.Component {
 
             outElement.value = this.state.value;
 
-            if ("createEvent" in document) {
-                event = document.createEvent("HTMLEvents");
-                event.initEvent("change", true, true);
+            if ('createEvent' in document) {
+                event = document.createEvent('HTMLEvents');
+                event.initEvent('change', true, true);
                 outElement.dispatchEvent(event);
             } else {
-                outElement.fireEvent("onchange");
+                outElement.fireEvent('onchange');
             }
         }
     }
