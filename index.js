@@ -507,4 +507,4 @@ Component.displayName  = displayName;
 Component.propTypes    = propTypes;
 Component.defaultProps = defaultProps;
 
-module.exports = Component;
+export default Component;

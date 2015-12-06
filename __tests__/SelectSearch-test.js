@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom';
 import TestUtils from 'react-addons-test-utils';
 
 
-const SelectSearch = require('../index');
+const SelectSearch = require('../index').default;
 
 describe('SelectSearch', () => {
 
