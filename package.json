@@ -3,20 +3,10 @@
   "version": "0.0.1",
   "description": "React powered selectbox with filter",
   "main": "index.js",
-  "scripts": {
-    "start": "watchify -o dist/bundle.js -v -d ./bootstrap.js"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/tbleckert/react-select-search.git"
   },
-  "keywords": [
-    "react",
-    "select",
-    "js",
-    "search",
-    "react-component"
-  ],
   "author": "Tobias Bleckert (hola@tobiasbleckert.se)",
   "license": "MIT",
   "bugs": {
@@ -24,18 +14,20 @@
   },
   "homepage": "https://github.com/tbleckert/react-select-search",
   "devDependencies": {
-    "browserify": "^10.2.4",
-    "reactify": "^1.1.1",
-    "uglify-js": "^2.4.15",
-    "watchify": "^3.2.3"
+    "babel-preset-es2015": "^6.3.13",
+    "babel-preset-react": "^6.3.13",
+    "babel-preset-stage-0": "^6.3.13",
+    "babelify": "^7.2.0",
+    "browserify": "^12.0.1",
+    "gulp": "^3.9.0",
+    "gulp-sourcemaps": "^1.6.0",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.6.1"
   },
   "dependencies": {
-    "fuse.js": "^1.2.2",
-    "react": "^0.12.0"
-  },
-  "browserify": {
-    "transform": [
-      "reactify"
-    ]
+    "fuse.js": "^1.3.1",
+    "react": "^0.14.3",
+    "react-dom": "^0.14.3"
   }
 }
