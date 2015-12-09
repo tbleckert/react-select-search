@@ -23,7 +23,24 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var displayName = 'SelectSearch';
-var propTypes = {};
+var propTypes = {
+    options: _react2.default.PropTypes.array.isRequired,
+    className: _react2.default.PropTypes.string.isRequired,
+    search: _react2.default.PropTypes.bool.isRequired,
+    value: _react2.default.PropTypes.string,
+    placeholder: _react2.default.PropTypes.string,
+    multiple: _react2.default.PropTypes.bool.isRequired,
+    height: _react2.default.PropTypes.number,
+    name: _react2.default.PropTypes.string,
+    fuse: _react2.default.PropTypes.object.isRequired,
+    valueChanged: _react2.default.PropTypes.func.isRequired,
+    optionSelected: _react2.default.PropTypes.func.isRequired,
+    onMount: _react2.default.PropTypes.func.isRequired,
+    onBlur: _react2.default.PropTypes.func.isRequired,
+    onFocus: _react2.default.PropTypes.func.isRequired,
+    renderOption: _react2.default.PropTypes.func.isRequired
+};
+
 var defaultProps = {
     options: [],
     className: 'select-search-box',
@@ -64,8 +81,8 @@ var Component = (function (_React$Component) {
 
         _this.state = {
             search: null,
-            value: !_this.props.value && _this.props.multiple ? [] : _this.props.value,
-            options: _this.props.options
+            value: !props.value && props.multiple ? [] : props.value,
+            options: props.options
         };
 
         _this.bind();

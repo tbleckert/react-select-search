@@ -1,11 +1,27 @@
-
 'use strict';
 
 import React from 'react';
 import Fuse from 'fuse.js';
 
 const displayName  = 'SelectSearch';
-const propTypes    = {};
+const propTypes    = {
+    options:        React.PropTypes.array.isRequired,
+    className:      React.PropTypes.string.isRequired,
+    search:         React.PropTypes.bool.isRequired,
+    value:          React.PropTypes.string,
+    placeholder:    React.PropTypes.string,
+    multiple:       React.PropTypes.bool.isRequired,
+    height:         React.PropTypes.number,
+    name:           React.PropTypes.string,
+    fuse:           React.PropTypes.object.isRequired,
+    valueChanged:   React.PropTypes.func.isRequired,
+    optionSelected: React.PropTypes.func.isRequired,
+    onMount:        React.PropTypes.func.isRequired,
+    onBlur:         React.PropTypes.func.isRequired,
+    onFocus:        React.PropTypes.func.isRequired,
+    renderOption:   React.PropTypes.func.isRequired
+};
+
 const defaultProps = {
     options:        [],
     className:      'select-search-box',
@@ -43,8 +59,8 @@ class Component extends React.Component {
 
         this.state = {
             search:  null,
-            value:   (!this.props.value && this.props.multiple) ? [] : this.props.value,
-            options: this.props.options
+            value:   (!props.value && props.multiple) ? [] : props.value,
+            options: props.options
         };
 
         this.bind();
