@@ -98,6 +98,10 @@ class Component extends React.Component {
         }
     }
 
+    componentWillUnmount() {
+        document.removeEventListener('click', this.bound.documentClick);
+    }
+
     componentDidUpdate(prevProps, prevState) {
         if (this.refs.hasOwnProperty('search') && this.state.value !== prevState.value) {
             this.refs.search.blur();

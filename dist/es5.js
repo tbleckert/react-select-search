@@ -125,6 +125,11 @@ var Component = (function (_React$Component) {
             }
         }
     }, {
+        key: 'componentWillUnmount',
+        value: function componentWillUnmount() {
+            document.removeEventListener('click', this.bound.documentClick);
+        }
+    }, {
         key: 'componentDidUpdate',
         value: function componentDidUpdate(prevProps, prevState) {
             if (this.refs.hasOwnProperty('search') && this.state.value !== prevState.value) {
