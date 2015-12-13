@@ -1,6 +1,6 @@
 # React Select Search
 
-![](https://travis-ci.org/tbleckert/react-select-search.svg?branch=master)
+![](https://travis-ci.org/tbleckert/react-select-search.svg?branch=master) ![](https://img.shields.io/badge/license-MIT-blue.svg) ![](https://img.shields.io/npm/v/react-select-search.svg) ![](https://img.shields.io/npm/dm/react-select-search.svg)
 
 React powered selectbox with filter using [fuse.js](https://github.com/krisk/Fuse) (Javascript fuzzy-search).
 
