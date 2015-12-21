@@ -461,13 +461,13 @@ class Component extends React.Component {
                 }.bind(this));
 
                 finalValue = (
-                    <select defaultValue={this.state.value} className={this.classes.out} name={this.props.name} multiple>
+                    <select value={this.state.value} className={this.classes.out} name={this.props.name} readOnly multiple>
                         {finalValueOptions}
                     </select>
                 );
             } else {
                 finalValue = (
-                    <select className={this.classes.out} name={this.props.name} multiple>
+                    <select className={this.classes.out} name={this.props.name} readOnly multiple>
                         <option>Nothing selected</option>
                     </select>
                 );

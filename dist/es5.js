@@ -510,13 +510,13 @@ var Component = (function (_React$Component) {
 
                     finalValue = _react2.default.createElement(
                         'select',
-                        { defaultValue: this.state.value, className: this.classes.out, name: this.props.name, multiple: true },
+                        { value: this.state.value, className: this.classes.out, name: this.props.name, readOnly: true, multiple: true },
                         finalValueOptions
                     );
                 } else {
                     finalValue = _react2.default.createElement(
                         'select',
-                        { className: this.classes.out, name: this.props.name, multiple: true },
+                        { className: this.classes.out, name: this.props.name, readOnly: true, multiple: true },
                         _react2.default.createElement(
                             'option',
                             null,
