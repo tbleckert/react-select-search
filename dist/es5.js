@@ -27,7 +27,7 @@ var propTypes = {
     options: _react2.default.PropTypes.array.isRequired,
     className: _react2.default.PropTypes.string.isRequired,
     search: _react2.default.PropTypes.bool.isRequired,
-    value: _react2.default.PropTypes.string,
+    value: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.array]),
     placeholder: _react2.default.PropTypes.string,
     multiple: _react2.default.PropTypes.bool.isRequired,
     height: _react2.default.PropTypes.number,

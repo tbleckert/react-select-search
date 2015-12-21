@@ -8,7 +8,10 @@ const propTypes    = {
     options:        React.PropTypes.array.isRequired,
     className:      React.PropTypes.string.isRequired,
     search:         React.PropTypes.bool.isRequired,
-    value:          React.PropTypes.string,
+    value:          React.PropTypes.oneOfType([
+        React.PropTypes.string,
+        React.PropTypes.array
+    ]),
     placeholder:    React.PropTypes.string,
     multiple:       React.PropTypes.bool.isRequired,
     height:         React.PropTypes.number,
