@@ -27,7 +27,6 @@ var propTypes = {
     options: _react2.default.PropTypes.array.isRequired,
     className: _react2.default.PropTypes.string.isRequired,
     search: _react2.default.PropTypes.bool.isRequired,
-    value: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.array]),
     placeholder: _react2.default.PropTypes.string,
     multiple: _react2.default.PropTypes.bool.isRequired,
     height: _react2.default.PropTypes.number,
@@ -38,7 +37,8 @@ var propTypes = {
     onMount: _react2.default.PropTypes.func.isRequired,
     onBlur: _react2.default.PropTypes.func.isRequired,
     onFocus: _react2.default.PropTypes.func.isRequired,
-    renderOption: _react2.default.PropTypes.func.isRequired
+    renderOption: _react2.default.PropTypes.func.isRequired,
+    value: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.array])
 };
 
 var defaultProps = {
@@ -50,10 +50,6 @@ var defaultProps = {
     multiple: false,
     height: 200,
     name: null,
-    fuse: {
-        keys: ['name'],
-        threshold: 0.3
-    },
     valueChanged: function valueChanged() {},
     optionSelected: function optionSelected() {},
     onMount: function onMount() {},
@@ -61,6 +57,10 @@ var defaultProps = {
     onFocus: function onFocus() {},
     renderOption: function renderOption(option) {
         return option.name;
+    },
+    fuse: {
+        keys: ['name'],
+        threshold: 0.3
     }
 };
 
@@ -82,6 +82,7 @@ var Component = (function (_React$Component) {
         _this.state = {
             search: null,
             value: !props.value && props.multiple ? [] : props.value,
+            defaultOptions: props.options,
             options: props.options
         };
 
@@ -192,8 +193,8 @@ var Component = (function (_React$Component) {
     }, {
         key: 'onChange',
         value: function onChange(e) {
-            var value = e.target.value,
-                foundOptions = this.filterOptions(this.props.options, value);
+            var value = e.target.value;
+            var foundOptions = this.filterOptions(this.props.options, value);
 
             this.selected = null;
 
@@ -202,7 +203,7 @@ var Component = (function (_React$Component) {
     }, {
         key: 'onFocus',
         value: function onFocus() {
-            var className, element, viewportHeight, elementPos;
+            var _this2 = this;
 
             clearTimeout(this.hideTimer);
 
@@ -211,25 +212,27 @@ var Component = (function (_React$Component) {
             this.refs.container.className = this.classes.focus;
 
             if (!this.props.multiple && this.refs.hasOwnProperty('select')) {
-                element = this.refs.select;
-                className = this.classes.select + ' ' + this.m('display', this.classes.select);
+                (function () {
+                    var element = _this2.refs.select;
+                    var className = _this2.classes.select + ' ' + _this2.m('display', _this2.classes.select);
 
-                element.className = className + ' ' + this.m('prehide', this.classes.select);
+                    element.className = className + ' ' + _this2.m('prehide', _this2.classes.select);
 
-                setTimeout((function () {
-                    viewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-                    elementPos = element.getBoundingClientRect();
-                    this.selectHeight = viewportHeight - elementPos.top - 20;
+                    setTimeout((function () {
+                        var viewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+                        var elementPos = element.getBoundingClientRect();
+                        this.selectHeight = viewportHeight - elementPos.top - 20;
 
-                    element.style.maxHeight = this.selectHeight + 'px';
+                        element.style.maxHeight = this.selectHeight + 'px';
 
-                    if (!this.itemHeight) {
-                        this.itemHeight = element.querySelector('.' + this.classes.option).offsetHeight;
-                    }
+                        if (!this.itemHeight) {
+                            this.itemHeight = element.querySelector('.' + this.classes.option).offsetHeight;
+                        }
 
-                    element.className = className;
-                    element.scrollTop = 0;
-                }).bind(this), 50);
+                        element.className = className;
+                        element.scrollTop = 0;
+                    }).bind(_this2), 50);
+                })();
             }
 
             this.props.onFocus.call(this);
@@ -237,12 +240,12 @@ var Component = (function (_React$Component) {
     }, {
         key: 'onBlur',
         value: function onBlur(e) {
-            var element, option;
+            var _this3 = this;
 
             this.focus = false;
             this.selected = null;
 
-            option = this.findByValue(this.props.options, this.state.value);
+            var option = this.findByValue(this.props.options, this.state.value);
 
             if (option) {
                 this.setState({ search: option.name });
@@ -252,13 +255,15 @@ var Component = (function (_React$Component) {
             this.props.onBlur.call(this);
 
             if (!this.props.multiple && this.refs.hasOwnProperty('select')) {
-                element = this.refs.select;
-                element.className = this.classes.select + ' ' + this.m('prehide', this.classes.select) + ' ' + this.m('display', this.classes.select);
+                (function () {
+                    var element = _this3.refs.select;
+                    element.className = _this3.classes.select + ' ' + _this3.m('prehide', _this3.classes.select) + ' ' + _this3.m('display', _this3.classes.select);
 
-                this.hideTimer = setTimeout((function () {
-                    element.className = this.classes.select;
-                    this.setState({ options: [] });
-                }).bind(this), 200);
+                    _this3.hideTimer = setTimeout((function () {
+                        element.className = this.classes.select;
+                        this.setState({ options: [] });
+                    }).bind(_this3), 200);
+                })();
             }
         }
     }, {
@@ -318,12 +323,11 @@ var Component = (function (_React$Component) {
     }, {
         key: 'optionByIndex',
         value: function optionByIndex(index) {
-            var options = this.refs.selectOptions,
-                option = options.querySelector('ul > li:nth-child(' + (index + 1) + ')'),
-                value;
+            var options = this.refs.selectOptions;
+            var option = options.querySelector('ul > li:nth-child(' + (index + 1) + ')');
 
             if (option) {
-                value = option.getAttribute('data-value');
+                var value = option.getAttribute('data-value');
                 option = this.findByValue(this.props.options, value);
 
                 return option;
@@ -345,18 +349,17 @@ var Component = (function (_React$Component) {
     }, {
         key: 'selectOption',
         value: function selectOption(value, down) {
-            var optionsParent = this.refs.selectOptions,
-                options = optionsParent.childNodes,
-                className = this.classes.option,
-                selectedClass = className + ' ' + className + '--' + 'hover',
-                totalOptions = options.length,
-                selected = null,
-                selectedNodeName,
-                i,
-                node;
+            var selectedNodeName;
 
-            for (i = 0; i < totalOptions; i += 1) {
-                node = options[i];
+            var optionsParent = this.refs.selectOptions;
+            var options = optionsParent.childNodes;
+            var className = this.classes.option;
+            var selectedClass = className + ' ' + className + '--' + 'hover';
+            var totalOptions = options.length;
+            var selected = null;
+
+            for (var i = 0; i < totalOptions; i += 1) {
+                var node = options[i];
 
                 if (i === value) {
                     if (node.getAttribute('data-value') === this.state.value) {
@@ -386,9 +389,9 @@ var Component = (function (_React$Component) {
     }, {
         key: 'chooseOption',
         value: function chooseOption(value) {
-            var currentValue = this.state.value,
-                search,
-                option;
+            var currentValue = this.state.value;
+            var option = undefined;
+            var search = undefined;
 
             if (!value) {
                 option = this.state.options[0];
@@ -423,8 +426,8 @@ var Component = (function (_React$Component) {
                 return false;
             }
 
-            var option = this.findByValue(this.props.options, value),
-                value = this.state.value;
+            var option = this.findByValue(this.props.options, value);
+            value = this.state.value;
 
             if (!option || value.indexOf(option.value) < 0) {
                 return false;
@@ -438,13 +441,11 @@ var Component = (function (_React$Component) {
     }, {
         key: 'renderOptions',
         value: function renderOptions() {
-            var foundOptions,
-                select = null,
-                option = null,
-                options = [],
-                selectStyle = {};
-
-            foundOptions = this.state.options;
+            var select = null;
+            var option = null;
+            var options = [];
+            var selectStyle = {};
+            var foundOptions = this.state.options;
 
             if (foundOptions && foundOptions.length > 0) {
                 if (this.state.value && !this.props.multiple) {
@@ -491,28 +492,31 @@ var Component = (function (_React$Component) {
     }, {
         key: 'renderOutElement',
         value: function renderOutElement() {
-            var option = null,
-                finalValue,
-                finalValueOptions;
+            var _this4 = this;
+
+            var option = null;
+            var finalValue = undefined;
 
             if (this.props.multiple) {
                 if (this.state.value) {
-                    finalValueOptions = [];
+                    (function () {
+                        var finalValueOptions = [];
 
-                    this.state.value.forEach((function (value, i) {
-                        option = this.findByValue(this.props.options, value);
-                        finalValueOptions.push(_react2.default.createElement(
-                            'option',
-                            { key: i, value: option.value },
-                            option.name
-                        ));
-                    }).bind(this));
+                        _this4.state.value.forEach((function (value, i) {
+                            option = this.findByValue(this.props.options, value);
+                            finalValueOptions.push(_react2.default.createElement(
+                                'option',
+                                { key: i, value: option.value },
+                                option.name
+                            ));
+                        }).bind(_this4));
 
-                    finalValue = _react2.default.createElement(
-                        'select',
-                        { value: this.state.value, className: this.classes.out, name: this.props.name, readOnly: true, multiple: true },
-                        finalValueOptions
-                    );
+                        finalValue = _react2.default.createElement(
+                            'select',
+                            { value: _this4.state.value, className: _this4.classes.out, name: _this4.props.name, readOnly: true, multiple: true },
+                            finalValueOptions
+                        );
+                    })();
                 } else {
                     finalValue = _react2.default.createElement(
                         'select',
@@ -533,7 +537,11 @@ var Component = (function (_React$Component) {
     }, {
         key: 'renderSearchField',
         value: function renderSearchField() {
-            var option, searchValue, searchField, labelValue, labelClassName;
+            var option = undefined;
+            var searchValue = undefined;
+            var searchField = undefined;
+            var labelValue = undefined;
+            var labelClassName = undefined;
 
             if (this.props.search) {
                 if (this.focus) {

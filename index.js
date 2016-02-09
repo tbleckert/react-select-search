@@ -5,47 +5,47 @@ import Fuse from 'fuse.js';
 
 const displayName  = 'SelectSearch';
 const propTypes    = {
-    options:        React.PropTypes.array.isRequired,
-    className:      React.PropTypes.string.isRequired,
-    search:         React.PropTypes.bool.isRequired,
-    value:          React.PropTypes.oneOfType([
+    options        : React.PropTypes.array.isRequired,
+    className      : React.PropTypes.string.isRequired,
+    search         : React.PropTypes.bool.isRequired,
+    placeholder    : React.PropTypes.string,
+    multiple       : React.PropTypes.bool.isRequired,
+    height         : React.PropTypes.number,
+    name           : React.PropTypes.string,
+    fuse           : React.PropTypes.object.isRequired,
+    valueChanged   : React.PropTypes.func.isRequired,
+    optionSelected : React.PropTypes.func.isRequired,
+    onMount        : React.PropTypes.func.isRequired,
+    onBlur         : React.PropTypes.func.isRequired,
+    onFocus        : React.PropTypes.func.isRequired,
+    renderOption   : React.PropTypes.func.isRequired,
+    value          : React.PropTypes.oneOfType([
         React.PropTypes.string,
         React.PropTypes.array
-    ]),
-    placeholder:    React.PropTypes.string,
-    multiple:       React.PropTypes.bool.isRequired,
-    height:         React.PropTypes.number,
-    name:           React.PropTypes.string,
-    fuse:           React.PropTypes.object.isRequired,
-    valueChanged:   React.PropTypes.func.isRequired,
-    optionSelected: React.PropTypes.func.isRequired,
-    onMount:        React.PropTypes.func.isRequired,
-    onBlur:         React.PropTypes.func.isRequired,
-    onFocus:        React.PropTypes.func.isRequired,
-    renderOption:   React.PropTypes.func.isRequired
+    ])
 };
 
 const defaultProps = {
-    options:        [],
-    className:      'select-search-box',
-    search:         true,
-    value:          null,
-    placeholder:    null,
-    multiple:       false,
-    height:         200,
-    name:           null,
-    fuse: {
-        keys:           ['name'],
-        threshold:      0.3
-    },
-    valueChanged:   function () {},
-    optionSelected: function () {},
-    onMount:        function () {},
-    onBlur:         function () {},
-    onFocus:        function () {},
-    renderOption:   function (option) {
+    options        : [],
+    className      : 'select-search-box',
+    search         : true,
+    value          : null,
+    placeholder    : null,
+    multiple       : false,
+    height         : 200,
+    name           : null,
+    valueChanged   : function () {},
+    optionSelected : function () {},
+    onMount        : function () {},
+    onBlur         : function () {},
+    onFocus        : function () {},
+    renderOption   : function (option) {
         return option.name;
-    }
+    },
+    fuse: {
+        keys      : ['name'],
+        threshold : 0.3
+    },
 };
 
 class Component extends React.Component {
@@ -61,9 +61,10 @@ class Component extends React.Component {
         this.selectHeight = null;
 
         this.state = {
-            search:  null,
-            value:   (!props.value && props.multiple) ? [] : props.value,
-            options: props.options
+            search         : null,
+            value          : (!props.value && props.multiple) ? [] : props.value,
+            defaultOptions : props.options,
+            options        : props.options
         };
 
         this.bind();
@@ -71,25 +72,25 @@ class Component extends React.Component {
 
     bind() {
         this.bound = {
-            documentClick: this.documentClick.bind(this),
-            onFocus:       this.onFocus.bind(this),
-            onBlur:        this.onBlur.bind(this),
-            onChange:      this.onChange.bind(this),
-            onKeyDown:     this.onKeyDown.bind(this),
-            onKeyPress:    this.onKeyPress.bind(this) 
+            documentClick : this.documentClick.bind(this),
+            onFocus       : this.onFocus.bind(this),
+            onBlur        : this.onBlur.bind(this),
+            onChange      : this.onChange.bind(this),
+            onKeyDown     : this.onKeyDown.bind(this),
+            onKeyPress    : this.onKeyPress.bind(this) 
         };
     }
 
     componentWillMount() {
         this.classes = {
-            container: (this.props.multiple) ? this.props.className + ' ' + this.m('multiple', this.props.className) : this.props.className,
-            search:    this.e('search'),
-            select:    this.e('select'),
-            options:   this.e('options'),
-            option:    this.e('option'),
-            out:       this.e('out'),
-            label:     this.e('label'),
-            focus:     (this.props.multiple) ? this.props.className + ' ' + this.m('multiple focus', this.props.className) : this.props.className + ' ' + this.m('focus', this.props.className)
+            container : (this.props.multiple) ? this.props.className + ' ' + this.m('multiple', this.props.className) : this.props.className,
+            search    : this.e('search'),
+            select    : this.e('select'),
+            options   : this.e('options'),
+            option    : this.e('option'),
+            out       : this.e('out'),
+            label     : this.e('label'),
+            focus     : (this.props.multiple) ? this.props.className + ' ' + this.m('multiple focus', this.props.className) : this.props.className + ' ' + this.m('focus', this.props.className)
         };
     }
 
@@ -151,7 +152,7 @@ class Component extends React.Component {
 
     m(modifier, base) {
         modifier = modifier.split(' ');
-        var finalClass = [];
+        let finalClass = [];
 
         modifier.forEach(function (className) {
             finalClass.push(base + '--' + className);
@@ -161,7 +162,8 @@ class Component extends React.Component {
     }
 
     onChange(e) {
-        var value = e.target.value, foundOptions = this.filterOptions(this.props.options, value);
+        let value = e.target.value;
+        let foundOptions = this.filterOptions(this.props.options, value);
 
         this.selected = null;
 
@@ -169,8 +171,6 @@ class Component extends React.Component {
     }
 
     onFocus() {
-        var className, element, viewportHeight, elementPos;
-
         clearTimeout(this.hideTimer);
 
         this.focus = true;
@@ -178,14 +178,14 @@ class Component extends React.Component {
         this.refs.container.className = this.classes.focus;
 
         if (!this.props.multiple && this.refs.hasOwnProperty('select')) {
-            element   = this.refs.select;
-            className = this.classes.select + ' ' + this.m('display', this.classes.select);
+            let element   = this.refs.select;
+            let className = this.classes.select + ' ' + this.m('display', this.classes.select);
 
             element.className = className + ' ' + this.m('prehide', this.classes.select);
 
             setTimeout(function () {
-                viewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-                elementPos     = element.getBoundingClientRect();
+                let viewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+                let elementPos     = element.getBoundingClientRect();
                 this.selectHeight  = viewportHeight - elementPos.top - 20;
 
                 element.style.maxHeight = this.selectHeight + 'px';
@@ -203,12 +203,10 @@ class Component extends React.Component {
     }
 
     onBlur(e) {
-        var element, option;
-
         this.focus = false;
         this.selected = null;
 
-        option = this.findByValue(this.props.options, this.state.value);
+        let option = this.findByValue(this.props.options, this.state.value);
 
         if (option) {
             this.setState({search: option.name});
@@ -218,7 +216,7 @@ class Component extends React.Component {
         this.props.onBlur.call(this);
 
         if (!this.props.multiple && this.refs.hasOwnProperty('select')) {
-            element = this.refs.select;
+            let element = this.refs.select;
             element.className = this.classes.select + ' ' + this.m('prehide', this.classes.select) + ' ' + this.m('display', this.classes.select);
 
             this.hideTimer = setTimeout(function () {
@@ -236,7 +234,7 @@ class Component extends React.Component {
         if (e.key === 'Enter') {
             e.preventDefault();
 
-            var selectedOption = (this.selected) ? this.optionByIndex(this.selected) : this.optionByIndex(0);
+            let selectedOption = (this.selected) ? this.optionByIndex(this.selected) : this.optionByIndex(0);
 
             if (selectedOption) {
                 this.chooseOption(selectedOption.value);
@@ -275,17 +273,16 @@ class Component extends React.Component {
     }
 
     scrollToSelected() {
-        var select = this.refs.select;
+        let select = this.refs.select;
         select.scrollTop = this.itemHeight * this.selected;
     }
 
     optionByIndex(index) {
-        var options = this.refs.selectOptions,
-            option  = options.querySelector('ul > li:nth-child(' + (index + 1) + ')'),
-            value;
+        let options = this.refs.selectOptions;
+        let option  = options.querySelector('ul > li:nth-child(' + (index + 1) + ')');
 
         if (option) {
-            value  = option.getAttribute('data-value');
+            let value  = option.getAttribute('data-value');
             option = this.findByValue(this.props.options, value);
 
             return option;
@@ -305,18 +302,17 @@ class Component extends React.Component {
     }
 
     selectOption(value, down) {
-        var optionsParent = this.refs.selectOptions,
-            options       = optionsParent.childNodes,
-            className     = this.classes.option,
-            selectedClass = className + ' ' + className + '--' + 'hover',
-            totalOptions  = options.length,
-            selected      = null,
-            selectedNodeName,
-            i,
-            node;
+        var selectedNodeName;
 
-        for (i = 0; i < totalOptions; i += 1) {
-            node = options[i];
+        let optionsParent = this.refs.selectOptions;
+        let options       = optionsParent.childNodes;
+        let className     = this.classes.option;
+        let selectedClass = className + ' ' + className + '--' + 'hover';
+        let totalOptions  = options.length;
+        let selected      = null;
+
+        for (let i = 0; i < totalOptions; i += 1) {
+            let node = options[i];
 
             if (i === value) {
                 if (node.getAttribute('data-value') === this.state.value) {
@@ -345,9 +341,9 @@ class Component extends React.Component {
     }
 
     chooseOption(value) {
-        var currentValue = this.state.value,
-            search,
-            option;
+        let currentValue = this.state.value;
+        let option;
+        let search;
 
         if (!value) {
             option = this.state.options[0];
@@ -381,8 +377,8 @@ class Component extends React.Component {
             return false;
         }
 
-        var option = this.findByValue(this.props.options, value),
-            value  = this.state.value;
+        let option = this.findByValue(this.props.options, value);
+        value = this.state.value;
 
         if (!option || value.indexOf(option.value) < 0) {
             return false;
@@ -395,13 +391,11 @@ class Component extends React.Component {
     }
 
     renderOptions() {
-        var foundOptions,
-            select = null,
-            option = null,
-            options = [],
-            selectStyle = {};
-
-        foundOptions = this.state.options;
+        let select       = null;
+        let option       = null;
+        let options      = [];
+        let selectStyle  = {};
+        let foundOptions = this.state.options;
 
         if (foundOptions && foundOptions.length > 0) {
             if (this.state.value && !this.props.multiple) {
@@ -447,13 +441,12 @@ class Component extends React.Component {
     }
 
     renderOutElement() {
-        var option = null,
-            finalValue,
-            finalValueOptions;
+        let option = null;
+        let finalValue;
 
         if (this.props.multiple) {
             if (this.state.value) {
-                finalValueOptions = [];
+                let finalValueOptions = [];
 
                 this.state.value.forEach(function (value, i) {
                     option = this.findByValue(this.props.options, value);
@@ -480,11 +473,11 @@ class Component extends React.Component {
     }
 
     renderSearchField() {
-        var option,
-            searchValue,
-            searchField,
-            labelValue,
-            labelClassName;
+        let option;
+        let searchValue;
+        let searchField;
+        let labelValue;
+        let labelClassName;
 
         if (this.props.search) {
             if (this.focus) {
