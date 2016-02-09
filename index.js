@@ -39,6 +39,7 @@ const defaultProps = {
     onMount        : function () {},
     onBlur         : function () {},
     onFocus        : function () {},
+    onChange       : function () {},
     renderOption   : function (option) {
         return option.name;
     },
@@ -161,22 +162,33 @@ class Component extends React.Component {
         return finalClass.join(' ');
     }
 
-    onChange(e) {
-        let value = e.target.value;
-        let foundOptions = this.filterOptions(this.state.defaultOptions, value);
+    updateOptionsList(value, options) {
+        if (!options) {
+            options = this.state.defaultOptions;
+        }
 
-        this.selected = null;
+        let foundOptions = this.filterOptions(options, value);
+        let update       = {
+            options : foundOptions,
+            search  : value
+        };
 
-        this.setState({options: foundOptions, search: value});
+        if (options) {
+            update.defaultOptions = options;
+        }
+
+        this.setState(update);
     }
 
-    onFocus() {
-        clearTimeout(this.hideTimer);
+    onChange(e) {
+        let value = e.target.value;
+        this.selected = null;
 
-        this.focus = true;
-        this.setState({search: null, options: this.state.defaultOptions});
-        this.refs.container.className = this.classes.focus;
+        this.props.onChange.call(this, value);
+        this.updateOptionsList(value);
+    }
 
+    displayOptions() {
         if (!this.props.multiple && this.refs.hasOwnProperty('select')) {
             let element   = this.refs.select;
             let className = this.classes.select + ' ' + this.m('display', this.classes.select);
@@ -191,13 +203,27 @@ class Component extends React.Component {
                 element.style.maxHeight = this.selectHeight + 'px';
 
                 if (!this.itemHeight) {
-                    this.itemHeight = element.querySelector('.' + this.classes.option).offsetHeight;
+                    let option = element.querySelector('.' + this.classes.option);
+
+                    if (option) {
+                        this.itemHeight = option.offsetHeight;
+                    }
                 }
 
                 element.className = className;
                 element.scrollTop = 0;
             }.bind(this), 50);
         }
+    }
+
+    onFocus() {
+        clearTimeout(this.hideTimer);
+
+        this.focus = true;
+        this.setState({search: null, options: this.state.defaultOptions});
+        this.refs.container.className = this.classes.focus;
+
+        this.displayOptions();
 
         this.props.onFocus.call(this);
     }

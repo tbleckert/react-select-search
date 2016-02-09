@@ -55,6 +55,7 @@ var defaultProps = {
     onMount: function onMount() {},
     onBlur: function onBlur() {},
     onFocus: function onFocus() {},
+    onChange: function onChange() {},
     renderOption: function renderOption(option) {
         return option.name;
     },
@@ -191,25 +192,37 @@ var Component = (function (_React$Component) {
             return finalClass.join(' ');
         }
     }, {
+        key: 'updateOptionsList',
+        value: function updateOptionsList(value, options) {
+            if (!options) {
+                options = this.state.defaultOptions;
+            }
+
+            var foundOptions = this.filterOptions(options, value);
+            var update = {
+                options: foundOptions,
+                search: value
+            };
+
+            if (options) {
+                update.defaultOptions = options;
+            }
+
+            this.setState(update);
+        }
+    }, {
         key: 'onChange',
         value: function onChange(e) {
             var value = e.target.value;
-            var foundOptions = this.filterOptions(this.props.options, value);
-
             this.selected = null;
 
-            this.setState({ options: foundOptions, search: value });
+            this.props.onChange.call(this, value);
+            this.updateOptionsList(value);
         }
     }, {
-        key: 'onFocus',
-        value: function onFocus() {
+        key: 'displayOptions',
+        value: function displayOptions() {
             var _this2 = this;
-
-            clearTimeout(this.hideTimer);
-
-            this.focus = true;
-            this.setState({ search: null, options: this.props.options });
-            this.refs.container.className = this.classes.focus;
 
             if (!this.props.multiple && this.refs.hasOwnProperty('select')) {
                 (function () {
@@ -226,7 +239,11 @@ var Component = (function (_React$Component) {
                         element.style.maxHeight = this.selectHeight + 'px';
 
                         if (!this.itemHeight) {
-                            this.itemHeight = element.querySelector('.' + this.classes.option).offsetHeight;
+                            var option = element.querySelector('.' + this.classes.option);
+
+                            if (option) {
+                                this.itemHeight = option.offsetHeight;
+                            }
                         }
 
                         element.className = className;
@@ -234,6 +251,17 @@ var Component = (function (_React$Component) {
                     }).bind(_this2), 50);
                 })();
             }
+        }
+    }, {
+        key: 'onFocus',
+        value: function onFocus() {
+            clearTimeout(this.hideTimer);
+
+            this.focus = true;
+            this.setState({ search: null, options: this.state.defaultOptions });
+            this.refs.container.className = this.classes.focus;
+
+            this.displayOptions();
 
             this.props.onFocus.call(this);
         }
@@ -245,7 +273,7 @@ var Component = (function (_React$Component) {
             this.focus = false;
             this.selected = null;
 
-            var option = this.findByValue(this.props.options, this.state.value);
+            var option = this.findByValue(this.state.defaultOptions, this.state.value);
 
             if (option) {
                 this.setState({ search: option.name });
@@ -328,7 +356,7 @@ var Component = (function (_React$Component) {
 
             if (option) {
                 var value = option.getAttribute('data-value');
-                option = this.findByValue(this.props.options, value);
+                option = this.findByValue(this.state.defaultOptions, value);
 
                 return option;
             }
@@ -339,7 +367,7 @@ var Component = (function (_React$Component) {
         key: 'findByValue',
         value: function findByValue(source, value) {
             if ((!source || source.length < 1) && (!this.state.search || this.state.search.length < 1)) {
-                source = this.props.options;
+                source = this.state.defaultOptions;
             }
 
             return source.filter(function (object) {
@@ -384,7 +412,7 @@ var Component = (function (_React$Component) {
             }
 
             this.selected = selected;
-            this.props.optionSelected(selected, this.state, this.props);
+            this.state.defaultOptionselected(selected, this.state, this.props);
         }
     }, {
         key: 'chooseOption',
@@ -396,7 +424,7 @@ var Component = (function (_React$Component) {
             if (!value) {
                 option = this.state.options[0];
             } else {
-                option = this.findByValue(this.props.options, value);
+                option = this.findByValue(this.state.defaultOptions, value);
             }
 
             if (this.props.multiple) {
@@ -412,7 +440,7 @@ var Component = (function (_React$Component) {
                 search = option.name;
             }
 
-            this.setState({ value: currentValue, search: search, options: this.props.options });
+            this.setState({ value: currentValue, search: search, options: this.state.defaultOptions });
             this.props.valueChanged.call(this, option, this.state, this.props);
 
             if (!this.props.search) {
@@ -426,7 +454,7 @@ var Component = (function (_React$Component) {
                 return false;
             }
 
-            var option = this.findByValue(this.props.options, value);
+            var option = this.findByValue(this.state.defaultOptions, value);
             value = this.state.value;
 
             if (!option || value.indexOf(option.value) < 0) {
@@ -449,7 +477,7 @@ var Component = (function (_React$Component) {
 
             if (foundOptions && foundOptions.length > 0) {
                 if (this.state.value && !this.props.multiple) {
-                    option = this.findByValue(this.props.options, this.state.value);
+                    option = this.findByValue(this.state.defaultOptions, this.state.value);
 
                     if (option) {
                         options.push(_react2.default.createElement('li', { className: this.classes.option + ' ' + this.m('selected', this.classes.option), onClick: this.chooseOption.bind(this, option.value), key: option.value + '-option', 'data-value': option.value, dangerouslySetInnerHTML: { __html: this.props.renderOption(option) } }));
@@ -503,7 +531,7 @@ var Component = (function (_React$Component) {
                         var finalValueOptions = [];
 
                         _this4.state.value.forEach((function (value, i) {
-                            option = this.findByValue(this.props.options, value);
+                            option = this.findByValue(this.state.defaultOptions, value);
                             finalValueOptions.push(_react2.default.createElement(
                                 'option',
                                 { key: i, value: option.value },
@@ -548,7 +576,7 @@ var Component = (function (_React$Component) {
                     searchValue = null;
                 } else {
                     if (this.state.value && !this.state.search) {
-                        option = this.findByValue(this.props.options, this.state.value);
+                        option = this.findByValue(this.state.defaultOptions, this.state.value);
                         searchValue = option ? option.name : this.state.search;
                     } else {
                         searchValue = this.state.search;
@@ -561,7 +589,7 @@ var Component = (function (_React$Component) {
                     labelValue = this.props.placeholder;
                     labelClassName = this.classes.search + ' ' + this.m('placeholder', this.classes.search);
                 } else {
-                    option = this.findByValue(this.props.options, this.state.value);
+                    option = this.findByValue(this.state.defaultOptions, this.state.value);
                     labelValue = option.name;
                     labelClassName = this.classes.search;
                 }
