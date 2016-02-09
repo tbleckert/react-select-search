@@ -163,7 +163,7 @@ class Component extends React.Component {
 
     onChange(e) {
         let value = e.target.value;
-        let foundOptions = this.filterOptions(this.props.options, value);
+        let foundOptions = this.filterOptions(this.state.defaultOptions, value);
 
         this.selected = null;
 
@@ -174,7 +174,7 @@ class Component extends React.Component {
         clearTimeout(this.hideTimer);
 
         this.focus = true;
-        this.setState({search: null, options: this.props.options});
+        this.setState({search: null, options: this.state.defaultOptions});
         this.refs.container.className = this.classes.focus;
 
         if (!this.props.multiple && this.refs.hasOwnProperty('select')) {
@@ -206,7 +206,7 @@ class Component extends React.Component {
         this.focus = false;
         this.selected = null;
 
-        let option = this.findByValue(this.props.options, this.state.value);
+        let option = this.findByValue(this.state.defaultOptions, this.state.value);
 
         if (option) {
             this.setState({search: option.name});
@@ -283,7 +283,7 @@ class Component extends React.Component {
 
         if (option) {
             let value  = option.getAttribute('data-value');
-            option = this.findByValue(this.props.options, value);
+            option = this.findByValue(this.state.defaultOptions, value);
 
             return option;
         }
@@ -293,7 +293,7 @@ class Component extends React.Component {
 
     findByValue(source, value) {
         if ((!source || source.length < 1) && (!this.state.search || this.state.search.length < 1)) {
-            source = this.props.options;
+            source = this.state.defaultOptions;
         }
 
         return source.filter(function (object) {
@@ -337,7 +337,7 @@ class Component extends React.Component {
         }
 
         this.selected = selected;
-        this.props.optionSelected(selected, this.state, this.props);
+        this.state.defaultOptionselected(selected, this.state, this.props);
     }
 
     chooseOption(value) {
@@ -348,7 +348,7 @@ class Component extends React.Component {
         if (!value) {
             option = this.state.options[0];
         } else {
-            option = this.findByValue(this.props.options, value);
+            option = this.findByValue(this.state.defaultOptions, value);
         }
 
         if (this.props.multiple) {
@@ -364,7 +364,7 @@ class Component extends React.Component {
             search = option.name;
         }
 
-        this.setState({value: currentValue, search: search, options: this.props.options});
+        this.setState({value: currentValue, search: search, options: this.state.defaultOptions});
         this.props.valueChanged.call(this, option, this.state, this.props);
 
         if (!this.props.search) {
@@ -377,7 +377,7 @@ class Component extends React.Component {
             return false;
         }
 
-        let option = this.findByValue(this.props.options, value);
+        let option = this.findByValue(this.state.defaultOptions, value);
         value = this.state.value;
 
         if (!option || value.indexOf(option.value) < 0) {
@@ -399,7 +399,7 @@ class Component extends React.Component {
 
         if (foundOptions && foundOptions.length > 0) {
             if (this.state.value && !this.props.multiple) {
-                option = this.findByValue(this.props.options, this.state.value);
+                option = this.findByValue(this.state.defaultOptions, this.state.value);
 
                 if (option) {
                     options.push(<li className={this.classes.option + ' ' + this.m('selected', this.classes.option)} onClick={this.chooseOption.bind(this, option.value)} key={option.value + '-option'} data-value={option.value} dangerouslySetInnerHTML={{__html: this.props.renderOption(option)}} />);
@@ -449,7 +449,7 @@ class Component extends React.Component {
                 let finalValueOptions = [];
 
                 this.state.value.forEach(function (value, i) {
-                    option = this.findByValue(this.props.options, value);
+                    option = this.findByValue(this.state.defaultOptions, value);
                     finalValueOptions.push(<option key={i} value={option.value}>{option.name}</option>);
                 }.bind(this));
 
@@ -484,7 +484,7 @@ class Component extends React.Component {
                 searchValue = null;
             } else {
                 if (this.state.value && !this.state.search) {
-                    option      = this.findByValue(this.props.options, this.state.value);
+                    option      = this.findByValue(this.state.defaultOptions, this.state.value);
                     searchValue = (option) ? option.name : this.state.search;
                 } else {
                     searchValue = this.state.search;
@@ -497,7 +497,7 @@ class Component extends React.Component {
                 labelValue     = this.props.placeholder;
                 labelClassName = this.classes.search + ' ' + this.m('placeholder', this.classes.search);
             } else {
-                option         = this.findByValue(this.props.options, this.state.value);
+                option         = this.findByValue(this.state.defaultOptions, this.state.value);
                 labelValue     = option.name;
                 labelClassName = this.classes.search;
             }
