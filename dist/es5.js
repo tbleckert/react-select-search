@@ -125,7 +125,7 @@ var Component = (function (_React$Component) {
     }, {
         key: 'componentDidMount',
         value: function componentDidMount() {
-            this.props.onMount.call(this);
+            this.props.onMount.call(this, this);
 
             if (!this.props.search) {
                 document.addEventListener('click', this.bound.documentClick);
@@ -225,7 +225,7 @@ var Component = (function (_React$Component) {
                 this.displayOptions();
             }
 
-            this.props.onChange.call(this, value);
+            this.props.onChange.call(this, value, this);
             this.updateOptionsList(value);
         }
     }, {
@@ -281,7 +281,7 @@ var Component = (function (_React$Component) {
                 this.displayOptions();
             }
 
-            this.props.onFocus.call(this);
+            this.props.onFocus.call(this, this);
         }
     }, {
         key: 'onBlur',
@@ -298,7 +298,7 @@ var Component = (function (_React$Component) {
             }
 
             this.refs.container.className = this.classes.container;
-            this.props.onBlur.call(this);
+            this.props.onBlur.call(this, this);
 
             if (!this.props.multiple && this.refs.hasOwnProperty('select')) {
                 (function () {
@@ -316,6 +316,10 @@ var Component = (function (_React$Component) {
         key: 'onKeyPress',
         value: function onKeyPress(e) {
             if (!this.state.options || this.state.options.length < 1) {
+                return;
+            }
+
+            if (this.props.mode === 'input' && !this.selected) {
                 return;
             }
 
@@ -459,7 +463,7 @@ var Component = (function (_React$Component) {
             }
 
             this.setState({ value: currentValue, search: search, options: this.state.defaultOptions });
-            this.props.valueChanged.call(this, option, this.state, this.props);
+            this.props.valueChanged.call(this, option, this.state, this.props, this);
 
             if (!this.props.search || this.props.mode === 'input') {
                 this.onBlur();
