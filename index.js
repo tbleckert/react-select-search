@@ -19,6 +19,7 @@ const propTypes    = {
     onBlur         : React.PropTypes.func.isRequired,
     onFocus        : React.PropTypes.func.isRequired,
     renderOption   : React.PropTypes.func.isRequired,
+    mode           : React.PropTypes.string.isRequired,
     value          : React.PropTypes.oneOfType([
         React.PropTypes.string,
         React.PropTypes.array
@@ -34,6 +35,7 @@ const defaultProps = {
     multiple       : false,
     height         : 200,
     name           : null,
+    mode           : 'select',
     valueChanged   : function () {},
     optionSelected : function () {},
     onMount        : function () {},
@@ -62,7 +64,7 @@ class Component extends React.Component {
         this.selectHeight = null;
 
         this.state = {
-            search         : null,
+            search         : (this.props.mode === 'input') ? this.props.value : null,
             value          : (!props.value && props.multiple) ? [] : props.value,
             defaultOptions : props.options,
             options        : props.options
@@ -93,6 +95,9 @@ class Component extends React.Component {
             label     : this.e('label'),
             focus     : (this.props.multiple) ? this.props.className + ' ' + this.m('multiple focus', this.props.className) : this.props.className + ' ' + this.m('focus', this.props.className)
         };
+
+        this.classes.focus     += ' ' + this.m(this.props.mode, this.props.className);
+        this.classes.container += ' ' + this.m(this.props.mode, this.props.className);
     }
 
     componentDidMount() {
@@ -184,6 +189,10 @@ class Component extends React.Component {
         let value = e.target.value;
         this.selected = null;
 
+        if (this.props.mode === 'input') {
+            this.displayOptions();
+        }
+
         this.props.onChange.call(this, value);
         this.updateOptionsList(value);
     }
@@ -220,10 +229,19 @@ class Component extends React.Component {
         clearTimeout(this.hideTimer);
 
         this.focus = true;
-        this.setState({search: null, options: this.state.defaultOptions});
+
+        let updateState = {options: this.state.defaultOptions};
+
+        if (this.props.mode !== 'input') {
+            updateState.search = null;
+        }
+
+        this.setState(updateState);
         this.refs.container.className = this.classes.focus;
 
-        this.displayOptions();
+        if (this.props.mode !== 'input') {
+            this.displayOptions();
+        }
 
         this.props.onFocus.call(this);
     }
@@ -234,7 +252,7 @@ class Component extends React.Component {
 
         let option = this.findByValue(this.state.defaultOptions, this.state.value);
 
-        if (option) {
+        if (option && this.props.mode !== 'input') {
             this.setState({search: option.name});
         }
 
@@ -341,7 +359,7 @@ class Component extends React.Component {
             let node = options[i];
 
             if (i === value) {
-                if (node.getAttribute('data-value') === this.state.value) {
+                if (node.getAttribute('data-value') === this.state.value && this.props.mode !== 'input') {
                     node.className = className + ' ' + className + '--' + 'selected';
                 } else {
                     node.className = selectedClass;
@@ -350,7 +368,7 @@ class Component extends React.Component {
                 selectedNodeName = node.textContent;
                 selected = i;
             } else {
-                if (node.getAttribute('data-value') === this.state.value) {
+                if (node.getAttribute('data-value') === this.state.value && this.props.mode !== 'input') {
                     node.className = className + ' ' + className + '--' + 'selected';
                 } else {
                     node.className = className;
@@ -363,7 +381,7 @@ class Component extends React.Component {
         }
 
         this.selected = selected;
-        this.state.defaultOptionselected(selected, this.state, this.props);
+        this.props.optionSelected(selected, this.state, this.props);
     }
 
     chooseOption(value) {
@@ -393,7 +411,7 @@ class Component extends React.Component {
         this.setState({value: currentValue, search: search, options: this.state.defaultOptions});
         this.props.valueChanged.call(this, option, this.state, this.props);
 
-        if (!this.props.search) {
+        if (!this.props.search || this.props.mode === 'input') {
             this.onBlur();
         }
     }
@@ -424,7 +442,7 @@ class Component extends React.Component {
         let foundOptions = this.state.options;
 
         if (foundOptions && foundOptions.length > 0) {
-            if (this.state.value && !this.props.multiple) {
+            if (this.state.value && !this.props.multiple && this.props.mode !== 'input') {
                 option = this.findByValue(this.state.defaultOptions, this.state.value);
 
                 if (option) {
@@ -440,7 +458,7 @@ class Component extends React.Component {
                         options.push(<li className={this.classes.option + ' ' + this.m('selected', this.classes.option)} onClick={this.removeOption.bind(this, element.value)} key={element.value + '-option'} data-value={element.value} dangerouslySetInnerHTML={{__html: this.props.renderOption(element)}} />);
                     }
                 } else {
-                    if (element.value !== this.state.value) {
+                    if (element.value !== this.state.value || this.props.mode === 'input') {
                         options.push(<li className={this.classes.option} onClick={this.chooseOption.bind(this, element.value)} key={element.value + '-option'} data-value={element.value} dangerouslySetInnerHTML={{__html: this.props.renderOption(element)}} />);
                     }
                 }
@@ -467,6 +485,10 @@ class Component extends React.Component {
     }
 
     renderOutElement() {
+        if (this.props.mode === 'input') {
+            return null;
+        }
+
         let option = null;
         let finalValue;
 
@@ -504,20 +526,26 @@ class Component extends React.Component {
         let searchField;
         let labelValue;
         let labelClassName;
+        let name = null;
 
         if (this.props.search) {
-            if (this.focus) {
-                searchValue = null;
+            if (this.props.mode === 'input') {
+                searchValue = this.state.search;
+                name = this.props.name;
             } else {
-                if (this.state.value && !this.state.search) {
-                    option      = this.findByValue(this.state.defaultOptions, this.state.value);
-                    searchValue = (option) ? option.name : this.state.search;
+                if (this.focus) {
+                    searchValue = null;
                 } else {
-                    searchValue = this.state.search;
+                    if (this.state.value && !this.state.search) {
+                        option      = this.findByValue(this.state.defaultOptions, this.state.value);
+                        searchValue = (option) ? option.name : this.state.search;
+                    } else {
+                        searchValue = this.state.search;
+                    }
                 }
             }
 
-            searchField = <input ref="search" onFocus={this.bound.onFocus} onKeyDown={this.bound.onKeyDown} onKeyPress={this.bound.onKeyPress} onBlur={this.bound.onBlur} className={this.classes.search} type="search" value={searchValue} onChange={this.bound.onChange} placeholder={this.props.placeholder} />;
+            searchField = <input name={name} ref="search" onFocus={this.bound.onFocus} onKeyDown={this.bound.onKeyDown} onKeyPress={this.bound.onKeyPress} onBlur={this.bound.onBlur} className={this.classes.search} type="search" value={searchValue} onChange={this.bound.onChange} placeholder={this.props.placeholder} />;
         } else {
             if (!this.state.value) {
                 labelValue     = this.props.placeholder;
