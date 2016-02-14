@@ -1,4 +1,3 @@
-
 'use strict';
 
 import React from 'react';
@@ -6,44 +5,50 @@ import Fuse from 'fuse.js';
 
 const displayName  = 'SelectSearch';
 const propTypes    = {
-    options:        React.PropTypes.array.isRequired,
-    className:      React.PropTypes.string.isRequired,
-    search:         React.PropTypes.bool.isRequired,
-    value:          React.PropTypes.string,
-    placeholder:    React.PropTypes.string,
-    multiple:       React.PropTypes.bool.isRequired,
-    height:         React.PropTypes.number,
-    name:           React.PropTypes.string,
-    fuse:           React.PropTypes.object,
-    valueChanged:   React.PropTypes.func,
-    optionSelected: React.PropTypes.func,
-    onMount:        React.PropTypes.func,
-    onBlur:         React.PropTypes.func,
-    onFocus:        React.PropTypes.func,
-    renderOption:   React.PropTypes.func
+    options        : React.PropTypes.array.isRequired,
+    className      : React.PropTypes.string.isRequired,
+    search         : React.PropTypes.bool.isRequired,
+    placeholder    : React.PropTypes.string,
+    multiple       : React.PropTypes.bool.isRequired,
+    height         : React.PropTypes.number,
+    name           : React.PropTypes.string,
+    fuse           : React.PropTypes.object.isRequired,
+    valueChanged   : React.PropTypes.func.isRequired,
+    optionSelected : React.PropTypes.func.isRequired,
+    onMount        : React.PropTypes.func.isRequired,
+    onBlur         : React.PropTypes.func.isRequired,
+    onFocus        : React.PropTypes.func.isRequired,
+    renderOption   : React.PropTypes.func.isRequired,
+    mode           : React.PropTypes.string.isRequired,
+    value          : React.PropTypes.oneOfType([
+        React.PropTypes.string,
+        React.PropTypes.array
+    ])
 };
 
 const defaultProps = {
-    options:        [],
-    className:      'select-search-box',
-    search:         true,
-    value:          null,
-    placeholder:    null,
-    multiple:       false,
-    height:         200,
-    name:           null,
-    fuse: {
-        keys:           ['name'],
-        threshold:      0.3
-    },
-    valueChanged:   function () {},
-    optionSelected: function () {},
-    onMount:        function () {},
-    onBlur:         function () {},
-    onFocus:        function () {},
-    renderOption:   function (option) {
+    options        : [],
+    className      : 'select-search-box',
+    search         : true,
+    value          : null,
+    placeholder    : null,
+    multiple       : false,
+    height         : 200,
+    name           : null,
+    mode           : 'select',
+    valueChanged   : function () {},
+    optionSelected : function () {},
+    onMount        : function () {},
+    onBlur         : function () {},
+    onFocus        : function () {},
+    onChange       : function () {},
+    renderOption   : function (option) {
         return option.name;
-    }
+    },
+    fuse: {
+        keys      : ['name'],
+        threshold : 0.3
+    },
 };
 
 class Component extends React.Component {
@@ -59,9 +64,10 @@ class Component extends React.Component {
         this.selectHeight = null;
 
         this.state = {
-            search:  null,
-            value:   (!props.value && props.multiple) ? [] : props.value,
-            options: props.options
+            search         : (this.props.mode === 'input') ? this.props.value : null,
+            value          : (!props.value && props.multiple) ? [] : props.value,
+            defaultOptions : props.options,
+            options        : props.options
         };
 
         this.bind();
@@ -69,26 +75,29 @@ class Component extends React.Component {
 
     bind() {
         this.bound = {
-            documentClick: this.documentClick.bind(this),
-            onFocus:       this.onFocus.bind(this),
-            onBlur:        this.onBlur.bind(this),
-            onChange:      this.onChange.bind(this),
-            onKeyDown:     this.onKeyDown.bind(this),
-            onKeyPress:    this.onKeyPress.bind(this) 
+            documentClick : this.documentClick.bind(this),
+            onFocus       : this.onFocus.bind(this),
+            onBlur        : this.onBlur.bind(this),
+            onChange      : this.onChange.bind(this),
+            onKeyDown     : this.onKeyDown.bind(this),
+            onKeyPress    : this.onKeyPress.bind(this) 
         };
     }
 
     componentWillMount() {
         this.classes = {
-            container: (this.props.multiple) ? this.props.className + ' ' + this.m('multiple', this.props.className) : this.props.className,
-            search:    this.e('search'),
-            select:    this.e('select'),
-            options:   this.e('options'),
-            option:    this.e('option'),
-            out:       this.e('out'),
-            label:     this.e('label'),
-            focus:     (this.props.multiple) ? this.props.className + ' ' + this.m('multiple focus', this.props.className) : this.props.className + ' ' + this.m('focus', this.props.className)
+            container : (this.props.multiple) ? this.props.className + ' ' + this.m('multiple', this.props.className) : this.props.className,
+            search    : this.e('search'),
+            select    : this.e('select'),
+            options   : this.e('options'),
+            option    : this.e('option'),
+            out       : this.e('out'),
+            label     : this.e('label'),
+            focus     : (this.props.multiple) ? this.props.className + ' ' + this.m('multiple focus', this.props.className) : this.props.className + ' ' + this.m('focus', this.props.className)
         };
+
+        this.classes.focus     += ' ' + this.m(this.props.mode, this.props.className);
+        this.classes.container += ' ' + this.m(this.props.mode, this.props.className);
     }
 
     componentDidMount() {
@@ -97,6 +106,10 @@ class Component extends React.Component {
         if (!this.props.search) {
             document.addEventListener('click', this.bound.documentClick);
         }
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener('click', this.bound.documentClick);
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -145,7 +158,7 @@ class Component extends React.Component {
 
     m(modifier, base) {
         modifier = modifier.split(' ');
-        var finalClass = [];
+        let finalClass = [];
 
         modifier.forEach(function (className) {
             finalClass.push(base + '--' + className);
@@ -154,57 +167,92 @@ class Component extends React.Component {
         return finalClass.join(' ');
     }
 
-    onChange(e) {
-        var value = e.target.value, foundOptions = this.filterOptions(this.props.options, value);
+    updateOptionsList(value, options) {
+        if (!options) {
+            options = this.state.defaultOptions;
+        }
 
-        this.selected = null;
+        let foundOptions = this.filterOptions(options, value);
+        let update       = {
+            options : foundOptions,
+            search  : value
+        };
 
-        this.setState({options: foundOptions, search: value});
+        if (options) {
+            update.defaultOptions = options;
+        }
+
+        this.setState(update);
     }
 
-    onFocus() {
-        var className, element, viewportHeight, elementPos;
+    onChange(e) {
+        let value = e.target.value;
+        this.selected = null;
 
-        clearTimeout(this.hideTimer);
+        if (this.props.mode === 'input') {
+            this.displayOptions();
+        }
 
-        this.focus = true;
-        this.setState({search: null, options: this.props.options});
-        this.refs.container.className = this.classes.focus;
+        this.props.onChange.call(this, value);
+        this.updateOptionsList(value);
+    }
 
+    displayOptions() {
         if (!this.props.multiple && this.refs.hasOwnProperty('select')) {
-            element   = this.refs.select;
-            className = this.classes.select + ' ' + this.m('display', this.classes.select);
+            let element   = this.refs.select;
+            let className = this.classes.select + ' ' + this.m('display', this.classes.select);
 
             element.className = className + ' ' + this.m('prehide', this.classes.select);
 
             setTimeout(function () {
-                viewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-                elementPos     = element.getBoundingClientRect();
+                let viewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+                let elementPos     = element.getBoundingClientRect();
                 this.selectHeight  = viewportHeight - elementPos.top - 20;
 
                 element.style.maxHeight = this.selectHeight + 'px';
 
                 if (!this.itemHeight) {
-                    this.itemHeight = element.querySelector('.' + this.classes.option).offsetHeight;
+                    let option = element.querySelector('.' + this.classes.option);
+
+                    if (option) {
+                        this.itemHeight = option.offsetHeight;
+                    }
                 }
 
                 element.className = className;
                 element.scrollTop = 0;
             }.bind(this), 50);
         }
+    }
+
+    onFocus() {
+        clearTimeout(this.hideTimer);
+
+        this.focus = true;
+
+        let updateState = {options: this.state.defaultOptions};
+
+        if (this.props.mode !== 'input') {
+            updateState.search = null;
+        }
+
+        this.setState(updateState);
+        this.refs.container.className = this.classes.focus;
+
+        if (this.props.mode !== 'input') {
+            this.displayOptions();
+        }
 
         this.props.onFocus.call(this);
     }
 
     onBlur(e) {
-        var element, option;
-
         this.focus = false;
         this.selected = null;
 
-        option = this.findByValue(this.props.options, this.state.value);
+        let option = this.findByValue(this.state.defaultOptions, this.state.value);
 
-        if (option) {
+        if (option && this.props.mode !== 'input') {
             this.setState({search: option.name});
         }
 
@@ -212,7 +260,7 @@ class Component extends React.Component {
         this.props.onBlur.call(this);
 
         if (!this.props.multiple && this.refs.hasOwnProperty('select')) {
-            element = this.refs.select;
+            let element = this.refs.select;
             element.className = this.classes.select + ' ' + this.m('prehide', this.classes.select) + ' ' + this.m('display', this.classes.select);
 
             this.hideTimer = setTimeout(function () {
@@ -230,7 +278,7 @@ class Component extends React.Component {
         if (e.key === 'Enter') {
             e.preventDefault();
 
-            var selectedOption = (this.selected) ? this.optionByIndex(this.selected) : this.optionByIndex(0);
+            let selectedOption = (this.selected) ? this.optionByIndex(this.selected) : this.optionByIndex(0);
 
             if (selectedOption) {
                 this.chooseOption(selectedOption.value);
@@ -269,18 +317,17 @@ class Component extends React.Component {
     }
 
     scrollToSelected() {
-        var select = this.refs.select;
+        let select = this.refs.select;
         select.scrollTop = this.itemHeight * this.selected;
     }
 
     optionByIndex(index) {
-        var options = this.refs.selectOptions,
-            option  = options.querySelector('ul > li:nth-child(' + (index + 1) + ')'),
-            value;
+        let options = this.refs.selectOptions;
+        let option  = options.querySelector('ul > li:nth-child(' + (index + 1) + ')');
 
         if (option) {
-            value  = option.getAttribute('data-value');
-            option = this.findByValue(this.props.options, value);
+            let value  = option.getAttribute('data-value');
+            option = this.findByValue(this.state.defaultOptions, value);
 
             return option;
         }
@@ -290,7 +337,7 @@ class Component extends React.Component {
 
     findByValue(source, value) {
         if ((!source || source.length < 1) && (!this.state.search || this.state.search.length < 1)) {
-            source = this.props.options;
+            source = this.state.defaultOptions;
         }
 
         return source.filter(function (object) {
@@ -299,21 +346,20 @@ class Component extends React.Component {
     }
 
     selectOption(value, down) {
-        var optionsParent = this.refs.selectOptions,
-            options       = optionsParent.childNodes,
-            className     = this.classes.option,
-            selectedClass = className + ' ' + className + '--' + 'hover',
-            totalOptions  = options.length,
-            selected      = null,
-            selectedNodeName,
-            i,
-            node;
+        var selectedNodeName;
 
-        for (i = 0; i < totalOptions; i += 1) {
-            node = options[i];
+        let optionsParent = this.refs.selectOptions;
+        let options       = optionsParent.childNodes;
+        let className     = this.classes.option;
+        let selectedClass = className + ' ' + className + '--' + 'hover';
+        let totalOptions  = options.length;
+        let selected      = null;
+
+        for (let i = 0; i < totalOptions; i += 1) {
+            let node = options[i];
 
             if (i === value) {
-                if (node.getAttribute('data-value') === this.state.value) {
+                if (node.getAttribute('data-value') === this.state.value && this.props.mode !== 'input') {
                     node.className = className + ' ' + className + '--' + 'selected';
                 } else {
                     node.className = selectedClass;
@@ -322,7 +368,7 @@ class Component extends React.Component {
                 selectedNodeName = node.textContent;
                 selected = i;
             } else {
-                if (node.getAttribute('data-value') === this.state.value) {
+                if (node.getAttribute('data-value') === this.state.value && this.props.mode !== 'input') {
                     node.className = className + ' ' + className + '--' + 'selected';
                 } else {
                     node.className = className;
@@ -339,14 +385,14 @@ class Component extends React.Component {
     }
 
     chooseOption(value) {
-        var currentValue = this.state.value,
-            search,
-            option;
+        let currentValue = this.state.value;
+        let option;
+        let search;
 
         if (!value) {
             option = this.state.options[0];
         } else {
-            option = this.findByValue(this.props.options, value);
+            option = this.findByValue(this.state.defaultOptions, value);
         }
 
         if (this.props.multiple) {
@@ -362,10 +408,10 @@ class Component extends React.Component {
             search = option.name;
         }
 
-        this.setState({value: currentValue, search: search, options: this.props.options});
+        this.setState({value: currentValue, search: search, options: this.state.defaultOptions});
         this.props.valueChanged.call(this, option, this.state, this.props);
 
-        if (!this.props.search) {
+        if (!this.props.search || this.props.mode === 'input') {
             this.onBlur();
         }
     }
@@ -375,8 +421,8 @@ class Component extends React.Component {
             return false;
         }
 
-        var option = this.findByValue(this.props.options, value),
-            value  = this.state.value;
+        let option = this.findByValue(this.state.defaultOptions, value);
+        value = this.state.value;
 
         if (!option || value.indexOf(option.value) < 0) {
             return false;
@@ -389,17 +435,15 @@ class Component extends React.Component {
     }
 
     renderOptions() {
-        var foundOptions,
-            select = null,
-            option = null,
-            options = [],
-            selectStyle = {};
-
-        foundOptions = this.state.options;
+        let select       = null;
+        let option       = null;
+        let options      = [];
+        let selectStyle  = {};
+        let foundOptions = this.state.options;
 
         if (foundOptions && foundOptions.length > 0) {
-            if (this.state.value && !this.props.multiple) {
-                option = this.findByValue(this.props.options, this.state.value);
+            if (this.state.value && !this.props.multiple && this.props.mode !== 'input') {
+                option = this.findByValue(this.state.defaultOptions, this.state.value);
 
                 if (option) {
                     options.push(<li className={this.classes.option + ' ' + this.m('selected', this.classes.option)} onClick={this.chooseOption.bind(this, option.value)} key={option.value + '-option'} data-value={option.value} dangerouslySetInnerHTML={{__html: this.props.renderOption(option)}} />);
@@ -414,7 +458,7 @@ class Component extends React.Component {
                         options.push(<li className={this.classes.option + ' ' + this.m('selected', this.classes.option)} onClick={this.removeOption.bind(this, element.value)} key={element.value + '-option'} data-value={element.value} dangerouslySetInnerHTML={{__html: this.props.renderOption(element)}} />);
                     }
                 } else {
-                    if (element.value !== this.state.value) {
+                    if (element.value !== this.state.value || this.props.mode === 'input') {
                         options.push(<li className={this.classes.option} onClick={this.chooseOption.bind(this, element.value)} key={element.value + '-option'} data-value={element.value} dangerouslySetInnerHTML={{__html: this.props.renderOption(element)}} />);
                     }
                 }
@@ -441,27 +485,30 @@ class Component extends React.Component {
     }
 
     renderOutElement() {
-        var option = null,
-            finalValue,
-            finalValueOptions;
+        if (this.props.mode === 'input') {
+            return null;
+        }
+
+        let option = null;
+        let finalValue;
 
         if (this.props.multiple) {
             if (this.state.value) {
-                finalValueOptions = [];
+                let finalValueOptions = [];
 
                 this.state.value.forEach(function (value, i) {
-                    option = this.findByValue(this.props.options, value);
+                    option = this.findByValue(this.state.defaultOptions, value);
                     finalValueOptions.push(<option key={i} value={option.value}>{option.name}</option>);
                 }.bind(this));
 
                 finalValue = (
-                    <select defaultValue={this.state.value} className={this.classes.out} name={this.props.name} multiple>
+                    <select value={this.state.value} className={this.classes.out} name={this.props.name} readOnly multiple>
                         {finalValueOptions}
                     </select>
                 );
             } else {
                 finalValue = (
-                    <select className={this.classes.out} name={this.props.name} multiple>
+                    <select className={this.classes.out} name={this.props.name} readOnly multiple>
                         <option>Nothing selected</option>
                     </select>
                 );
@@ -474,31 +521,37 @@ class Component extends React.Component {
     }
 
     renderSearchField() {
-        var option,
-            searchValue,
-            searchField,
-            labelValue,
-            labelClassName;
+        let option;
+        let searchValue;
+        let searchField;
+        let labelValue;
+        let labelClassName;
+        let name = null;
 
         if (this.props.search) {
-            if (this.focus) {
-                searchValue = null;
+            if (this.props.mode === 'input') {
+                searchValue = this.state.search;
+                name = this.props.name;
             } else {
-                if (this.state.value && !this.state.search) {
-                    option      = this.findByValue(this.props.options, this.state.value);
-                    searchValue = (option) ? option.name : this.state.search;
+                if (this.focus) {
+                    searchValue = null;
                 } else {
-                    searchValue = this.state.search;
+                    if (this.state.value && !this.state.search) {
+                        option      = this.findByValue(this.state.defaultOptions, this.state.value);
+                        searchValue = (option) ? option.name : this.state.search;
+                    } else {
+                        searchValue = this.state.search;
+                    }
                 }
             }
 
-            searchField = <input ref="search" onFocus={this.bound.onFocus} onKeyDown={this.bound.onKeyDown} onKeyPress={this.bound.onKeyPress} onBlur={this.bound.onBlur} className={this.classes.search} type="search" value={searchValue} onChange={this.bound.onChange} placeholder={this.props.placeholder} />;
+            searchField = <input name={name} ref="search" onFocus={this.bound.onFocus} onKeyDown={this.bound.onKeyDown} onKeyPress={this.bound.onKeyPress} onBlur={this.bound.onBlur} className={this.classes.search} type="search" value={searchValue} onChange={this.bound.onChange} placeholder={this.props.placeholder} />;
         } else {
             if (!this.state.value) {
                 labelValue     = this.props.placeholder;
                 labelClassName = this.classes.search + ' ' + this.m('placeholder', this.classes.search);
             } else {
-                option         = this.findByValue(this.props.options, this.state.value);
+                option         = this.findByValue(this.state.defaultOptions, this.state.value);
                 labelValue     = option.name;
                 labelClassName = this.classes.search;
             }

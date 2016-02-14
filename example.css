@@ -21,6 +21,10 @@ body {
 		border-radius: 8px 8px 10px 10px;
 	}
 
+	.select-search-box--input {
+		box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.6);
+	}
+
 	.select-search-box::after {
 		font-family: fontawesome;
 		content:"\f078";
@@ -32,6 +36,10 @@ body {
 		line-height: 50px;
 		color: #fff;
 		z-index: 1;
+	}
+
+	.select-search-box--input::after {
+		display: none !important;
 	}
 
 	.select-search-box__out {
@@ -58,6 +66,10 @@ body {
 		cursor: pointer;
 		font-family: sans-serif;
 		line-height: 50px;
+	}
+
+	.select-search-box--input .select-search-box__search {
+		cursor: text;
 	}
 
 		.select-search-box__search:focus {

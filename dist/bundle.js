@@ -30,7 +30,7 @@ countryOptions = require('./data/countries.json'),
     _optionHeight = null;
 
 /** Render selectbox */
-_reactDom2.default.render(_react2.default.createElement(_reactSelectSearch2.default, { name: 'country', options: countryOptions, value: 'SE', placeholder: 'Choose country' }), countryElement);
+_reactDom2.default.render(_react2.default.createElement(_reactSelectSearch2.default, { name: 'country', mode: 'input', options: countryOptions, placeholder: 'Your country' }), countryElement);
 
 _reactDom2.default.render(_react2.default.createElement(_reactSelectSearch2.default, { name: 'language', value: 'sv', options: languageOptions, search: false, placeholder: 'Choose language' }), languageElement);
 
@@ -38,6 +38,17 @@ var fontStack = '';
 
 function renderOption(option) {
     return '<span style="font-family: ' + option.stack + ';">' + option.name + '</span>';
+}
+
+var throttleTimer = undefined;
+
+function onChange(value) {
+    clearTimeout(throttleTimer);
+
+    throttleTimer = setTimeout(function () {
+        this.updateOptionsList(value, fontOptions);
+        this.displayOptions();
+    }.bind(this), 2500);
 }
 
 function valueChanged(option) {
@@ -53,7 +64,7 @@ function onBlur(option) {
     this.refs.search.style.fontFamily = fontStack;
 }
 
-_reactDom2.default.render(_react2.default.createElement(_reactSelectSearch2.default, { name: 'font', options: fontOptions, renderOption: renderOption, valueChanged: valueChanged, onBlur: onBlur, onFocus: onFocus, placeholder: 'Choose font' }), fontElement);
+_reactDom2.default.render(_react2.default.createElement(_reactSelectSearch2.default, { name: 'font', options: [], renderOption: renderOption, valueChanged: valueChanged, onChange: onChange, onBlur: onBlur, onFocus: onFocus, placeholder: 'Choose font' }), fontElement);
 
 _reactDom2.default.render(_react2.default.createElement(_reactSelectSearch2.default, { name: 'skills', multiple: true, height: 172, options: skillsOptions, placeholder: 'Choose skills' }), skillsElement);
 
@@ -4235,8 +4246,8 @@ var HTMLDOMPropertyConfig = {
      */
     // autoCapitalize and autoCorrect are supported in Mobile Safari for
     // keyboard hints.
-    autoCapitalize: null,
-    autoCorrect: null,
+    autoCapitalize: MUST_USE_ATTRIBUTE,
+    autoCorrect: MUST_USE_ATTRIBUTE,
     // autoSave allows WebKit/Blink to persist values of input fields on page reloads
     autoSave: null,
     // color is for Safari mask-icon link
@@ -4267,9 +4278,7 @@ var HTMLDOMPropertyConfig = {
     httpEquiv: 'http-equiv'
   },
   DOMPropertyNames: {
-    autoCapitalize: 'autocapitalize',
     autoComplete: 'autocomplete',
-    autoCorrect: 'autocorrect',
     autoFocus: 'autofocus',
     autoPlay: 'autoplay',
     autoSave: 'autosave',
@@ -8685,7 +8694,10 @@ var ReactDOMOption = {
       }
     });
 
-    nativeProps.children = content;
+    if (content) {
+      nativeProps.children = content;
+    }
+
     return nativeProps;
   }
 
@@ -8726,7 +8738,7 @@ function updateOptionsIfPendingUpdateAndMounted() {
     var value = LinkedValueUtils.getValue(props);
 
     if (value != null) {
-      updateOptions(this, props, value);
+      updateOptions(this, Boolean(props.multiple), value);
     }
   }
 }
@@ -9809,7 +9821,9 @@ var DOM_OPERATION_TYPES = {
   'setValueForProperty': 'update attribute',
   'setValueForAttribute': 'update attribute',
   'deleteValueForProperty': 'remove attribute',
-  'dangerouslyReplaceNodeWithMarkupByID': 'replace'
+  'setValueForStyles': 'update styles',
+  'replaceNodeWithMarkup': 'replace',
+  'updateTextContent': 'set textContent'
 };
 
 function getTotalTime(measurements) {
@@ -14872,7 +14886,7 @@ module.exports = ReactUpdates;
 
 'use strict';
 
-module.exports = '0.14.3';
+module.exports = '0.14.7';
 },{}],90:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -15968,6 +15982,7 @@ var warning = require('fbjs/lib/warning');
  */
 var EventInterface = {
   type: null,
+  target: null,
   // currentTarget is set when dispatching; no use in copying it here
   currentTarget: emptyFunction.thatReturnsNull,
   eventPhase: null,
@@ -16001,8 +16016,6 @@ function SyntheticEvent(dispatchConfig, dispatchMarker, nativeEvent, nativeEvent
   this.dispatchConfig = dispatchConfig;
   this.dispatchMarker = dispatchMarker;
   this.nativeEvent = nativeEvent;
-  this.target = nativeEventTarget;
-  this.currentTarget = nativeEventTarget;
 
   var Interface = this.constructor.Interface;
   for (var propName in Interface) {
@@ -16013,7 +16026,11 @@ function SyntheticEvent(dispatchConfig, dispatchMarker, nativeEvent, nativeEvent
     if (normalize) {
       this[propName] = normalize(nativeEvent);
     } else {
-      this[propName] = nativeEvent[propName];
+      if (propName === 'target') {
+        this.target = nativeEventTarget;
+      } else {
+        this[propName] = nativeEvent[propName];
+      }
     }
   }
 
@@ -19147,11 +19164,14 @@ module.exports = focusNode;
  * @typechecks
  */
 
+/* eslint-disable fb-www/typeof-undefined */
+
 /**
  * Same as document.activeElement but wraps in a try-catch block. In IE it is
  * not safe to call document.activeElement if there is nothing focused.
  *
- * The activeElement will be null only if the document or document body is not yet defined.
+ * The activeElement will be null only if the document or document body is not
+ * yet defined.
  */
 'use strict';
 
@@ -19159,7 +19179,6 @@ function getActiveElement() /*?DOMElement*/{
   if (typeof document === 'undefined') {
     return null;
   }
-
   try {
     return document.activeElement || document.body;
   } catch (e) {
@@ -19406,7 +19425,7 @@ module.exports = hyphenateStyleName;
  * will remain to ensure logic does not differ in production.
  */
 
-var invariant = function (condition, format, a, b, c, d, e, f) {
+function invariant(condition, format, a, b, c, d, e, f) {
   if (process.env.NODE_ENV !== 'production') {
     if (format === undefined) {
       throw new Error('invariant requires an error message argument');
@@ -19420,15 +19439,16 @@ var invariant = function (condition, format, a, b, c, d, e, f) {
     } else {
       var args = [a, b, c, d, e, f];
       var argIndex = 0;
-      error = new Error('Invariant Violation: ' + format.replace(/%s/g, function () {
+      error = new Error(format.replace(/%s/g, function () {
         return args[argIndex++];
       }));
+      error.name = 'Invariant Violation';
     }
 
     error.framesToPop = 1; // we don't care about invariant's own frame
     throw error;
   }
-};
+}
 
 module.exports = invariant;
 }).call(this,require('_process'))
@@ -19695,18 +19715,23 @@ module.exports = performance || {};
 'use strict';
 
 var performance = require('./performance');
-var curPerformance = performance;
+
+var performanceNow;
 
 /**
  * Detect if we can use `window.performance.now()` and gracefully fallback to
  * `Date.now()` if it doesn't exist. We need to support Firefox < 15 for now
  * because of Facebook's testing infrastructure.
  */
-if (!curPerformance || !curPerformance.now) {
-  curPerformance = Date;
+if (performance.now) {
+  performanceNow = function () {
+    return performance.now();
+  };
+} else {
+  performanceNow = function () {
+    return Date.now();
+  };
 }
-
-var performanceNow = curPerformance.now.bind(curPerformance);
 
 module.exports = performanceNow;
 },{"./performance":156}],158:[function(require,module,exports){
@@ -19890,11 +19915,11 @@ module.exports = require('./lib/React');
 },{"./lib/React":29}],162:[function(require,module,exports){
 'use strict';
 
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = require('react');
 
@@ -19917,18 +19942,19 @@ var propTypes = {
     options: _react2.default.PropTypes.array.isRequired,
     className: _react2.default.PropTypes.string.isRequired,
     search: _react2.default.PropTypes.bool.isRequired,
-    value: _react2.default.PropTypes.string,
     placeholder: _react2.default.PropTypes.string,
     multiple: _react2.default.PropTypes.bool.isRequired,
     height: _react2.default.PropTypes.number,
     name: _react2.default.PropTypes.string,
-    fuse: _react2.default.PropTypes.object,
-    valueChanged: _react2.default.PropTypes.func,
-    optionSelected: _react2.default.PropTypes.func,
-    onMount: _react2.default.PropTypes.func,
-    onBlur: _react2.default.PropTypes.func,
-    onFocus: _react2.default.PropTypes.func,
-    renderOption: _react2.default.PropTypes.func
+    fuse: _react2.default.PropTypes.object.isRequired,
+    valueChanged: _react2.default.PropTypes.func.isRequired,
+    optionSelected: _react2.default.PropTypes.func.isRequired,
+    onMount: _react2.default.PropTypes.func.isRequired,
+    onBlur: _react2.default.PropTypes.func.isRequired,
+    onFocus: _react2.default.PropTypes.func.isRequired,
+    renderOption: _react2.default.PropTypes.func.isRequired,
+    mode: _react2.default.PropTypes.string.isRequired,
+    value: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.array])
 };
 
 var defaultProps = {
@@ -19940,21 +19966,23 @@ var defaultProps = {
     multiple: false,
     height: 200,
     name: null,
-    fuse: {
-        keys: ['name'],
-        threshold: 0.3
-    },
+    mode: 'select',
     valueChanged: function valueChanged() {},
     optionSelected: function optionSelected() {},
     onMount: function onMount() {},
     onBlur: function onBlur() {},
     onFocus: function onFocus() {},
+    onChange: function onChange() {},
     renderOption: function renderOption(option) {
         return option.name;
+    },
+    fuse: {
+        keys: ['name'],
+        threshold: 0.3
     }
 };
 
-var Component = (function (_React$Component) {
+var Component = function (_React$Component) {
     _inherits(Component, _React$Component);
 
     function Component(props) {
@@ -19970,8 +19998,9 @@ var Component = (function (_React$Component) {
         _this.selectHeight = null;
 
         _this.state = {
-            search: null,
+            search: _this.props.mode === 'input' ? _this.props.value : null,
             value: !props.value && props.multiple ? [] : props.value,
+            defaultOptions: props.options,
             options: props.options
         };
 
@@ -20004,6 +20033,9 @@ var Component = (function (_React$Component) {
                 label: this.e('label'),
                 focus: this.props.multiple ? this.props.className + ' ' + this.m('multiple focus', this.props.className) : this.props.className + ' ' + this.m('focus', this.props.className)
             };
+
+            this.classes.focus += ' ' + this.m(this.props.mode, this.props.className);
+            this.classes.container += ' ' + this.m(this.props.mode, this.props.className);
         }
     }, {
         key: 'componentDidMount',
@@ -20013,6 +20045,11 @@ var Component = (function (_React$Component) {
             if (!this.props.search) {
                 document.addEventListener('click', this.bound.documentClick);
             }
+        }
+    }, {
+        key: 'componentWillUnmount',
+        value: function componentWillUnmount() {
+            document.removeEventListener('click', this.bound.documentClick);
         }
     }, {
         key: 'componentDidUpdate',
@@ -20075,46 +20112,88 @@ var Component = (function (_React$Component) {
             return finalClass.join(' ');
         }
     }, {
+        key: 'updateOptionsList',
+        value: function updateOptionsList(value, options) {
+            if (!options) {
+                options = this.state.defaultOptions;
+            }
+
+            var foundOptions = this.filterOptions(options, value);
+            var update = {
+                options: foundOptions,
+                search: value
+            };
+
+            if (options) {
+                update.defaultOptions = options;
+            }
+
+            this.setState(update);
+        }
+    }, {
         key: 'onChange',
         value: function onChange(e) {
-            var value = e.target.value,
-                foundOptions = this.filterOptions(this.props.options, value);
-
+            var value = e.target.value;
             this.selected = null;
 
-            this.setState({ options: foundOptions, search: value });
+            if (this.props.mode === 'input') {
+                this.displayOptions();
+            }
+
+            this.props.onChange.call(this, value);
+            this.updateOptionsList(value);
+        }
+    }, {
+        key: 'displayOptions',
+        value: function displayOptions() {
+            var _this2 = this;
+
+            if (!this.props.multiple && this.refs.hasOwnProperty('select')) {
+                (function () {
+                    var element = _this2.refs.select;
+                    var className = _this2.classes.select + ' ' + _this2.m('display', _this2.classes.select);
+
+                    element.className = className + ' ' + _this2.m('prehide', _this2.classes.select);
+
+                    setTimeout(function () {
+                        var viewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+                        var elementPos = element.getBoundingClientRect();
+                        this.selectHeight = viewportHeight - elementPos.top - 20;
+
+                        element.style.maxHeight = this.selectHeight + 'px';
+
+                        if (!this.itemHeight) {
+                            var option = element.querySelector('.' + this.classes.option);
+
+                            if (option) {
+                                this.itemHeight = option.offsetHeight;
+                            }
+                        }
+
+                        element.className = className;
+                        element.scrollTop = 0;
+                    }.bind(_this2), 50);
+                })();
+            }
         }
     }, {
         key: 'onFocus',
         value: function onFocus() {
-            var className, element, viewportHeight, elementPos;
-
             clearTimeout(this.hideTimer);
 
             this.focus = true;
-            this.setState({ search: null, options: this.props.options });
+
+            var updateState = { options: this.state.defaultOptions };
+
+            if (this.props.mode !== 'input') {
+                updateState.search = null;
+            }
+
+            this.setState(updateState);
             this.refs.container.className = this.classes.focus;
 
-            if (!this.props.multiple && this.refs.hasOwnProperty('select')) {
-                element = this.refs.select;
-                className = this.classes.select + ' ' + this.m('display', this.classes.select);
-
-                element.className = className + ' ' + this.m('prehide', this.classes.select);
-
-                setTimeout((function () {
-                    viewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-                    elementPos = element.getBoundingClientRect();
-                    this.selectHeight = viewportHeight - elementPos.top - 20;
-
-                    element.style.maxHeight = this.selectHeight + 'px';
-
-                    if (!this.itemHeight) {
-                        this.itemHeight = element.querySelector('.' + this.classes.option).offsetHeight;
-                    }
-
-                    element.className = className;
-                    element.scrollTop = 0;
-                }).bind(this), 50);
+            if (this.props.mode !== 'input') {
+                this.displayOptions();
             }
 
             this.props.onFocus.call(this);
@@ -20122,14 +20201,14 @@ var Component = (function (_React$Component) {
     }, {
         key: 'onBlur',
         value: function onBlur(e) {
-            var element, option;
+            var _this3 = this;
 
             this.focus = false;
             this.selected = null;
 
-            option = this.findByValue(this.props.options, this.state.value);
+            var option = this.findByValue(this.state.defaultOptions, this.state.value);
 
-            if (option) {
+            if (option && this.props.mode !== 'input') {
                 this.setState({ search: option.name });
             }
 
@@ -20137,13 +20216,15 @@ var Component = (function (_React$Component) {
             this.props.onBlur.call(this);
 
             if (!this.props.multiple && this.refs.hasOwnProperty('select')) {
-                element = this.refs.select;
-                element.className = this.classes.select + ' ' + this.m('prehide', this.classes.select) + ' ' + this.m('display', this.classes.select);
+                (function () {
+                    var element = _this3.refs.select;
+                    element.className = _this3.classes.select + ' ' + _this3.m('prehide', _this3.classes.select) + ' ' + _this3.m('display', _this3.classes.select);
 
-                this.hideTimer = setTimeout((function () {
-                    element.className = this.classes.select;
-                    this.setState({ options: [] });
-                }).bind(this), 200);
+                    _this3.hideTimer = setTimeout(function () {
+                        element.className = this.classes.select;
+                        this.setState({ options: [] });
+                    }.bind(_this3), 200);
+                })();
             }
         }
     }, {
@@ -20203,13 +20284,12 @@ var Component = (function (_React$Component) {
     }, {
         key: 'optionByIndex',
         value: function optionByIndex(index) {
-            var options = this.refs.selectOptions,
-                option = options.querySelector('ul > li:nth-child(' + (index + 1) + ')'),
-                value;
+            var options = this.refs.selectOptions;
+            var option = options.querySelector('ul > li:nth-child(' + (index + 1) + ')');
 
             if (option) {
-                value = option.getAttribute('data-value');
-                option = this.findByValue(this.props.options, value);
+                var value = option.getAttribute('data-value');
+                option = this.findByValue(this.state.defaultOptions, value);
 
                 return option;
             }
@@ -20220,7 +20300,7 @@ var Component = (function (_React$Component) {
         key: 'findByValue',
         value: function findByValue(source, value) {
             if ((!source || source.length < 1) && (!this.state.search || this.state.search.length < 1)) {
-                source = this.props.options;
+                source = this.state.defaultOptions;
             }
 
             return source.filter(function (object) {
@@ -20230,21 +20310,20 @@ var Component = (function (_React$Component) {
     }, {
         key: 'selectOption',
         value: function selectOption(value, down) {
-            var optionsParent = this.refs.selectOptions,
-                options = optionsParent.childNodes,
-                className = this.classes.option,
-                selectedClass = className + ' ' + className + '--' + 'hover',
-                totalOptions = options.length,
-                selected = null,
-                selectedNodeName,
-                i,
-                node;
+            var selectedNodeName;
 
-            for (i = 0; i < totalOptions; i += 1) {
-                node = options[i];
+            var optionsParent = this.refs.selectOptions;
+            var options = optionsParent.childNodes;
+            var className = this.classes.option;
+            var selectedClass = className + ' ' + className + '--' + 'hover';
+            var totalOptions = options.length;
+            var selected = null;
+
+            for (var i = 0; i < totalOptions; i += 1) {
+                var node = options[i];
 
                 if (i === value) {
-                    if (node.getAttribute('data-value') === this.state.value) {
+                    if (node.getAttribute('data-value') === this.state.value && this.props.mode !== 'input') {
                         node.className = className + ' ' + className + '--' + 'selected';
                     } else {
                         node.className = selectedClass;
@@ -20253,7 +20332,7 @@ var Component = (function (_React$Component) {
                     selectedNodeName = node.textContent;
                     selected = i;
                 } else {
-                    if (node.getAttribute('data-value') === this.state.value) {
+                    if (node.getAttribute('data-value') === this.state.value && this.props.mode !== 'input') {
                         node.className = className + ' ' + className + '--' + 'selected';
                     } else {
                         node.className = className;
@@ -20271,14 +20350,14 @@ var Component = (function (_React$Component) {
     }, {
         key: 'chooseOption',
         value: function chooseOption(value) {
-            var currentValue = this.state.value,
-                search,
-                option;
+            var currentValue = this.state.value;
+            var option = undefined;
+            var search = undefined;
 
             if (!value) {
                 option = this.state.options[0];
             } else {
-                option = this.findByValue(this.props.options, value);
+                option = this.findByValue(this.state.defaultOptions, value);
             }
 
             if (this.props.multiple) {
@@ -20294,10 +20373,10 @@ var Component = (function (_React$Component) {
                 search = option.name;
             }
 
-            this.setState({ value: currentValue, search: search, options: this.props.options });
+            this.setState({ value: currentValue, search: search, options: this.state.defaultOptions });
             this.props.valueChanged.call(this, option, this.state, this.props);
 
-            if (!this.props.search) {
+            if (!this.props.search || this.props.mode === 'input') {
                 this.onBlur();
             }
         }
@@ -20308,8 +20387,8 @@ var Component = (function (_React$Component) {
                 return false;
             }
 
-            var option = this.findByValue(this.props.options, value),
-                value = this.state.value;
+            var option = this.findByValue(this.state.defaultOptions, value);
+            value = this.state.value;
 
             if (!option || value.indexOf(option.value) < 0) {
                 return false;
@@ -20323,24 +20402,22 @@ var Component = (function (_React$Component) {
     }, {
         key: 'renderOptions',
         value: function renderOptions() {
-            var foundOptions,
-                select = null,
-                option = null,
-                options = [],
-                selectStyle = {};
-
-            foundOptions = this.state.options;
+            var select = null;
+            var option = null;
+            var options = [];
+            var selectStyle = {};
+            var foundOptions = this.state.options;
 
             if (foundOptions && foundOptions.length > 0) {
-                if (this.state.value && !this.props.multiple) {
-                    option = this.findByValue(this.props.options, this.state.value);
+                if (this.state.value && !this.props.multiple && this.props.mode !== 'input') {
+                    option = this.findByValue(this.state.defaultOptions, this.state.value);
 
                     if (option) {
                         options.push(_react2.default.createElement('li', { className: this.classes.option + ' ' + this.m('selected', this.classes.option), onClick: this.chooseOption.bind(this, option.value), key: option.value + '-option', 'data-value': option.value, dangerouslySetInnerHTML: { __html: this.props.renderOption(option) } }));
                     }
                 }
 
-                foundOptions.forEach((function (element) {
+                foundOptions.forEach(function (element) {
                     if (this.props.multiple) {
                         if (this.state.value.indexOf(element.value) < 0) {
                             options.push(_react2.default.createElement('li', { className: this.classes.option, onClick: this.chooseOption.bind(this, element.value), key: element.value + '-option', 'data-value': element.value, dangerouslySetInnerHTML: { __html: this.props.renderOption(element) } }));
@@ -20348,11 +20425,11 @@ var Component = (function (_React$Component) {
                             options.push(_react2.default.createElement('li', { className: this.classes.option + ' ' + this.m('selected', this.classes.option), onClick: this.removeOption.bind(this, element.value), key: element.value + '-option', 'data-value': element.value, dangerouslySetInnerHTML: { __html: this.props.renderOption(element) } }));
                         }
                     } else {
-                        if (element.value !== this.state.value) {
+                        if (element.value !== this.state.value || this.props.mode === 'input') {
                             options.push(_react2.default.createElement('li', { className: this.classes.option, onClick: this.chooseOption.bind(this, element.value), key: element.value + '-option', 'data-value': element.value, dangerouslySetInnerHTML: { __html: this.props.renderOption(element) } }));
                         }
                     }
-                }).bind(this));
+                }.bind(this));
 
                 if (options.length > 0) {
                     select = _react2.default.createElement(
@@ -20376,32 +20453,39 @@ var Component = (function (_React$Component) {
     }, {
         key: 'renderOutElement',
         value: function renderOutElement() {
-            var option = null,
-                finalValue,
-                finalValueOptions;
+            var _this4 = this;
+
+            if (this.props.mode === 'input') {
+                return null;
+            }
+
+            var option = null;
+            var finalValue = undefined;
 
             if (this.props.multiple) {
                 if (this.state.value) {
-                    finalValueOptions = [];
+                    (function () {
+                        var finalValueOptions = [];
 
-                    this.state.value.forEach((function (value, i) {
-                        option = this.findByValue(this.props.options, value);
-                        finalValueOptions.push(_react2.default.createElement(
-                            'option',
-                            { key: i, value: option.value },
-                            option.name
-                        ));
-                    }).bind(this));
+                        _this4.state.value.forEach(function (value, i) {
+                            option = this.findByValue(this.state.defaultOptions, value);
+                            finalValueOptions.push(_react2.default.createElement(
+                                'option',
+                                { key: i, value: option.value },
+                                option.name
+                            ));
+                        }.bind(_this4));
 
-                    finalValue = _react2.default.createElement(
-                        'select',
-                        { defaultValue: this.state.value, className: this.classes.out, name: this.props.name, multiple: true },
-                        finalValueOptions
-                    );
+                        finalValue = _react2.default.createElement(
+                            'select',
+                            { value: _this4.state.value, className: _this4.classes.out, name: _this4.props.name, readOnly: true, multiple: true },
+                            finalValueOptions
+                        );
+                    })();
                 } else {
                     finalValue = _react2.default.createElement(
                         'select',
-                        { className: this.classes.out, name: this.props.name, multiple: true },
+                        { className: this.classes.out, name: this.props.name, readOnly: true, multiple: true },
                         _react2.default.createElement(
                             'option',
                             null,
@@ -20418,27 +20502,37 @@ var Component = (function (_React$Component) {
     }, {
         key: 'renderSearchField',
         value: function renderSearchField() {
-            var option, searchValue, searchField, labelValue, labelClassName;
+            var option = undefined;
+            var searchValue = undefined;
+            var searchField = undefined;
+            var labelValue = undefined;
+            var labelClassName = undefined;
+            var name = null;
 
             if (this.props.search) {
-                if (this.focus) {
-                    searchValue = null;
+                if (this.props.mode === 'input') {
+                    searchValue = this.state.search;
+                    name = this.props.name;
                 } else {
-                    if (this.state.value && !this.state.search) {
-                        option = this.findByValue(this.props.options, this.state.value);
-                        searchValue = option ? option.name : this.state.search;
+                    if (this.focus) {
+                        searchValue = null;
                     } else {
-                        searchValue = this.state.search;
+                        if (this.state.value && !this.state.search) {
+                            option = this.findByValue(this.state.defaultOptions, this.state.value);
+                            searchValue = option ? option.name : this.state.search;
+                        } else {
+                            searchValue = this.state.search;
+                        }
                     }
                 }
 
-                searchField = _react2.default.createElement('input', { ref: 'search', onFocus: this.bound.onFocus, onKeyDown: this.bound.onKeyDown, onKeyPress: this.bound.onKeyPress, onBlur: this.bound.onBlur, className: this.classes.search, type: 'search', value: searchValue, onChange: this.bound.onChange, placeholder: this.props.placeholder });
+                searchField = _react2.default.createElement('input', { name: name, ref: 'search', onFocus: this.bound.onFocus, onKeyDown: this.bound.onKeyDown, onKeyPress: this.bound.onKeyPress, onBlur: this.bound.onBlur, className: this.classes.search, type: 'search', value: searchValue, onChange: this.bound.onChange, placeholder: this.props.placeholder });
             } else {
                 if (!this.state.value) {
                     labelValue = this.props.placeholder;
                     labelClassName = this.classes.search + ' ' + this.m('placeholder', this.classes.search);
                 } else {
-                    option = this.findByValue(this.props.options, this.state.value);
+                    option = this.findByValue(this.state.defaultOptions, this.state.value);
                     labelValue = option.name;
                     labelClassName = this.classes.search;
                 }
@@ -20466,7 +20560,7 @@ var Component = (function (_React$Component) {
     }]);
 
     return Component;
-})(_react2.default.Component);
+}(_react2.default.Component);
 
 ;
 
