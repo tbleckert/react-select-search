@@ -9,7 +9,7 @@ _Example design comes from the [beautiful work](https://dribbble.com/shots/10790
 ![](https://dl.dropboxusercontent.com/u/6306766/react-select-search.png)
 
 ## Note!
-
+This version support __React 0.14__.  
 A React 0.12.* supported version can be found in 0.2.* (and below) tagged releases
 
 ## Demo
