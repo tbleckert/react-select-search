@@ -83,7 +83,7 @@ Below is a full list of properties and defaults (displayed in React style).
     fuse: {
         keys      : ['name'],
         threshold : 0.3
-    },
+    }
 }
 ```
 
