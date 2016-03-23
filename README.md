@@ -18,31 +18,78 @@ Live demo can be found here: [http://tbleckert.github.io/react-select-search/](h
 
 ## How to use
 
-Install it with npm (`npm install react-select-search --save`) and require it like you normally would.
+Install it with npm (`npm install react-select-search --save`) and import it like you normally would.
 
 ```javascript
-React.render(
-	<SelectSearch
-		name="country"
-		value="SE"
-		placeholder="Choose country"
-		search={true}
-		multiple={false}
-		height={height in pixels, used if multiple select}
-		className="my-selectbox"
-		options={objectWithOptions}
-		fuse={fuseJsOptions}
-		optionSelected={callbackWhenOptionMarked}
-		valueChanged={callbackWhenValueChanged}
-		renderOption={modifyOptionHtml}
-		onMount={componentDidMountCallback}
-		onFocus={searchFocusCallback}
-		onBlur={searchBlurCallback} />,
-	document.getElementById('selectSearch')
-);
+import SelectSearch from 'react-select-search'
+
+/**
+ * The options array should contain objects.
+ * Required keys are "name" and "value" but you can have and use any number of key/value pairs.
+ */
+const options = [
+    {name: 'Swedish', value: 'sv'},
+    {name: 'English', value: 'en'}
+];
+
+/* Simple example */
+<SelectSearch options={options} value="sv" name="language" placeholder="Choose your language" />
 ```
 
-These are all available options. The React component renders a hidden field with the __name__ property and the current __value__ to use in forms.  
+Below is a full list of properties and defaults (displayed in React style).
+
+```javascript
+{
+    options        : React.PropTypes.array.isRequired,
+    className      : React.PropTypes.string.isRequired,
+    search         : React.PropTypes.bool.isRequired,
+    placeholder    : React.PropTypes.string,
+    multiple       : React.PropTypes.bool.isRequired,
+    height         : React.PropTypes.number,
+    name           : React.PropTypes.string,
+    fuse           : React.PropTypes.object.isRequired,
+    valueChanged   : React.PropTypes.func.isRequired,
+    optionSelected : React.PropTypes.func.isRequired,
+    onMount        : React.PropTypes.func.isRequired,
+    onBlur         : React.PropTypes.func.isRequired,
+    onFocus        : React.PropTypes.func.isRequired,
+    renderOption   : React.PropTypes.func.isRequired,
+    mode           : React.PropTypes.string.isRequired,
+    value          : React.PropTypes.oneOfType([
+        React.PropTypes.string,
+        React.PropTypes.array
+    ])
+}
+
+{
+    options        : [],
+    className      : 'select-search-box',
+    search         : true,
+    value          : null,
+    placeholder    : null,
+    multiple       : false,
+    height         : 200,
+    name           : null,
+    mode           : 'select',
+    valueChanged   : function () {},
+    optionSelected : function () {},
+    onMount        : function () {},
+    onBlur         : function () {},
+    onFocus        : function () {},
+    onChange       : function () {},
+    renderOption   : function (option) {
+        return option.name;
+    },
+    fuse: {
+        keys      : ['name'],
+        threshold : 0.3
+    },
+}
+```
+
+The height property is the minimum height (max is the remaining space below the selectbox down to the browser window end) of the dropdown if multiple is false, otherwise it's the fixed height. 
+
+For examples you can take a look at the [bootstrap.js](https://github.com/tbleckert/react-select-search/blob/gh-pages/bootstrap.js) file on the gh-pages branch.
 
 You will also need some CSS to make it look right. The important piece is the options.
 
