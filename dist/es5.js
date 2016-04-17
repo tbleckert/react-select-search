@@ -1,10 +1,10 @@
 'use strict';
 
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = require('react');
 
@@ -67,7 +67,7 @@ var defaultProps = {
     }
 };
 
-var Component = (function (_React$Component) {
+var Component = function (_React$Component) {
     _inherits(Component, _React$Component);
 
     function Component(props) {
@@ -240,7 +240,7 @@ var Component = (function (_React$Component) {
 
                     element.className = className + ' ' + _this2.m('prehide', _this2.classes.select);
 
-                    setTimeout((function () {
+                    setTimeout(function () {
                         var viewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
                         var elementPos = element.getBoundingClientRect();
                         this.selectHeight = viewportHeight - elementPos.top - 20;
@@ -257,7 +257,7 @@ var Component = (function (_React$Component) {
 
                         element.className = className;
                         element.scrollTop = 0;
-                    }).bind(_this2), 50);
+                    }.bind(_this2), 50);
                 })();
             }
         }
@@ -305,10 +305,10 @@ var Component = (function (_React$Component) {
                     var element = _this3.refs.select;
                     element.className = _this3.classes.select + ' ' + _this3.m('prehide', _this3.classes.select) + ' ' + _this3.m('display', _this3.classes.select);
 
-                    _this3.hideTimer = setTimeout((function () {
+                    _this3.hideTimer = setTimeout(function () {
                         element.className = this.classes.select;
                         this.setState({ options: [] });
-                    }).bind(_this3), 200);
+                    }.bind(_this3), 200);
                 })();
             }
         }
@@ -440,8 +440,8 @@ var Component = (function (_React$Component) {
         key: 'chooseOption',
         value: function chooseOption(value) {
             var currentValue = this.state.value;
-            var option = undefined;
-            var search = undefined;
+            var option = void 0;
+            var search = void 0;
 
             if (!value) {
                 option = this.state.options[0];
@@ -506,7 +506,7 @@ var Component = (function (_React$Component) {
                     }
                 }
 
-                foundOptions.forEach((function (element) {
+                foundOptions.forEach(function (element) {
                     if (this.props.multiple) {
                         if (this.state.value.indexOf(element.value) < 0) {
                             options.push(_react2.default.createElement('li', { className: this.classes.option, onClick: this.chooseOption.bind(this, element.value), key: element.value + '-option', 'data-value': element.value, dangerouslySetInnerHTML: { __html: this.props.renderOption(element) } }));
@@ -518,7 +518,7 @@ var Component = (function (_React$Component) {
                             options.push(_react2.default.createElement('li', { className: this.classes.option, onClick: this.chooseOption.bind(this, element.value), key: element.value + '-option', 'data-value': element.value, dangerouslySetInnerHTML: { __html: this.props.renderOption(element) } }));
                         }
                     }
-                }).bind(this));
+                }.bind(this));
 
                 if (options.length > 0) {
                     select = _react2.default.createElement(
@@ -549,21 +549,21 @@ var Component = (function (_React$Component) {
             }
 
             var option = null;
-            var finalValue = undefined;
+            var finalValue = void 0;
 
             if (this.props.multiple) {
                 if (this.state.value) {
                     (function () {
                         var finalValueOptions = [];
 
-                        _this4.state.value.forEach((function (value, i) {
+                        _this4.state.value.forEach(function (value, i) {
                             option = this.findByValue(this.state.defaultOptions, value);
                             finalValueOptions.push(_react2.default.createElement(
                                 'option',
                                 { key: i, value: option.value },
                                 option.name
                             ));
-                        }).bind(_this4));
+                        }.bind(_this4));
 
                         finalValue = _react2.default.createElement(
                             'select',
@@ -591,11 +591,11 @@ var Component = (function (_React$Component) {
     }, {
         key: 'renderSearchField',
         value: function renderSearchField() {
-            var option = undefined;
-            var searchValue = undefined;
-            var searchField = undefined;
-            var labelValue = undefined;
-            var labelClassName = undefined;
+            var option = void 0;
+            var searchValue = void 0;
+            var searchField = void 0;
+            var labelValue = void 0;
+            var labelClassName = void 0;
             var name = null;
 
             if (this.props.search) {
@@ -649,7 +649,7 @@ var Component = (function (_React$Component) {
     }]);
 
     return Component;
-})(_react2.default.Component);
+}(_react2.default.Component);
 
 ;
 
