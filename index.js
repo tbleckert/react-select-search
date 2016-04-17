@@ -30,7 +30,7 @@ const defaultProps = {
     options        : [],
     className      : 'select-search-box',
     search         : true,
-    value          : null,
+    value          : '',
     placeholder    : null,
     multiple       : false,
     height         : 200,
@@ -64,7 +64,7 @@ class Component extends React.Component {
         this.selectHeight = null;
 
         this.state = {
-            search         : (this.props.mode === 'input') ? this.props.value : null,
+            search         : (this.props.mode === 'input') ? this.props.value : '',
             value          : (!props.value && props.multiple) ? [] : props.value,
             defaultOptions : props.options,
             options        : props.options
@@ -538,7 +538,7 @@ class Component extends React.Component {
                 name = this.props.name;
             } else {
                 if (this.focus) {
-                    searchValue = null;
+                    searchValue = '';
                 } else {
                     if (this.state.value && !this.state.search) {
                         option      = this.findByValue(this.state.defaultOptions, this.state.value);
