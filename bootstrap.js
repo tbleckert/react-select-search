@@ -48,15 +48,6 @@ function renderOption(option) {
 
 let throttleTimer;
 
-function onChange(value) {
-    clearTimeout(throttleTimer);
-
-    throttleTimer = setTimeout(function () {
-        this.updateOptionsList(value, fontOptions);
-        this.displayOptions();
-    }.bind(this), 2500);
-}
-
 function valueChanged(option) {
     fontStack = option.stack;
     this.refs.search.style.fontFamily = fontStack;
@@ -71,7 +62,7 @@ function onBlur(option) {
 }
 
 ReactDom.render(
-    <SelectSearch name="font" options={[]} renderOption={renderOption} valueChanged={valueChanged} onChange={onChange} onBlur={onBlur} onFocus={onFocus} placeholder="Choose font" />,
+    <SelectSearch name="font" options={fontOptions} renderOption={renderOption} valueChanged={valueChanged} onBlur={onBlur} onFocus={onFocus} placeholder="Choose font" />,
     fontElement
 );
 
