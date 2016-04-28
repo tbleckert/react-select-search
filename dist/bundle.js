@@ -42,15 +42,6 @@ function renderOption(option) {
 
 var throttleTimer = void 0;
 
-function onChange(value) {
-    clearTimeout(throttleTimer);
-
-    throttleTimer = setTimeout(function () {
-        this.updateOptionsList(value, fontOptions);
-        this.displayOptions();
-    }.bind(this), 2500);
-}
-
 function valueChanged(option) {
     fontStack = option.stack;
     this.refs.search.style.fontFamily = fontStack;
@@ -64,7 +55,7 @@ function onBlur(option) {
     this.refs.search.style.fontFamily = fontStack;
 }
 
-_reactDom2.default.render(_react2.default.createElement(_reactSelectSearch2.default, { name: 'font', options: [], renderOption: renderOption, valueChanged: valueChanged, onChange: onChange, onBlur: onBlur, onFocus: onFocus, placeholder: 'Choose font' }), fontElement);
+_reactDom2.default.render(_react2.default.createElement(_reactSelectSearch2.default, { name: 'font', options: fontOptions, renderOption: renderOption, valueChanged: valueChanged, onBlur: onBlur, onFocus: onFocus, placeholder: 'Choose font' }), fontElement);
 
 _reactDom2.default.render(_react2.default.createElement(_reactSelectSearch2.default, { name: 'skills', multiple: true, height: 172, options: skillsOptions, placeholder: 'Choose skills' }), skillsElement);
 
