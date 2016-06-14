@@ -31,7 +31,7 @@ function compile(watch) {
 
 function watch() {
   return compile(true);
-};
+}
 
 gulp.task('build', function() { return compile(); });
 gulp.task('watch', function() { return watch(); });

@@ -48,7 +48,7 @@ const defaultProps = {
     fuse: {
         keys      : ['name'],
         threshold : 0.3
-    },
+    }
 };
 
 class Component extends React.Component {
@@ -80,7 +80,7 @@ class Component extends React.Component {
             onBlur        : this.onBlur.bind(this),
             onChange      : this.onChange.bind(this),
             onKeyDown     : this.onKeyDown.bind(this),
-            onKeyPress    : this.onKeyPress.bind(this) 
+            onKeyPress    : this.onKeyPress.bind(this)
         };
     }
 
@@ -349,7 +349,7 @@ class Component extends React.Component {
         })[0];
     }
 
-    selectOption(value, down) {
+    selectOption(value) {
         var selectedNodeName;
 
         let optionsParent = this.refs.selectOptions;
@@ -378,10 +378,6 @@ class Component extends React.Component {
                     node.className = className;
                 }
             }
-        }
-
-        if (!selectedNodeName) {
-            selectedNodeName = this.state.search;
         }
 
         this.selected = selected;
@@ -575,7 +571,7 @@ class Component extends React.Component {
             </div>
         );
     }
-};
+}
 
 Component.displayName  = displayName;
 Component.propTypes    = propTypes;
