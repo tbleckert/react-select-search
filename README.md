@@ -44,13 +44,12 @@ Below is a full list of properties and defaults (displayed in React style).
     height         : React.PropTypes.number,
     name           : React.PropTypes.string,
     fuse           : React.PropTypes.object.isRequired,
-    valueChanged   : React.PropTypes.func.isRequired,
-    optionSelected : React.PropTypes.func.isRequired,
+    onChange       : React.PropTypes.func.isRequired,
+    onHighlight    : React.PropTypes.func.isRequired,
     onMount        : React.PropTypes.func.isRequired,
     onBlur         : React.PropTypes.func.isRequired,
     onFocus        : React.PropTypes.func.isRequired,
     renderOption   : React.PropTypes.func.isRequired,
-    mode           : React.PropTypes.string.isRequired,
     value          : React.PropTypes.oneOfType([
         React.PropTypes.string,
         React.PropTypes.array
@@ -61,25 +60,23 @@ Below is a full list of properties and defaults (displayed in React style).
     options        : [],
     className      : 'select-search-box',
     search         : true,
-    value          : null,
+    value          : '',
     placeholder    : null,
     multiple       : false,
     height         : 200,
     name           : null,
-    mode           : 'select',
-    valueChanged   : function () {},
-    optionSelected : function () {},
-    onMount        : function () {},
-    onBlur         : function () {},
-    onFocus        : function () {},
-    onChange       : function () {},
-    renderOption   : function (option) {
+    onHighlight    : function (value, state, props) {},
+    onMount        : function (value, state, props) {},
+    onBlur         : function (value, state, props) {},
+    onFocus        : function (value, state, props) {},
+    onChange       : function (value, state, props) {},
+    renderOption   : function (value, state, props) {
         return option.name;
     },
     fuse: {
         keys      : ['name'],
         threshold : 0.3
-    }
+    },
 }
 ```
 
@@ -92,31 +89,18 @@ You will also need some CSS to make it look right. The important piece is the op
 ```css
 /** The option list should not be visible by default */
 .select-search-box__select {
-	display: none;
+    display: none;
 }
 
-	/** If it's a multiple select, you can style it with this selector */
-	.select-search-box--multiple .select-search-box__select {
-		display: block;
-	}
-	
-	/** The list receives the modifier class "display" when the select has focus */
-	.select-search-box__select--display {
-		display: block;
-	}
-
-	/**
-	 * The option list hides when the selectbox loses focus.
-	 * To prevent the list from dissapearing before the option click event
-	 * we use a timer that hides it after 200ms.
-	 * To make it look like it dissapears right away
-	 * you can use this class and set opacity to 0
-	 *
-	 * I found that using the mousedown event wasn't a good option.
-	 */
-	.select-search-box__select--prehide {
-		opacity: 0;
-	}
+    /** If it's a multiple select, you can style it with this selector */
+    .select-search-box--multiple .select-search-box__select {
+        display: block;
+    }
+    
+    /** The list receives the modifier class "display" when the select has focus */
+    .select-search-box__select--display {
+        display: block;
+    }
 
 /** UL with the options */
 .select-search-box__options {
@@ -128,13 +112,13 @@ You will also need some CSS to make it look right. The important piece is the op
 
 }
 
-	/** When the option has been selected */
-	.select-search-box__option--selected {
-	
-	}
+    /** When the option has been selected */
+    .select-search-box__option--selected {
+    
+    }
 
-	/** When the option is selected (when navigation with the arrow keys, up/down) */
-	.select-search-box__option--hover, .select-search-box__option:hover {
-	
-	}
+    /** When the option is selected (when navigation with the arrow keys, up/down) */
+    .select-search-box__option--hover, .select-search-box__option:hover {
+    
+    }
 ```

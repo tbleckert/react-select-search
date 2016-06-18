@@ -1,17 +1,18 @@
 {
-  // I want to use babel-eslint for parsing!
   "parser": "babel-eslint",
-  "env": {
-    // I write for browser
-    "browser": true,
-    // in CommonJS
-    "node": true
+  "plugins": [
+    "react"
+  ],
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended"
+  ],
+  "parserOptions": {
+    "sourceType": "module"
   },
-  // To give you an idea how to override rule options:
-  "rules": {
-    "quotes": [2, "single"],
-    "eol-last": [0],
-    "no-mixed-requires": [0],
-    "no-underscore-dangle": [0]
-  }
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true
+  },
 }
