@@ -39,7 +39,7 @@
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
     "gulp-rename": "^1.2.2",
-    "jest-cli": "^11.0.0",
+    "jest-cli": "^12.1.1",
     "react-addons-test-utils": "^15.0.1"
   },
   "jest": {

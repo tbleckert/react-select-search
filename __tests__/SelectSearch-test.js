@@ -1,20 +1,32 @@
-jest.dontMock('../index');
+jest.autoMockOff()
 
 import React from 'react';
 import ReactDOM from 'react-dom';
 import TestUtils from 'react-addons-test-utils';
 
 
-const SelectSearch = require('../index').default;
+const SelectSearch = require('../src/index').default;
 
 describe('SelectWithSearch', () => {
 
-    const selectSearch = TestUtils.renderIntoDocument(
-        <SelectSearch name="country" options={[{name: 'Sweden', value: 'SE'}, {name: 'Italy', value: 'IT'}]} value="SE" />
-    );
+    const options = [{name: 'Sweden', value: 'SE'}, {name: 'Italy', value: 'IT'}];
+
+    it('has search field', () => {
+        const selectSearch = TestUtils.renderIntoDocument(
+            <SelectSearch name="country" options={options} value="SE" />
+        );
+
+        const selectSearchNode = ReactDOM.findDOMNode(selectSearch);
+
+        TestUtils.findRenderedDOMComponentWithClass(selectSearch, 'select-search-box__search');
+    });
 
     it('has select options', () => {
-        var selectSearchNode = ReactDOM.findDOMNode(selectSearch);
+        const selectSearch = TestUtils.renderIntoDocument(
+            <SelectSearch name="country" options={options} value="SE" />
+        );
+
+        let selectSearchNode = ReactDOM.findDOMNode(selectSearch);
 
         TestUtils.Simulate.focus(selectSearchNode.querySelector('.select-search-box__search'));
 
@@ -22,8 +34,16 @@ describe('SelectWithSearch', () => {
     });
 
     it('empties search field on focus', () => {
-        var selectSearchNode = ReactDOM.findDOMNode(selectSearch),
-            searchField      = selectSearchNode.querySelector('.select-search-box__search');
+        const selectSearch = TestUtils.renderIntoDocument(
+            <SelectSearch name="country" options={options} value="SE" />
+        );
+
+        let selectSearchNode = ReactDOM.findDOMNode(selectSearch);
+        let searchField      = selectSearchNode.querySelector('.select-search-box__search');
+
+        searchField.value = 'Foo';
+
+        expect(searchField.value.length).toEqual(3);
 
         TestUtils.Simulate.focus(searchField);
 
