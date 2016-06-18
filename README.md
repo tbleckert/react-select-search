@@ -12,6 +12,10 @@ _Example design comes from the [beautiful work](https://dribbble.com/shots/10790
 
 Live demo can be found here: [http://tbleckert.github.io/react-select-search/](http://tbleckert.github.io/react-select-search/)
 
+## Warning
+
+Until the 1.0.0 release, this react component is considered not to be production ready. It will most likely work for you but it's lacking tests and testing. I'm trying my hardest to get enough time to work on this and test it. Any and all help is much appreciated in forms of both testing and code contributions.
+
 ## How to use
 
 Install it with npm (`npm install react-select-search --save`) and import it like you normally would.
