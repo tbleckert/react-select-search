@@ -113,6 +113,10 @@ class Component extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
+        if (this.focus) {
+            this.props.onFocus.call(this, this);
+        }
+
         if (this.refs.hasOwnProperty('search') && this.state.value !== prevState.value) {
             this.refs.search.blur();
         }
@@ -233,7 +237,7 @@ class Component extends React.Component {
         let updateState = {options: this.state.defaultOptions};
 
         if (this.props.mode !== 'input') {
-            updateState.search = null;
+            updateState.search = '';
         }
 
         this.setState(updateState);
@@ -242,13 +246,13 @@ class Component extends React.Component {
         if (this.props.mode !== 'input') {
             this.displayOptions();
         }
-
-        this.props.onFocus.call(this, this);
     }
 
     onBlur(e) {
         this.focus = false;
         this.selected = null;
+
+        this.props.onBlur.call(this, this);
 
         let option = this.findByValue(this.state.defaultOptions, this.state.value);
 
@@ -257,7 +261,6 @@ class Component extends React.Component {
         }
 
         this.refs.container.className = this.classes.container;
-        this.props.onBlur.call(this, this);
 
         if (!this.props.multiple && this.refs.hasOwnProperty('select')) {
             let element = this.refs.select;
@@ -534,22 +537,10 @@ class Component extends React.Component {
 
         if (this.props.search) {
             if (this.props.mode === 'input') {
-                searchValue = this.state.search;
                 name = this.props.name;
-            } else {
-                if (this.focus) {
-                    searchValue = '';
-                } else {
-                    if (this.state.value && !this.state.search) {
-                        option      = this.findByValue(this.state.defaultOptions, this.state.value);
-                        searchValue = (option) ? option.name : this.state.search;
-                    } else {
-                        searchValue = this.state.search;
-                    }
-                }
             }
 
-            searchField = <input name={name} ref="search" onFocus={this.bound.onFocus} onKeyDown={this.bound.onKeyDown} onKeyPress={this.bound.onKeyPress} onBlur={this.bound.onBlur} className={this.classes.search} type="search" value={searchValue} onChange={this.bound.onChange} placeholder={this.props.placeholder} />;
+            searchField = <input name={name} ref="search" onFocus={this.bound.onFocus} onKeyDown={this.bound.onKeyDown} onKeyPress={this.bound.onKeyPress} onBlur={this.bound.onBlur} className={this.classes.search} type="search" value={this.state.search} onChange={this.bound.onChange} placeholder={this.props.placeholder} />;
         } else {
             if (!this.state.value) {
                 labelValue     = this.props.placeholder;

@@ -26,7 +26,9 @@
   },
   "dependencies": {
     "fuse.js": "^2.2.0",
+    "keymaster": "^1.6.2",
     "react": "^15.0.0",
-    "react-dom": "^15.0.0"
+    "react-dom": "^15.0.0",
+    "react-onclickout": "^2.0.4"
   }
 }
