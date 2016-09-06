@@ -86,11 +86,20 @@ var Component = function (_React$Component) {
 
         var options = props.options;
         var value = !props.value && props.multiple ? [] : props.value;
+        var search = '';
+
+        if (value) {
+            var option = _this.findByValue(options, value);
+
+            if (option) {
+                search = option.name;
+            }
+        }
 
         _this.placeSelectedFirst(options, value);
 
         _this.state = {
-            search: '',
+            search: search,
             value: value,
             defaultOptions: props.options,
             options: options,
