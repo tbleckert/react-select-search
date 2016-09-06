@@ -458,6 +458,8 @@ var Component = function (_React$Component) {
     }, {
         key: 'chooseOption',
         value: function chooseOption(value) {
+            var _this3 = this;
+
             var currentValue = this.state.value;
             var option = void 0;
             var search = void 0;
@@ -492,8 +494,11 @@ var Component = function (_React$Component) {
 
             this.placeSelectedFirst(options, option.value);
 
-            this.props.onChange.call(null, this.publishOption(currentValue), this.state, this.props);
             this.setState({ value: currentValue, search: search, options: options, highlighted: highlighted, focus: this.props.multiple });
+
+            setTimeout(function () {
+                _this3.props.onChange.call(null, _this3.publishOption(currentValue), _this3.state, _this3.props);
+            }, 50);
 
             if (this.props.search && !this.props.multiple) {
                 this.refs.search.blur();
@@ -502,6 +507,8 @@ var Component = function (_React$Component) {
     }, {
         key: 'removeOption',
         value: function removeOption(value) {
+            var _this4 = this;
+
             if (!value) {
                 return false;
             }
@@ -515,8 +522,11 @@ var Component = function (_React$Component) {
 
             value.splice(value.indexOf(option.value), 1);
 
-            this.props.onChange.call(null, this.publishOption(value), this.state, this.props);
             this.setState({ value: value, search: '' });
+
+            setTimeout(function () {
+                _this4.props.onChange.call(null, _this4.publishOption(value), _this4.state, _this4.props);
+            }, 50);
         }
     }, {
         key: 'getNewOptionsList',
@@ -552,7 +562,7 @@ var Component = function (_React$Component) {
     }, {
         key: 'renderOptions',
         value: function renderOptions() {
-            var _this3 = this;
+            var _this5 = this;
 
             var select = null;
             var options = [];
@@ -561,42 +571,42 @@ var Component = function (_React$Component) {
 
             if (foundOptions && foundOptions.length > 0) {
                 foundOptions.forEach(function (element, i) {
-                    var className = _this3.classes.option;
+                    var className = _this5.classes.option;
 
-                    if (_this3.state.highlighted === i) {
-                        className += ' ' + _Bem2.default.m(_this3.classes.option, 'hover');
+                    if (_this5.state.highlighted === i) {
+                        className += ' ' + _Bem2.default.m(_this5.classes.option, 'hover');
                     }
 
-                    if (_this3.props.multiple && _this3.state.value.indexOf(element.value) >= 0 || element.value === _this3.state.value) {
-                        className += ' ' + _Bem2.default.m(_this3.classes.option, 'selected');
+                    if (_this5.props.multiple && _this5.state.value.indexOf(element.value) >= 0 || element.value === _this5.state.value) {
+                        className += ' ' + _Bem2.default.m(_this5.classes.option, 'selected');
                     }
 
-                    if (_this3.props.multiple) {
-                        if (_this3.state.value.indexOf(element.value) < 0) {
+                    if (_this5.props.multiple) {
+                        if (_this5.state.value.indexOf(element.value) < 0) {
                             options.push(_react2.default.createElement(
                                 'li',
-                                { className: className, onClick: _this3.chooseOption.bind(_this3, element.value), key: element.value + '-option', 'data-value': element.value },
-                                _this3.props.renderOption(element, _this3.state, _this3.props)
+                                { className: className, onClick: _this5.chooseOption.bind(_this5, element.value), key: element.value + '-option', 'data-value': element.value },
+                                _this5.props.renderOption(element, _this5.state, _this5.props)
                             ));
                         } else {
                             options.push(_react2.default.createElement(
                                 'li',
-                                { className: className, onClick: _this3.removeOption.bind(_this3, element.value), key: element.value + '-option', 'data-value': element.value },
-                                _this3.props.renderOption(element, _this3.state, _this3.props)
+                                { className: className, onClick: _this5.removeOption.bind(_this5, element.value), key: element.value + '-option', 'data-value': element.value },
+                                _this5.props.renderOption(element, _this5.state, _this5.props)
                             ));
                         }
                     } else {
-                        if (element.value === _this3.state.value) {
+                        if (element.value === _this5.state.value) {
                             options.push(_react2.default.createElement(
                                 'li',
                                 { className: className, key: element.value + '-option', 'data-value': element.value },
-                                _this3.props.renderOption(element)
+                                _this5.props.renderOption(element)
                             ));
                         } else {
                             options.push(_react2.default.createElement(
                                 'li',
-                                { className: className, onClick: _this3.chooseOption.bind(_this3, element.value), key: element.value + '-option', 'data-value': element.value },
-                                _this3.props.renderOption(element, _this3.state, _this3.props)
+                                { className: className, onClick: _this5.chooseOption.bind(_this5, element.value), key: element.value + '-option', 'data-value': element.value },
+                                _this5.props.renderOption(element, _this5.state, _this5.props)
                             ));
                         }
                     }
@@ -630,7 +640,7 @@ var Component = function (_React$Component) {
     }, {
         key: 'renderOutElement',
         value: function renderOutElement() {
-            var _this4 = this;
+            var _this6 = this;
 
             var option = null;
             var outElement = void 0;
@@ -640,18 +650,18 @@ var Component = function (_React$Component) {
                     (function () {
                         var finalValueOptions = [];
 
-                        _this4.state.value.forEach(function (value, i) {
+                        _this6.state.value.forEach(function (value, i) {
                             option = this.findByValue(this.state.defaultOptions, value);
                             finalValueOptions.push(_react2.default.createElement(
                                 'option',
                                 { key: i, value: option.value },
                                 option.name
                             ));
-                        }.bind(_this4));
+                        }.bind(_this6));
 
                         outElement = _react2.default.createElement(
                             'select',
-                            { value: _this4.state.value, className: _this4.classes.out, name: _this4.props.name, readOnly: true, multiple: true },
+                            { value: _this6.state.value, className: _this6.classes.out, name: _this6.props.name, readOnly: true, multiple: true },
                             finalValueOptions
                         );
                     })();
@@ -677,7 +687,7 @@ var Component = function (_React$Component) {
                         left: '-9999px'
                     };
 
-                    outElement = _react2.default.createElement('input', { type: 'text', onFocus: this.bound.onFocus, style: outStyle, defaultValue: this.state.value, ref: 'outInput', name: this.props.name });
+                    outElement = _react2.default.createElement('input', { type: 'text', onFocus: this.bound.onFocus, style: outStyle, value: this.state.value, readOnly: true, ref: 'outInput', name: this.props.name });
                 }
             }
 

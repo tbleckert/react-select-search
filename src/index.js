@@ -428,8 +428,11 @@ class Component extends React.Component {
 
         this.placeSelectedFirst(options, option.value);
 
-        this.props.onChange.call(null, this.publishOption(currentValue), this.state, this.props);
         this.setState({value: currentValue, search: search, options: options, highlighted: highlighted, focus: this.props.multiple});
+
+        setTimeout(() => {
+            this.props.onChange.call(null, this.publishOption(currentValue), this.state, this.props);
+        }, 50);
 
         if (this.props.search && !this.props.multiple) {
             this.refs.search.blur();
@@ -450,8 +453,11 @@ class Component extends React.Component {
 
         value.splice(value.indexOf(option.value), 1);
 
-        this.props.onChange.call(null, this.publishOption(value), this.state, this.props);
         this.setState({value: value, search: ''});
+        
+        setTimeout(() => {
+            this.props.onChange.call(null, this.publishOption(value), this.state, this.props);
+        }, 50);
     }
 
     getNewOptionsList(options, value) {
@@ -577,7 +583,7 @@ class Component extends React.Component {
                     left: '-9999px'
                 };
 
-                outElement = <input type="text" onFocus={this.bound.onFocus} style={outStyle} defaultValue={this.state.value} ref="outInput" name={this.props.name} />;
+                outElement = <input type="text" onFocus={this.bound.onFocus} style={outStyle} value={this.state.value} readOnly={true} ref="outInput" name={this.props.name} />;
             }
         }
 
