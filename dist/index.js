@@ -659,7 +659,7 @@ var Component = function (_React$Component) {
                 }
             } else {
                 if (this.props.search) {
-                    outElement = _react2.default.createElement('input', { type: 'hidden', defaultValue: this.props.value, ref: 'outInput', name: this.props.name });
+                    outElement = _react2.default.createElement('input', { type: 'hidden', defaultValue: this.state.value, ref: 'outInput', name: this.props.name });
                 } else {
                     var outStyle = {
                         opacity: 0,
@@ -668,7 +668,7 @@ var Component = function (_React$Component) {
                         left: '-9999px'
                     };
 
-                    outElement = _react2.default.createElement('input', { type: 'text', onFocus: this.bound.onFocus, style: outStyle, defaultValue: this.props.value, ref: 'outInput', name: this.props.name });
+                    outElement = _react2.default.createElement('input', { type: 'text', onFocus: this.bound.onFocus, style: outStyle, defaultValue: this.state.value, ref: 'outInput', name: this.props.name });
                 }
             }
 

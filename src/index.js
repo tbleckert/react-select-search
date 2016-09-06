@@ -559,7 +559,7 @@ class Component extends React.Component {
             }
         } else {
             if (this.props.search) {
-                outElement = <input type="hidden" defaultValue={this.props.value} ref="outInput" name={this.props.name} />;
+                outElement = <input type="hidden" defaultValue={this.state.value} ref="outInput" name={this.props.name} />;
             } else {
                 let outStyle = {
                     opacity: 0,
@@ -568,7 +568,7 @@ class Component extends React.Component {
                     left: '-9999px'
                 };
 
-                outElement = <input type="text" onFocus={this.bound.onFocus} style={outStyle} defaultValue={this.props.value} ref="outInput" name={this.props.name} />;
+                outElement = <input type="text" onFocus={this.bound.onFocus} style={outStyle} defaultValue={this.state.value} ref="outInput" name={this.props.name} />;
             }
         }
 
