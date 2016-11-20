@@ -1,6 +1,6 @@
 import React from 'react';
 import Fuse from 'fuse.js';
-import ClickOutHandler from 'react-onclickout';
+import onClickOutside from 'react-onclickoutside';
 import Bem from './Bem';
 
 const displayName  = 'SelectSearch';
@@ -454,7 +454,7 @@ class Component extends React.Component {
         value.splice(value.indexOf(option.value), 1);
 
         this.setState({value: value, search: ''});
-        
+
         setTimeout(() => {
             this.props.onChange.call(null, this.publishOption(value), this.state, this.props);
         }, 50);
@@ -477,7 +477,7 @@ class Component extends React.Component {
         }
 
         let selectedItem = this.refs.selectOptions.querySelector('.' + Bem.m(this.classes.option, 'hover'));
-        
+
         this.refs.select.scrollTop = selectedItem.offsetTop;
     }
 
@@ -595,7 +595,7 @@ class Component extends React.Component {
 
         if (this.props.search) {
             let name = null;
-            
+
             searchField = <input name={name} ref="search" onFocus={this.bound.onFocus} onKeyPress={this.bound.onKeyPress} className={this.classes.search} type="search" value={this.state.search} onChange={this.bound.onChange} placeholder={this.props.placeholder} />;
         } else {
             let option;
@@ -621,13 +621,11 @@ class Component extends React.Component {
         let className = (this.state.focus) ? this.classes.focus : this.classes.container;
 
         return (
-            <ClickOutHandler onClickOut={this.bound.onClickOut}>
-                <div className={className} ref="container">
-                    {this.renderOutElement()}
-                    {this.renderSearchField()}
-                    {this.renderOptions()}
-                </div>
-            </ClickOutHandler>
+            <div className={className} ref="container">
+                {this.renderOutElement()}
+                {this.renderSearchField()}
+                {this.renderOptions()}
+            </div>
         );
     }
 
@@ -636,5 +634,12 @@ class Component extends React.Component {
 Component.displayName  = displayName;
 Component.propTypes    = propTypes;
 Component.defaultProps = defaultProps;
+
+// add clickOutside method to close dropdowns when opening another
+Component = onClickOutside(Component,{
+    handleClickOutside: function(instance){
+        return instance.bound.onClickOut
+    }
+})
 
 export default Component;

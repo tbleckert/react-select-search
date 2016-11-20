@@ -54,6 +54,6 @@
     ]
   },
   "dependencies": {
-    "react-onclickout": "^2.0.4"
+    "react-onclickoutside": "^5.7.1"
   }
 }
