@@ -14,9 +14,9 @@ var _fuse = require('fuse.js');
 
 var _fuse2 = _interopRequireDefault(_fuse);
 
-var _reactOnclickout = require('react-onclickout');
+var _reactOnclickoutside = require('react-onclickoutside');
 
-var _reactOnclickout2 = _interopRequireDefault(_reactOnclickout);
+var _reactOnclickoutside2 = _interopRequireDefault(_reactOnclickoutside);
 
 var _Bem = require('./Bem');
 
@@ -78,11 +78,10 @@ var Component = function (_React$Component) {
     /**
      * Component setup
      * -------------------------------------------------------------------------*/
-
     function Component(props) {
         _classCallCheck(this, Component);
 
-        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Component).call(this, props));
+        var _this = _possibleConstructorReturn(this, (Component.__proto__ || Object.getPrototypeOf(Component)).call(this, props));
 
         var options = props.options;
         var value = !props.value && props.multiple ? [] : props.value;
@@ -731,15 +730,11 @@ var Component = function (_React$Component) {
             var className = this.state.focus ? this.classes.focus : this.classes.container;
 
             return _react2.default.createElement(
-                _reactOnclickout2.default,
-                { onClickOut: this.bound.onClickOut },
-                _react2.default.createElement(
-                    'div',
-                    { className: className, ref: 'container' },
-                    this.renderOutElement(),
-                    this.renderSearchField(),
-                    this.renderOptions()
-                )
+                'div',
+                { className: className, ref: 'container' },
+                this.renderOutElement(),
+                this.renderSearchField(),
+                this.renderOptions()
             );
         }
     }]);
@@ -750,5 +745,12 @@ var Component = function (_React$Component) {
 Component.displayName = displayName;
 Component.propTypes = propTypes;
 Component.defaultProps = defaultProps;
+
+// add clickOutside method to close dropdowns when opening another
+Component = (0, _reactOnclickoutside2.default)(Component, {
+    handleClickOutside: function handleClickOutside(instance) {
+        return instance.bound.onClickOut;
+    }
+});
 
 exports.default = Component;
