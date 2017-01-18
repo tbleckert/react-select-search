@@ -116,6 +116,15 @@ class Component extends React.Component {
 
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.options) {
+            this.setState({
+                options: nextProps.options,
+                defaultOptions: nextProps.options
+            })
+        }
+    }
+
     componentDidMount() {
         this.props.onMount.call(null, this.publishOption(), this.state, this.props);
         this.scrollToSelected();
