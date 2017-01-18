@@ -147,6 +147,16 @@ var Component = function (_React$Component) {
         key: 'componentWillMount',
         value: function componentWillMount() {}
     }, {
+        key: 'componentWillReceiveProps',
+        value: function componentWillReceiveProps(nextProps) {
+            if (nextProps.options) {
+                this.setState({
+                    options: nextProps.options,
+                    defaultOptions: nextProps.options
+                });
+            }
+        }
+    }, {
         key: 'componentDidMount',
         value: function componentDidMount() {
             this.props.onMount.call(null, this.publishOption(), this.state, this.props);
