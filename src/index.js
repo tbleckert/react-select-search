@@ -505,6 +505,7 @@ class Component extends React.Component {
         if (foundOptions && foundOptions.length > 0) {
             foundOptions.forEach((element, i) => {
                 let className = this.classes.option;
+                let onClick = null;
 
                 if (this.state.highlighted === i) {
                     className += ' ' + Bem.m(this.classes.option, 'hover');
@@ -516,17 +517,24 @@ class Component extends React.Component {
 
                 if (this.props.multiple) {
                     if (this.state.value.indexOf(element.value) < 0) {
-                        options.push(<li className={className} onClick={this.chooseOption.bind(this, element.value)} key={element.value + '-option'} data-value={element.value}>{this.props.renderOption(element, this.state, this.props)}</li>);
+                        onClick = this.chooseOption.bind(this, element.value);
                     } else {
-                        options.push(<li className={className} onClick={this.removeOption.bind(this, element.value)} key={element.value + '-option'} data-value={element.value}>{this.props.renderOption(element, this.state, this.props)}</li>);
+                        onClick= this.removeOption.bind(this, element.value);
                     }
                 } else {
-                    if (element.value === this.state.value) {
-                        options.push(<li className={className} key={element.value + '-option'} data-value={element.value}>{this.props.renderOption(element)}</li>);
-                    } else {
-                        options.push(<li className={className} onClick={this.chooseOption.bind(this, element.value)} key={element.value + '-option'} data-value={element.value}>{this.props.renderOption(element, this.state, this.props)}</li>);
+                    if (element.value !== this.state.value) {
+                        onClick = this.chooseOption.bind(this, element.value);
                     }
                 }
+
+                const li = <li
+                    className={className}
+                    onClick={onClick}
+                    key={element.value + '-option'}
+                    data-value={element.value}
+                >{this.props.renderOption(element, this.state, this.props)}</li>
+
+                options.push(li);
             });
 
             if (options.length > 0) {
