@@ -84,6 +84,7 @@ class Component extends React.Component {
             select    : Bem.e(this.props.className, 'select'),
             options   : Bem.e(this.props.className, 'options'),
             option    : Bem.e(this.props.className, 'option'),
+            heading   : Bem.e(this.props.className, 'heading'),
             out       : Bem.e(this.props.className, 'out'),
             label     : Bem.e(this.props.className, 'label'),
             focus     : (this.props.multiple) ? this.props.className + ' ' + Bem.m(this.props.className, 'multiple focus') : this.props.className + ' ' + Bem.m(this.props.className, 'focus')
@@ -515,15 +516,19 @@ class Component extends React.Component {
                     className += ' ' + Bem.m(this.classes.option, 'selected');
                 }
 
-                if (this.props.multiple) {
-                    if (this.state.value.indexOf(element.value) < 0) {
-                        onClick = this.chooseOption.bind(this, element.value);
-                    } else {
-                        onClick= this.removeOption.bind(this, element.value);
-                    }
+                if (element.type && element.type === 'heading') {
+                    className = this.classes.heading;
                 } else {
-                    if (element.value !== this.state.value) {
-                        onClick = this.chooseOption.bind(this, element.value);
+                    if (this.props.multiple) {
+                        if (this.state.value.indexOf(element.value) < 0) {
+                            onClick = this.chooseOption.bind(this, element.value);
+                        } else {
+                            onClick= this.removeOption.bind(this, element.value);
+                        }
+                    } else {
+                        if (element.value !== this.state.value) {
+                            onClick = this.chooseOption.bind(this, element.value);
+                        }
                     }
                 }
 
