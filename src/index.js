@@ -58,26 +58,25 @@ class Component extends React.Component {
 
         let options = props.options;
         let value   = (!props.value && props.multiple) ? [] : props.value;
-        let search  = '';
-
-        if (value) {
-            let option = this.findByValue(options, value);
-
-            if (option) {
-                search = option.name;
-            }
-        }
-
-        this.placeSelectedFirst(options, value);
 
         this.state = {
-            search         : search,
+            search         : '',
             value          : value,
             defaultOptions : props.options,
             options        : options,
             highlighted    : null,
             focus          : false
         };
+
+        if (value) {
+            let option = this.findByValue(options, value);
+
+            if (option) {
+                this.state.search = option.name;
+            }
+        }
+
+        this.placeSelectedFirst(options, value);
 
         this.classes = {
             container : (this.props.multiple) ? this.props.className + ' ' + Bem.m(this.props.className, 'multiple') : this.props.className,
