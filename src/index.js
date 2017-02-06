@@ -371,10 +371,10 @@ class Component extends React.Component {
                 const result = this.findByValue(object.items, value);
 
                 if (result) {
-                    return object;
+                    return result;
                 }
             } else if (object.value === value) {
-                return value;
+                return object;
             }
         }
     }
