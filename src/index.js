@@ -358,7 +358,7 @@ class Component extends React.Component {
     }
 
     findByValue(source, value) {
-        if (!source || source.length < 1) {
+        if (!source) {
             source = this.state.defaultOptions;
         }
 
@@ -366,9 +366,17 @@ class Component extends React.Component {
             return null;
         }
 
-        return source.filter(function (object) {
-            return object.value === value;
-        })[0];
+        for (const object of source) {
+            if (object.type === 'group') {
+                const result = this.findByValue(object.items, value);
+
+                if (result) {
+                    return object;
+                }
+            } else if (object.value === value) {
+                return value;
+            }
+        }
     }
 
     toggle() {
