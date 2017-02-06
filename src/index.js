@@ -88,7 +88,7 @@ class Component extends React.Component {
             select    : Bem.e(this.props.className, 'select'),
             options   : Bem.e(this.props.className, 'options'),
             option    : Bem.e(this.props.className, 'option'),
-            heading   : Bem.e(this.props.className, 'heading'),
+            group     : Bem.e(this.props.className, 'group'),
             out       : Bem.e(this.props.className, 'out'),
             label     : Bem.e(this.props.className, 'label'),
             focus     : (this.props.multiple) ? this.props.className + ' ' + Bem.m(this.props.className, 'multiple focus') : this.props.className + ' ' + Bem.m(this.props.className, 'focus')
@@ -522,8 +522,8 @@ class Component extends React.Component {
                 let content;
                 let extra;
 
-                if (element.type && element.type === 'heading') {
-                    className = this.classes.heading;
+                if (element.type && element.type === 'group') {
+                    className = this.classes.group;
 
                     content = this.props.renderHeading(element, this.state, this.props);
                     extra = this.renderOptions(element.items);
