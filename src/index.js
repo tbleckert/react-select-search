@@ -47,7 +47,7 @@ const defaultProps = {
         return option.name;
     },
     fuse: {
-        keys      : ['name'],
+        keys      : ['name', 'items.name'],
         threshold : 0.3
     }
 };
