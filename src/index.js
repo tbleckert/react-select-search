@@ -19,6 +19,7 @@ const propTypes    = {
     onBlur         : React.PropTypes.func.isRequired,
     onFocus        : React.PropTypes.func.isRequired,
     renderOption   : React.PropTypes.func.isRequired,
+    renderHeading  : React.PropTypes.func.isRequired,
     value          : React.PropTypes.oneOfType([
         React.PropTypes.string,
         React.PropTypes.array
@@ -40,6 +41,9 @@ const defaultProps = {
     onFocus        : function () {},
     onChange       : function () {},
     renderOption   : function (option) {
+        return option.name;
+    },
+    renderHeading  : function (option) {
         return option.name;
     },
     fuse: {
@@ -84,6 +88,7 @@ class Component extends React.Component {
             select    : Bem.e(this.props.className, 'select'),
             options   : Bem.e(this.props.className, 'options'),
             option    : Bem.e(this.props.className, 'option'),
+            group     : Bem.e(this.props.className, 'group'),
             out       : Bem.e(this.props.className, 'out'),
             label     : Bem.e(this.props.className, 'label'),
             focus     : (this.props.multiple) ? this.props.className + ' ' + Bem.m(this.props.className, 'multiple focus') : this.props.className + ' ' + Bem.m(this.props.className, 'focus')
@@ -152,6 +157,26 @@ class Component extends React.Component {
         }
 
         this.scrollToSelected();
+    }
+
+    getOptions(options) {
+        options = options || this.state.defaultOptions;
+
+        const out = [];
+
+        for (const option of options) {
+            out.push(option);
+
+            if (option.items) {
+                for (const ioption of option.items) {
+                    ioption.group = option.name;
+
+                    out.push(ioption);
+                }
+            }
+        }
+
+        return out;
     }
 
     /**
@@ -238,7 +263,9 @@ class Component extends React.Component {
      * Keyboard actions
      * -------------------------------------------------------------------------*/
     handleArrowDown() {
-        if (this.state.options.length < 1) {
+        const options = this.getOptions(this.state.options);
+
+        if (options.length < 1) {
             return;
         }
 
@@ -250,7 +277,7 @@ class Component extends React.Component {
             highlighted = 0;
         }
 
-        if (highlighted > this.state.options.length - 1) {
+        if (highlighted > options.length - 1) {
             highlighted = 0;
         }
 
@@ -258,18 +285,20 @@ class Component extends React.Component {
     }
 
     handleArrowUp() {
-        if (this.state.options.length < 1) {
+        const options = this.getOptions(this.state.options);
+
+        if (options.length < 1) {
             return;
         }
 
-        let highlighted = this.state.options.length - 1;
+        let highlighted = options.length - 1;
 
         if (this.state.highlighted != null) {
             highlighted = this.state.highlighted - 1;
         }
 
         if (highlighted < 0) {
-            highlighted = this.state.options.length - 1;
+            highlighted = options.length - 1;
         }
 
         this.setState({highlighted: highlighted});
@@ -353,7 +382,7 @@ class Component extends React.Component {
     }
 
     findByValue(source, value) {
-        if (!source || source.length < 1) {
+        if (!source) {
             source = this.state.defaultOptions;
         }
 
@@ -361,9 +390,17 @@ class Component extends React.Component {
             return null;
         }
 
-        return source.filter(function (object) {
-            return object.value === value;
-        })[0];
+        for (const object of source) {
+            if (object.type === 'group') {
+                const result = this.findByValue(object.items, value);
+
+                if (result) {
+                    return result;
+                }
+            } else if (object.value === value) {
+                return object;
+            }
+        }
     }
 
     toggle() {
@@ -470,6 +507,8 @@ class Component extends React.Component {
 
     getNewOptionsList(options, value) {
         if (options && options.length > 0 && value && value.length > 0) {
+            options = this.getOptions(options);
+
             let fuse         = new Fuse(options, this.props.fuse);
             let foundOptions = fuse.search(value);
 
@@ -499,14 +538,16 @@ class Component extends React.Component {
     renderOptions() {
         let select       = null;
         let options      = [];
-        let selectStyle  = {};
-        let foundOptions = this.state.options;
+        let foundOptions = this.getOptions(this.state.options);
+
+        let groupsCount = 0;
 
         if (foundOptions && foundOptions.length > 0) {
             foundOptions.forEach((element, i) => {
                 let className = this.classes.option;
+                let onClick = null;
 
-                if (this.state.highlighted === i) {
+                if ((this.state.highlighted + groupsCount) === i) {
                     className += ' ' + Bem.m(this.classes.option, 'hover');
                 }
 
@@ -514,18 +555,41 @@ class Component extends React.Component {
                     className += ' ' + Bem.m(this.classes.option, 'selected');
                 }
 
-                if (this.props.multiple) {
-                    if (this.state.value.indexOf(element.value) < 0) {
-                        options.push(<li className={className} onClick={this.chooseOption.bind(this, element.value)} key={element.value + '-option'} data-value={element.value}>{this.props.renderOption(element, this.state, this.props)}</li>);
-                    } else {
-                        options.push(<li className={className} onClick={this.removeOption.bind(this, element.value)} key={element.value + '-option'} data-value={element.value}>{this.props.renderOption(element, this.state, this.props)}</li>);
-                    }
+                let content;
+                let extra;
+
+                if (element.type && element.type === 'group') {
+                    groupsCount += 1;
+                    className = this.classes.group;
+
+                    content = this.props.renderHeading(element, this.state, this.props);
                 } else {
-                    if (element.value === this.state.value) {
-                        options.push(<li className={className} key={element.value + '-option'} data-value={element.value}>{this.props.renderOption(element)}</li>);
+                    content = this.props.renderOption(element, this.state, this.props);
+
+                    if (this.props.multiple) {
+                        if (this.state.value.indexOf(element.value) < 0) {
+                            onClick = this.chooseOption.bind(this, element.value);
+                        } else {
+                            onClick= this.removeOption.bind(this, element.value);
+                        }
                     } else {
-                        options.push(<li className={className} onClick={this.chooseOption.bind(this, element.value)} key={element.value + '-option'} data-value={element.value}>{this.props.renderOption(element, this.state, this.props)}</li>);
+                        if (element.value !== this.state.value) {
+                            onClick = this.chooseOption.bind(this, element.value);
+                        }
                     }
+                }
+
+                const li = <li
+                    className={className}
+                    onClick={onClick}
+                    key={element.value + '-option'}
+                    data-value={element.value}
+                >{content}</li>
+
+                options.push(li);
+
+                if (extra) {
+                    options.push(extra);
                 }
             });
 
@@ -538,11 +602,16 @@ class Component extends React.Component {
             }
         }
 
+                return select;
+        }
+
+        renderSelect() {
+        let selectStyle  = {};
+        let className = this.classes.select;
+
         if (this.props.multiple) {
             selectStyle.height = this.props.height;
         }
-
-        let className = this.classes.select;
 
         if (this.state.focus) {
             className += ' ' + Bem.m(this.classes.select, 'display');
@@ -550,7 +619,7 @@ class Component extends React.Component {
 
         return (
             <div ref="select" className={className} style={selectStyle}>
-                {select}
+                {this.renderOptions()}
             </div>
         );
     }
@@ -632,7 +701,7 @@ class Component extends React.Component {
             <div className={className} ref="container">
                 {this.renderOutElement()}
                 {this.renderSearchField()}
-                {this.renderOptions()}
+                {this.renderSelect()}
             </div>
         );
     }
