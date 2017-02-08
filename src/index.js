@@ -47,7 +47,7 @@ const defaultProps = {
         return option.name;
     },
     fuse: {
-        keys      : ['name', 'items.name'],
+        keys      : ['name'],
         threshold : 0.3
     }
 };
@@ -159,6 +159,26 @@ class Component extends React.Component {
         this.scrollToSelected();
     }
 
+    getOptions(options) {
+        options = options || this.state.defaultOptions;
+
+        const out = [];
+
+        for (const option of options) {
+            out.push(option);
+
+            if (option.items) {
+                for (const ioption of option.items) {
+                    ioption.group = option.name;
+
+                    out.push(ioption);
+                }
+            }
+        }
+
+        return out;
+    }
+
     /**
      * DOM event handlers
      * -------------------------------------------------------------------------*/
@@ -243,7 +263,9 @@ class Component extends React.Component {
      * Keyboard actions
      * -------------------------------------------------------------------------*/
     handleArrowDown() {
-        if (this.state.options.length < 1) {
+        const options = this.getOptions(this.state.options);
+
+        if (options.length < 1) {
             return;
         }
 
@@ -255,7 +277,7 @@ class Component extends React.Component {
             highlighted = 0;
         }
 
-        if (highlighted > this.state.options.length - 1) {
+        if (highlighted > options.length - 1) {
             highlighted = 0;
         }
 
@@ -263,18 +285,20 @@ class Component extends React.Component {
     }
 
     handleArrowUp() {
-        if (this.state.options.length < 1) {
+        const options = this.getOptions(this.state.options);
+
+        if (options.length < 1) {
             return;
         }
 
-        let highlighted = this.state.options.length - 1;
+        let highlighted = options.length - 1;
 
         if (this.state.highlighted != null) {
             highlighted = this.state.highlighted - 1;
         }
 
         if (highlighted < 0) {
-            highlighted = this.state.options.length - 1;
+            highlighted = options.length - 1;
         }
 
         this.setState({highlighted: highlighted});
@@ -483,6 +507,8 @@ class Component extends React.Component {
 
     getNewOptionsList(options, value) {
         if (options && options.length > 0 && value && value.length > 0) {
+            options = this.getOptions(options);
+
             let fuse         = new Fuse(options, this.props.fuse);
             let foundOptions = fuse.search(value);
 
@@ -509,17 +535,19 @@ class Component extends React.Component {
 
     }
 
-    renderOptions(items) {
+    renderOptions() {
         let select       = null;
         let options      = [];
-        let foundOptions = items || this.state.options;
+        let foundOptions = this.getOptions(this.state.options);
+
+        let groupsCount = 0;
 
         if (foundOptions && foundOptions.length > 0) {
             foundOptions.forEach((element, i) => {
                 let className = this.classes.option;
                 let onClick = null;
 
-                if (this.state.highlighted === i) {
+                if ((this.state.highlighted + groupsCount) === i) {
                     className += ' ' + Bem.m(this.classes.option, 'hover');
                 }
 
@@ -531,10 +559,10 @@ class Component extends React.Component {
                 let extra;
 
                 if (element.type && element.type === 'group') {
+                    groupsCount += 1;
                     className = this.classes.group;
 
                     content = this.props.renderHeading(element, this.state, this.props);
-                    extra = this.renderOptions(element.items);
                 } else {
                     content = this.props.renderOption(element, this.state, this.props);
 
