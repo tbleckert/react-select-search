@@ -12,6 +12,7 @@ const propTypes    = {
     multiple       : React.PropTypes.bool.isRequired,
     height         : React.PropTypes.number,
     name           : React.PropTypes.string,
+    autofocus      : React.PropTypes.bool,
     fuse           : React.PropTypes.object.isRequired,
     onChange       : React.PropTypes.func.isRequired,
     onHighlight    : React.PropTypes.func.isRequired,
@@ -34,6 +35,7 @@ const defaultProps = {
     multiple       : false,
     height         : 200,
     name           : null,
+    autofocus      : false,
     onHighlight    : function () {},
     onMount        : function () {},
     onBlur         : function () {},
@@ -126,6 +128,9 @@ class Component extends React.Component {
 
     componentDidMount() {
         this.props.onMount.call(null, this.publishOption(), this.state, this.props);
+        if (this.props.autofocus === true) {
+            this.refs.search.focus();
+        }
         this.scrollToSelected();
     }
 

@@ -39,6 +39,7 @@ var propTypes = {
     multiple: _react2.default.PropTypes.bool.isRequired,
     height: _react2.default.PropTypes.number,
     name: _react2.default.PropTypes.string,
+    autofocus: _react2.default.PropTypes.bool,
     fuse: _react2.default.PropTypes.object.isRequired,
     onChange: _react2.default.PropTypes.func.isRequired,
     onHighlight: _react2.default.PropTypes.func.isRequired,
@@ -58,6 +59,7 @@ var defaultProps = {
     multiple: false,
     height: 200,
     name: null,
+    autofocus: false,
     onHighlight: function onHighlight() {},
     onMount: function onMount() {},
     onBlur: function onBlur() {},
@@ -85,26 +87,25 @@ var Component = function (_React$Component) {
 
         var options = props.options;
         var value = !props.value && props.multiple ? [] : props.value;
-        var search = '';
-
-        if (value) {
-            var option = _this.findByValue(options, value);
-
-            if (option) {
-                search = option.name;
-            }
-        }
-
-        _this.placeSelectedFirst(options, value);
 
         _this.state = {
-            search: search,
+            search: '',
             value: value,
             defaultOptions: props.options,
             options: options,
             highlighted: null,
             focus: false
         };
+
+        if (value) {
+            var option = _this.findByValue(options, value);
+
+            if (option) {
+                _this.state.search = option.name;
+            }
+        }
+
+        _this.placeSelectedFirst(options, value);
 
         _this.classes = {
             container: _this.props.multiple ? _this.props.className + ' ' + _Bem2.default.m(_this.props.className, 'multiple') : _this.props.className,
@@ -160,6 +161,9 @@ var Component = function (_React$Component) {
         key: 'componentDidMount',
         value: function componentDidMount() {
             this.props.onMount.call(null, this.publishOption(), this.state, this.props);
+            if (this.props.autofocus === true) {
+                this.refs.search.focus();
+            }
             this.scrollToSelected();
         }
     }, {

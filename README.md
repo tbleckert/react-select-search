@@ -51,6 +51,7 @@ Below is a full list of properties and defaults (displayed in React style).
     multiple       : React.PropTypes.bool.isRequired,
     height         : React.PropTypes.number,
     name           : React.PropTypes.string,
+    autofocus      : React.PropTypes.bool,
     fuse           : React.PropTypes.object.isRequired,
     onChange       : React.PropTypes.func.isRequired,
     onHighlight    : React.PropTypes.func.isRequired,
@@ -73,6 +74,7 @@ Below is a full list of properties and defaults (displayed in React style).
     multiple       : false,
     height         : 200,
     name           : null,
+    autofocus      : false,
     onHighlight    : function (value, state, props) {},
     onMount        : function (value, state, props) {},
     onBlur         : function (value, state, props) {},
@@ -88,7 +90,7 @@ Below is a full list of properties and defaults (displayed in React style).
 }
 ```
 
-The height property is the minimum height (max is the remaining space below the selectbox down to the browser window end) of the dropdown if multiple is false, otherwise it's the fixed height. 
+The height property is the minimum height (max is the remaining space below the selectbox down to the browser window end) of the dropdown if multiple is false, otherwise it's the fixed height.
 
 For examples you can take a look at the [bootstrap.js](https://github.com/tbleckert/react-select-search/blob/gh-pages/bootstrap.js) file on the gh-pages branch.
 
@@ -104,7 +106,7 @@ You will also need some CSS to make it look right. The important piece is the op
     .select-search-box--multiple .select-search-box__select {
         display: block;
     }
-    
+
     /** The list receives the modifier class "display" when the select has focus */
     .select-search-box__select--display {
         display: block;
@@ -122,11 +124,11 @@ You will also need some CSS to make it look right. The important piece is the op
 
     /** When the option has been selected */
     .select-search-box__option--selected {
-    
+
     }
 
     /** When the option is selected (when navigation with the arrow keys, up/down) */
     .select-search-box__option--hover, .select-search-box__option:hover {
-    
+
     }
 ```
