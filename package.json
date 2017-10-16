@@ -40,15 +40,13 @@
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
     "gulp-rename": "^1.2.2",
-    "jest-cli": "^12.1.1",
-    "react-addons-test-utils": "^15.0.1"
+    "jest-cli": "^12.1.1"
   },
   "jest": {
     "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
     "unmockedModulePathPatterns": [
       "<rootDir>/node_modules/react",
-      "<rootDir>/node_modules/react-dom",
-      "<rootDir>/node_modules/react-addons-test-utils"
+      "<rootDir>/node_modules/react-dom"
     ],
     "modulePathIgnorePatterns": [
       "<rootDir>/node_modules/"
