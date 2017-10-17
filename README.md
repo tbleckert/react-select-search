@@ -44,23 +44,23 @@ Below is a full list of properties and defaults (displayed in React style).
 
 ```javascript
 {
-    options        : React.PropTypes.array.isRequired,
-    className      : React.PropTypes.string.isRequired,
-    search         : React.PropTypes.bool.isRequired,
-    placeholder    : React.PropTypes.string,
-    multiple       : React.PropTypes.bool.isRequired,
-    height         : React.PropTypes.number,
-    name           : React.PropTypes.string,
-    fuse           : React.PropTypes.object.isRequired,
-    onChange       : React.PropTypes.func.isRequired,
-    onHighlight    : React.PropTypes.func.isRequired,
-    onMount        : React.PropTypes.func.isRequired,
-    onBlur         : React.PropTypes.func.isRequired,
-    onFocus        : React.PropTypes.func.isRequired,
-    renderOption   : React.PropTypes.func.isRequired,
-    value          : React.PropTypes.oneOfType([
-        React.PropTypes.string,
-        React.PropTypes.array
+    options        : PropTypes.array.isRequired,
+    className      : PropTypes.string.isRequired,
+    search         : PropTypes.bool.isRequired,
+    placeholder    : PropTypes.string,
+    multiple       : PropTypes.bool.isRequired,
+    height         : PropTypes.number,
+    name           : PropTypes.string,
+    fuse           : PropTypes.object.isRequired,
+    onChange       : PropTypes.func.isRequired,
+    onHighlight    : PropTypes.func.isRequired,
+    onMount        : PropTypes.func.isRequired,
+    onBlur         : PropTypes.func.isRequired,
+    onFocus        : PropTypes.func.isRequired,
+    renderOption   : PropTypes.func.isRequired,
+    value          : PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.array
     ])
 }
 

@@ -25,8 +25,9 @@
   },
   "homepage": "https://github.com/tbleckert/react-select-search",
   "peerDependencies": {
-    "react": "^15.0.0",
-    "react-dom": "^15.0.0",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
+    "prop-types": "^15.6.0",
     "fuse.js": "^2.2.0"
   },
   "devDependencies": {
@@ -39,15 +40,13 @@
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
     "gulp-rename": "^1.2.2",
-    "jest-cli": "^12.1.1",
-    "react-addons-test-utils": "^15.0.1"
+    "jest-cli": "^12.1.1"
   },
   "jest": {
     "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
     "unmockedModulePathPatterns": [
       "<rootDir>/node_modules/react",
-      "<rootDir>/node_modules/react-dom",
-      "<rootDir>/node_modules/react-addons-test-utils"
+      "<rootDir>/node_modules/react-dom"
     ],
     "modulePathIgnorePatterns": [
       "<rootDir>/node_modules/"

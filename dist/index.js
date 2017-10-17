@@ -10,6 +10,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _fuse = require('fuse.js');
 
 var _fuse2 = _interopRequireDefault(_fuse);
@@ -32,21 +36,21 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var displayName = 'SelectSearch';
 var propTypes = {
-    options: _react2.default.PropTypes.array.isRequired,
-    className: _react2.default.PropTypes.string.isRequired,
-    search: _react2.default.PropTypes.bool.isRequired,
-    placeholder: _react2.default.PropTypes.string,
-    multiple: _react2.default.PropTypes.bool.isRequired,
-    height: _react2.default.PropTypes.number,
-    name: _react2.default.PropTypes.string,
-    fuse: _react2.default.PropTypes.object.isRequired,
-    onChange: _react2.default.PropTypes.func.isRequired,
-    onHighlight: _react2.default.PropTypes.func.isRequired,
-    onMount: _react2.default.PropTypes.func.isRequired,
-    onBlur: _react2.default.PropTypes.func.isRequired,
-    onFocus: _react2.default.PropTypes.func.isRequired,
-    renderOption: _react2.default.PropTypes.func.isRequired,
-    value: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.string, _react2.default.PropTypes.array])
+    options: _propTypes2.default.array.isRequired,
+    className: _propTypes2.default.string.isRequired,
+    search: _propTypes2.default.bool.isRequired,
+    placeholder: _propTypes2.default.string,
+    multiple: _propTypes2.default.bool.isRequired,
+    height: _propTypes2.default.number,
+    name: _propTypes2.default.string,
+    fuse: _propTypes2.default.object.isRequired,
+    onChange: _propTypes2.default.func.isRequired,
+    onHighlight: _propTypes2.default.func.isRequired,
+    onMount: _propTypes2.default.func.isRequired,
+    onBlur: _propTypes2.default.func.isRequired,
+    onFocus: _propTypes2.default.func.isRequired,
+    renderOption: _propTypes2.default.func.isRequired,
+    value: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.array])
 };
 
 var defaultProps = {
@@ -85,26 +89,25 @@ var Component = function (_React$Component) {
 
         var options = props.options;
         var value = !props.value && props.multiple ? [] : props.value;
-        var search = '';
-
-        if (value) {
-            var option = _this.findByValue(options, value);
-
-            if (option) {
-                search = option.name;
-            }
-        }
-
-        _this.placeSelectedFirst(options, value);
 
         _this.state = {
-            search: search,
+            search: '',
             value: value,
             defaultOptions: props.options,
             options: options,
             highlighted: null,
             focus: false
         };
+
+        if (value) {
+            var option = _this.findByValue(options, value);
+
+            if (option) {
+                _this.state.search = option.name;
+            }
+        }
+
+        _this.placeSelectedFirst(options, value);
 
         _this.classes = {
             container: _this.props.multiple ? _this.props.className + ' ' + _Bem2.default.m(_this.props.className, 'multiple') : _this.props.className,
@@ -649,31 +652,27 @@ var Component = function (_React$Component) {
     }, {
         key: 'renderOutElement',
         value: function renderOutElement() {
-            var _this6 = this;
-
             var option = null;
             var outElement = void 0;
 
             if (this.props.multiple) {
                 if (this.state.value) {
-                    (function () {
-                        var finalValueOptions = [];
+                    var finalValueOptions = [];
 
-                        _this6.state.value.forEach(function (value, i) {
-                            option = this.findByValue(this.state.defaultOptions, value);
-                            finalValueOptions.push(_react2.default.createElement(
-                                'option',
-                                { key: i, value: option.value },
-                                option.name
-                            ));
-                        }.bind(_this6));
+                    this.state.value.forEach(function (value, i) {
+                        option = this.findByValue(this.state.defaultOptions, value);
+                        finalValueOptions.push(_react2.default.createElement(
+                            'option',
+                            { key: i, value: option.value },
+                            option.name
+                        ));
+                    }.bind(this));
 
-                        outElement = _react2.default.createElement(
-                            'select',
-                            { value: _this6.state.value, className: _this6.classes.out, name: _this6.props.name, readOnly: true, multiple: true },
-                            finalValueOptions
-                        );
-                    })();
+                    outElement = _react2.default.createElement(
+                        'select',
+                        { value: this.state.value, className: this.classes.out, name: this.props.name, readOnly: true, multiple: true },
+                        finalValueOptions
+                    );
                 } else {
                     outElement = _react2.default.createElement(
                         'select',
