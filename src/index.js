@@ -4,52 +4,26 @@ import Fuse from 'fuse.js';
 import onClickOutside from 'react-onclickoutside';
 import Bem from './Bem';
 
-const displayName  = 'SelectSearch';
-const propTypes    = {
-    options        : PropTypes.array.isRequired,
-    className      : PropTypes.string.isRequired,
-    search         : PropTypes.bool.isRequired,
-    placeholder    : PropTypes.string,
-    multiple       : PropTypes.bool.isRequired,
-    height         : PropTypes.number,
-    name           : PropTypes.string,
-    fuse           : PropTypes.object.isRequired,
-    onChange       : PropTypes.func.isRequired,
-    onHighlight    : PropTypes.func.isRequired,
-    onMount        : PropTypes.func.isRequired,
-    onBlur         : PropTypes.func.isRequired,
-    onFocus        : PropTypes.func.isRequired,
-    renderOption   : PropTypes.func.isRequired,
-    value          : PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.array
-    ])
-};
-
-const defaultProps = {
-    options        : [],
-    className      : 'select-search-box',
-    search         : true,
-    value          : '',
-    placeholder    : null,
-    multiple       : false,
-    height         : 200,
-    name           : null,
-    onHighlight    : function () {},
-    onMount        : function () {},
-    onBlur         : function () {},
-    onFocus        : function () {},
-    onChange       : function () {},
-    renderOption   : function (option) {
-        return option.name;
-    },
-    fuse: {
-        keys      : ['name'],
-        threshold : 0.3
-    }
-};
-
-class Component extends React.Component {
+class SelectSearch extends React.Component {
+    static defaultProps = {
+        className: 'select-search-box',
+        search: true,
+        value: '',
+        placeholder: null,
+        multiple: false,
+        height: 200,
+        name: null,
+        onHighlight: () => {},
+        onMount: () => {},
+        onBlur: () => {},
+        onFocus: () => {},
+        onChange: () => {},
+        renderOption: option => option.name,
+        fuse: {
+            keys: ['name'],
+            threshold: 0.3,
+        },
+    };
 
     /**
      * Component setup
@@ -57,164 +31,155 @@ class Component extends React.Component {
     constructor(props) {
         super(props);
 
-        let options = props.options;
-        let value   = (!props.value && props.multiple) ? [] : props.value;
+        const { options, value, multiple } = props;
+        const stateValue = (!value && multiple) ? [] : value;
 
-        this.state = {
-            search         : '',
-            value          : value,
-            defaultOptions : props.options,
-            options        : options,
-            highlighted    : null,
-            focus          : false
-        };
+        let search = '';
 
-        if (value) {
-            let option = this.findByValue(options, value);
+        if (stateValue) {
+            const option = this.findByValue(options, stateValue);
 
             if (option) {
-                this.state.search = option.name;
+                search = option.name;
             }
         }
 
-        this.placeSelectedFirst(options, value);
+        this.state = {
+            search,
+            value: stateValue,
+            defaultOptions: options,
+            options,
+            highlighted: null,
+            focus: false,
+        };
 
         this.classes = {
-            container : (this.props.multiple) ? this.props.className + ' ' + Bem.m(this.props.className, 'multiple') : this.props.className,
-            search    : Bem.e(this.props.className, 'search'),
-            select    : Bem.e(this.props.className, 'select'),
-            options   : Bem.e(this.props.className, 'options'),
-            option    : Bem.e(this.props.className, 'option'),
-            out       : Bem.e(this.props.className, 'out'),
-            label     : Bem.e(this.props.className, 'label'),
-            focus     : (this.props.multiple) ? this.props.className + ' ' + Bem.m(this.props.className, 'multiple focus') : this.props.className + ' ' + Bem.m(this.props.className, 'focus')
+            container: (this.props.multiple) ? `${this.props.className} ${Bem.m(this.props.className, 'multiple')}` : this.props.className,
+            search: Bem.e(this.props.className, 'search'),
+            select: Bem.e(this.props.className, 'select'),
+            options: Bem.e(this.props.className, 'options'),
+            option: Bem.e(this.props.className, 'option'),
+            out: Bem.e(this.props.className, 'out'),
+            label: Bem.e(this.props.className, 'label'),
+            focus: (this.props.multiple) ? `${this.props.className} ${Bem.m(this.props.className, 'multiple focus')}` : `${this.props.className} ${Bem.m(this.props.className, 'focus')}`,
         };
 
-        this.classes.focus     += ' ' + Bem.m(this.props.className, 'select');
-        this.classes.container += ' ' + Bem.m(this.props.className, 'select');
+        this.classes.focus += ` ${Bem.m(this.props.className, 'select')}`;
+        this.classes.container += ` ${Bem.m(this.props.className, 'select')}`;
 
-        this.bind();
-    }
-
-    bind() {
-        this.bound = {
-            onClickOut    : this.onClickOut.bind(this),
-            onFocus       : this.onFocus.bind(this),
-            onBlur        : this.onBlur.bind(this),
-            onChange      : this.onChange.bind(this),
-            onKeyPress    : this.onKeyPress.bind(this),
-            onKeyDown     : this.onKeyDown.bind(this),
-            onKeyUp       : this.onKeyUp.bind(this),
-            toggle        : this.toggle.bind(this)
-        };
+        this.container = React.createRef();
+        this.selectOptions = React.createRef();
+        this.select = React.createRef();
+        this.search = React.createRef();
+        this.outInput = React.createRef();
     }
 
     /**
      * Component lifecycle
      * -------------------------------------------------------------------------*/
-    componentWillMount() {
-
+    componentDidMount() {
+        this.props.onMount.call(null, this.publishOption(), this.state, this.props);
+        this.scrollToSelected();
     }
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.options) {
             this.setState({
                 options: nextProps.options,
-                defaultOptions: nextProps.options
-            })
+                defaultOptions: nextProps.options,
+            });
         }
-    }
-
-    componentDidMount() {
-        this.props.onMount.call(null, this.publishOption(), this.state, this.props);
-        this.scrollToSelected();
-    }
-
-    componentWillUnmount() {
-        document.removeEventListener('keydown', this.bound.onKeyDown);
-        document.removeEventListener('keypress', this.bound.onKeyPress);
-        document.removeEventListener('keyup', this.bound.onKeyUp);
     }
 
     componentDidUpdate(prevProps, prevState) {
         /* Fire callbacks */
-        if (this.state.focus && this.state.focus != prevState.focus) {
+        if (this.state.focus && this.state.focus !== prevState.focus) {
             this.handleFocus();
             this.props.onFocus.call(null, this.publishOption(), this.state, this.props);
         }
 
-        if (!this.state.focus && this.state.focus != prevState.focus) {
+        if (!this.state.focus && this.state.focus !== prevState.focus) {
             this.handleBlur();
             this.props.onBlur.call(null, this.publishOption(), this.state, this.props);
         }
 
         if (this.state.highlighted !== prevState.highlighted) {
-            this.props.onHighlight.call(null, this.state.options[this.state.highlighted], this.state, this.props);
+            this.props.onHighlight.call(
+                null,
+                this.state.options[this.state.highlighted],
+                this.state,
+                this.props,
+            );
         }
 
         this.scrollToSelected();
     }
 
+    componentWillUnmount() {
+        document.removeEventListener('keydown', this.onKeyDown);
+        document.removeEventListener('keypress', this.onKeyPress);
+        document.removeEventListener('keyup', this.onKeyUp);
+    }
+
     /**
      * DOM event handlers
      * -------------------------------------------------------------------------*/
-    onClickOut() {
+    handleClickOutside = () => {
         this.onBlur();
     }
 
-    onBlur() {
+    onBlur = () => {
         if (this.props.search && !this.props.multiple) {
-            this.refs.search.blur();
+            this.search.current.blur();
         }
 
         let search = '';
 
         if (this.state.value && this.props.search && !this.props.multiple) {
-            let option = this.findByValue(null, this.state.value);
+            const option = this.findByValue(null, this.state.value);
             search = option.name;
         }
 
-        this.setState({focus: false, highlighted: null, search: search});
+        this.setState({ focus: false, highlighted: null, search });
     }
 
-    onFocus() {
-        this.setState({focus: true, options: this.state.defaultOptions, search: ''});
+    onFocus = () => {
+        this.setState({ focus: true, options: this.state.defaultOptions, search: '' });
     }
 
-    onChange(e) {
-        let value = e.target.value;
+    onChange = (e) => {
+        let { value } = e.target;
 
         if (!value) {
             value = '';
         }
 
         let options = this.state.defaultOptions;
-        options = this.getNewOptionsList(options, value)
+        options = this.getNewOptionsList(options, value);
 
-        this.placeSelectedFirst(options);
-
-        this.setState({search: value, options: options});
+        this.setState({ search: value, options });
     }
 
-    onKeyPress(e) {
+    onKeyPress = (e) => {
         if (!this.state.options || this.state.options.length < 1) {
             return;
         }
 
         /** Enter */
         if (e.keyCode === 13) {
-            return this.handleEnter();
+            this.handleEnter();
         }
     }
 
-    onKeyDown(e) {
+    onKeyDown = (e) => {
         if (!this.state.focus) {
             return;
         }
 
         /** Tab */
         if (e.keyCode === 9) {
-            return this.onBlur();
+            this.onBlur();
+            return;
         }
 
         /** Arrow Down */
@@ -228,7 +193,7 @@ class Component extends React.Component {
         }
     }
 
-    onKeyUp(e) {
+    onKeyUp = (e) => {
         /** Esc */
         if (e.keyCode === 27) {
             this.handleEsc();
@@ -255,7 +220,7 @@ class Component extends React.Component {
             highlighted = 0;
         }
 
-        this.setState({highlighted: highlighted});
+        this.setState({ highlighted });
     }
 
     handleArrowUp() {
@@ -273,7 +238,7 @@ class Component extends React.Component {
             highlighted = this.state.options.length - 1;
         }
 
-        this.setState({highlighted: highlighted});
+        this.setState({ highlighted });
     }
 
     handleEnter() {
@@ -288,15 +253,17 @@ class Component extends React.Component {
      * Custom methods
      * -------------------------------------------------------------------------*/
     publishOption(value) {
-        if (typeof(value) === 'undefined') {
-            value = this.state.value;
+        let publishValue = value;
+
+        if (typeof (value) === 'undefined') {
+            publishValue = this.state.value;
         }
 
         if (this.props.multiple) {
-            return this.publishOptionMultiple(value);
+            return this.publishOptionMultiple(publishValue);
         }
 
-        return this.publishOptionSingle(value);
+        return this.publishOptionSingle(publishValue);
     }
 
     publishOptionSingle(value) {
@@ -304,44 +271,47 @@ class Component extends React.Component {
     }
 
     publishOptionMultiple(value) {
-        return value.map((value) => {
-            return this.findByValue(null, value);
-        });
+        return value.map(publishValue => this.findByValue(null, publishValue));
     }
 
     handleFocus() {
-        document.addEventListener('keydown', this.bound.onKeyDown);
-        document.addEventListener('keypress', this.bound.onKeyPress);
-        document.addEventListener('keyup', this.bound.onKeyUp);
+        document.addEventListener('keydown', this.onKeyDown);
+        document.addEventListener('keypress', this.onKeyPress);
+        document.addEventListener('keyup', this.onKeyUp);
 
         if (this.state.options.length > 0 && !this.props.multiple) {
-            let element = this.refs.select;
-            let viewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-            let elementPos     = element.getBoundingClientRect();
-            let selectHeight   = viewportHeight - elementPos.top - 20;
+            const element = this.select.current;
+            const { clientHeight } = document.documentElement;
+            const viewportHeight = Math.max(clientHeight, window.innerHeight || 0);
+            const elementPos = element.getBoundingClientRect();
+            const selectHeight = viewportHeight - elementPos.top - 20;
 
-            element.style.maxHeight = selectHeight + 'px';
+            element.style.maxHeight = `${selectHeight}px`;
+
+            this.scrollToSelected(true, 'selected');
         }
     }
 
     handleBlur() {
-        document.removeEventListener('keydown', this.bound.onKeyDown);
-        document.removeEventListener('keypress', this.bound.onKeyPress);
-        document.removeEventListener('keyup', this.bound.onKeyUp);
+        document.removeEventListener('keydown', this.onKeyDown);
+        document.removeEventListener('keypress', this.onKeyPress);
+        document.removeEventListener('keyup', this.onKeyUp);
     }
 
     findIndexByOption(searchOption, options) {
+        let searchOptions = options;
+
         if (!options) {
-            options = this.state.options;
+            searchOptions = this.state.options;
         }
 
-        if (options.length < 1) {
+        if (searchOptions.length < 1) {
             return -1;
         }
 
         let index = -1;
 
-        options.some(function (option, i) {
+        searchOptions.some((option, i) => {
             if (option.value === searchOption.value) {
                 index = i;
                 return true;
@@ -354,52 +324,25 @@ class Component extends React.Component {
     }
 
     findByValue(source, value) {
+        let findSource = source;
+
         if (!source || source.length < 1) {
-            source = this.state.defaultOptions;
+            findSource = this.state.defaultOptions;
         }
 
-        if (!source) {
+        if (!findSource) {
             return null;
         }
 
-        return source.filter(function (object) {
-            return object.value === value;
-        })[0];
+        return findSource.filter(object => object.value === value)[0];
     }
 
-    toggle() {
+    toggle = () => {
         if (this.state.focus) {
             this.onBlur();
         } else {
             this.onFocus();
         }
-    }
-
-    placeSelectedFirst(options, value) {
-        if (!value && this.state) {
-            value = this.state.value;
-        }
-
-        if (this.props.multiple || !value) {
-            return options;
-        }
-
-        let option = this.findByValue(options, value);
-
-        if (!option) {
-            return options;
-        }
-
-        let index = this.findIndexByOption(option, options);
-
-        if (index < 0 || index > options.length - 1) {
-            return options;
-        }
-
-        options.splice(index, 1);
-        options.splice(0, 0, option);
-
-        return options;
     }
 
     chooseOption(value) {
@@ -432,19 +375,24 @@ class Component extends React.Component {
             search = option.name;
         }
 
-        let options = this.state.defaultOptions;
-        let highlighted = (this.props.multiple) ? this.state.highlighted : null;
+        const options = this.state.defaultOptions;
+        const highlighted = (this.props.multiple) ? this.state.highlighted : null;
 
-        this.placeSelectedFirst(options, option.value);
-
-        this.setState({value: currentValue, search: search, options: options, highlighted: highlighted, focus: this.props.multiple});
+        this.setState({
+            value: currentValue,
+            search,
+            options,
+            highlighted,
+            focus: this.props.multiple,
+        });
 
         setTimeout(() => {
-            this.props.onChange.call(null, this.publishOption(currentValue), this.state, this.props);
+            const publishOption = this.publishOption(currentValue);
+            this.props.onChange.call(null, publishOption, this.state, this.props);
         }, 50);
 
         if (this.props.search && !this.props.multiple) {
-            this.refs.search.blur();
+            this.search.current.blur();
         }
     }
 
@@ -453,86 +401,98 @@ class Component extends React.Component {
             return false;
         }
 
-        let option = this.findByValue(this.state.defaultOptions, value);
-        value = this.state.value;
+        const option = this.findByValue(this.state.defaultOptions, value);
+        const optionValue = this.state.value;
 
-        if (!option || value.indexOf(option.value) < 0) {
+        if (!option || optionValue.indexOf(option.value) < 0) {
             return false;
         }
 
-        value.splice(value.indexOf(option.value), 1);
+        optionValue.splice(optionValue.indexOf(option.value), 1);
 
-        this.setState({value: value, search: ''});
+        this.setState({ value: optionValue, search: '' });
 
         setTimeout(() => {
-            this.props.onChange.call(null, this.publishOption(value), this.state, this.props);
+            this.props.onChange.call(null, this.publishOption(optionValue), this.state, this.props);
         }, 50);
+
+        return true;
     }
 
     getNewOptionsList(options, value) {
         if (options && options.length > 0 && value && value.length > 0) {
-            let fuse         = new Fuse(options, this.props.fuse);
-            let foundOptions = fuse.search(value);
+            const fuse = new Fuse(options, this.props.fuse);
 
-            return foundOptions;
+            return fuse.search(value);
         }
 
         return options;
     }
 
-    scrollToSelected() {
-        if (this.props.multiple || this.state.highlighted == null || !this.refs.select || !this.state.focus || this.state.options.length < 1) {
+    scrollToSelected(force = false, selected = 'hover') {
+        if (
+            !force && (
+                this.props.multiple ||
+                this.state.highlighted == null ||
+                !this.select.current ||
+                !this.selectOptions.current ||
+                !this.state.focus ||
+                this.state.options.length < 1
+            )
+        ) {
             return;
         }
 
-        let selectedItem = this.refs.selectOptions.querySelector('.' + Bem.m(this.classes.option, 'hover'));
+        const selectedItem = this.selectOptions.current.querySelector(`.${Bem.m(this.classes.option, selected)}`);
 
-        this.refs.select.scrollTop = selectedItem.offsetTop;
+        if (selectedItem) {
+            this.select.current.scrollTop = selectedItem.offsetTop;
+        }
     }
 
     /**
      * Component render
      * -------------------------------------------------------------------------*/
-    renderOption() {
-
-    }
-
     renderOptions() {
-        let select       = null;
-        let options      = [];
-        let selectStyle  = {};
-        let foundOptions = this.state.options;
+        let select = null;
+        const options = [];
+        const selectStyle = {};
+        const { multiple } = this.props;
+        const { value: stateValue, options: foundOptions } = this.state;
 
         if (foundOptions && foundOptions.length > 0) {
             foundOptions.forEach((element, i) => {
+                const elementVal = element.value;
+
                 let className = this.classes.option;
 
                 if (this.state.highlighted === i) {
-                    className += ' ' + Bem.m(this.classes.option, 'hover');
+                    className += ` ${Bem.m(this.classes.option, 'hover')}`;
                 }
 
-                if ((this.props.multiple && this.state.value.indexOf(element.value) >= 0) || element.value === this.state.value) {
-                    className += ' ' + Bem.m(this.classes.option, 'selected');
+                if (
+                    (multiple && stateValue.indexOf(elementVal) >= 0) ||
+                    elementVal === stateValue
+                ) {
+                    className += ` ${Bem.m(this.classes.option, 'selected')}`;
                 }
 
                 if (this.props.multiple) {
                     if (this.state.value.indexOf(element.value) < 0) {
-                        options.push(<li className={className} onClick={this.chooseOption.bind(this, element.value)} key={element.value + '-option'} data-value={element.value}>{this.props.renderOption(element, this.state, this.props)}</li>);
+                        options.push(<li role="menuitem" className={className} onClick={() => this.chooseOption(element.value)} key={`${element.value}-option`} data-value={element.value}>{this.props.renderOption(element, this.state, this.props)}</li>);
                     } else {
-                        options.push(<li className={className} onClick={this.removeOption.bind(this, element.value)} key={element.value + '-option'} data-value={element.value}>{this.props.renderOption(element, this.state, this.props)}</li>);
+                        options.push(<li role="menuitem" className={className} onClick={() => this.removeOption(element.value)} key={`${element.value}-option`} data-value={element.value}>{this.props.renderOption(element, this.state, this.props)}</li>);
                     }
+                } else if (element.value === this.state.value) {
+                    options.push(<li role="menuitem" className={className} key={`${element.value}-option`} data-value={element.value}>{this.props.renderOption(element)}</li>);
                 } else {
-                    if (element.value === this.state.value) {
-                        options.push(<li className={className} key={element.value + '-option'} data-value={element.value}>{this.props.renderOption(element)}</li>);
-                    } else {
-                        options.push(<li className={className} onClick={this.chooseOption.bind(this, element.value)} key={element.value + '-option'} data-value={element.value}>{this.props.renderOption(element, this.state, this.props)}</li>);
-                    }
+                    options.push(<li role="menuitem" className={className} onClick={() => this.chooseOption(element.value)} key={`${element.value}-option`} data-value={element.value}>{this.props.renderOption(element, this.state, this.props)}</li>);
                 }
             });
 
             if (options.length > 0) {
                 select = (
-                    <ul ref="selectOptions" className={this.classes.options}>
+                    <ul ref={this.selectOptions} className={this.classes.options}>
                         {options}
                     </ul>
                 );
@@ -546,11 +506,11 @@ class Component extends React.Component {
         let className = this.classes.select;
 
         if (this.state.focus) {
-            className += ' ' + Bem.m(this.classes.select, 'display');
+            className += ` ${Bem.m(this.classes.select, 'display')}`;
         }
 
         return (
-            <div ref="select" className={className} style={selectStyle}>
+            <div ref={this.select} className={className} style={selectStyle}>
                 {select}
             </div>
         );
@@ -562,15 +522,23 @@ class Component extends React.Component {
 
         if (this.props.multiple) {
             if (this.state.value) {
-                let finalValueOptions = [];
+                const finalValueOptions = [];
 
-                this.state.value.forEach(function (value, i) {
+                this.state.value.forEach((value) => {
                     option = this.findByValue(this.state.defaultOptions, value);
-                    finalValueOptions.push(<option key={i} value={option.value}>{option.name}</option>);
-                }.bind(this));
+                    finalValueOptions.push((
+                        <option key={option.value} value={option.value}>{option.name}</option>
+                    ));
+                });
 
                 outElement = (
-                    <select value={this.state.value} className={this.classes.out} name={this.props.name} readOnly multiple>
+                    <select
+                        value={this.state.value}
+                        className={this.classes.out}
+                        name={this.props.name}
+                        readOnly
+                        multiple
+                    >
                         {finalValueOptions}
                     </select>
                 );
@@ -581,19 +549,17 @@ class Component extends React.Component {
                     </select>
                 );
             }
+        } else if (this.props.search) {
+            outElement = <input type="hidden" defaultValue={this.state.value} ref={this.outInput} name={this.props.name} />;
         } else {
-            if (this.props.search) {
-                outElement = <input type="hidden" defaultValue={this.state.value} ref="outInput" name={this.props.name} />;
-            } else {
-                let outStyle = {
-                    opacity: 0,
-                    position: 'absolute',
-                    top: '-9999px',
-                    left: '-9999px'
-                };
+            const outStyle = {
+                opacity: 0,
+                position: 'absolute',
+                top: '-9999px',
+                left: '-9999px',
+            };
 
-                outElement = <input type="text" onFocus={this.bound.onFocus} style={outStyle} value={this.state.value} readOnly={true} ref="outInput" name={this.props.name} />;
-            }
+            outElement = <input type="text" onFocus={this.onFocus} style={outStyle} value={this.state.value} readOnly ref={this.outInput} name={this.props.name} />;
         }
 
         return outElement;
@@ -603,52 +569,65 @@ class Component extends React.Component {
         let searchField = null;
 
         if (this.props.search) {
-            let name = null;
+            const name = null;
 
-            searchField = <input name={name} ref="search" onFocus={this.bound.onFocus} onKeyPress={this.bound.onKeyPress} className={this.classes.search} type="search" value={this.state.search} onChange={this.bound.onChange} placeholder={this.props.placeholder} />;
+            searchField = <input name={name} ref={this.search} onFocus={this.onFocus} onKeyPress={this.onKeyPress} className={this.classes.search} type="search" value={this.state.search} onChange={this.onChange} placeholder={this.props.placeholder} />;
         } else {
             let option;
             let labelValue;
             let labelClassName;
 
             if (!this.state.value) {
-                labelValue     = this.props.placeholder;
-                labelClassName = this.classes.search + ' ' + Bem.m(this.classes.search, 'placeholder');
+                labelValue = this.props.placeholder;
+                labelClassName = `${this.classes.search} ${Bem.m(this.classes.search, 'placeholder')}`;
             } else {
-                option         = this.findByValue(this.state.defaultOptions, this.state.value);
-                labelValue     = option.name;
+                option = this.findByValue(this.state.defaultOptions, this.state.value);
+                labelValue = option.name;
                 labelClassName = this.classes.search;
             }
 
-            searchField = <strong onClick={this.bound.toggle} className={labelClassName}>{labelValue}</strong>;
+            searchField = (
+                <strong tabIndex={0} role="button" onClick={this.toggle} className={labelClassName}>
+                    {labelValue}
+                </strong>
+            );
         }
 
         return searchField;
     }
 
     render() {
-        let className = (this.state.focus) ? this.classes.focus : this.classes.container;
+        const className = (this.state.focus) ? this.classes.focus : this.classes.container;
 
         return (
-            <div className={className} ref="container">
+            <div className={className} ref={this.container}>
                 {this.renderOutElement()}
                 {this.renderSearchField()}
                 {this.renderOptions()}
             </div>
         );
     }
-
 }
 
-Component.displayName  = displayName;
-Component.propTypes    = propTypes;
-Component.defaultProps = defaultProps;
+SelectSearch.propTypes = {
+    options: PropTypes.array.isRequired,
+    className: PropTypes.string,
+    search: PropTypes.bool,
+    placeholder: PropTypes.string,
+    multiple: PropTypes.bool,
+    height: PropTypes.number,
+    name: PropTypes.string,
+    fuse: PropTypes.object,
+    onChange: PropTypes.func,
+    onHighlight: PropTypes.func,
+    onMount: PropTypes.func,
+    onBlur: PropTypes.func,
+    onFocus: PropTypes.func,
+    renderOption: PropTypes.func,
+    value: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.array,
+    ]),
+};
 
-// add clickOutside method to close dropdowns when opening another
-Component = onClickOutside(Component,{
-    handleClickOutside: function(instance){
-        return instance.bound.onClickOut
-    }
-})
-
-export default Component;
+export default onClickOutside(SelectSearch);
