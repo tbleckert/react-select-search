@@ -25,10 +25,9 @@
     "watchify": "^3.6.1"
   },
   "dependencies": {
-    "fuse.js": "^2.2.0",
-    "keymaster": "^1.6.2",
-    "react": "^15.0.0",
-    "react-dom": "^15.0.0",
-    "react-onclickout": "^2.0.4"
+    "fuse.js": "^3.2.0",
+    "react": "^16.3.2",
+    "react-dom": "^16.3.2",
+    "react-onclickoutside": "^6.7.1"
   }
 }
