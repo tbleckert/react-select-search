@@ -101,41 +101,4 @@ The height property is the minimum height (max is the remaining space below the 
 
 For examples you can take a look at the [bootstrap.js](https://github.com/tbleckert/react-select-search/blob/gh-pages/bootstrap.js) file on the gh-pages branch.
 
-You will also need some CSS to make it look right. The important piece is the options.
-
-```css
-/** The option list should not be visible by default */
-.select-search-box__select {
-    display: none;
-}
-
-    /** If it's a multiple select, you can style it with this selector */
-    .select-search-box--multiple .select-search-box__select {
-        display: block;
-    }
-    
-    /** The list receives the modifier class "display" when the select has focus */
-    .select-search-box__select--display {
-        display: block;
-    }
-
-/** UL with the options */
-.select-search-box__options {
-
-}
-
-/** The option (LI), look at the state classes below */
-.select-search-box__option {
-
-}
-
-    /** When the option has been selected */
-    .select-search-box__option--selected {
-    
-    }
-
-    /** When the option is selected (when navigation with the arrow keys, up/down) */
-    .select-search-box__option--hover, .select-search-box__option:hover {
-    
-    }
-```
+You will also need some CSS to make it look right. Example theme can be found in [style.css](style.css)
