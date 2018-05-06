@@ -189,8 +189,8 @@ function (_React$Component) {
       this.props.onMount.call(null, this.publishOption(), this.state, this.props);
       this.scrollToSelected();
 
-      if (this.props.autofocus === true) {
-        this.refs.search.focus();
+      if (this.search.current && this.props.autofocus === true) {
+        this.search.current.focus();
       }
     }
   }, {
