@@ -1,12 +1,21 @@
-# React Select Search
+<p align="center">
+  <img src="http://tbleckert.github.io/react-select-search/logo.png" alt="React Select Search" />
+</p>
 
-![](https://travis-ci.org/tbleckert/react-select-search.svg?branch=master) ![](https://img.shields.io/badge/license-MIT-blue.svg) ![](https://img.shields.io/npm/v/react-select-search.svg) ![](https://img.shields.io/npm/dm/react-select-search.svg)
-
-React powered selectbox with filter using [fuse.js](https://github.com/krisk/Fuse) (Javascript fuzzy-search).
-
-_Example design comes from the [beautiful work](https://dribbble.com/shots/1079035-Select-Album?list=searches&tag=select&offset=20) by [Rovane Durso](https://dribbble.com/RovaneDurso)._
-
-![](https://dl.dropboxusercontent.com/u/6306766/react-select-search.png)
+<p align="center">
+    <a href="https://www.npmjs.com/package/react-select-search">
+        <img src="https://travis-ci.org/tbleckert/react-select-search.svg?branch=master" style="max-width:100%;" />
+    </a>
+    <a href="https://www.npmjs.com/package/react-select-search">
+        <img src="https://img.shields.io/badge/license-MIT-blue.svg" style="max-width:100%;" />
+    </a>
+    <a href="https://www.npmjs.com/package/react-select-search">
+        <img src="https://img.shields.io/npm/v/react-select-search.svg" alt="npm" style="max-width:100%;" />
+    </a>
+    <a href="https://www.npmjs.com/package/react-select-search">
+        <img src="https://img.shields.io/npm/dm/react-select-search.svg" style="max-width:100%;" />
+    </a>
+</p>
 
 ## Demo
 
@@ -44,24 +53,24 @@ Below is a full list of properties and defaults (displayed in React style).
 
 ```javascript
 {
-    options        : React.PropTypes.array.isRequired,
-    className      : React.PropTypes.string.isRequired,
-    search         : React.PropTypes.bool.isRequired,
-    placeholder    : React.PropTypes.string,
-    multiple       : React.PropTypes.bool.isRequired,
-    height         : React.PropTypes.number,
-    name           : React.PropTypes.string,
-    autofocus      : React.PropTypes.bool,
-    fuse           : React.PropTypes.object.isRequired,
-    onChange       : React.PropTypes.func.isRequired,
-    onHighlight    : React.PropTypes.func.isRequired,
-    onMount        : React.PropTypes.func.isRequired,
-    onBlur         : React.PropTypes.func.isRequired,
-    onFocus        : React.PropTypes.func.isRequired,
-    renderOption   : React.PropTypes.func.isRequired,
-    value          : React.PropTypes.oneOfType([
-        React.PropTypes.string,
-        React.PropTypes.array
+    options        : PropTypes.array.isRequired,
+    className      : PropTypes.string.isRequired,
+    search         : PropTypes.bool.isRequired,
+    placeholder    : PropTypes.string,
+    multiple       : PropTypes.bool.isRequired,
+    height         : PropTypes.number,
+    name           : PropTypes.string,
+    autofocus      : PropTypes.bool,
+    fuse           : PropTypes.object.isRequired,
+    onChange       : PropTypes.func.isRequired,
+    onHighlight    : PropTypes.func.isRequired,
+    onMount        : PropTypes.func.isRequired,
+    onBlur         : PropTypes.func.isRequired,
+    onFocus        : PropTypes.func.isRequired,
+    renderOption   : PropTypes.func.isRequired,
+    value          : PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.array
     ])
 }
 
@@ -94,41 +103,4 @@ The height property is the minimum height (max is the remaining space below the 
 
 For examples you can take a look at the [bootstrap.js](https://github.com/tbleckert/react-select-search/blob/gh-pages/bootstrap.js) file on the gh-pages branch.
 
-You will also need some CSS to make it look right. The important piece is the options.
-
-```css
-/** The option list should not be visible by default */
-.select-search-box__select {
-    display: none;
-}
-
-    /** If it's a multiple select, you can style it with this selector */
-    .select-search-box--multiple .select-search-box__select {
-        display: block;
-    }
-
-    /** The list receives the modifier class "display" when the select has focus */
-    .select-search-box__select--display {
-        display: block;
-    }
-
-/** UL with the options */
-.select-search-box__options {
-
-}
-
-/** The option (LI), look at the state classes below */
-.select-search-box__option {
-
-}
-
-    /** When the option has been selected */
-    .select-search-box__option--selected {
-
-    }
-
-    /** When the option is selected (when navigation with the arrow keys, up/down) */
-    .select-search-box__option--hover, .select-search-box__option:hover {
-
-    }
-```
+You will also need some CSS to make it look right. Example theme can be found in [style.css](style.css)
