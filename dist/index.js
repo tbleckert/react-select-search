@@ -188,6 +188,10 @@ function (_React$Component) {
     value: function componentDidMount() {
       this.props.onMount.call(null, this.publishOption(), this.state, this.props);
       this.scrollToSelected();
+
+      if (this.props.autofocus === true) {
+        this.refs.search.focus();
+      }
     }
   }, {
     key: "componentWillReceiveProps",
@@ -712,6 +716,7 @@ _defineProperty(SelectSearch, "defaultProps", {
   multiple: false,
   height: 200,
   name: null,
+  autofocus: false,
   onHighlight: function onHighlight() {},
   onMount: function onMount() {},
   onBlur: function onBlur() {},
@@ -734,6 +739,7 @@ SelectSearch.propTypes = {
   multiple: _propTypes.default.bool,
   height: _propTypes.default.number,
   name: _propTypes.default.string,
+  autofocus: _propTypes.default.bool,
   fuse: _propTypes.default.object,
   onChange: _propTypes.default.func,
   onHighlight: _propTypes.default.func,

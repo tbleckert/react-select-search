@@ -13,6 +13,7 @@ class SelectSearch extends React.Component {
         multiple: false,
         height: 200,
         name: null,
+        autofocus: false,
         onHighlight: () => {},
         onMount: () => {},
         onBlur: () => {},
@@ -80,6 +81,10 @@ class SelectSearch extends React.Component {
     componentDidMount() {
         this.props.onMount.call(null, this.publishOption(), this.state, this.props);
         this.scrollToSelected();
+        
+        if (this.props.autofocus === true) {
+            this.refs.search.focus();
+        }
     }
 
     componentWillReceiveProps(nextProps) {
@@ -617,6 +622,7 @@ SelectSearch.propTypes = {
     multiple: PropTypes.bool,
     height: PropTypes.number,
     name: PropTypes.string,
+    autofocus: PropTypes.bool,
     fuse: PropTypes.object,
     onChange: PropTypes.func,
     onHighlight: PropTypes.func,

@@ -60,6 +60,7 @@ Below is a full list of properties and defaults (displayed in React style).
     multiple       : PropTypes.bool.isRequired,
     height         : PropTypes.number,
     name           : PropTypes.string,
+    autofocus      : PropTypes.bool,
     fuse           : PropTypes.object.isRequired,
     onChange       : PropTypes.func.isRequired,
     onHighlight    : PropTypes.func.isRequired,
@@ -82,6 +83,7 @@ Below is a full list of properties and defaults (displayed in React style).
     multiple       : false,
     height         : 200,
     name           : null,
+    autofocus      : false,
     onHighlight    : function (value, state, props) {},
     onMount        : function (value, state, props) {},
     onBlur         : function (value, state, props) {},
@@ -97,7 +99,7 @@ Below is a full list of properties and defaults (displayed in React style).
 }
 ```
 
-The height property is the minimum height (max is the remaining space below the selectbox down to the browser window end) of the dropdown if multiple is false, otherwise it's the fixed height. 
+The height property is the minimum height (max is the remaining space below the selectbox down to the browser window end) of the dropdown if multiple is false, otherwise it's the fixed height.
 
 For examples you can take a look at the [bootstrap.js](https://github.com/tbleckert/react-select-search/blob/gh-pages/bootstrap.js) file on the gh-pages branch.
 
