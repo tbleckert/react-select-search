@@ -3,16 +3,16 @@
 </p>
 
 <p align="center">
-    <a href="https://www.npmjs.com/package/react-popup">
+    <a href="https://www.npmjs.com/package/react-select-search">
         <img src="https://travis-ci.org/tbleckert/react-select-search.svg?branch=master" style="max-width:100%;" />
     </a>
-    <a href="https://www.npmjs.com/package/react-popup">
+    <a href="https://www.npmjs.com/package/react-select-search">
         <img src="https://img.shields.io/badge/license-MIT-blue.svg" style="max-width:100%;" />
     </a>
-    <a href="https://www.npmjs.com/package/react-popup">
+    <a href="https://www.npmjs.com/package/react-select-search">
         <img src="https://img.shields.io/npm/v/react-select-search.svg" alt="npm" style="max-width:100%;" />
     </a>
-    <a href="https://www.npmjs.com/package/react-popup">
+    <a href="https://www.npmjs.com/package/react-select-search">
         <img src="https://img.shields.io/npm/dm/react-select-search.svg" style="max-width:100%;" />
     </a>
 </p>
