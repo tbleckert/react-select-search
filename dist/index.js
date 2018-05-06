@@ -7,8 +7,6 @@ exports.default = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
-var _propTypes = _interopRequireDefault(require("prop-types"));
-
 var _fuse = _interopRequireDefault(require("fuse.js"));
 
 var _reactOnclickoutside = _interopRequireDefault(require("react-onclickoutside"));
@@ -730,25 +728,6 @@ _defineProperty(SelectSearch, "defaultProps", {
     threshold: 0.3
   }
 });
-
-SelectSearch.propTypes = {
-  options: _propTypes.default.array.isRequired,
-  className: _propTypes.default.string,
-  search: _propTypes.default.bool,
-  placeholder: _propTypes.default.string,
-  multiple: _propTypes.default.bool,
-  height: _propTypes.default.number,
-  name: _propTypes.default.string,
-  autofocus: _propTypes.default.bool,
-  fuse: _propTypes.default.object,
-  onChange: _propTypes.default.func,
-  onHighlight: _propTypes.default.func,
-  onMount: _propTypes.default.func,
-  onBlur: _propTypes.default.func,
-  onFocus: _propTypes.default.func,
-  renderOption: _propTypes.default.func,
-  value: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.array])
-};
 
 var _default = (0, _reactOnclickoutside.default)(SelectSearch);
 
