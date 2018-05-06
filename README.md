@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://www.dropbox.com/s/9nd0y69gmthml0u/react-select-search.png?dl=0" alt="React Select Search" />
+  <img src="http://tbleckert.github.io/react-select-search/logo.png" alt="React Select Search" />
 </p>
 
 <p align="center">
