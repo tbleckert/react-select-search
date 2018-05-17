@@ -53,48 +53,47 @@ Below is a full list of properties and defaults (displayed in React style).
 
 ```javascript
 {
-    options        : PropTypes.array.isRequired,
-    className      : PropTypes.string.isRequired,
-    search         : PropTypes.bool.isRequired,
-    placeholder    : PropTypes.string,
-    multiple       : PropTypes.bool.isRequired,
-    height         : PropTypes.number,
-    name           : PropTypes.string,
-    autofocus      : PropTypes.bool,
-    fuse           : PropTypes.object.isRequired,
-    onChange       : PropTypes.func.isRequired,
-    onHighlight    : PropTypes.func.isRequired,
-    onMount        : PropTypes.func.isRequired,
-    onBlur         : PropTypes.func.isRequired,
-    onFocus        : PropTypes.func.isRequired,
-    renderOption   : PropTypes.func.isRequired,
-    value          : PropTypes.oneOfType([
+    options: PropTypes.array.isRequired,
+    className: PropTypes.string,
+    search: PropTypes.bool,
+    placeholder: PropTypes.string,
+    multiple: PropTypes.bool,
+    height: PropTypes.number,
+    name: PropTypes.string,
+    autofocus: PropTypes.bool,
+    fuse: PropTypes.object,
+    onChange: PropTypes.func,
+    onHighlight: PropTypes.func,
+    onMount: PropTypes.func,
+    onBlur: PropTypes.func,
+    onFocus: PropTypes.func,
+    renderOption: PropTypes.func,
+    renderValue: PropTypes.func,
+    value: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.array
     ])
 }
 
 {
-    options        : [],
-    className      : 'select-search-box',
-    search         : true,
-    value          : '',
-    placeholder    : null,
-    multiple       : false,
-    height         : 200,
-    name           : null,
-    autofocus      : false,
-    onHighlight    : function (value, state, props) {},
-    onMount        : function (value, state, props) {},
-    onBlur         : function (value, state, props) {},
-    onFocus        : function (value, state, props) {},
-    onChange       : function (value, state, props) {},
-    renderOption   : function (value, state, props) {
-        return option.name;
-    },
+    className: 'select-search-box',
+    search: true,
+    value: '',
+    placeholder: null,
+    multiple: false,
+    height: 200,
+    name: null,
+    autofocus: false,
+    onHighlight: (value, state, props) => {},
+    onMount: (value, state, props) => {},
+    onBlur: (value, state, props) => {},
+    onFocus: (value, state, props) => {},
+    onChange: (value, state, props) => {},
+    renderOption: (option, state, props) => option.name,
+    renderValue: (label, valueObj, state, props) => label,
     fuse: {
-        keys      : ['name'],
-        threshold : 0.3
+        keys: ['name'],
+        threshold: 0.3
     }
 }
 ```

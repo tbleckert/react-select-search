@@ -194,12 +194,18 @@ function (_React$Component) {
   }, {
     key: "componentWillReceiveProps",
     value: function componentWillReceiveProps(nextProps) {
-      if (nextProps.options) {
-        this.setState({
-          options: nextProps.options,
-          defaultOptions: nextProps.options
-        });
+      var nextState = {};
+
+      if (nextProps.options !== this.state.options) {
+        nextState.options = nextProps.options;
+        nextState.defaultOptions = nextProps.options;
       }
+
+      if (nextProps.value !== this.state.value) {
+        nextState.value = nextProps.value;
+      }
+
+      this.setState(nextState);
     }
   }, {
     key: "componentDidUpdate",
@@ -685,7 +691,7 @@ function (_React$Component) {
           role: "button",
           onClick: this.toggle,
           className: labelClassName
-        }, labelValue);
+        }, this.props.renderValue(labelValue, option, this.state, this.props));
       }
 
       return searchField;
@@ -722,6 +728,9 @@ _defineProperty(SelectSearch, "defaultProps", {
   onChange: function onChange() {},
   renderOption: function renderOption(option) {
     return option.name;
+  },
+  renderValue: function renderValue(label) {
+    return label;
   },
   fuse: {
     keys: ['name'],

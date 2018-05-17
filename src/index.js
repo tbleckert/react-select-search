@@ -20,6 +20,7 @@ class SelectSearch extends React.Component {
         onFocus: () => {},
         onChange: () => {},
         renderOption: option => option.name,
+        renderValue: label => label,
         fuse: {
             keys: ['name'],
             threshold: 0.3,
@@ -88,12 +89,18 @@ class SelectSearch extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.options) {
-            this.setState({
-                options: nextProps.options,
-                defaultOptions: nextProps.options,
-            });
+        const nextState = {};
+
+        if (nextProps.options !== this.state.options) {
+            nextState.options = nextProps.options;
+            nextState.defaultOptions = nextProps.options;
         }
+
+        if (nextProps.value !== this.state.value) {
+            nextState.value = nextProps.value;
+        }
+
+        this.setState(nextState);
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -593,7 +600,7 @@ class SelectSearch extends React.Component {
 
             searchField = (
                 <strong tabIndex={0} role="button" onClick={this.toggle} className={labelClassName}>
-                    {labelValue}
+                    {this.props.renderValue(labelValue, option, this.state, this.props)}
                 </strong>
             );
         }
@@ -630,6 +637,7 @@ SelectSearch.propTypes = {
     onBlur: PropTypes.func,
     onFocus: PropTypes.func,
     renderOption: PropTypes.func,
+    renderValue: PropTypes.func,
     value: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.array,
