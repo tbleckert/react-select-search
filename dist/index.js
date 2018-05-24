@@ -727,7 +727,7 @@ function (_React$Component) {
           labelClassName = this.classes.search;
         }
 
-        searchField = _react.default.createElement("strong", {
+        searchField = _react.default.createElement("div", {
           tabIndex: 0,
           role: "button",
           onClick: this.toggle,
