@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import Fuse from 'fuse.js';
 import onClickOutside from 'react-onclickoutside';
 import Bem from './Bem';
+import FlattenOptions from './FlattenOptions';
+import GroupOptions from './GroupOptions';
 
 class SelectSearch extends React.Component {
     static defaultProps = {
@@ -20,9 +22,10 @@ class SelectSearch extends React.Component {
         onFocus: () => {},
         onChange: () => {},
         renderOption: option => option.name,
+        renderGroupHeader: title => title,
         renderValue: label => label,
         fuse: {
-            keys: ['name'],
+            keys: ['name', 'groupName'],
             threshold: 0.3,
         },
     };
@@ -46,11 +49,13 @@ class SelectSearch extends React.Component {
             }
         }
 
+        const flattenedOptions = FlattenOptions(options);
+
         this.state = {
             search,
             value: stateValue,
-            defaultOptions: options,
-            options,
+            defaultOptions: flattenedOptions,
+            options: flattenedOptions,
             highlighted: null,
             focus: false,
         };
@@ -61,6 +66,9 @@ class SelectSearch extends React.Component {
             select: Bem.e(this.props.className, 'select'),
             options: Bem.e(this.props.className, 'options'),
             option: Bem.e(this.props.className, 'option'),
+            row: Bem.e(this.props.className, 'row'),
+            group: Bem.e(this.props.className, 'group'),
+            groupHeader: Bem.e(this.props.className, 'group-header'),
             out: Bem.e(this.props.className, 'out'),
             label: Bem.e(this.props.className, 'label'),
             focus: (this.props.multiple) ? `${this.props.className} ${Bem.m(this.props.className, 'multiple focus')}` : `${this.props.className} ${Bem.m(this.props.className, 'focus')}`,
@@ -91,9 +99,11 @@ class SelectSearch extends React.Component {
     componentWillReceiveProps(nextProps) {
         const nextState = {};
 
-        if (nextProps.options !== this.state.options) {
-            nextState.options = nextProps.options;
-            nextState.defaultOptions = nextProps.options;
+        if (nextProps.options !== this.state.defaultOptions) {
+            const flattenedOptions = FlattenOptions(nextProps.options);
+
+            nextState.options = flattenedOptions;
+            nextState.defaultOptions = flattenedOptions;
         }
 
         if (nextProps.value !== this.state.value) {
@@ -465,49 +475,81 @@ class SelectSearch extends React.Component {
     /**
      * Component render
      * -------------------------------------------------------------------------*/
+    renderOption(option, stateValue, multiple) {
+        const elementVal = option.value;
+
+        let element = null;
+        let className = this.classes.option;
+
+        className += ` ${this.classes.row}`;
+
+        if (this.state.highlighted === option.index) {
+            className += ` ${Bem.m(this.classes.option, 'hover')}`;
+        }
+
+        if (
+            (multiple && stateValue.indexOf(elementVal) >= 0) ||
+            elementVal === stateValue
+        ) {
+            className += ` ${Bem.m(this.classes.option, 'selected')}`;
+        }
+
+        if (this.props.multiple) {
+            if (this.state.value.indexOf(option.value) < 0) {
+                element = <li role="menuitem" className={className} onClick={() => this.chooseOption(option.value)} key={`${option.value}-option`} data-value={option.value}>{this.props.renderOption(option, this.state, this.props)}</li>;
+            } else {
+                element = <li role="menuitem" className={className} onClick={() => this.removeOption(option.value)} key={`${option.value}-option`} data-value={option.value}>{this.props.renderOption(option, this.state, this.props)}</li>;
+            }
+        } else if (option.value === this.state.value) {
+            element = <li role="menuitem" className={className} key={`${option.value}-option`} data-value={option.value}>{this.props.renderOption(option)}</li>;
+        } else {
+            element = <li role="menuitem" className={className} onClick={() => this.chooseOption(option.value)} key={`${option.value}-option`} data-value={option.value}>{this.props.renderOption(option, this.state, this.props)}</li>;
+        }
+
+        return element;
+    }
+
     renderOptions() {
         let select = null;
-        const options = [];
         const selectStyle = {};
+        const options = [];
         const { multiple } = this.props;
         const { value: stateValue, options: foundOptions } = this.state;
 
         if (foundOptions && foundOptions.length > 0) {
-            foundOptions.forEach((element, i) => {
-                const elementVal = element.value;
+            const groupedOptions = GroupOptions(foundOptions);
 
-                let className = this.classes.option;
+            if (groupedOptions && groupedOptions.length) {
+                groupedOptions.forEach((option) => {
+                    if ({}.hasOwnProperty.call(option, 'type') && option.type === 'group') {
+                        const subOptions = [];
 
-                if (this.state.highlighted === i) {
-                    className += ` ${Bem.m(this.classes.option, 'hover')}`;
-                }
+                        option.items.forEach((groupOption) => {
+                            subOptions.push(this.renderOption(groupOption, stateValue, multiple));
+                        });
 
-                if (
-                    (multiple && stateValue.indexOf(elementVal) >= 0) ||
-                    elementVal === stateValue
-                ) {
-                    className += ` ${Bem.m(this.classes.option, 'selected')}`;
-                }
-
-                if (this.props.multiple) {
-                    if (this.state.value.indexOf(element.value) < 0) {
-                        options.push(<li role="menuitem" className={className} onClick={() => this.chooseOption(element.value)} key={`${element.value}-option`} data-value={element.value}>{this.props.renderOption(element, this.state, this.props)}</li>);
+                        options.push((
+                            <li className={this.classes.row} key={option.groupId}>
+                                <div className={this.classes.group}>
+                                    <div className={this.classes.groupHeader}>{this.props.renderGroupHeader(option.name)}</div>
+                                    <ul className={this.classes.options}>
+                                        {subOptions}
+                                    </ul>
+                                </div>
+                            </li>
+                        ));
                     } else {
-                        options.push(<li role="menuitem" className={className} onClick={() => this.removeOption(element.value)} key={`${element.value}-option`} data-value={element.value}>{this.props.renderOption(element, this.state, this.props)}</li>);
+                        options.push(this.renderOption(option, stateValue, multiple));
                     }
-                } else if (element.value === this.state.value) {
-                    options.push(<li role="menuitem" className={className} key={`${element.value}-option`} data-value={element.value}>{this.props.renderOption(element)}</li>);
-                } else {
-                    options.push(<li role="menuitem" className={className} onClick={() => this.chooseOption(element.value)} key={`${element.value}-option`} data-value={element.value}>{this.props.renderOption(element, this.state, this.props)}</li>);
-                }
-            });
+                });
 
-            if (options.length > 0) {
-                select = (
-                    <ul ref={this.selectOptions} className={this.classes.options}>
-                        {options}
-                    </ul>
-                );
+                if (options.length > 0) {
+                    select = (
+                        <ul ref={this.selectOptions} className={this.classes.options}>
+                            {options}
+                        </ul>
+                    );
+                }
             }
         }
 
@@ -638,6 +680,7 @@ SelectSearch.propTypes = {
     onFocus: PropTypes.func,
     renderOption: PropTypes.func,
     renderValue: PropTypes.func,
+    renderGroupHeader: PropTypes.func,
     value: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.array,

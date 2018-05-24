@@ -13,6 +13,10 @@ var _reactOnclickoutside = _interopRequireDefault(require("react-onclickoutside"
 
 var _Bem = _interopRequireDefault(require("./Bem"));
 
+var _FlattenOptions = _interopRequireDefault(require("./FlattenOptions"));
+
+var _GroupOptions = _interopRequireDefault(require("./GroupOptions"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -149,11 +153,12 @@ function (_React$Component) {
       }
     }
 
+    var flattenedOptions = (0, _FlattenOptions.default)(_options);
     _this.state = {
       search: _search,
       value: stateValue,
-      defaultOptions: _options,
-      options: _options,
+      defaultOptions: flattenedOptions,
+      options: flattenedOptions,
       highlighted: null,
       focus: false
     };
@@ -163,6 +168,9 @@ function (_React$Component) {
       select: _Bem.default.e(_this.props.className, 'select'),
       options: _Bem.default.e(_this.props.className, 'options'),
       option: _Bem.default.e(_this.props.className, 'option'),
+      row: _Bem.default.e(_this.props.className, 'row'),
+      group: _Bem.default.e(_this.props.className, 'group'),
+      groupHeader: _Bem.default.e(_this.props.className, 'group-header'),
       out: _Bem.default.e(_this.props.className, 'out'),
       label: _Bem.default.e(_this.props.className, 'label'),
       focus: _this.props.multiple ? "".concat(_this.props.className, " ").concat(_Bem.default.m(_this.props.className, 'multiple focus')) : "".concat(_this.props.className, " ").concat(_Bem.default.m(_this.props.className, 'focus'))
@@ -196,9 +204,10 @@ function (_React$Component) {
     value: function componentWillReceiveProps(nextProps) {
       var nextState = {};
 
-      if (nextProps.options !== this.state.options) {
-        nextState.options = nextProps.options;
-        nextState.defaultOptions = nextProps.options;
+      if (nextProps.options !== this.state.defaultOptions) {
+        var flattenedOptions = (0, _FlattenOptions.default)(nextProps.options);
+        nextState.options = flattenedOptions;
+        nextState.defaultOptions = flattenedOptions;
       }
 
       if (nextProps.value !== this.state.value) {
@@ -503,78 +512,110 @@ function (_React$Component) {
      * -------------------------------------------------------------------------*/
 
   }, {
-    key: "renderOptions",
-    value: function renderOptions() {
+    key: "renderOption",
+    value: function renderOption(option, stateValue, multiple) {
       var _this5 = this;
 
+      var elementVal = option.value;
+      var element = null;
+      var className = this.classes.option;
+      className += " ".concat(this.classes.row);
+
+      if (this.state.highlighted === option.index) {
+        className += " ".concat(_Bem.default.m(this.classes.option, 'hover'));
+      }
+
+      if (multiple && stateValue.indexOf(elementVal) >= 0 || elementVal === stateValue) {
+        className += " ".concat(_Bem.default.m(this.classes.option, 'selected'));
+      }
+
+      if (this.props.multiple) {
+        if (this.state.value.indexOf(option.value) < 0) {
+          element = _react.default.createElement("li", {
+            role: "menuitem",
+            className: className,
+            onClick: function onClick() {
+              return _this5.chooseOption(option.value);
+            },
+            key: "".concat(option.value, "-option"),
+            "data-value": option.value
+          }, this.props.renderOption(option, this.state, this.props));
+        } else {
+          element = _react.default.createElement("li", {
+            role: "menuitem",
+            className: className,
+            onClick: function onClick() {
+              return _this5.removeOption(option.value);
+            },
+            key: "".concat(option.value, "-option"),
+            "data-value": option.value
+          }, this.props.renderOption(option, this.state, this.props));
+        }
+      } else if (option.value === this.state.value) {
+        element = _react.default.createElement("li", {
+          role: "menuitem",
+          className: className,
+          key: "".concat(option.value, "-option"),
+          "data-value": option.value
+        }, this.props.renderOption(option));
+      } else {
+        element = _react.default.createElement("li", {
+          role: "menuitem",
+          className: className,
+          onClick: function onClick() {
+            return _this5.chooseOption(option.value);
+          },
+          key: "".concat(option.value, "-option"),
+          "data-value": option.value
+        }, this.props.renderOption(option, this.state, this.props));
+      }
+
+      return element;
+    }
+  }, {
+    key: "renderOptions",
+    value: function renderOptions() {
+      var _this6 = this;
+
       var select = null;
-      var options = [];
       var selectStyle = {};
+      var options = [];
       var multiple = this.props.multiple;
       var _this$state = this.state,
           stateValue = _this$state.value,
           foundOptions = _this$state.options;
 
       if (foundOptions && foundOptions.length > 0) {
-        foundOptions.forEach(function (element, i) {
-          var elementVal = element.value;
-          var className = _this5.classes.option;
+        var groupedOptions = (0, _GroupOptions.default)(foundOptions);
 
-          if (_this5.state.highlighted === i) {
-            className += " ".concat(_Bem.default.m(_this5.classes.option, 'hover'));
-          }
-
-          if (multiple && stateValue.indexOf(elementVal) >= 0 || elementVal === stateValue) {
-            className += " ".concat(_Bem.default.m(_this5.classes.option, 'selected'));
-          }
-
-          if (_this5.props.multiple) {
-            if (_this5.state.value.indexOf(element.value) < 0) {
+        if (groupedOptions && groupedOptions.length) {
+          groupedOptions.forEach(function (option) {
+            if ({}.hasOwnProperty.call(option, 'type') && option.type === 'group') {
+              var subOptions = [];
+              option.items.forEach(function (groupOption) {
+                subOptions.push(_this6.renderOption(groupOption, stateValue, multiple));
+              });
               options.push(_react.default.createElement("li", {
-                role: "menuitem",
-                className: className,
-                onClick: function onClick() {
-                  return _this5.chooseOption(element.value);
-                },
-                key: "".concat(element.value, "-option"),
-                "data-value": element.value
-              }, _this5.props.renderOption(element, _this5.state, _this5.props)));
+                className: _this6.classes.row,
+                key: option.groupId
+              }, _react.default.createElement("div", {
+                className: _this6.classes.group
+              }, _react.default.createElement("div", {
+                className: _this6.classes.groupHeader
+              }, _this6.props.renderGroupHeader(option.name)), _react.default.createElement("ul", {
+                className: _this6.classes.options
+              }, subOptions))));
             } else {
-              options.push(_react.default.createElement("li", {
-                role: "menuitem",
-                className: className,
-                onClick: function onClick() {
-                  return _this5.removeOption(element.value);
-                },
-                key: "".concat(element.value, "-option"),
-                "data-value": element.value
-              }, _this5.props.renderOption(element, _this5.state, _this5.props)));
+              options.push(_this6.renderOption(option, stateValue, multiple));
             }
-          } else if (element.value === _this5.state.value) {
-            options.push(_react.default.createElement("li", {
-              role: "menuitem",
-              className: className,
-              key: "".concat(element.value, "-option"),
-              "data-value": element.value
-            }, _this5.props.renderOption(element)));
-          } else {
-            options.push(_react.default.createElement("li", {
-              role: "menuitem",
-              className: className,
-              onClick: function onClick() {
-                return _this5.chooseOption(element.value);
-              },
-              key: "".concat(element.value, "-option"),
-              "data-value": element.value
-            }, _this5.props.renderOption(element, _this5.state, _this5.props)));
-          }
-        });
+          });
 
-        if (options.length > 0) {
-          select = _react.default.createElement("ul", {
-            ref: this.selectOptions,
-            className: this.classes.options
-          }, options);
+          if (options.length > 0) {
+            select = _react.default.createElement("ul", {
+              ref: this.selectOptions,
+              className: this.classes.options
+            }, options);
+          }
         }
       }
 
@@ -597,7 +638,7 @@ function (_React$Component) {
   }, {
     key: "renderOutElement",
     value: function renderOutElement() {
-      var _this6 = this;
+      var _this7 = this;
 
       var option = null;
       var outElement;
@@ -606,7 +647,7 @@ function (_React$Component) {
         if (this.state.value) {
           var finalValueOptions = [];
           this.state.value.forEach(function (value) {
-            option = _this6.findByValue(_this6.state.defaultOptions, value);
+            option = _this7.findByValue(_this7.state.defaultOptions, value);
             finalValueOptions.push(_react.default.createElement("option", {
               key: option.value,
               value: option.value
@@ -729,11 +770,14 @@ _defineProperty(SelectSearch, "defaultProps", {
   renderOption: function renderOption(option) {
     return option.name;
   },
+  renderGroupHeader: function renderGroupHeader(title) {
+    return title;
+  },
   renderValue: function renderValue(label) {
     return label;
   },
   fuse: {
-    keys: ['name'],
+    keys: ['name', 'groupName'],
     threshold: 0.3
   }
 });

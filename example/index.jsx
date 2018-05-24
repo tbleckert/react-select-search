@@ -7,11 +7,35 @@ const countryElement  = document.getElementById('countrySelect');
 const fontElement = document.getElementById('fontSelect');
 const friendsElement   = document.getElementById('friendsSelect');
 const fontStacks = [
-    {name: 'Roboto', value: 'Roboto', 'data-stack': 'Roboto, sans-serif'},
-    {name: 'Playfair Display', value: 'Playfair Display', 'data-stack': '"Playfair Display", serif'},
-    {name: 'Monoton', value: 'Monoton', 'data-stack': 'Monoton, cursive'},
-    {name: 'Gloria Hallelujah', value: 'Gloria Hallelujah', 'data-stack': '"Gloria Hallelujah", cursive'},
-    {name: 'VT323', value: 'VT323', 'data-stack': 'VT323, monospace'}
+    {
+        type: 'group',
+        name: 'Sans serif',
+        items: [
+            { name: 'Roboto', value: 'Roboto', 'data-stack': 'Roboto, sans-serif' },
+        ],
+    },
+    {
+        type: 'group',
+        name: 'Serif',
+        items: [
+            { name: 'Playfair Display', value: 'Playfair Display', 'data-stack': '"Playfair Display", serif' },
+        ],
+    },
+    {
+        type: 'group',
+        name: 'Cursive',
+        items: [
+            { name: 'Monoton', value: 'Monoton', 'data-stack': 'Monoton, cursive' },
+            { name: 'Gloria Hallelujah', value: 'Gloria Hallelujah', 'data-stack': '"Gloria Hallelujah", cursive' },
+        ],
+    },
+    {
+        type: 'group',
+        name: 'Monospace',
+        items: [
+            { name: 'VT323', value: 'VT323', 'data-stack': 'VT323, monospace' },
+        ],
+    },
 ];
 // https://randomuser.me/
 const friends = [
@@ -28,7 +52,7 @@ let fontStack;
 
 /** Render selectbox */
 render(
-    <SelectSearch name="font" value="Playfair Display" renderOption={renderFontOption} renderValue={renderFontValue} options={fontStacks} search={false} placeholder="Choose font" />,
+    <SelectSearch name="font" renderOption={renderFontOption} renderValue={renderFontValue} options={fontStacks} placeholder="Choose font" />,
     fontElement,
 );
 
