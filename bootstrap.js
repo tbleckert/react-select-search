@@ -6,11 +6,35 @@ const countryElement  = document.getElementById('countrySelect');
 const fontElement = document.getElementById('fontSelect');
 const friendsElement   = document.getElementById('friendsSelect');
 const fontStacks = [
-    {name: 'Roboto', value: 'Roboto', 'data-stack': 'Roboto, sans-serif'},
-    {name: 'Playfair Display', value: 'Playfair Display', 'data-stack': '"Playfair Display", serif'},
-    {name: 'Monoton', value: 'Monoton', 'data-stack': 'Monoton, cursive'},
-    {name: 'Gloria Hallelujah', value: 'Gloria Hallelujah', 'data-stack': '"Gloria Hallelujah", cursive'},
-    {name: 'VT323', value: 'VT323', 'data-stack': 'VT323, monospace'}
+    {
+        type: 'group',
+        name: 'Sans serif',
+        items: [
+            { name: 'Roboto', value: 'Roboto', 'data-stack': 'Roboto, sans-serif' },
+        ],
+    },
+    {
+        type: 'group',
+        name: 'Serif',
+        items: [
+            { name: 'Playfair Display', value: 'Playfair Display', 'data-stack': '"Playfair Display", serif' },
+        ],
+    },
+    {
+        type: 'group',
+        name: 'Cursive',
+        items: [
+            { name: 'Monoton', value: 'Monoton', 'data-stack': 'Monoton, cursive' },
+            { name: 'Gloria Hallelujah', value: 'Gloria Hallelujah', 'data-stack': '"Gloria Hallelujah", cursive' },
+        ],
+    },
+    {
+        type: 'group',
+        name: 'Monospace',
+        items: [
+            { name: 'VT323', value: 'VT323', 'data-stack': 'VT323, monospace' },
+        ],
+    },
 ];
 // https://randomuser.me/
 const friends = [
@@ -27,69 +51,20 @@ let fontStack;
 
 /** Render selectbox */
 render(
-    <SelectSearch name="font" value="Playfair Display" renderOption={renderFontOption} onChange={onSelectChange} onBlur={onBlur} onMount={onBlur} options={fontStacks} search={false} placeholder="Choose font" />,
-    fontElement
+    <SelectSearch name="font" value="Playfair Display" renderOption={renderFontOption} renderValue={renderFontValue} search={false} options={fontStacks} placeholder="Choose font" />,
+    fontElement,
 );
 
-function getSearchElement(props) {
-    let outElement = document.querySelector('[name="' + props.name + '"]');
-
-    if (!outElement) {
-        return null;
-    }
-
-    return outElement.nextSibling;
+function renderFontValue(label, option) {
+    return <span style={{ fontFamily: option['data-stack'] }}>{label}</span>;
 }
 
-function setFontStackOnSearch(value, props) {
-    let search = getSearchElement(props);
-
-    if (search) {
-        search.style.fontFamily = value['data-stack'];
-    }
-}
-
-function clearFontStackOnSearch(value, props) {
-    let search = getSearchElement(props);
-
-    if (search) {
-        search.style.fontFamily = '';
-    }
-}
-
-function onChange(value, state, props) {
-    fontStack = option['data-stack'];
-    this.refs.search.style.fontFamily = fontStack;
-}
-
-function onBlur(value, state, props) {
-    setFontStackOnSearch(value, props);
-}
-
-function renderFontOption (option) {
+function renderFontOption(option) {
     let style = {
         fontFamily: option['data-stack']
     };
 
     return <span style={style}>{option.name}</span>;
-}
-
-function onSelectChange(value, state, props) {
-    let outElement = document.querySelector('[name="' + props.name + '"]');
-
-    if (outElement) {
-        if ('createEvent' in document) {
-            const event = document.createEvent('HTMLEvents');
-            event.initEvent('change', true, true);
-            outElement.dispatchEvent(event);
-        } else {
-            outElement.fireEvent('onchange');
-        }
-    }
-
-    if (value.hasOwnProperty('data-stack')) {
-        setFontStackOnSearch(value, props);
-    }
 }
 
 render(

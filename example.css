@@ -174,3 +174,21 @@ body {
                 color: #fff;
                 border-top-color: #2184ff;
             }
+
+        .select-search-box__group {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            position: relative;
+        }
+
+        .select-search-box__group-header {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 0 10px;
+            color: rgba(0, 0, 0, 0.5);
+            font-size: 12px;
+        }
