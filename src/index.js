@@ -641,9 +641,9 @@ class SelectSearch extends React.Component {
             }
 
             searchField = (
-                <strong tabIndex={0} role="button" onClick={this.toggle} className={labelClassName}>
+                <div tabIndex={0} role="button" onClick={this.toggle} className={labelClassName}>
                     {this.props.renderValue(labelValue, option, this.state, this.props)}
-                </strong>
+                </div>
             );
         }
 

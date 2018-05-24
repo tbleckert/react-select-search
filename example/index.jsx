@@ -52,7 +52,7 @@ let fontStack;
 
 /** Render selectbox */
 render(
-    <SelectSearch name="font" renderOption={renderFontOption} renderValue={renderFontValue} options={fontStacks} placeholder="Choose font" />,
+    <SelectSearch name="font" value="Playfair Display" renderOption={renderFontOption} search={false} renderValue={renderFontValue} options={fontStacks} placeholder="Choose font" />,
     fontElement,
 );
 
