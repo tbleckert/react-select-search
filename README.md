@@ -42,7 +42,14 @@ import SelectSearch from 'react-select-search'
  */
 const options = [
     {name: 'Swedish', value: 'sv'},
-    {name: 'English', value: 'en'}
+    {name: 'English', value: 'en'},
+    {
+        type: 'group',
+        name: 'Group name',
+        items: [
+            {name: 'Spanish', value: 'es'},
+        ]
+    },
 ];
 
 /* Simple example */
@@ -69,6 +76,7 @@ Below is a full list of properties and defaults (displayed in React style).
     onFocus: PropTypes.func,
     renderOption: PropTypes.func,
     renderValue: PropTypes.func,
+    renderGroupHeader: PropTypes.func,
     value: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.array
@@ -91,6 +99,7 @@ Below is a full list of properties and defaults (displayed in React style).
     onChange: (value, state, props) => {},
     renderOption: (option, state, props) => option.name,
     renderValue: (label, valueObj, state, props) => label,
+    renderGroupHeader: name => name,
     fuse: {
         keys: ['name'],
         threshold: 0.3
