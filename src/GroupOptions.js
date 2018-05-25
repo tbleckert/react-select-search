@@ -20,7 +20,7 @@ const GroupOptions = (options) => {
 
             nextOption.index = i;
 
-            if (groupIndex && groupIndex > -1) {
+            if (groupIndex !== null && groupIndex > -1) {
                 nextOptions[groupIndex].items.push(nextOption);
             } else {
                 nextOptions.push({ items: [nextOption], groupId: option.groupId, type: 'group', name: option.groupName });
