@@ -143,17 +143,17 @@ function (_React$Component) {
         _value = props.value,
         multiple = props.multiple;
     var stateValue = !_value && multiple ? [] : _value;
+    var flattenedOptions = (0, _FlattenOptions.default)(_options);
     var _search = '';
 
     if (stateValue) {
-      var option = _this.findByValue(_options, stateValue);
+      var option = _this.findByValue(flattenedOptions, stateValue);
 
       if (option) {
         _search = option.name;
       }
     }
 
-    var flattenedOptions = (0, _FlattenOptions.default)(_options);
     _this.state = {
       search: _search,
       value: stateValue,

@@ -38,18 +38,17 @@ class SelectSearch extends React.Component {
 
         const { options, value, multiple } = props;
         const stateValue = (!value && multiple) ? [] : value;
+        const flattenedOptions = FlattenOptions(options);
 
         let search = '';
 
         if (stateValue) {
-            const option = this.findByValue(options, stateValue);
+            const option = this.findByValue(flattenedOptions, stateValue);
 
             if (option) {
                 search = option.name;
             }
         }
-
-        const flattenedOptions = FlattenOptions(options);
 
         this.state = {
             search,
