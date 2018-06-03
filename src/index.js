@@ -635,6 +635,11 @@ class SelectSearch extends React.Component {
                 labelClassName = `${this.classes.search} ${Bem.m(this.classes.search, 'placeholder')}`;
             } else {
                 option = this.findByValue(this.state.defaultOptions, this.state.value);
+
+                if (!option) {
+                    option = this.state.defaultOptions[0];
+                }
+
                 labelValue = option.name;
                 labelClassName = this.classes.search;
             }
