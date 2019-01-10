@@ -97,16 +97,22 @@ class SelectSearch extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         const nextState = {};
+        const options = this.state.defaultOptions;
 
         if (nextProps.options !== this.state.defaultOptions) {
             const flattenedOptions = FlattenOptions(nextProps.options);
 
             nextState.options = flattenedOptions;
+            options = flattenedOptions;
             nextState.defaultOptions = flattenedOptions;
         }
 
         if (nextProps.value !== this.state.value) {
             nextState.value = nextProps.value;
+            const option = this.findByValue(options, nextProps.value);
+            if (option) {
+              nextState.search = option.name;
+            }
         }
 
         this.setState(nextState);
