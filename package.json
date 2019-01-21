@@ -38,7 +38,7 @@
     "@babel/preset-env": "^7.0.0-beta.39",
     "@babel/preset-react": "^7.0.0-beta.39",
     "@babel/register": "^7.0.0-beta.40",
-    "ava": "next",
+    "ava": "^1.0.1",
     "babel-eslint": "^8.2.1",
     "babel-loader": "^8.0.0-beta.0",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.13",
