@@ -1,4 +1,4 @@
-@import 'http://weloveiconfonts.com/api/?family=fontawesome';
+@import 'https://weloveiconfonts.com/api/?family=fontawesome';
 
 [class*="fontawesome-"]:before {
     font-family: 'fontawesome', sans-serif;
