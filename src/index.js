@@ -107,11 +107,14 @@ class SelectSearch extends React.Component {
         }
 
         if (nextProps.value !== value) {
-            nextState.value = nextProps.value;
-
             const option = this.findByValue(defaultOptions, nextProps.value);
+
             if (option) {
+                nextState.value = nextProps.value;
                 nextState.search = option.name;
+            } else {
+                nextState.value = '';
+                nextState.search = '';
             }
         }
 
@@ -153,7 +156,7 @@ class SelectSearch extends React.Component {
      * -------------------------------------------------------------------------*/
     handleClickOutside = () => {
         this.onBlur();
-    }
+    };
 
     onBlur = () => {
         if (this.props.search && !this.props.multiple) {
@@ -164,15 +167,18 @@ class SelectSearch extends React.Component {
 
         if (this.state.value && this.props.search && !this.props.multiple) {
             const option = this.findByValue(null, this.state.value);
-            search = option.name;
+
+            if (option) {
+                search = option.name;
+            }
         }
 
         this.setState({ focus: false, highlighted: null, search });
-    }
+    };
 
     onFocus = () => {
         this.setState({ focus: true, options: this.state.defaultOptions, search: '' });
-    }
+    };
 
     onChange = (e) => {
         let { value } = e.target;
@@ -185,7 +191,7 @@ class SelectSearch extends React.Component {
         options = this.getNewOptionsList(options, value);
 
         this.setState({ search: value, options });
-    }
+    };
 
     onKeyPress = (e) => {
         if (!this.state.options || this.state.options.length < 1) {
@@ -196,7 +202,7 @@ class SelectSearch extends React.Component {
         if (e.keyCode === 13) {
             this.handleEnter();
         }
-    }
+    };
 
     onKeyDown = (e) => {
         if (!this.state.focus) {
@@ -218,14 +224,14 @@ class SelectSearch extends React.Component {
         if (e.keyCode === 38) {
             this.handleArrowUp();
         }
-    }
+    };
 
     onKeyUp = (e) => {
         /** Esc */
         if (e.keyCode === 27) {
             this.handleEsc();
         }
-    }
+    };
 
     /**
      * Keyboard actions
@@ -370,7 +376,7 @@ class SelectSearch extends React.Component {
         } else {
             this.onFocus();
         }
-    }
+    };
 
     chooseOption(value) {
         let currentValue = this.state.value;
