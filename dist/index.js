@@ -64,7 +64,9 @@ function (_React$Component) {
       if (_this.state.value && _this.props.search && !_this.props.multiple) {
         var option = _this.findByValue(null, _this.state.value);
 
-        search = option.name;
+        if (option) {
+          search = option.name;
+        }
       }
 
       _this.setState({
@@ -203,15 +205,26 @@ function (_React$Component) {
     key: "componentWillReceiveProps",
     value: function componentWillReceiveProps(nextProps) {
       var nextState = {};
+      var _this$state = this.state,
+          defaultOptions = _this$state.defaultOptions,
+          value = _this$state.value;
 
-      if (nextProps.options !== this.state.defaultOptions) {
+      if (nextProps.options !== defaultOptions) {
         var flattenedOptions = (0, _FlattenOptions.default)(nextProps.options);
         nextState.options = flattenedOptions;
         nextState.defaultOptions = flattenedOptions;
       }
 
-      if (nextProps.value !== this.state.value) {
-        nextState.value = nextProps.value;
+      if (nextProps.value !== value) {
+        var option = this.findByValue(defaultOptions, nextProps.value);
+
+        if (option) {
+          nextState.value = nextProps.value;
+          nextState.search = option.name;
+        } else {
+          nextState.value = '';
+          nextState.search = '';
+        }
       }
 
       this.setState(nextState);
@@ -581,9 +594,9 @@ function (_React$Component) {
       var selectStyle = {};
       var options = [];
       var multiple = this.props.multiple;
-      var _this$state = this.state,
-          stateValue = _this$state.value,
-          foundOptions = _this$state.options;
+      var _this$state2 = this.state,
+          stateValue = _this$state2.value,
+          foundOptions = _this$state2.options;
 
       if (foundOptions && foundOptions.length > 0) {
         var groupedOptions = (0, _GroupOptions.default)(foundOptions);
