@@ -439,12 +439,14 @@ class SelectSearch extends React.Component {
 
     scrollToSelected(force = false, selected = 'hover') {
         if (
-            !force && (
-                this.props.multiple ||
-                this.state.highlighted == null ||
-                !this.select.current ||
-                !this.state.focus ||
-                this.state.options.length < 1
+            (
+                !force && (
+                    this.props.multiple ||
+                    this.state.highlighted == null ||
+                    !this.select.current ||
+                    !this.state.focus ||
+                    this.state.options.length < 1
+                )
             ) || !this.selectOptions.current
         ) {
             return;
@@ -516,7 +518,9 @@ class SelectSearch extends React.Component {
                         options.push((
                             <li className={this.classes.row} key={option.groupId}>
                                 <div className={this.classes.group}>
-                                    <div className={this.classes.groupHeader}>{this.props.renderGroupHeader(option.name)}</div>
+                                    <div className={this.classes.groupHeader}>
+                                        {this.props.renderGroupHeader(option.name)}
+                                    </div>
                                     <ul className={this.classes.options}>
                                         {subOptions}
                                     </ul>

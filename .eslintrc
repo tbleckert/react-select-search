@@ -11,6 +11,7 @@
     "react/jsx-indent-props": ["error", 4],
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "import/no-unresolved": [2, {"ignore": ["src/"]}],
-    "jsx-a11y/click-events-have-key-events": 0
+    "jsx-a11y/click-events-have-key-events": 0,
+    "no-mixed-operators": 0
   }
 }
