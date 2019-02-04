@@ -113,7 +113,7 @@ class SelectSearch extends React.Component {
                 nextState.value = nextProps.value;
                 nextState.search = option.name;
             } else {
-                nextState.value = '';
+                nextState.value = [];
                 nextState.search = '';
             }
         }
