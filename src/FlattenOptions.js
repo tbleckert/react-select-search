@@ -1,7 +1,7 @@
 const FlattenOptions = (options) => {
     const nextOptions = [];
 
-    options.forEach((option) => {
+    options.forEach((option, index) => {
         if ({}.hasOwnProperty.call(option, 'type') && option.type === 'group') {
             const id = Math.random().toString(36).substr(2, 9);
 
@@ -14,7 +14,7 @@ const FlattenOptions = (options) => {
                 nextOptions.push(nextGroupOption);
             });
         } else {
-            nextOptions.push(option);
+            nextOptions.push(Object.assign({}, option, { index }));
         }
     });
 

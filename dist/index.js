@@ -7,6 +7,8 @@ exports.default = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
+var _propTypes = _interopRequireDefault(require("prop-types"));
+
 var _fuse = _interopRequireDefault(require("fuse.js"));
 
 var _reactOnclickoutside = _interopRequireDefault(require("react-onclickoutside"));
@@ -21,11 +23,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } _setPrototypeOf(subClass.prototype, superClass && superClass.prototype); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
@@ -33,7 +33,11 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _getPrototypeOf(o) { _getPrototypeOf = Object.getPrototypeOf || function _getPrototypeOf(o) { return o.__proto__; }; return _getPrototypeOf(o); }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
@@ -42,6 +46,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 var SelectSearch =
 /*#__PURE__*/
 function (_React$Component) {
+  _inherits(SelectSearch, _React$Component);
+
   /**
    * Component setup
    * -------------------------------------------------------------------------*/
@@ -52,9 +58,11 @@ function (_React$Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(SelectSearch).call(this, props));
 
-    _defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty(_defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "handleClickOutside", function () {
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "handleClickOutside", function () {
       _this.onBlur();
-    }), "onBlur", function () {
+    });
+
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "onBlur", function () {
       if (_this.props.search && !_this.props.multiple) {
         _this.search.current.blur();
       }
@@ -74,13 +82,17 @@ function (_React$Component) {
         highlighted: null,
         search: search
       });
-    }), "onFocus", function () {
+    });
+
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "onFocus", function () {
       _this.setState({
         focus: true,
         options: _this.state.defaultOptions,
         search: ''
       });
-    }), "onChange", function (e) {
+    });
+
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "onChange", function (e) {
       var value = e.target.value;
 
       if (!value) {
@@ -94,7 +106,9 @@ function (_React$Component) {
         search: value,
         options: options
       });
-    }), "onKeyPress", function (e) {
+    });
+
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "onKeyPress", function (e) {
       if (!_this.state.options || _this.state.options.length < 1) {
         return;
       }
@@ -104,7 +118,9 @@ function (_React$Component) {
       if (e.keyCode === 13) {
         _this.handleEnter();
       }
-    }), "onKeyDown", function (e) {
+    });
+
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "onKeyDown", function (e) {
       if (!_this.state.focus) {
         return;
       }
@@ -128,12 +144,16 @@ function (_React$Component) {
       if (e.keyCode === 38) {
         _this.handleArrowUp();
       }
-    }), "onKeyUp", function (e) {
+    });
+
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "onKeyUp", function (e) {
       /** Esc */
       if (e.keyCode === 27) {
         _this.handleEsc();
       }
-    }), "toggle", function () {
+    });
+
+    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "toggle", function () {
       if (_this.state.focus) {
         _this.onBlur();
       } else {
@@ -222,7 +242,7 @@ function (_React$Component) {
           nextState.value = nextProps.value;
           nextState.search = option.name;
         } else {
-          nextState.value = '';
+          nextState.value = [];
           nextState.search = '';
         }
       }
@@ -247,7 +267,7 @@ function (_React$Component) {
         this.props.onHighlight.call(null, this.state.options[this.state.highlighted], this.state, this.props);
       }
 
-      this.scrollToSelected();
+      this.scrollToSelected(true);
     }
   }, {
     key: "componentWillUnmount",
@@ -376,30 +396,6 @@ function (_React$Component) {
       document.removeEventListener('keyup', this.onKeyUp);
     }
   }, {
-    key: "findIndexByOption",
-    value: function findIndexByOption(searchOption, options) {
-      var searchOptions = options;
-
-      if (!options) {
-        searchOptions = this.state.options;
-      }
-
-      if (searchOptions.length < 1) {
-        return -1;
-      }
-
-      var index = -1;
-      searchOptions.some(function (option, i) {
-        if (option.value === searchOption.value) {
-          index = i;
-          return true;
-        }
-
-        return false;
-      });
-      return index;
-    }
-  }, {
     key: "findByValue",
     value: function findByValue(source, value) {
       var findSource = source;
@@ -499,7 +495,11 @@ function (_React$Component) {
     value: function getNewOptionsList(options, value) {
       if (options && options.length > 0 && value && value.length > 0) {
         var fuse = new _fuse.default(options, this.props.fuse);
-        return fuse.search(value);
+        return fuse.search(value).map(function (item, index) {
+          return _objectSpread({}, item, {
+            index: index
+          });
+        });
       }
 
       return options;
@@ -510,14 +510,15 @@ function (_React$Component) {
       var force = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
       var selected = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'hover';
 
-      if (!force && (this.props.multiple || this.state.highlighted == null || !this.select.current || !this.selectOptions.current || !this.state.focus || this.state.options.length < 1)) {
+      if (!force && (this.props.multiple || this.state.highlighted == null || !this.select.current || !this.state.focus || this.state.options.length < 1) || !this.selectOptions.current) {
         return;
       }
 
       var selectedItem = this.selectOptions.current.querySelector(".".concat(_Bem.default.m(this.classes.option, selected)));
 
       if (selectedItem) {
-        this.select.current.scrollTop = selectedItem.offsetTop;
+        var searchOffset = this.search.current ? this.search.current.clientHeight : 0;
+        this.select.current.scrollTop = selectedItem.offsetTop - searchOffset - this.props.height / 2 + selectedItem.clientHeight / 2;
       }
     }
     /**
@@ -766,8 +767,6 @@ function (_React$Component) {
     }
   }]);
 
-  _inherits(SelectSearch, _React$Component);
-
   return SelectSearch;
 }(_react.default.Component);
 
@@ -799,6 +798,27 @@ _defineProperty(SelectSearch, "defaultProps", {
     threshold: 0.3
   }
 });
+
+SelectSearch.propTypes = {
+  options: _propTypes.default.array.isRequired,
+  className: _propTypes.default.string,
+  search: _propTypes.default.bool,
+  placeholder: _propTypes.default.string,
+  multiple: _propTypes.default.bool,
+  height: _propTypes.default.number,
+  name: _propTypes.default.string,
+  autofocus: _propTypes.default.bool,
+  fuse: _propTypes.default.object,
+  onChange: _propTypes.default.func,
+  onHighlight: _propTypes.default.func,
+  onMount: _propTypes.default.func,
+  onBlur: _propTypes.default.func,
+  onFocus: _propTypes.default.func,
+  renderOption: _propTypes.default.func,
+  renderValue: _propTypes.default.func,
+  renderGroupHeader: _propTypes.default.func,
+  value: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.array])
+};
 
 var _default = (0, _reactOnclickoutside.default)(SelectSearch);
 

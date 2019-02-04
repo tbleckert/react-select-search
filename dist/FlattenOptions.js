@@ -7,7 +7,7 @@ exports.default = void 0;
 
 var FlattenOptions = function FlattenOptions(options) {
   var nextOptions = [];
-  options.forEach(function (option) {
+  options.forEach(function (option, index) {
     if ({}.hasOwnProperty.call(option, 'type') && option.type === 'group') {
       var id = Math.random().toString(36).substr(2, 9);
       option.items.forEach(function (groupOption) {
@@ -17,7 +17,9 @@ var FlattenOptions = function FlattenOptions(options) {
         nextOptions.push(nextGroupOption);
       });
     } else {
-      nextOptions.push(option);
+      nextOptions.push(Object.assign({}, option, {
+        index: index
+      }));
     }
   });
   return nextOptions;
