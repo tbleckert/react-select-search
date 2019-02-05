@@ -2,48 +2,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import SelectSearch from '../src';
 import '../style.css';
-
-const fontStacks = [
-    {
-        type: 'group',
-        name: 'Sans serif',
-        items: [
-            { name: 'Roboto', value: 'Roboto', 'data-stack': 'Roboto, sans-serif' },
-        ],
-    },
-    {
-        type: 'group',
-        name: 'Serif',
-        items: [
-            { name: 'Playfair Display', value: 'Playfair Display', 'data-stack': '"Playfair Display", serif' },
-        ],
-    },
-    {
-        type: 'group',
-        name: 'Cursive',
-        items: [
-            { name: 'Monoton', value: 'Monoton', 'data-stack': 'Monoton, cursive' },
-            { name: 'Gloria Hallelujah', value: 'Gloria Hallelujah', 'data-stack': '"Gloria Hallelujah", cursive' },
-        ],
-    },
-    {
-        type: 'group',
-        name: 'Monospace',
-        items: [
-            { name: 'VT323', value: 'VT323', 'data-stack': 'VT323, monospace' },
-        ],
-    },
-];
-// https://randomuser.me/
-const friends = [
-    { name: 'Annie Cruz', value: 'annie.cruz', photo: 'https://randomuser.me/api/portraits/women/60.jpg' },
-    { name: 'Eli Shelton', value: 'eli.shelton', photo: 'https://randomuser.me/api/portraits/men/7.jpg' },
-    { name: 'Loretta Rogers', value: 'loretta.rogers', photo: 'https://randomuser.me/api/portraits/women/51.jpg' },
-    { name: 'Lloyd Fisher', value: 'lloyd.fisher', photo: 'https://randomuser.me/api/portraits/men/34.jpg' },
-    { name: 'Tiffany Gonzales', value: 'tiffany.gonzales', photo: 'https://randomuser.me/api/portraits/women/71.jpg' },
-];
-/** https://gist.github.com/Keeguon/2310008 */
-const countryOptions = require('./data/countries');
+import { countries, fontStacks, friends } from './data';
 
 function renderFontValue(label, option) {
     if (!option) {
@@ -107,7 +66,7 @@ class App extends React.Component {
                     name="country"
                     mode="input"
                     value={this.state.country}
-                    options={countryOptions}
+                    options={countries}
                     placeholder="Your country"
                 />
                 <SelectSearch
