@@ -65,6 +65,11 @@
       "@babel/register",
       "./__tests__/helpers/setup-browser-env.js",
       "./__tests__/helpers/setup-enzyme.js"
+    ],
+    "files": [
+      "./__tests__/*.test.js",
+      "./__tests__/**/*.test.js",
+      "!./__tests__/data/*"
     ]
   },
   "dependencies": {
