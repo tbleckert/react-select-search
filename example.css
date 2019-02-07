@@ -1,4 +1,4 @@
-@import 'https://weloveiconfonts.com/api/?family=fontawesome';
+@import 'https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css';
 
 [class*="fontawesome-"]:before {
     font-family: 'fontawesome', sans-serif;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
-import SelectSearch from './react-select-search';
+import SelectSearch from 'react-select-search';
 
 const countryElement  = document.getElementById('countrySelect');
 const fontElement = document.getElementById('fontSelect');
