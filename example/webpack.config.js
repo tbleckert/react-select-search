@@ -1,8 +1,14 @@
-const { resolve } = require('path');
+const { resolve, join } = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     entry: resolve(__dirname),
+    devtool: 'source-map',
+    output: {
+        path: join(__dirname, 'dist'),
+        filename: 'index.js',
+        publicPath: '/static/'
+    },
     resolve: {
         extensions: ['.js', '.jsx'],
     },

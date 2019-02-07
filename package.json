@@ -27,8 +27,8 @@
   },
   "homepage": "https://github.com/tbleckert/react-select-search",
   "peerDependencies": {
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0"
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0-beta.39",

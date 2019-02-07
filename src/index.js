@@ -113,7 +113,7 @@ class SelectSearch extends React.Component {
                 nextState.value = nextProps.value;
                 nextState.search = option.name;
             } else {
-                nextState.value = '';
+                nextState.value = [];
                 nextState.search = '';
             }
         }
@@ -142,7 +142,7 @@ class SelectSearch extends React.Component {
             );
         }
 
-        this.scrollToSelected();
+        this.scrollToSelected(true);
     }
 
     componentWillUnmount() {
@@ -331,31 +331,6 @@ class SelectSearch extends React.Component {
         document.removeEventListener('keyup', this.onKeyUp);
     }
 
-    findIndexByOption(searchOption, options) {
-        let searchOptions = options;
-
-        if (!options) {
-            searchOptions = this.state.options;
-        }
-
-        if (searchOptions.length < 1) {
-            return -1;
-        }
-
-        let index = -1;
-
-        searchOptions.some((option, i) => {
-            if (option.value === searchOption.value) {
-                index = i;
-                return true;
-            }
-
-            return false;
-        });
-
-        return index;
-    }
-
     findByValue(source, value) {
         let findSource = source;
 
@@ -456,7 +431,7 @@ class SelectSearch extends React.Component {
         if (options && options.length > 0 && value && value.length > 0) {
             const fuse = new Fuse(options, this.props.fuse);
 
-            return fuse.search(value);
+            return fuse.search(value).map((item, index) => Object.assign({}, item, { index }));
         }
 
         return options;
@@ -464,14 +439,15 @@ class SelectSearch extends React.Component {
 
     scrollToSelected(force = false, selected = 'hover') {
         if (
-            !force && (
-                this.props.multiple ||
-                this.state.highlighted == null ||
-                !this.select.current ||
-                !this.selectOptions.current ||
-                !this.state.focus ||
-                this.state.options.length < 1
-            )
+            (
+                !force && (
+                    this.props.multiple ||
+                    this.state.highlighted == null ||
+                    !this.select.current ||
+                    !this.state.focus ||
+                    this.state.options.length < 1
+                )
+            ) || !this.selectOptions.current
         ) {
             return;
         }
@@ -479,7 +455,8 @@ class SelectSearch extends React.Component {
         const selectedItem = this.selectOptions.current.querySelector(`.${Bem.m(this.classes.option, selected)}`);
 
         if (selectedItem) {
-            this.select.current.scrollTop = selectedItem.offsetTop;
+            const searchOffset = this.search.current ? this.search.current.clientHeight : 0;
+            this.select.current.scrollTop = selectedItem.offsetTop - searchOffset - this.props.height / 2 + selectedItem.clientHeight / 2;
         }
     }
 
@@ -493,7 +470,6 @@ class SelectSearch extends React.Component {
         let className = this.classes.option;
 
         className += ` ${this.classes.row}`;
-
         if (this.state.highlighted === option.index) {
             className += ` ${Bem.m(this.classes.option, 'hover')}`;
         }
@@ -542,7 +518,9 @@ class SelectSearch extends React.Component {
                         options.push((
                             <li className={this.classes.row} key={option.groupId}>
                                 <div className={this.classes.group}>
-                                    <div className={this.classes.groupHeader}>{this.props.renderGroupHeader(option.name)}</div>
+                                    <div className={this.classes.groupHeader}>
+                                        {this.props.renderGroupHeader(option.name)}
+                                    </div>
                                     <ul className={this.classes.options}>
                                         {subOptions}
                                     </ul>
