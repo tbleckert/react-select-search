@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import SelectSearch from '../src';
 import '../style.css';
-import { countries, fontStacks, friends } from './data';
+import { countries, fontStacks, friends_search } from './data';
 
 function renderFontValue(label, option) {
     if (!option) {
@@ -38,14 +38,16 @@ class App extends React.Component {
     state = {
         font: 'Playfair Display',
         country: 'SE',
-        friends: '',
+        friends_search: [],
+        friends: ['maria.waters', 'lorena.mccoy']
     };
 
     clear = () => {
         this.setState({
             font: '',
             country: '',
-            friends: '',
+            friends_search: [],
+            friends: []
         });
     };
 
@@ -72,10 +74,19 @@ class App extends React.Component {
                 <SelectSearch
                     name="friends"
                     multiple
+                    value={this.state.friends_search}
+                    height={172}
+                    options={friends_search}
+                    placeholder="Search friends"
+                    renderOption={renderFriend}
+                />
+                <SelectSearch
+                    name="friends"
+                    multiple
+                    search={false}
                     value={this.state.friends}
                     height={172}
-                    options={friends}
-                    placeholder="Search friends"
+                    options={friends_search.slice().reverse()}
                     renderOption={renderFriend}
                 />
             </div>
