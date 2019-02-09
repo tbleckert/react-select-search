@@ -278,7 +278,7 @@ export const fontStacks = [
 ];
 
 // https://randomuser.me/
-export const friends_search = [
+export const friends = [
     { name: 'Annie Cruz', value: 'annie.cruz', photo: 'https://randomuser.me/api/portraits/women/60.jpg' },
     { name: 'Eli Shelton', value: 'eli.shelton', photo: 'https://randomuser.me/api/portraits/men/7.jpg' },
     { name: 'Loretta Rogers', value: 'loretta.rogers', photo: 'https://randomuser.me/api/portraits/women/51.jpg' },
@@ -290,4 +290,12 @@ export const friends_search = [
     { name: 'Lorena McCoy', value: 'lorena.mccoy', photo: 'https://randomuser.me/api/portraits/women/70.jpg' },
     { name: 'Alicia Lamb', value: 'alicia.lamb', photo: 'https://randomuser.me/api/portraits/women/22.jpg' },
     { name: 'Maria Waters', value: 'maria.waters', photo: 'https://randomuser.me/api/portraits/women/82.jpg' },
+];
+
+export const colors = [
+    { name: 'Orange', value: 'orange' },
+    { name: 'Red', value: 'red' },
+    { name: 'Blue', value: 'blue' },
+    { name: 'Purple', value: 'purple' },
+    { name: 'Yellow', value: 'yellow' },
 ];

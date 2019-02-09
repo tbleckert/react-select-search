@@ -360,7 +360,7 @@ class SelectSearch extends React.Component {
     };
 
     chooseOption(value) {
-        let currentValue = [...this.state.value];
+        let currentValue = this.state.value.slice();
         let option;
         let search;
 
@@ -381,7 +381,7 @@ class SelectSearch extends React.Component {
                 currentValue = [];
             }
             
-            currentIndex = currentValue.indexOf(option.value);
+            const currentIndex = currentValue.indexOf(option.value);
             currentIndex > -1 ? currentValue.splice(currentIndex, 1) : currentValue.push(option.value);
 
             search = '';
@@ -417,7 +417,7 @@ class SelectSearch extends React.Component {
         }
 
         const option = this.findByValue(this.state.defaultOptions, value);
-        const optionValue = [...this.state.value];
+        const optionValue = this.state.value.slice();
 
         if (!option || optionValue.indexOf(option.value) < 0) {
             return false;
@@ -463,8 +463,6 @@ class SelectSearch extends React.Component {
 
         if (selectedItem) {
             const searchOffset = this.search.current ? this.search.current.clientHeight : 0;
-            console.log('this.search.current', this.search.current);
-            console.log('----', selectedItem.offsetTop, '-', searchOffset, '-', this.props.height, '/ 2', '+', selectedItem.clientHeight, ' / 2');
             this.select.current.scrollTop = selectedItem.offsetTop - searchOffset - this.props.height / 2 + selectedItem.clientHeight / 2;
         }
     }

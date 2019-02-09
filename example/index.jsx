@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import SelectSearch from '../src';
 import '../style.css';
-import { countries, fontStacks, friends_search } from './data';
+import { countries, fontStacks, friends, colors } from './data';
 
 function renderFontValue(label, option) {
     if (!option) {
@@ -34,20 +34,24 @@ function renderFriend(option) {
     return (<span><img alt="" style={imgStyle} width="40" height="40" src={option.photo} /><span>{option.name}</span></span>);
 }
 
+function renderColors(option) {
+    return (<span><span>{option.name}</span></span>);
+}
+
 class App extends React.Component {
     state = {
         font: 'Playfair Display',
         country: 'SE',
-        friends_search: [],
-        friends: ['maria.waters', 'lorena.mccoy']
+        friends: [],
+        colors: ['red', 'purple']
     };
 
     clear = () => {
         this.setState({
             font: '',
             country: '',
-            friends_search: [],
-            friends: []
+            friends: [],
+            colors: []
         });
     };
 
@@ -76,18 +80,18 @@ class App extends React.Component {
                     multiple
                     value={this.state.friends_search}
                     height={172}
-                    options={friends_search}
+                    options={friends}
                     placeholder="Search friends"
                     renderOption={renderFriend}
                 />
                 <SelectSearch
-                    name="friends"
+                    name="colors"
                     multiple
                     search={false}
-                    value={this.state.friends}
+                    value={this.state.colors}
                     height={172}
-                    options={friends_search.slice().reverse()}
-                    renderOption={renderFriend}
+                    options={colors}
+                    renderOption={renderColors}
                 />
             </div>
         );
