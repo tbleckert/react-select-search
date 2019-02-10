@@ -6,7 +6,7 @@ import Bem from './Bem';
 import FlattenOptions from './FlattenOptions';
 import GroupOptions from './GroupOptions';
 
-class SelectSearch extends React.Component {
+class SelectSearch extends React.PureComponent {
     static defaultProps = {
         className: 'select-search-box',
         search: true,
