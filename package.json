@@ -5,7 +5,9 @@
   "main": "dist/index.js",
   "scripts": {
     "lint": "eslint src/index.js",
-    "test": "ava",
+    "test": "jest",
+    "test:watch": "npm test -- --watch",
+    "test:coverage": "npm test -- --coverage",
     "dev": "webpack-dev-server --config example/webpack.config.js",
     "build": "NODE_ENV=production babel src --out-dir dist"
   },
@@ -27,8 +29,8 @@
   },
   "homepage": "https://github.com/tbleckert/react-select-search",
   "peerDependencies": {
-    "react": "^16.4.2",
-    "react-dom": "^16.4.2"
+    "react": "^16.8.1",
+    "react-dom": "^16.8.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0-beta.39",
@@ -38,14 +40,14 @@
     "@babel/preset-env": "^7.0.0-beta.39",
     "@babel/preset-react": "^7.0.0-beta.39",
     "@babel/register": "^7.0.0-beta.40",
-    "ava": "^1.0.1",
     "babel-eslint": "^8.2.1",
     "babel-loader": "^8.0.0-beta.0",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.13",
     "browser-env": "^3.2.5",
     "css-loader": "^0.28.9",
-    "enzyme": "^3.3.0",
-    "enzyme-adapter-react-16": "^1.1.1",
+    "enzyme": "^3.8.0",
+    "enzyme-adapter-react-16": "^1.9.1",
+    "jest": "^24.1.0",
     "eslint": "^4.11.0",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "^2.8.0",
@@ -55,17 +57,10 @@
     "gulp-babel": "^6.1.2",
     "gulp-rename": "^1.2.2",
     "html-webpack-plugin": "^2.30.1",
-    "prop-types": "^15.6.1",
+    "prop-types": "^15.6.2",
     "style-loader": "^0.20.1",
     "webpack": "^3.10.0",
     "webpack-dev-server": "^2.11.1"
-  },
-  "ava": {
-    "require": [
-      "@babel/register",
-      "./__tests__/helpers/setup-browser-env.js",
-      "./__tests__/helpers/setup-enzyme.js"
-    ]
   },
   "dependencies": {
     "fuse.js": "^3.2.0",

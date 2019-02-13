@@ -35,8 +35,12 @@ body {
         z-index: 1;
     }
 
-    .select-search-box--multiple::after {
+    .select-search-box--multiple::after, .select-search-box--focus::after {
         content:"\f002";
+    }
+    
+    .select-search-box__icon--disabled::after {
+        content: none !important;
     }
 
     .select-search-box--input::after {

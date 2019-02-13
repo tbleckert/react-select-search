@@ -36,7 +36,7 @@ class SelectSearch extends React.Component {
     constructor(props) {
         super(props);
 
-        const { options, value, multiple } = props;
+        const { options, value, multiple, className } = props;
         const stateValue = (!value && multiple) ? [] : value;
         const flattenedOptions = FlattenOptions(options);
 
@@ -60,21 +60,27 @@ class SelectSearch extends React.Component {
         };
 
         this.classes = {
-            container: (this.props.multiple) ? `${this.props.className} ${Bem.m(this.props.className, 'multiple')}` : this.props.className,
-            search: Bem.e(this.props.className, 'search'),
-            select: Bem.e(this.props.className, 'select'),
-            options: Bem.e(this.props.className, 'options'),
-            option: Bem.e(this.props.className, 'option'),
-            row: Bem.e(this.props.className, 'row'),
-            group: Bem.e(this.props.className, 'group'),
-            groupHeader: Bem.e(this.props.className, 'group-header'),
-            out: Bem.e(this.props.className, 'out'),
-            label: Bem.e(this.props.className, 'label'),
-            focus: (this.props.multiple) ? `${this.props.className} ${Bem.m(this.props.className, 'multiple focus')}` : `${this.props.className} ${Bem.m(this.props.className, 'focus')}`,
+            container: (multiple) ? `${className} ${Bem.m(className, 'multiple')}` : className,
+            search: Bem.e(className, 'search'),
+            select: Bem.e(className, 'select'),
+            options: Bem.e(className, 'options'),
+            option: Bem.e(className, 'option'),
+            row: Bem.e(className, 'row'),
+            group: Bem.e(className, 'group'),
+            groupHeader: Bem.e(className, 'group-header'),
+            out: Bem.e(className, 'out'),
+            label: Bem.e(className, 'label'),
+            focus: (multiple) ? `${className} ${Bem.m(className, 'multiple focus')}` : `${className} ${Bem.m(className, 'focus')}`,
         };
 
-        this.classes.focus += ` ${Bem.m(this.props.className, 'select')}`;
-        this.classes.container += ` ${Bem.m(this.props.className, 'select')}`;
+        if (multiple && !this.props.search) {
+            this.classes.container += ` ${Bem.m(Bem.e(className, 'icon'), 'disabled')}`;
+        }
+        if (!this.props.search) {
+            this.classes.focus += ` ${Bem.m(Bem.e(className, 'icon'), 'disabled')}`;
+        }
+        this.classes.container += ` ${Bem.m(className, 'select')}`;
+        this.classes.focus += ` ${Bem.m(className, 'select')}`;
 
         this.container = React.createRef();
         this.selectOptions = React.createRef();
@@ -354,7 +360,7 @@ class SelectSearch extends React.Component {
     };
 
     chooseOption(value) {
-        let currentValue = this.state.value;
+        let currentValue = this.state.value.slice();
         let option;
         let search;
 
@@ -374,8 +380,9 @@ class SelectSearch extends React.Component {
             if (!currentValue) {
                 currentValue = [];
             }
-
-            currentValue.push(option.value);
+            
+            const currentIndex = currentValue.indexOf(option.value);
+            currentIndex > -1 ? currentValue.splice(currentIndex, 1) : currentValue.push(option.value);
 
             search = '';
         } else {
@@ -410,7 +417,7 @@ class SelectSearch extends React.Component {
         }
 
         const option = this.findByValue(this.state.defaultOptions, value);
-        const optionValue = this.state.value;
+        const optionValue = this.state.value.slice();
 
         if (!option || optionValue.indexOf(option.value) < 0) {
             return false;
@@ -564,7 +571,7 @@ class SelectSearch extends React.Component {
         let outElement;
 
         if (this.props.multiple) {
-            if (this.state.value) {
+            if (Object.prototype.toString.call(this.state.value) == '[object Array]' && this.state.value.length) {
                 const finalValueOptions = [];
 
                 this.state.value.forEach((value) => {
@@ -616,6 +623,10 @@ class SelectSearch extends React.Component {
 
             searchField = <input name={name} ref={this.search} onFocus={this.onFocus} onKeyPress={this.onKeyPress} className={this.classes.search} type="search" value={this.state.search} onChange={this.onChange} placeholder={this.props.placeholder} />;
         } else {
+            if (this.props.multiple) {
+                return;
+            }
+
             let option;
             let labelValue;
             let labelClassName;
@@ -629,7 +640,7 @@ class SelectSearch extends React.Component {
                 if (!option) {
                     option = this.state.defaultOptions[0];
                 }
-
+                
                 labelValue = option.name;
                 labelClassName = this.classes.search;
             }
