@@ -6,5 +6,4 @@ install:
   - yarn install
 script:
   - yarn test
-after_script:
-  - yarn test:coverage
+  - yarn coveralls
