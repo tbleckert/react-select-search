@@ -7,7 +7,7 @@ module.exports = {
     output: {
         path: join(__dirname, 'dist'),
         filename: 'index.js',
-        publicPath: '/static/'
+        publicPath: '/',
     },
     resolve: {
         extensions: ['.js', '.jsx'],
