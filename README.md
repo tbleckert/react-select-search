@@ -18,6 +18,9 @@
     <a href="https://www.npmjs.com/package/react-select-search">
         <img src="https://img.shields.io/npm/dm/react-select-search.svg" style="max-width:100%;" />
     </a>
+    <a href="https://beerpay.io/tbleckert/react-select-search">
+      <img src="https://beerpay.io/tbleckert/react-select-search/badge.svg?style=flat" />
+    </a>
 </p>
 
 ## Features
