@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Fuse from 'fuse.js';
+import Spinner from 'react-svg-spinner';
 import onClickOutside from 'react-onclickoutside';
 import Bem from './Bem';
 import FlattenOptions from './FlattenOptions';
@@ -51,6 +52,7 @@ class SelectSearch extends React.PureComponent {
         }
 
         this.state = {
+            loading: false,
             search,
             value: stateValue,
             defaultOptions: flattenedOptions,
@@ -187,6 +189,7 @@ class SelectSearch extends React.PureComponent {
     };
 
     onChange = (e) => {
+        const { async, onSearchChange } = this.props;
         let { value } = e.target;
 
         if (!value) {
@@ -194,7 +197,18 @@ class SelectSearch extends React.PureComponent {
         }
 
         let options = this.state.defaultOptions;
-        options = this.getNewOptionsList(options, value);
+        const getNewOptionsList = onSearchChange || this.getNewOptionsList;
+        if (async) {
+            this.setState({
+                loading: true,
+            })
+            options = await getNewOptionsList(options, value); 
+            this.setState({
+                loading: false,
+            })
+        } else {
+            options = getNewOptionsList(options, value);
+        }
 
         this.setState({ search: value, options });
     };
@@ -538,8 +552,17 @@ class SelectSearch extends React.PureComponent {
                         options.push(this.renderOption(option, stateValue, multiple));
                     }
                 });
-
-                if (options.length > 0) {
+                
+                if (loading) {
+                    select = (
+                        <ul ref={this.selectOptions} className={this.classes.options}>
+                            <li className={this.classes.row}>
+                                <Spinner />
+                            </li>
+                        </ul>
+                    );
+                }
+                else if (options.length > 0) {
                     select = (
                         <ul ref={this.selectOptions} className={this.classes.options}>
                             {options}
@@ -670,6 +693,7 @@ class SelectSearch extends React.PureComponent {
 
 SelectSearch.propTypes = {
     options: PropTypes.array.isRequired,
+    async: PropTypes.bool,
     className: PropTypes.string,
     search: PropTypes.bool,
     placeholder: PropTypes.string,
@@ -679,6 +703,7 @@ SelectSearch.propTypes = {
     autofocus: PropTypes.bool,
     fuse: PropTypes.object,
     onChange: PropTypes.func,
+    onSearchChange: PropTypes.func,
     onHighlight: PropTypes.func,
     onMount: PropTypes.func,
     onBlur: PropTypes.func,

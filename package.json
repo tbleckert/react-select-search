@@ -66,6 +66,7 @@
   },
   "dependencies": {
     "fuse.js": "^3.2.0",
-    "react-onclickoutside": "^6.7.1"
+    "react-onclickoutside": "^6.7.1",
+    "react-svg-spinner": "^1.0.4"
   }
 }
