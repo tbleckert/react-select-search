@@ -1,49 +1,15 @@
 import React from 'react';
 import { render } from 'react-dom';
-import SelectSearch from '../src';
+import Select from '../src';
+import { fontStacks, countries } from './data';
 import '../style.css';
-import { countries, fontStacks, friends, colors } from './data';
 
-function renderFontValue(label, option) {
-    if (!option) {
-        return label;
-    }
-
-    return <span style={{ fontFamily: option['data-stack'] }}>{label}</span>;
-}
-
-function renderFontOption(option) {
-    if (!('data-stack' in option)) {
-        return option.name;
-    }
-
-    const style = {
-        fontFamily: option['data-stack'],
-    };
-
-    return <span style={style}>{option.name}</span>;
-}
-
-function renderFriend(option) {
-    const imgStyle = {
-        borderRadius: '50%',
-        verticalAlign: 'middle',
-        marginRight: 10,
-    };
-
-    return (<span><img alt="" style={imgStyle} width="40" height="40" src={option.photo} /><span>{option.name}</span></span>);
-}
-
-function renderColors(option) {
-    return (<span><span>{option.name}</span></span>);
-}
-
-class App extends React.Component {
+class App extends React.PureComponent {
     state = {
         font: 'Playfair Display',
         country: 'SE',
         friends: [],
-        colors: ['red', 'purple']
+        colors: ['red', 'purple'],
     };
 
     clear = () => {
@@ -51,47 +17,28 @@ class App extends React.Component {
             font: '',
             country: '',
             friends: [],
-            colors: []
+            colors: [],
         });
     };
 
     render() {
         return (
             <div>
-                <button type="button" className="clear" onClick={this.clear}>Clear values</button>
-                <SelectSearch
-                    name="font"
+                <Select
                     value={this.state.font}
-                    renderOption={renderFontOption}
-                    search={false}
-                    renderValue={renderFontValue}
                     options={fontStacks}
-                    placeholder="Choose font"
+                    renderValue={(label, { stack }) => (
+                        <span style={{ fontFamily: stack }}>{label}</span>
+                    )}
+                    renderOption={({ name, stack }) => (
+                        <span style={{ fontFamily: stack }}>{name}</span>
+                    )}
                 />
-                <SelectSearch
-                    name="country"
-                    mode="input"
+                <Select
                     value={this.state.country}
                     options={countries}
                     placeholder="Your country"
-                />
-                <SelectSearch
-                    name="friends"
-                    multiple
-                    value={this.state.friends_search}
-                    height={172}
-                    options={friends}
-                    placeholder="Search friends"
-                    renderOption={renderFriend}
-                />
-                <SelectSearch
-                    name="colors"
-                    multiple
-                    search={false}
-                    value={this.state.colors}
-                    height={172}
-                    options={colors}
-                    renderOption={renderColors}
+                    search
                 />
             </div>
         );

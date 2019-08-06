@@ -246,33 +246,34 @@ export const countries = [
 ];
 
 export const fontStacks = [
+    { name: 'Helvetica', value: 'Helvetica', stack: 'Helvetica, sans-serif' },
     {
         type: 'group',
         name: 'Sans serif',
         items: [
-            { name: 'Roboto', value: 'Roboto', 'data-stack': 'Roboto, sans-serif' },
+            { name: 'Roboto', value: 'Roboto', stack: 'Roboto, sans-serif' },
         ],
     },
     {
         type: 'group',
         name: 'Serif',
         items: [
-            { name: 'Playfair Display', value: 'Playfair Display', 'data-stack': '"Playfair Display", serif' },
+            { name: 'Playfair Display', value: 'Playfair Display', stack: '"Playfair Display", serif' },
         ],
     },
     {
         type: 'group',
         name: 'Cursive',
         items: [
-            { name: 'Monoton', value: 'Monoton', 'data-stack': 'Monoton, cursive' },
-            { name: 'Gloria Hallelujah', value: 'Gloria Hallelujah', 'data-stack': '"Gloria Hallelujah", cursive' },
+            { name: 'Monoton', value: 'Monoton', stack: 'Monoton, cursive' },
+            { name: 'Gloria Hallelujah', value: 'Gloria Hallelujah', stack: '"Gloria Hallelujah", cursive' },
         ],
     },
     {
         type: 'group',
         name: 'Monospace',
         items: [
-            { name: 'VT323', value: 'VT323', 'data-stack': 'VT323, monospace' },
+            { name: 'VT323', value: 'VT323', stack: 'VT323, monospace' },
         ],
     },
 ];
