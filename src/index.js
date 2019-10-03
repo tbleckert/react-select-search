@@ -15,6 +15,7 @@ class SelectSearch extends React.PureComponent {
         multiple: false,
         height: 200,
         name: null,
+        autoComplete: 'on',
         autofocus: false,
         onHighlight: () => {},
         onMount: () => {},
@@ -600,7 +601,7 @@ class SelectSearch extends React.PureComponent {
                 );
             }
         } else if (this.props.search) {
-            outElement = <input type="hidden" defaultValue={this.state.value} ref={this.outInput} name={this.props.name} />;
+            outElement = <input type="hidden" autoComplete={this.props.autoComplete} defaultValue={this.state.value} ref={this.outInput} name={this.props.name} />;
         } else {
             const outStyle = {
                 opacity: 0,
@@ -609,7 +610,7 @@ class SelectSearch extends React.PureComponent {
                 left: '-9999px',
             };
 
-            outElement = <input type="text" onFocus={this.onFocus} style={outStyle} value={this.state.value} readOnly ref={this.outInput} name={this.props.name} />;
+            outElement = <input type="text" autoComplete={this.props.autoComplete}  onFocus={this.onFocus} style={outStyle} value={this.state.value} readOnly ref={this.outInput} name={this.props.name} />;
         }
 
         return outElement;
@@ -621,7 +622,7 @@ class SelectSearch extends React.PureComponent {
         if (this.props.search) {
             const name = null;
 
-            searchField = <input name={name} ref={this.search} onFocus={this.onFocus} onKeyPress={this.onKeyPress} className={this.classes.search} type="search" value={this.state.search} onChange={this.onChange} placeholder={this.props.placeholder} />;
+            searchField = <input name={name} autoComplete={this.props.autoComplete} ref={this.search} onFocus={this.onFocus} onKeyPress={this.onKeyPress} className={this.classes.search} type="search" value={this.state.search} onChange={this.onChange} placeholder={this.props.placeholder} />;
         } else {
             if (this.props.multiple) {
                 return;
@@ -675,6 +676,7 @@ SelectSearch.propTypes = {
     placeholder: PropTypes.string,
     multiple: PropTypes.bool,
     height: PropTypes.number,
+    autoComplete: PropTypes.oneOf(['on', 'off']),
     name: PropTypes.string,
     autofocus: PropTypes.bool,
     fuse: PropTypes.object,
