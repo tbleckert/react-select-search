@@ -30,8 +30,8 @@
   },
   "homepage": "https://github.com/tbleckert/react-select-search",
   "peerDependencies": {
-    "react": "^16.8.1",
-    "react-dom": "^16.8.1"
+    "react": "^16.10.1",
+    "react-dom": "^16.10.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0-beta.39",
