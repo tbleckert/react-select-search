@@ -381,7 +381,7 @@ class SelectSearch extends React.PureComponent {
             if (!currentValue) {
                 currentValue = [];
             }
-            
+
             const currentIndex = currentValue.indexOf(option.value);
             currentIndex > -1 ? currentValue.splice(currentIndex, 1) : currentValue.push(option.value);
 
@@ -625,7 +625,7 @@ class SelectSearch extends React.PureComponent {
             searchField = <input name={name} autoComplete={this.props.autoComplete} ref={this.search} onFocus={this.onFocus} onKeyPress={this.onKeyPress} className={this.classes.search} type="search" value={this.state.search} onChange={this.onChange} placeholder={this.props.placeholder} />;
         } else {
             if (this.props.multiple) {
-                return;
+                return null;
             }
 
             let option;
@@ -641,7 +641,7 @@ class SelectSearch extends React.PureComponent {
                 if (!option) {
                     option = this.state.defaultOptions[0];
                 }
-                
+
                 labelValue = option.name;
                 labelClassName = this.classes.search;
             }
