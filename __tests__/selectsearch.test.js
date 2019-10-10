@@ -64,7 +64,7 @@ describe('Full render multiselect with search field', () => {
 
     test('input field must be empty', () => {
         component.find('.select-search-box__search').simulate('focus');
-        
+
         expect(component.find('.select-search-box__search').props().value).toBe('');
     });
 
@@ -117,7 +117,7 @@ describe('Full render no-multiple select without search field and with empty val
             renderOption={renderFriend}
         />
     );
-    
+
     test('with empty .values', () => {
         expect(component.find('.select-search-box__search--placeholder').text()).toBe('');
     });
@@ -186,12 +186,12 @@ describe('Unit tests', () => {
             cmpInstance.setState({ search: 'ti' }, resolve);
         }).then(() => {
             input = cmpInstance.renderSearchField();
-            
+
             expect(input.props.value).toBe('ti');
         });
     });
 
-    test('renderSearchField function. Multiple with search field', () => {
+    test('renderSearchField function. Multiple without search field', () => {
         class Component extends React.Component {
             render() {
                 return (
@@ -209,7 +209,7 @@ describe('Unit tests', () => {
         const cmpInstance = component.dive().dive().instance();
         input = cmpInstance.renderSearchField();
 
-        expect(input).toBeUndefined();
+        expect(input).toBe(null);
     });
 
     test('renderSearchField function. Drop down list without search field in default must contain a default element text', () => {
@@ -232,7 +232,7 @@ describe('Unit tests', () => {
 
         cmpInstanceForProps.setProps({ search: false });
         input = cmpInstance.renderSearchField();
-        
+
         expect(shallow(input).text()).toBe('Tiffany Gonzales');
     });
 });
