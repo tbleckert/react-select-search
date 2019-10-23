@@ -140,6 +140,7 @@ body {
         border-top: 1px solid #eee;
         border-radius: 0;
         box-shadow: none;
+        max-height: 400px;
     }
 
         .select-search-box__select--display {

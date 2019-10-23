@@ -14,7 +14,7 @@ const GroupOptions = (options) => {
     const nextOptions = [];
 
     options.forEach((option, i) => {
-        if ({}.hasOwnProperty.call(option, 'groupId')) {
+        if ('groupId' in option) {
             const nextOption = Object.assign({}, option);
             const groupIndex = FindGroup(nextOptions, nextOption.groupId);
 
@@ -23,7 +23,12 @@ const GroupOptions = (options) => {
             if (groupIndex !== null && groupIndex > -1) {
                 nextOptions[groupIndex].items.push(nextOption);
             } else {
-                nextOptions.push({ items: [nextOption], groupId: option.groupId, type: 'group', name: option.groupName });
+                nextOptions.push({
+                    items: [nextOption],
+                    groupId: option.groupId,
+                    type: 'group',
+                    name: option.groupName,
+                });
             }
         } else {
             nextOptions.push(option);

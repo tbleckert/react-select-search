@@ -1,7 +1,7 @@
 {
   "name": "react-select-search",
-  "version": "0.9.6",
-  "description": "React powered selectbox with filter",
+  "version": "1.0.0",
+  "description": "React powered selectbox with search",
   "main": "dist/index.js",
   "scripts": {
     "lint": "eslint src/index.js",
@@ -9,7 +9,7 @@
     "test:watch": "yarn test --watch",
     "test:coverage": "yarn test --coverage",
     "coveralls": "yarn test:coverage && cat ./coverage/lcov.info | coveralls",
-    "dev": "webpack-dev-server --config example/webpack.config.js",
+    "start": "webpack-dev-server --config example/webpack.config.js",
     "build": "NODE_ENV=production babel src --out-dir dist"
   },
   "repository": {
@@ -31,7 +31,8 @@
   "homepage": "https://github.com/tbleckert/react-select-search",
   "peerDependencies": {
     "react": "^16.8.4",
-    "react-dom": "^16.8.4"
+    "react-dom": "^16.8.4",
+    "prop-types": "^15.6.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0-beta.39",

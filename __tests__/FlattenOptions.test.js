@@ -1,6 +1,6 @@
 import React from 'react';
 import Enzyme, { mount } from 'enzyme';
-import FlattenOptions from '../src/FlattenOptions';
+import FlattenOptions from '../src/lib/FlattenOptions';
 
 describe('Unit test for FlattenOptions function', () => {
     const groupedOptions = [
