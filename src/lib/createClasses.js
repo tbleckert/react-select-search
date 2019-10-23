@@ -1,6 +1,5 @@
 const classes = {
     main: null,
-    value: 'value',
     search: 'search',
     select: 'select',
     options: 'options',
