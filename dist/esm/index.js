@@ -1,35 +1,10 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireDefault(require("react"));
-
-var _fuse = _interopRequireDefault(require("fuse.js"));
-
-var _reactOnclickoutside = _interopRequireDefault(require("react-onclickoutside"));
-
-var _FlattenOptions = _interopRequireDefault(require("./lib/FlattenOptions"));
-
-var _GroupOptions = _interopRequireDefault(require("./lib/GroupOptions"));
-
-var _createClasses = _interopRequireDefault(require("./lib/createClasses"));
-
-var _Value = _interopRequireDefault(require("./Components/Value"));
-
-var _Options = _interopRequireDefault(require("./Components/Options"));
-
-var _Context = _interopRequireDefault(require("./Context"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
 
@@ -45,13 +20,24 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+import React from 'react';
+import PropTypes from 'prop-types';
+import Fuse from 'fuse.js';
+import onClickOutside from 'react-onclickoutside';
+import FlattenOptions from './lib/FlattenOptions';
+import GroupOptions from './lib/GroupOptions';
+import createClasses from './lib/createClasses';
+import Value from './Components/Value';
+import Options from './Components/Options';
+import Context from './Context';
 
 var SelectSearch =
 /*#__PURE__*/
@@ -65,7 +51,7 @@ function (_React$PureComponent) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(SelectSearch).call(this, props));
 
-    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "onBlur", function () {
+    _defineProperty(_assertThisInitialized(_this), "onBlur", function () {
       var multiple = _this.props.multiple;
       var value = _this.state.value;
       var search = '';
@@ -85,7 +71,7 @@ function (_React$PureComponent) {
       });
     });
 
-    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "onFocus", function () {
+    _defineProperty(_assertThisInitialized(_this), "onFocus", function () {
       _this.setState({
         focus: true,
         options: _this.state.defaultOptions,
@@ -93,7 +79,7 @@ function (_React$PureComponent) {
       });
     });
 
-    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "onChange", function (value) {
+    _defineProperty(_assertThisInitialized(_this), "onChange", function (value) {
       var currentValue = _this.state.value.slice();
 
       var option;
@@ -142,7 +128,7 @@ function (_React$PureComponent) {
       });
     });
 
-    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "onSearch", function (e) {
+    _defineProperty(_assertThisInitialized(_this), "onSearch", function (e) {
       var value = e.target.value;
 
       if (!value) {
@@ -158,7 +144,7 @@ function (_React$PureComponent) {
       });
     });
 
-    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "onKeyPress", function (e) {
+    _defineProperty(_assertThisInitialized(_this), "onKeyPress", function (e) {
       if (!_this.state.options || _this.state.options.length < 1) {
         return;
       }
@@ -170,7 +156,7 @@ function (_React$PureComponent) {
       }
     });
 
-    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "onKeyDown", function (e) {
+    _defineProperty(_assertThisInitialized(_this), "onKeyDown", function (e) {
       if (!_this.state.focus) {
         return;
       }
@@ -196,14 +182,14 @@ function (_React$PureComponent) {
       }
     });
 
-    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "onKeyUp", function (e) {
+    _defineProperty(_assertThisInitialized(_this), "onKeyUp", function (e) {
       /** Esc */
       if (e.keyCode === 27) {
         _this.handleEsc();
       }
     });
 
-    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "toggle", function () {
+    _defineProperty(_assertThisInitialized(_this), "toggle", function () {
       if (_this.state.focus) {
         _this.onBlur();
       } else {
@@ -211,16 +197,19 @@ function (_React$PureComponent) {
       }
     });
 
-    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "handleClickOutside", function () {
+    _defineProperty(_assertThisInitialized(_this), "handleClickOutside", function () {
       _this.onBlur();
     });
 
     var _options = props.options,
         _value = props.value,
         _multiple = props.multiple,
-        className = props.className;
+        className = props.className,
+        renderOption = props.renderOption,
+        renderValue = props.renderValue,
+        renderGroupHeader = props.renderGroupHeader;
     var stateValue = !_value && _multiple ? [] : _value;
-    var flattenedOptions = (0, _FlattenOptions.default)(_options);
+    var flattenedOptions = FlattenOptions(_options);
     var _search = '';
 
     if (stateValue) {
@@ -239,9 +228,16 @@ function (_React$PureComponent) {
       highlighted: null,
       focus: false
     };
-    _this.classes = typeof className === 'string' ? (0, _createClasses.default)(className) : className;
-    _this.parentRef = _react.default.createRef();
-    _this.valueRef = _react.default.createRef();
+    _this.theme = {
+      classes: typeof className === 'string' ? createClasses(className) : className,
+      renderers: {
+        option: renderOption,
+        value: renderValue,
+        groupHeader: renderGroupHeader
+      }
+    };
+    _this.parentRef = React.createRef();
+    _this.valueRef = React.createRef();
     return _this;
   }
 
@@ -280,16 +276,23 @@ function (_React$PureComponent) {
   }, {
     key: "getNewOptionsList",
     value: function getNewOptionsList(options, value) {
+      var maxOptions = this.props.maxOptions;
+      var newOptions = options;
+
       if (options && options.length > 0 && value && value.length > 0) {
-        var fuse = new _fuse.default(options, this.props.fuse);
-        return fuse.search(value).map(function (item, index) {
+        var fuse = new Fuse(options, this.props.fuse);
+        newOptions = fuse.search(value).map(function (item, index) {
           return Object.assign({}, item, {
             index: index
           });
         });
       }
 
-      return options;
+      if (maxOptions) {
+        newOptions = newOptions.slice(0, maxOptions);
+      }
+
+      return newOptions;
     }
   }, {
     key: "getOptionsForRender",
@@ -302,7 +305,7 @@ function (_React$PureComponent) {
           options = _this$state2.options,
           state = _objectWithoutProperties(_this$state2, ["options"]);
 
-      return (0, _GroupOptions.default)(options.map(function (option, i) {
+      return GroupOptions(options.map(function (option, i) {
         var selected = multiple && state.value.indexOf(option.value) >= 0 || option.value === state.value;
         var highlighted = i === state.highlighted;
         return _objectSpread({}, option, {
@@ -332,6 +335,9 @@ function (_React$PureComponent) {
       var search = this.state.search;
       var val = value ? value.name : '';
       return {
+        option: value,
+        state: this.state,
+        className: this.theme.classes.search,
         tabIndex: '0',
         onFocus: this.onFocus,
         onClick: this.onFocus,
@@ -477,48 +483,79 @@ function (_React$PureComponent) {
       var selectedOption = this.findByValue(defaultOptions, value);
       var mappedOptions = this.getOptionsForRender();
       var valueProps = this.getValueProps(selectedOption);
-      var className = this.classes.main;
+      var className = this.theme.classes.main;
 
       if (search) {
-        className += " ".concat(this.classes.main, "--search");
+        className += " ".concat(this.theme.classes.main, "--search");
       }
 
       if (multiple) {
-        className += " ".concat(this.classes.main, "--multiple");
+        className += " ".concat(this.theme.classes.main, "--multiple");
       }
 
-      return _react.default.createElement(_Context.default.Provider, {
-        value: this.classes
-      }, _react.default.createElement("div", {
+      return React.createElement(Context.Provider, {
+        value: this.theme
+      }, React.createElement("div", {
         ref: this.parentRef,
         className: className
-      }, (search || !multiple) && _react.default.createElement(_Value.default, _extends({
+      }, (search || !multiple) && React.createElement(Value, _extends({
         ref: this.valueRef
-      }, valueProps)), options.length > 0 && (focus || multiple) && _react.default.createElement("div", {
-        className: this.classes.select
-      }, _react.default.createElement(_Options.default, {
+      }, valueProps)), options.length > 0 && (focus || multiple) && React.createElement("div", {
+        className: this.theme.classes.select
+      }, React.createElement(Options, {
         options: mappedOptions
       }))));
     }
   }]);
 
   return SelectSearch;
-}(_react.default.PureComponent);
+}(React.PureComponent);
 
 _defineProperty(SelectSearch, "defaultProps", {
   search: false,
   value: '',
   multiple: false,
   placeholder: '',
+  maxOptions: null,
   fuse: {
     keys: ['name', 'groupName'],
     threshold: 0.3
   },
   className: 'select-search-box',
   autoComplete: 'on',
-  autofocus: false
+  autofocus: false,
+  renderOption: function renderOption(option) {
+    return option.name;
+  },
+  renderGroupHeader: function renderGroupHeader(title) {
+    return title;
+  },
+  renderValue: null
 });
 
-var _default = (0, _reactOnclickoutside.default)(SelectSearch);
-
-exports.default = _default;
+SelectSearch.propTypes = {
+  options: PropTypes.arrayOf(PropTypes.object).isRequired,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+  multiple: PropTypes.bool,
+  search: PropTypes.bool,
+  placeholder: PropTypes.string,
+  maxOptions: PropTypes.number,
+  className: PropTypes.oneOfType([PropTypes.string, PropTypes.shape({
+    main: PropTypes.string,
+    value: PropTypes.string,
+    search: PropTypes.string,
+    select: PropTypes.string,
+    options: PropTypes.string,
+    option: PropTypes.string,
+    group: PropTypes.string,
+    groupHeader: PropTypes.string
+  })]),
+  autoComplete: PropTypes.oneOf(['on', 'off']),
+  autofocus: PropTypes.bool,
+  // eslint-disable-next-line react/forbid-prop-types
+  fuse: PropTypes.object,
+  renderOption: PropTypes.func,
+  renderGroupHeader: PropTypes.func,
+  renderValue: PropTypes.func
+};
+export default onClickOutside(SelectSearch);
