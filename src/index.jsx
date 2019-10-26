@@ -315,6 +315,7 @@ class SelectSearch extends React.PureComponent {
             onChange: (searchEnabled) ? this.onSearch : null,
             type: (searchEnabled) ? 'search' : null,
             autoComplete: (searchEnabled) ? autoComplete : null,
+            'aria-label': (searchEnabled) ? 'Search' : 'Select',
         };
     }
 

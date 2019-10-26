@@ -28,14 +28,14 @@ const Option = (props) => {
 
     if (typeof renderOption === 'function') {
         return (
-            <li role="none" className={className}>
+            <li role="presentation" className={className}>
                 {renderOption(optionProps, option)}
             </li>
         );
     }
 
     return (
-        <li role="none" className={className}>
+        <li role="presentation" className={className}>
             <button {...optionProps} type="button">
                 {name}
             </button>
