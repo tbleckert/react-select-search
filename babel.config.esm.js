@@ -3,7 +3,7 @@ module.exports = {
         [
             '@babel/preset-env',
             {
-                modules: 'cjs',
+                modules: false,
                 targets: {
                     browsers: ['>2%, not dead'],
                 },

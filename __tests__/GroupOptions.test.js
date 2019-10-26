@@ -1,5 +1,3 @@
-import React from 'react';
-import Enzyme, { mount } from 'enzyme';
 import GroupOptions from '../src/lib/GroupOptions';
 
 describe('Unit test for GroupOptions function', () => {

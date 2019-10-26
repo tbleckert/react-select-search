@@ -43,7 +43,7 @@ Live demo can be found here: [http://tbleckert.github.io/react-select-search/](h
 Install it with npm (`npm install react-select-search --save`) and import it like you normally would.
 
 ```javascript
-import SelectSearch from 'react-select-search'
+import SelectSearch from 'react-select-search';
 
 /**
  * The options array should contain objects.
@@ -62,7 +62,7 @@ const options = [
 ];
 
 /* Simple example */
-<SelectSearch options={options} value="sv" name="language" placeholder="Choose your language" />
+<SelectSearch options={options} defaultValue="sv" name="language" placeholder="Choose your language" />
 ```
 For examples you can take a look at the [example](example/index.jsx) file.
 

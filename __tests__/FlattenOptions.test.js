@@ -1,5 +1,3 @@
-import React from 'react';
-import Enzyme, { mount } from 'enzyme';
 import FlattenOptions from '../src/lib/FlattenOptions';
 
 describe('Unit test for FlattenOptions function', () => {
@@ -21,6 +19,7 @@ describe('Unit test for FlattenOptions function', () => {
             ]
         }
     ];
+
     const flattenOptions = FlattenOptions(groupedOptions);
 
     test('first element of group options must have a non-empty property "items"', () => {

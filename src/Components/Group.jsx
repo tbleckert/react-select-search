@@ -5,10 +5,16 @@ import Options from './Options';
 
 const Group = (props) => {
     const theme = useContext(Context);
-    const name = theme.renderers.groupHeader(props.name);
+    const className = `${theme.classes.row} ${theme.classes.row}--group`;
+    const { groupHeader: render } = theme.renderers;
+    let { name } = props;
+
+    if (typeof render === 'function') {
+        name = render(name);
+    }
 
     return (
-        <li className={theme.classes.row} role="none" key={props.groupId}>
+        <li className={className} role="none" key={props.groupId}>
             <div className={theme.classes.group}>
                 <div className={theme.classes.groupHeader}>{name}</div>
                 <Options

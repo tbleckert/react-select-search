@@ -6,11 +6,11 @@
   "scripts": {
     "lint": "eslint src/index.js",
     "test": "jest",
-    "test:watch": "npm run test --watch",
-    "test:coverage": "npm run test --coverage",
+    "test:watch": "npm test -- --watch",
+    "test:coverage": "npm test -- --coverage --silent",
     "coveralls": "npm run test:coverage && cat ./coverage/lcov.info | coveralls",
     "start": "webpack-dev-server --config example/webpack.config.js",
-    "build": "npx babel --config-file=./babel.config.js src --out-dir dist/esm | npx babel --config-file=./babel.config.cjs.js src --out-dir dist/cjs"
+    "build": "npx babel --config-file=./babel.config.esm.js src --out-dir dist/esm | npx babel --config-file=./babel.config.js src --out-dir dist/cjs"
   },
   "repository": {
     "type": "git",

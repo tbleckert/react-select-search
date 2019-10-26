@@ -24,7 +24,7 @@ const Option = (props) => {
 
     const theme = useContext(Context);
     const { option: renderOption } = theme.renderers;
-    const className = theme.classes.optionRow;
+    const className = theme.classes.row;
 
     if (typeof renderOption === 'function') {
         return (

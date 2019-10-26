@@ -1,5 +1,5 @@
 export default function findByValue(source, value) {
-    if (!source) {
+    if (!source || !Array.isArray(source)) {
         return null;
     }
 

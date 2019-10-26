@@ -3,7 +3,7 @@ const classes = {
     search: 'search',
     select: 'select',
     options: 'options',
-    optionRow: 'option-row',
+    row: 'row',
     option: 'option',
     group: 'group',
     groupHeader: 'group-header',
@@ -18,7 +18,12 @@ function e(baseClass, className) {
 }
 
 export default function createClasses(baseClass) {
+    const returnObj = {};
     const classesArray = Object.entries(classes);
 
-    return Object.fromEntries(classesArray.map(([key, cls]) => [key, e(baseClass, cls)]));
+    classesArray.map(([key, cls]) => [key, e(baseClass, cls)]).forEach(([key, cls]) => {
+        returnObj[key] = cls;
+    });
+
+    return returnObj;
 }

@@ -482,8 +482,20 @@ class SelectSearch extends React.PureComponent {
     }
 }
 
+const optionType = PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    value: PropTypes.string.isRequired,
+});
+
 SelectSearch.propTypes = {
-    options: PropTypes.arrayOf(PropTypes.object).isRequired,
+    options: PropTypes.arrayOf(PropTypes.oneOfType([
+        optionType,
+        PropTypes.shape({
+            name: PropTypes.string.isRequired,
+            type: PropTypes.oneOf(['group']).isRequired,
+            items: PropTypes.arrayOf(optionType).isRequired,
+        }),
+    ])).isRequired,
     defaultValue: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.array,
