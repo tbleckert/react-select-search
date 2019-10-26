@@ -3,6 +3,7 @@ const classes = {
     search: 'search',
     select: 'select',
     options: 'options',
+    optionRow: 'option-row',
     option: 'option',
     group: 'group',
     groupHeader: 'group-header',

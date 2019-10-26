@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { forwardRef, memo } from 'react';
 import PropTypes from 'prop-types';
 import Fuse from 'fuse.js';
 import onClickOutside from 'react-onclickoutside';
 import FlattenOptions from './lib/FlattenOptions';
 import GroupOptions from './lib/GroupOptions';
 import createClasses from './lib/createClasses';
+import findByValue from './lib/findByValue';
+import toString from './lib/toString';
 import Value from './Components/Value';
 import Options from './Components/Options';
 import Context from './Context';
@@ -12,7 +14,8 @@ import Context from './Context';
 class SelectSearch extends React.PureComponent {
     static defaultProps = {
         search: false,
-        value: '',
+        value: undefined,
+        defaultValue: undefined,
         multiple: false,
         placeholder: '',
         maxOptions: null,
@@ -23,9 +26,11 @@ class SelectSearch extends React.PureComponent {
         className: 'select-search-box',
         autoComplete: 'on',
         autofocus: false,
-        renderOption: option => option.name,
+        renderOption: null,
         renderGroupHeader: title => title,
         renderValue: null,
+        onChange: null,
+        disabled: false,
     };
 
     constructor(props) {
@@ -34,28 +39,28 @@ class SelectSearch extends React.PureComponent {
         const {
             options,
             value,
+            defaultValue,
             multiple,
             className,
             renderOption,
             renderValue,
             renderGroupHeader,
+            onChange,
+            placeholder,
         } = props;
 
-        const stateValue = (!value && multiple) ? [] : value;
+        this.controlledValue = value !== undefined && typeof onChange === 'function';
+
+        const val = toString((this.controlledValue) ? value : defaultValue);
+        let stateValue = (!val && multiple) ? [] : val;
         const flattenedOptions = FlattenOptions(options);
 
-        let search = '';
-
-        if (stateValue) {
-            const option = this.findByValue(flattenedOptions, stateValue);
-
-            if (option) {
-                search = option.name;
-            }
+        if (!stateValue && !placeholder) {
+            stateValue = flattenedOptions[0].name;
         }
 
         this.state = {
-            search,
+            search: '',
             value: stateValue,
             defaultOptions: flattenedOptions,
             options: flattenedOptions,
@@ -72,7 +77,8 @@ class SelectSearch extends React.PureComponent {
             },
         };
 
-        this.parentRef = React.createRef();
+        // eslint-disable-next-line react/prop-types
+        this.parentRef = this.props.innerRef || React.createRef();
         this.valueRef = React.createRef();
     }
 
@@ -85,7 +91,11 @@ class SelectSearch extends React.PureComponent {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        const { focus, highlighted } = this.state;
+        const {
+            focus,
+            highlighted,
+        } = this.state;
+
         const { prevFocus, prevHighlighted } = prevState;
 
         if (prevFocus !== focus) {
@@ -102,12 +112,16 @@ class SelectSearch extends React.PureComponent {
     }
 
     onBlur = () => {
+        if (this.props.disabled) {
+            return;
+        }
+
         const { multiple } = this.props;
         const { value } = this.state;
         let search = '';
 
         if (value && !multiple) {
-            const option = this.findByValue(null, value);
+            const option = findByValue(null, value);
 
             if (option) {
                 search = option.name;
@@ -118,13 +132,20 @@ class SelectSearch extends React.PureComponent {
     };
 
     onFocus = () => {
+        if (this.props.disabled) {
+            return;
+        }
+
         this.setState({ focus: true, options: this.state.defaultOptions, search: '' });
     };
 
     onChange = (value) => {
-        let currentValue = this.state.value.slice();
+        if (this.props.disabled) {
+            return;
+        }
+
+        let currentValue = this.getValue().slice();
         let option;
-        let search;
 
         if (!value) {
             let index = this.state.highlighted;
@@ -135,7 +156,7 @@ class SelectSearch extends React.PureComponent {
 
             option = this.state.options[index];
         } else {
-            option = this.findByValue(this.state.defaultOptions, value);
+            option = findByValue(this.state.defaultOptions, value);
         }
 
         if (this.props.multiple) {
@@ -150,19 +171,19 @@ class SelectSearch extends React.PureComponent {
             } else {
                 currentValue.push(option.value);
             }
-
-            search = '';
         } else {
             currentValue = option.value;
-            search = option.name;
         }
 
         const options = this.state.defaultOptions;
         const highlighted = (this.props.multiple) ? this.state.highlighted : null;
 
+        if (typeof this.props.onChange === 'function') {
+            this.props.onChange(currentValue, option);
+        }
+
         this.setState({
             value: currentValue,
-            search,
             options,
             highlighted,
             focus: this.props.multiple,
@@ -170,14 +191,8 @@ class SelectSearch extends React.PureComponent {
     };
 
     onSearch = (e) => {
-        let { value } = e.target;
-
-        if (!value) {
-            value = '';
-        }
-
-        let options = this.state.defaultOptions;
-        options = this.getNewOptionsList(options, value);
+        const { value } = e.target;
+        const options = this.getNewOptionsList(this.state.defaultOptions, toString(value));
 
         this.setState({ search: value, options });
     };
@@ -252,17 +267,29 @@ class SelectSearch extends React.PureComponent {
             );
 
             const highlighted = i === state.highlighted;
+            let className = this.theme.classes.option;
+
+            if (highlighted) {
+                className += ' is-highlighted';
+            }
+
+            if (selected) {
+                className += ' is-selected';
+            }
 
             return {
                 ...option,
+                option,
                 selected,
                 highlighted,
                 onChange: () => this.onChange(option.value),
                 optionProps: {
+                    className,
                     onClick: () => this.onChange(option.value),
                     role: 'menuitem',
                     'data-selected': (selected) ? 'true' : null,
                     'data-highlighted': (highlighted) ? 'true' : null,
+                    disabled: this.props.disabled,
                 },
                 key: `${option.value}-option`,
             };
@@ -270,11 +297,12 @@ class SelectSearch extends React.PureComponent {
     }
 
     getValueProps(value) {
-        const { search: searchEnabled, autoComplete } = this.props;
-        const { search } = this.state;
+        const { search: searchEnabled, autoComplete, disabled } = this.props;
+        const { search, focus } = this.state;
         const val = value ? value.name : '';
 
         return {
+            disabled,
             option: value,
             state: this.state,
             className: this.theme.classes.search,
@@ -282,7 +310,7 @@ class SelectSearch extends React.PureComponent {
             onFocus: this.onFocus,
             onClick: this.onFocus,
             readOnly: !this.props.search,
-            value: (searchEnabled) ? search : val,
+            value: (searchEnabled && (search || focus)) ? search : val,
             placeholder: this.props.placeholder,
             onChange: (searchEnabled) ? this.onSearch : null,
             type: (searchEnabled) ? 'search' : null,
@@ -290,26 +318,12 @@ class SelectSearch extends React.PureComponent {
         };
     }
 
-    toggle = () => {
-        if (this.state.focus) {
-            this.onBlur();
-        } else {
-            this.onFocus();
-        }
-    };
-
-    findByValue(source, value) {
-        let findSource = source;
-
-        if (!source || source.length < 1) {
-            findSource = this.state.defaultOptions;
+    getValue() {
+        if (this.controlledValue) {
+            return this.props.value;
         }
 
-        if (!findSource) {
-            return null;
-        }
-
-        return findSource.filter(object => object.value === value)[0];
+        return this.state.value;
     }
 
     handleClickOutside = () => {
@@ -363,6 +377,10 @@ class SelectSearch extends React.PureComponent {
     }
 
     handleFocus() {
+        if (this.props.disabled) {
+            return;
+        }
+
         document.addEventListener('keydown', this.onKeyDown);
         document.addEventListener('keypress', this.onKeyPress);
         document.addEventListener('keyup', this.onKeyUp);
@@ -408,16 +426,23 @@ class SelectSearch extends React.PureComponent {
         }
     }
 
+    toggle = () => {
+        if (this.state.focus) {
+            this.onBlur();
+        } else {
+            this.onFocus();
+        }
+    };
+
     render() {
         const {
-            value,
             defaultOptions,
             options,
             focus,
         } = this.state;
 
-        const { search, multiple } = this.props;
-        const selectedOption = this.findByValue(defaultOptions, value);
+        const { search, multiple, disabled } = this.props;
+        const selectedOption = findByValue(defaultOptions, this.getValue());
         const mappedOptions = this.getOptionsForRender();
         const valueProps = this.getValueProps(selectedOption);
         let className = this.theme.classes.main;
@@ -428,6 +453,14 @@ class SelectSearch extends React.PureComponent {
 
         if (multiple) {
             className += ` ${this.theme.classes.main}--multiple`;
+        }
+
+        if (disabled) {
+            className += ` ${this.theme.classes.main}--disabled`;
+        }
+
+        if (focus) {
+            className += ' has-focus';
         }
 
         return (
@@ -450,6 +483,10 @@ class SelectSearch extends React.PureComponent {
 
 SelectSearch.propTypes = {
     options: PropTypes.arrayOf(PropTypes.object).isRequired,
+    defaultValue: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.array,
+    ]),
     value: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.array,
@@ -464,6 +501,7 @@ SelectSearch.propTypes = {
         search: PropTypes.string,
         select: PropTypes.string,
         options: PropTypes.string,
+        optionRow: PropTypes.string,
         option: PropTypes.string,
         group: PropTypes.string,
         groupHeader: PropTypes.string,
@@ -475,6 +513,15 @@ SelectSearch.propTypes = {
     renderOption: PropTypes.func,
     renderGroupHeader: PropTypes.func,
     renderValue: PropTypes.func,
+    onChange: PropTypes.func,
+    disabled: PropTypes.bool,
 };
 
-export default onClickOutside(SelectSearch);
+// eslint-disable-next-line react/no-multi-comp
+const withRef = forwardRef((props, ref) => {
+    const Component = onClickOutside(SelectSearch);
+
+    return <Component innerRef={ref} {...props} />;
+});
+
+export default memo(withRef);

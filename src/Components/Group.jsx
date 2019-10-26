@@ -8,7 +8,7 @@ const Group = (props) => {
     const name = theme.renderers.groupHeader(props.name);
 
     return (
-        <li className={theme.classes.row} key={props.groupId}>
+        <li className={theme.classes.row} role="none" key={props.groupId}>
             <div className={theme.classes.group}>
                 <div className={theme.classes.groupHeader}>{name}</div>
                 <Options

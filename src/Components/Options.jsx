@@ -7,7 +7,7 @@ const Options = ({ options }) => {
     const classes = useContext(Context);
 
     return (
-        <ul className={classes.options}>
+        <ul className={classes.options} role="menu">
             {options.map((option) => {
                 const key = (option.type === 'group') ? option.groupId : option.value;
 

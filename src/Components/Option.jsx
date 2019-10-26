@@ -7,10 +7,9 @@ const Option = (props) => {
     const {
         type,
         groupId,
-        highlighted,
-        selected,
         name,
         optionProps,
+        option,
     } = props;
 
     if (type && type === 'group') {
@@ -24,19 +23,22 @@ const Option = (props) => {
     }
 
     const theme = useContext(Context);
-    let className = theme.classes.option;
+    const { option: renderOption } = theme.renderers;
+    const className = theme.classes.optionRow;
 
-    if (highlighted) {
-        className += ' is-highlighted';
-    }
-
-    if (selected) {
-        className += ' is-selected';
+    if (typeof renderOption === 'function') {
+        return (
+            <li role="none" className={className}>
+                {renderOption(optionProps, option)}
+            </li>
+        );
     }
 
     return (
-        <li {...optionProps} className={className}>
-            {theme.renderers.option(props)}
+        <li role="none" className={className}>
+            <button {...optionProps} type="button">
+                {name}
+            </button>
         </li>
     );
 };
@@ -48,6 +50,7 @@ Option.defaultProps = {
     highlighted: false,
     items: [],
     optionProps: null,
+    option: null,
 };
 
 Option.propTypes = {
@@ -62,6 +65,10 @@ Option.propTypes = {
     items: PropTypes.arrayOf(PropTypes.object),
     groupId: PropTypes.string,
     type: PropTypes.string,
+    option: PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        value: PropTypes.string.isRequired,
+    }),
 };
 
 export default memo(Option);

@@ -4,10 +4,6 @@
     font-family: 'fontawesome', sans-serif;
 }
 
-body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-}
-
 .select-search-box {
     width: 300px;
     position: relative;
@@ -15,6 +11,18 @@ body {
     background: #fff;
     border-radius: 4px;
 }
+
+    .select-search-box--disabled {
+        opacity: 0.5;
+    }
+
+    .select-search-box--disabled, .select-search-box--disabled * {
+        cursor: default !important;
+    }
+
+    .select-search-box, .select-search-box * {
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
 
     .select-search-box--multiple {
         border-radius: 4px;
@@ -53,9 +61,10 @@ body {
 
     .select-search-box__search {
         display: block;
+        border-radius: 4px;
         width: 100%;
         height: 50px;
-        border: none;
+        border: 2px solid transparent;
         background: none;
         outline: none;
         font-size: 16px;
@@ -69,6 +78,10 @@ body {
         font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
         line-height: 50px;
         box-shadow: 0 7px 14px 0 rgba(50, 50, 93, 0.1), 0 3px 6px 0 rgba(0, 0, 0, 0.07);
+    }
+
+    .select-search-box:not(.select-search-box--multiple).has-focus .select-search-box__search {
+        border: 2px solid #54A0FF;
     }
 
     input.select-search-box__search {
@@ -147,22 +160,32 @@ body {
             display: block;
         }
 
+    .select-search-box__option-row {
+        border-top: 1px solid #eee;
+    }
+
+        .select-search-box__option-row:first-child {
+            border-top: none;
+        }
+
     .select-search-box__option {
+        display: block;
+        width: 100%;
+        text-align: left;
         font-size: 16px;
         font-weight: 400;
         color: #616b74;
+        margin: 0;
         padding: 15px 20px;
-        border-top: 1px solid #eee;
+        background: transparent;
+        border: none;
         cursor: pointer;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
         user-select: none;
+        outline: none;
     }
-
-        .select-search-box__option:first-child {
-            border-top: none;
-        }
 
         .select-search-box__option.is-highlighted, .select-search-box__option:hover {
             background: #f4f7fa;
