@@ -246,6 +246,10 @@ export const countries = [
 
 export const fontStacks = [
     {
+        name: 'Helvetica',
+        value: 'helvetica',
+    },
+    {
         type: 'group',
         name: 'Sans serif',
         items: [

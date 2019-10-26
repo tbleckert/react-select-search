@@ -9,20 +9,26 @@ describe('Unit test for FlattenOptions function', () => {
                 {
                     "name": "Monoton",
                     "value": "Monoton",
-                    "data-stack": "Monoton, cursive"
                 },
-                {
-                    "name": "Gloria Hallelujah",
-                    "value": "Gloria Hallelujah",
-                    "data-stack": "\"Gloria Hallelujah\", cursive"
-                }
             ]
-        }
+        },
+        {
+            "name": "Gloria Hallelujah",
+            "value": "Gloria Hallelujah",
+        },
     ];
 
     const flattenOptions = FlattenOptions(groupedOptions);
 
-    test('first element of group options must have a non-empty property "items"', () => {
+    test('Has correct items', () => {
         expect(flattenOptions).toHaveLength(2);
+    });
+
+    test('First item should be a group', () => {
+        expect('groupId' in flattenOptions[0]).toEqual(true);
+    });
+
+    test('Second item should not be a group', () => {
+        expect('groupId' in flattenOptions[1]).toEqual(false);
     });
 });

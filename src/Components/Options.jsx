@@ -4,10 +4,10 @@ import Option from './Option';
 import Context from '../Context';
 
 const Options = ({ options }) => {
-    const classes = useContext(Context);
+    const theme = useContext(Context);
 
     return (
-        <ul className={classes.options} role="menu">
+        <ul className={theme.classes.options} role="menu">
             {options.map((option) => {
                 const key = (option.type === 'group') ? option.groupId : option.value;
 

@@ -47,4 +47,15 @@ describe('Test Group component', () => {
         expect(wrapper.find(`.${classes.groupHeader} > span`).length).toBe(1);
         expect(wrapper.find(`.${classes.groupHeader} > span`).text()).toBe(`Group: ${name}`);
     });
+
+    test('Renders options', () => {
+        const name = 'My group';
+        const wrapper = mount((
+            <Context.Provider value={theme}>
+                <Group groupId="1" name={name} items={[]} />
+            </Context.Provider>
+        ));
+
+        expect(wrapper.find(`li.${classes.row} .${classes.options}`).length).toBe(1);
+    });
 });

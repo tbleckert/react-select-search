@@ -1,14 +1,4 @@
-function FindGroup(options, id) {
-    let foundIndex = null;
-
-    options.forEach((option, i) => {
-        if ({}.hasOwnProperty.call(option, 'groupId') && option.groupId === id) {
-            foundIndex = i;
-        }
-    });
-
-    return foundIndex;
-}
+import FindGroupIndex from './FindGroupIndex';
 
 const GroupOptions = (options) => {
     const nextOptions = [];
@@ -16,7 +6,7 @@ const GroupOptions = (options) => {
     options.forEach((option, i) => {
         if ('groupId' in option) {
             const nextOption = Object.assign({}, option);
-            const groupIndex = FindGroup(nextOptions, nextOption.groupId);
+            const groupIndex = FindGroupIndex(nextOptions, nextOption.groupId);
 
             nextOption.index = i;
 

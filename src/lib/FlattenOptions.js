@@ -2,7 +2,7 @@ const FlattenOptions = (options) => {
     const nextOptions = [];
 
     options.forEach((option, index) => {
-        if ({}.hasOwnProperty.call(option, 'type') && option.type === 'group') {
+        if ('type' in option && option.type === 'group') {
             const id = Math.random().toString(36).substr(2, 9);
 
             option.items.forEach((groupOption) => {
