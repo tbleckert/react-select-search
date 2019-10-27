@@ -9,6 +9,8 @@ const Option = (props) => {
         groupId,
         name,
         optionProps,
+        highlighted,
+        selected,
         option,
     } = props;
 
@@ -25,11 +27,12 @@ const Option = (props) => {
     const theme = useContext(Context);
     const { option: renderOption } = theme.renderers;
     const className = theme.classes.row;
+    const optionSnapshot = { highlighted, selected };
 
     if (typeof renderOption === 'function') {
         return (
             <li role="presentation" className={className}>
-                {renderOption(optionProps, option)}
+                {renderOption(optionProps, option, optionSnapshot)}
             </li>
         );
     }
@@ -61,6 +64,8 @@ Option.propTypes = {
         'data-selected': PropTypes.string,
         role: PropTypes.string,
         onClick: PropTypes.func,
+        className: PropTypes.string,
+        disabled: PropTypes.bool,
     }),
     items: PropTypes.arrayOf(PropTypes.object),
     groupId: PropTypes.string,
