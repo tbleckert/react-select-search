@@ -282,8 +282,13 @@ class SelectSearch extends React.PureComponent {
 
     getValueProps(value) {
         const { search: searchEnabled, autoComplete, disabled } = this.props;
-        const { search, focus } = this.state;
+        const { focus } = this.state;
+        let { search } = this.state;
         const val = value ? value.name : '';
+
+        if (!focus) {
+            search = val;
+        }
 
         return {
             disabled,
@@ -294,7 +299,7 @@ class SelectSearch extends React.PureComponent {
             onFocus: this.onFocus,
             onClick: this.onFocus,
             readOnly: !this.props.search,
-            value: (searchEnabled && (search || focus)) ? search : val,
+            value: (searchEnabled) ? search : val,
             placeholder: this.props.placeholder,
             onChange: (searchEnabled) ? this.onSearch : null,
             type: (searchEnabled) ? 'search' : null,
