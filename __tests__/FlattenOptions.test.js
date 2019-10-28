@@ -31,4 +31,8 @@ describe('Unit test for FlattenOptions function', () => {
     test('Second item should not be a group', () => {
         expect('groupId' in flattenOptions[1]).toEqual(false);
     });
+
+    test('Returns empty array if unexpected input', () => {
+        expect(FlattenOptions('foo')).toStrictEqual([]);
+    });
 });

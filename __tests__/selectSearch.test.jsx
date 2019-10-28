@@ -131,23 +131,6 @@ describe('Test component', () => {
         expect(wrapper.find('input').at(0).prop('value')).toBe(countries[selected].name);
     });
 
-    test('Can search', () => {
-        const option = countries[random(countries)];
-        const wrapper = mount(<SelectSearch search className={className} defaultValue={option.value} options={countries}/>);
-
-        expect(wrapper.find('input').at(0).prop('readonly')).toBe(undefined);
-        expect(wrapper.find('input').at(0).prop('value')).toBe(option.name);
-
-        wrapper.find('input').at(0).simulate('focus');
-
-        expect(wrapper.find('input').at(0).prop('value')).toBe('');
-        expect(wrapper.find(Option).length).toBe(countries.length);
-
-        wrapper.find('input').simulate('change', { target: { value: 'sweden' }});
-
-        expect(wrapper.find(Option).length).toBe(1);
-    });
-
     test('Search empty on focus', () => {
         const option = countries[random(countries)];
         const wrapper = mount(<SelectSearch search className={className} defaultValue={option.value} options={countries} />);

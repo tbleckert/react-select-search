@@ -297,8 +297,6 @@ class SelectSearch extends React.PureComponent {
             };
         });
 
-
-
         if (maxOptions) {
             mappedOptions = mappedOptions.slice(0, maxOptions);
         }
