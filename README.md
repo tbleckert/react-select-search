@@ -24,6 +24,7 @@
 </p>
 
 ## Features
+* Full test coverage
 * Accessible
 * Basic HTML select functionality, including multiple
 * Search/filter options
