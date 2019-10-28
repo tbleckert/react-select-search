@@ -36,6 +36,14 @@ function renderFontOption(props, { name, stack }) {
     );
 }
 
+function delayOptions(options) {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve(options);
+        }, 1000);
+    });
+}
+
 class App extends React.PureComponent {
     constructor(props) {
         super(props);
@@ -87,6 +95,7 @@ class App extends React.PureComponent {
                     maxOptions={10}
                     search
                     disabled={this.state.disabled}
+                    filterOptions={delayOptions}
                 />
                 <SelectSearch
                     name="friends"

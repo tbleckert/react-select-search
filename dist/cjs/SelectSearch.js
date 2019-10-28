@@ -9,10 +9,6 @@ var _react = _interopRequireDefault(require("react"));
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
-var _fuse = _interopRequireDefault(require("fuse.js"));
-
-var _reactOnclickoutside = _interopRequireDefault(require("react-onclickoutside"));
-
 var _FlattenOptions = _interopRequireDefault(require("./lib/FlattenOptions"));
 
 var _GroupOptions = _interopRequireDefault(require("./lib/GroupOptions"));
@@ -23,6 +19,8 @@ var _findByValue = _interopRequireDefault(require("./lib/findByValue"));
 
 var _toString = _interopRequireDefault(require("./lib/toString"));
 
+var _cancelablePromise = _interopRequireDefault(require("./lib/cancelablePromise"));
+
 var _Value = _interopRequireDefault(require("./Components/Value"));
 
 var _Options = _interopRequireDefault(require("./Components/Options"));
@@ -31,9 +29,13 @@ var _Context = _interopRequireDefault(require("./Context"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; if (obj != null) { var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
@@ -146,13 +148,32 @@ function (_React$PureComponent) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "onSearch", function (e) {
-      var value = e.target.value;
+      if (_this.searchPromise) {
+        _this.searchPromise.cancel();
+      }
 
-      var options = _this.getNewOptionsList(_this.state.defaultOptions, (0, _toString.default)(value));
+      var value = e.target.value;
+      var defaultOptions = _this.state.defaultOptions;
+
+      var promise = _this.getNewOptionsList(defaultOptions, (0, _toString.default)(value));
+
+      _this.searchPromise = (0, _cancelablePromise.default)(promise);
 
       _this.setState({
         search: value,
-        options: options
+        searching: true
+      });
+
+      _this.searchPromise.promise.then(function (options) {
+        _this.setState({
+          options: options,
+          searching: false
+        });
+      }).catch(function (error) {
+        _this.setState({
+          error: error,
+          searching: false
+        });
       });
     });
 
@@ -230,7 +251,9 @@ function (_React$PureComponent) {
       defaultOptions: flattenedOptions,
       options: flattenedOptions,
       highlighted: null,
-      focus: false
+      focus: false,
+      error: false,
+      searching: false
     };
     _this.theme = {
       classes: typeof className === 'string' ? (0, _createClasses.default)(className) : className,
@@ -243,6 +266,7 @@ function (_React$PureComponent) {
 
     _this.parentRef = _this.props.innerRef || _react.default.createRef();
     _this.valueRef = _react.default.createRef();
+    _this.searchPromise = null;
     return _this;
   }
 
@@ -281,23 +305,33 @@ function (_React$PureComponent) {
   }, {
     key: "getNewOptionsList",
     value: function getNewOptionsList(options, value) {
-      var newOptions = options;
+      var _this2 = this;
 
-      if (options && options.length > 0 && value && value.length > 0) {
-        var fuse = new _fuse.default(options, this.props.fuse);
-        newOptions = fuse.search(value).map(function (item, index) {
-          return Object.assign({}, item, {
-            index: index
-          });
-        });
-      }
+      return new Promise(function (resolve, reject) {
+        var filterOptions = _this2.props.filterOptions;
 
-      return newOptions;
+        var newOptions = _this2.fuzzySearch(options, value);
+
+        if (typeof filterOptions === 'function') {
+          newOptions.then(function (fuzzyOptions) {
+            var result = filterOptions(fuzzyOptions, {
+              value: _this2.getValue(),
+              search: _this2.state.search,
+              selected: _this2.state.selected,
+              highlighted: _this2.state.highlighted,
+              allOptions: _this2.state.defaultOptions
+            });
+            Promise.resolve(result).then(resolve).catch(reject);
+          }).catch(reject);
+        } else {
+          resolve(Promise.resolve(newOptions));
+        }
+      });
     }
   }, {
     key: "getOptionsForRender",
     value: function getOptionsForRender() {
-      var _this2 = this;
+      var _this3 = this;
 
       var _this$props2 = this.props,
           multiple = _this$props2.multiple,
@@ -310,7 +344,7 @@ function (_React$PureComponent) {
       var mappedOptions = options.map(function (option, i) {
         var selected = multiple && Array.isArray(state.value) && state.value.indexOf(option.value) >= 0 || option.value === state.value;
         var highlighted = i === state.highlighted;
-        var className = _this2.theme.classes.option;
+        var className = _this3.theme.classes.option;
 
         if (highlighted) {
           className += ' is-highlighted';
@@ -325,17 +359,17 @@ function (_React$PureComponent) {
           selected: selected,
           highlighted: highlighted,
           onChange: function onChange() {
-            return _this2.onChange(option.value);
+            return _this3.onChange(option.value);
           },
           optionProps: {
             className: className,
             onClick: function onClick() {
-              return _this2.onChange(option.value);
+              return _this3.onChange(option.value);
             },
             role: 'menuitem',
             'data-selected': selected ? 'true' : null,
             'data-highlighted': highlighted ? 'true' : null,
-            disabled: _this2.props.disabled
+            disabled: _this3.props.disabled
           },
           key: "".concat(option.value, "-option")
         });
@@ -355,19 +389,27 @@ function (_React$PureComponent) {
           autoComplete = _this$props3.autoComplete,
           disabled = _this$props3.disabled;
       var _this$state3 = this.state,
-          search = _this$state3.search,
-          focus = _this$state3.focus;
+          focus = _this$state3.focus,
+          error = _this$state3.error,
+          searching = _this$state3.searching;
+      var search = this.state.search;
       var val = value ? value.name : '';
+
+      if (!focus) {
+        search = val;
+      }
+
       return {
         disabled: disabled,
+        error: error,
+        searching: searching,
         option: value,
-        state: this.state,
         className: this.theme.classes.search,
         tabIndex: '0',
         onFocus: this.onFocus,
         onClick: this.onFocus,
         readOnly: !this.props.search,
-        value: searchEnabled && (search || focus) ? search : val,
+        value: searchEnabled ? search : val,
         placeholder: this.props.placeholder,
         onChange: searchEnabled ? this.onSearch : null,
         type: searchEnabled ? 'search' : null,
@@ -393,6 +435,34 @@ function (_React$PureComponent) {
       }
 
       return value;
+    }
+  }, {
+    key: "fuzzySearch",
+    value: function fuzzySearch(options, value) {
+      var _this4 = this;
+
+      return new Promise(function (resolve, reject) {
+        if (_this4.props.fuse && options && options.length > 0 && value && value.length > 0) {
+          var fuseOptions = _typeof(_this4.props.fuse) === 'object' ? _this4.props.fuse : {
+            keys: ['name', 'groupName'],
+            threshold: 0.3
+          };
+          Promise.resolve().then(function () {
+            return _interopRequireWildcard(require('fuse.js'));
+          }).then(function (_ref) {
+            var Fuse = _ref.default;
+            var fuse = new Fuse(options, fuseOptions);
+            var newOptions = fuse.search(value).map(function (item, index) {
+              return Object.assign({}, item, {
+                index: index
+              });
+            });
+            resolve(newOptions);
+          }).catch(reject);
+        } else {
+          resolve(options);
+        }
+      });
     }
   }, {
     key: "handleArrowDown",
@@ -540,10 +610,7 @@ _defineProperty(SelectSearch, "defaultProps", {
   multiple: false,
   placeholder: '',
   maxOptions: null,
-  fuse: {
-    keys: ['name', 'groupName'],
-    threshold: 0.3
-  },
+  fuse: true,
   className: 'select-search-box',
   autoComplete: 'on',
   autofocus: false,
@@ -551,6 +618,7 @@ _defineProperty(SelectSearch, "defaultProps", {
   renderGroupHeader: null,
   renderValue: null,
   onChange: null,
+  filterOptions: null,
   disabled: false
 });
 
@@ -569,6 +637,7 @@ SelectSearch.propTypes = {
   value: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.array]),
   multiple: _propTypes.default.bool,
   search: _propTypes.default.bool,
+  disabled: _propTypes.default.bool,
   placeholder: _propTypes.default.string,
   maxOptions: _propTypes.default.number,
   className: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.shape({
@@ -585,12 +654,15 @@ SelectSearch.propTypes = {
   autoComplete: _propTypes.default.oneOf(['on', 'off']),
   autofocus: _propTypes.default.bool,
   // eslint-disable-next-line react/forbid-prop-types
-  fuse: _propTypes.default.object,
+  fuse: _propTypes.default.oneOfType([_propTypes.default.bool, _propTypes.default.shape({
+    keys: _propTypes.default.arrayOf(_propTypes.default.string).isRequired,
+    threshold: _propTypes.default.number.isRequired
+  })]),
   renderOption: _propTypes.default.func,
   renderGroupHeader: _propTypes.default.func,
   renderValue: _propTypes.default.func,
   onChange: _propTypes.default.func,
-  disabled: _propTypes.default.bool
+  filterOptions: _propTypes.default.func
 };
 var _default = SelectSearch;
 exports.default = _default;

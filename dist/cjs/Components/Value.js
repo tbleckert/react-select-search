@@ -24,14 +24,18 @@ function _objectWithoutProperties(source, excluded) { if (source == null) return
 function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
 
 var Value = (0, _react.forwardRef)(function (_ref, ref) {
-  var state = _ref.state,
-      option = _ref.option,
-      valueProps = _objectWithoutProperties(_ref, ["state", "option"]);
+  var option = _ref.option,
+      searching = _ref.searching,
+      error = _ref.error,
+      valueProps = _objectWithoutProperties(_ref, ["option", "searching", "error"]);
 
   var theme = (0, _react.useContext)(_Context.default);
 
   if (typeof theme.renderers.value === 'function') {
-    return theme.renderers.value(valueProps, ref, option, state);
+    return theme.renderers.value(valueProps, ref, option, {
+      searching: searching,
+      error: error
+    });
   }
 
   return _react.default.createElement("input", _extends({
@@ -51,12 +55,12 @@ Value.propTypes = {
   onClick: _propTypes.default.func.isRequired,
   readOnly: _propTypes.default.bool.isRequired,
   value: _propTypes.default.string.isRequired,
+  searching: _propTypes.default.bool.isRequired,
+  error: _propTypes.default.oneOfType([_propTypes.default.bool, _propTypes.default.object, _propTypes.default.string]).isRequired,
   option: _propTypes.default.shape({
     value: _propTypes.default.string,
     name: _propTypes.default.string
   }),
-  // eslint-disable-next-line react/forbid-prop-types
-  state: _propTypes.default.object.isRequired,
   placeholder: _propTypes.default.string,
   onChange: _propTypes.default.func,
   type: _propTypes.default.string,

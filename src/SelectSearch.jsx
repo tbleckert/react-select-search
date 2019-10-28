@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Fuse from 'fuse.js';
-import onClickOutside from 'react-onclickoutside';
 import FlattenOptions from './lib/FlattenOptions';
 import GroupOptions from './lib/GroupOptions';
 import createClasses from './lib/createClasses';
 import findByValue from './lib/findByValue';
 import toString from './lib/toString';
+import cancelablePromise from './lib/cancelablePromise';
 import Value from './Components/Value';
 import Options from './Components/Options';
 import Context from './Context';
@@ -19,10 +18,7 @@ class SelectSearch extends React.PureComponent {
         multiple: false,
         placeholder: '',
         maxOptions: null,
-        fuse: {
-            keys: ['name', 'groupName'],
-            threshold: 0.3,
-        },
+        fuse: true,
         className: 'select-search-box',
         autoComplete: 'on',
         autofocus: false,
@@ -30,6 +26,7 @@ class SelectSearch extends React.PureComponent {
         renderGroupHeader: null,
         renderValue: null,
         onChange: null,
+        filterOptions: null,
         disabled: false,
     };
 
@@ -66,6 +63,8 @@ class SelectSearch extends React.PureComponent {
             options: flattenedOptions,
             highlighted: null,
             focus: false,
+            error: false,
+            searching: false,
         };
 
         this.theme = {
@@ -80,6 +79,8 @@ class SelectSearch extends React.PureComponent {
         // eslint-disable-next-line react/prop-types
         this.parentRef = this.props.innerRef || React.createRef();
         this.valueRef = React.createRef();
+
+        this.searchPromise = null;
     }
 
     componentDidMount() {
@@ -175,10 +176,22 @@ class SelectSearch extends React.PureComponent {
     };
 
     onSearch = (e) => {
-        const { value } = e.target;
-        const options = this.getNewOptionsList(this.state.defaultOptions, toString(value));
+        if (this.searchPromise) {
+            this.searchPromise.cancel();
+        }
 
-        this.setState({ search: value, options });
+        const { value } = e.target;
+        const { defaultOptions } = this.state;
+        const promise = this.getNewOptionsList(defaultOptions, toString(value));
+        this.searchPromise = cancelablePromise(promise);
+
+        this.setState({ search: value, searching: true });
+
+        this.searchPromise.promise.then((options) => {
+            this.setState({ options, searching: false });
+        }).catch((error) => {
+            this.setState({ error, searching: false });
+        });
     };
 
     onKeyPress = (e) => {
@@ -222,17 +235,28 @@ class SelectSearch extends React.PureComponent {
     };
 
     getNewOptionsList(options, value) {
-        let newOptions = options;
+        return new Promise((resolve, reject) => {
+            const { filterOptions } = this.props;
+            const newOptions = this.fuzzySearch(options, value);
 
-        if (options && options.length > 0 && value && value.length > 0) {
-            const fuse = new Fuse(options, this.props.fuse);
+            if (typeof filterOptions === 'function') {
+                newOptions.then((fuzzyOptions) => {
+                    const result = filterOptions(fuzzyOptions, {
+                        value: this.getValue(),
+                        search: this.state.search,
+                        selected: this.state.selected,
+                        highlighted: this.state.highlighted,
+                        allOptions: this.state.defaultOptions,
+                    });
 
-            newOptions = fuse
-                .search(value)
-                .map((item, index) => Object.assign({}, item, { index }));
-        }
-
-        return newOptions;
+                    Promise.resolve(result)
+                        .then(resolve)
+                        .catch(reject);
+                }).catch(reject);
+            } else {
+                resolve(Promise.resolve(newOptions));
+            }
+        });
     }
 
     getOptionsForRender() {
@@ -273,6 +297,8 @@ class SelectSearch extends React.PureComponent {
             };
         });
 
+
+
         if (maxOptions) {
             mappedOptions = mappedOptions.slice(0, maxOptions);
         }
@@ -282,7 +308,7 @@ class SelectSearch extends React.PureComponent {
 
     getValueProps(value) {
         const { search: searchEnabled, autoComplete, disabled } = this.props;
-        const { focus } = this.state;
+        const { focus, error, searching } = this.state;
         let { search } = this.state;
         const val = value ? value.name : '';
 
@@ -292,8 +318,9 @@ class SelectSearch extends React.PureComponent {
 
         return {
             disabled,
+            error,
+            searching,
             option: value,
-            state: this.state,
             className: this.theme.classes.search,
             tabIndex: '0',
             onFocus: this.onFocus,
@@ -324,6 +351,28 @@ class SelectSearch extends React.PureComponent {
         }
 
         return value;
+    }
+
+    fuzzySearch(options, value) {
+        return new Promise((resolve, reject) => {
+            if (this.props.fuse && options && options.length > 0 && value && value.length > 0) {
+                const fuseOptions = (typeof this.props.fuse === 'object') ? this.props.fuse : {
+                    keys: ['name', 'groupName'],
+                    threshold: 0.3,
+                };
+
+                import('fuse.js').then(({ default: Fuse }) => {
+                    const fuse = new Fuse(options, fuseOptions);
+                    const newOptions = fuse
+                        .search(value)
+                        .map((item, index) => Object.assign({}, item, { index }));
+
+                    resolve(newOptions);
+                }).catch(reject);
+            } else {
+                resolve(options);
+            }
+        });
     }
 
     handleClickOutside = () => {
@@ -479,6 +528,7 @@ SelectSearch.propTypes = {
     ]),
     multiple: PropTypes.bool,
     search: PropTypes.bool,
+    disabled: PropTypes.bool,
     placeholder: PropTypes.string,
     maxOptions: PropTypes.number,
     className: PropTypes.oneOfType([PropTypes.string, PropTypes.shape({
@@ -495,12 +545,15 @@ SelectSearch.propTypes = {
     autoComplete: PropTypes.oneOf(['on', 'off']),
     autofocus: PropTypes.bool,
     // eslint-disable-next-line react/forbid-prop-types
-    fuse: PropTypes.object,
+    fuse: PropTypes.oneOfType([PropTypes.bool, PropTypes.shape({
+        keys: PropTypes.arrayOf(PropTypes.string).isRequired,
+        threshold: PropTypes.number.isRequired,
+    })]),
     renderOption: PropTypes.func,
     renderGroupHeader: PropTypes.func,
     renderValue: PropTypes.func,
     onChange: PropTypes.func,
-    disabled: PropTypes.bool,
+    filterOptions: PropTypes.func,
 };
 
 export default SelectSearch;

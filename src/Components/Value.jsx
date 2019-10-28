@@ -3,14 +3,18 @@ import PropTypes from 'prop-types';
 import Context from '../Context';
 
 const Value = forwardRef(({
-    state,
     option,
+    searching,
+    error,
     ...valueProps
 }, ref) => {
     const theme = useContext(Context);
 
     if (typeof theme.renderers.value === 'function') {
-        return theme.renderers.value(valueProps, ref, option, state);
+        return theme.renderers.value(valueProps, ref, option, {
+            searching,
+            error,
+        });
     }
 
     return (
@@ -35,12 +39,12 @@ Value.propTypes = {
     onClick: PropTypes.func.isRequired,
     readOnly: PropTypes.bool.isRequired,
     value: PropTypes.string.isRequired,
+    searching: PropTypes.bool.isRequired,
+    error: PropTypes.oneOfType([PropTypes.bool, PropTypes.object, PropTypes.string]).isRequired,
     option: PropTypes.shape({
         value: PropTypes.string,
         name: PropTypes.string,
     }),
-    // eslint-disable-next-line react/forbid-prop-types
-    state: PropTypes.object.isRequired,
     placeholder: PropTypes.string,
     onChange: PropTypes.func,
     type: PropTypes.string,
