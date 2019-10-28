@@ -8,10 +8,11 @@ import Group from './Group';
 var Option = function Option(props) {
   var type = props.type,
       groupId = props.groupId,
+      name = props.name,
+      optionProps = props.optionProps,
       highlighted = props.highlighted,
       selected = props.selected,
-      name = props.name,
-      optionProps = props.optionProps;
+      option = props.option;
 
   if (type && type === 'group') {
     return React.createElement(Group, _extends({}, props, {
@@ -21,19 +22,26 @@ var Option = function Option(props) {
   }
 
   var theme = useContext(Context);
-  var className = theme.classes.option;
+  var renderOption = theme.renderers.option;
+  var className = theme.classes.row;
+  var optionSnapshot = {
+    highlighted: highlighted,
+    selected: selected
+  };
 
-  if (highlighted) {
-    className += ' is-highlighted';
+  if (typeof renderOption === 'function') {
+    return React.createElement("li", {
+      role: "presentation",
+      className: className
+    }, renderOption(optionProps, option, optionSnapshot));
   }
 
-  if (selected) {
-    className += ' is-selected';
-  }
-
-  return React.createElement("li", _extends({}, optionProps, {
+  return React.createElement("li", {
+    role: "presentation",
     className: className
-  }), theme.renderers.option(props));
+  }, React.createElement("button", _extends({}, optionProps, {
+    type: "button"
+  }), name));
 };
 
 Option.defaultProps = {
@@ -42,19 +50,28 @@ Option.defaultProps = {
   selected: false,
   highlighted: false,
   items: [],
-  optionProps: null
+  optionProps: null,
+  option: null,
+  onChange: null
 };
 Option.propTypes = {
   highlighted: PropTypes.bool,
   selected: PropTypes.bool,
   name: PropTypes.string.isRequired,
+  onChange: PropTypes.func,
   optionProps: PropTypes.shape({
     'data-selected': PropTypes.string,
     role: PropTypes.string,
-    onClick: PropTypes.func
+    onClick: PropTypes.func,
+    className: PropTypes.string,
+    disabled: PropTypes.bool
   }),
   items: PropTypes.arrayOf(PropTypes.object),
   groupId: PropTypes.string,
-  type: PropTypes.string
+  type: PropTypes.string,
+  option: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    value: PropTypes.string.isRequired
+  })
 };
 export default memo(Option);

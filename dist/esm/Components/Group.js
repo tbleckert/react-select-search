@@ -5,9 +5,17 @@ import Options from './Options';
 
 var Group = function Group(props) {
   var theme = useContext(Context);
-  var name = theme.renderers.groupHeader(props.name);
+  var className = "".concat(theme.classes.row, " ").concat(theme.classes.row, "--group");
+  var render = theme.renderers.groupHeader;
+  var name = props.name;
+
+  if (typeof render === 'function') {
+    name = render(name);
+  }
+
   return React.createElement("li", {
-    className: theme.classes.row,
+    className: className,
+    role: "none",
     key: props.groupId
   }, React.createElement("div", {
     className: theme.classes.group

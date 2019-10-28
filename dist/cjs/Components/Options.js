@@ -23,9 +23,10 @@ function _extends() { _extends = Object.assign || function (target) { for (var i
 
 var Options = function Options(_ref) {
   var options = _ref.options;
-  var classes = (0, _react.useContext)(_Context.default);
+  var theme = (0, _react.useContext)(_Context.default);
   return _react.default.createElement("ul", {
-    className: classes.options
+    className: theme.classes.options,
+    role: "menu"
   }, options.map(function (option) {
     var key = option.type === 'group' ? option.groupId : option.value;
     return _react.default.createElement(_Option.default, _extends({}, option, {

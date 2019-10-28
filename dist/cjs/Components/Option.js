@@ -24,10 +24,11 @@ function _extends() { _extends = Object.assign || function (target) { for (var i
 var Option = function Option(props) {
   var type = props.type,
       groupId = props.groupId,
+      name = props.name,
+      optionProps = props.optionProps,
       highlighted = props.highlighted,
       selected = props.selected,
-      name = props.name,
-      optionProps = props.optionProps;
+      option = props.option;
 
   if (type && type === 'group') {
     return _react.default.createElement(_Group.default, _extends({}, props, {
@@ -37,19 +38,26 @@ var Option = function Option(props) {
   }
 
   var theme = (0, _react.useContext)(_Context.default);
-  var className = theme.classes.option;
+  var renderOption = theme.renderers.option;
+  var className = theme.classes.row;
+  var optionSnapshot = {
+    highlighted: highlighted,
+    selected: selected
+  };
 
-  if (highlighted) {
-    className += ' is-highlighted';
+  if (typeof renderOption === 'function') {
+    return _react.default.createElement("li", {
+      role: "presentation",
+      className: className
+    }, renderOption(optionProps, option, optionSnapshot));
   }
 
-  if (selected) {
-    className += ' is-selected';
-  }
-
-  return _react.default.createElement("li", _extends({}, optionProps, {
+  return _react.default.createElement("li", {
+    role: "presentation",
     className: className
-  }), theme.renderers.option(props));
+  }, _react.default.createElement("button", _extends({}, optionProps, {
+    type: "button"
+  }), name));
 };
 
 Option.defaultProps = {
@@ -58,20 +66,29 @@ Option.defaultProps = {
   selected: false,
   highlighted: false,
   items: [],
-  optionProps: null
+  optionProps: null,
+  option: null,
+  onChange: null
 };
 Option.propTypes = {
   highlighted: _propTypes.default.bool,
   selected: _propTypes.default.bool,
   name: _propTypes.default.string.isRequired,
+  onChange: _propTypes.default.func,
   optionProps: _propTypes.default.shape({
     'data-selected': _propTypes.default.string,
     role: _propTypes.default.string,
-    onClick: _propTypes.default.func
+    onClick: _propTypes.default.func,
+    className: _propTypes.default.string,
+    disabled: _propTypes.default.bool
   }),
   items: _propTypes.default.arrayOf(_propTypes.default.object),
   groupId: _propTypes.default.string,
-  type: _propTypes.default.string
+  type: _propTypes.default.string,
+  option: _propTypes.default.shape({
+    name: _propTypes.default.string.isRequired,
+    value: _propTypes.default.string.isRequired
+  })
 };
 
 var _default = (0, _react.memo)(Option);

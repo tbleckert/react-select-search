@@ -11,6 +11,7 @@ var classes = {
   search: 'search',
   select: 'select',
   options: 'options',
+  row: 'row',
   option: 'option',
   group: 'group',
   groupHeader: 'group-header'
@@ -25,12 +26,20 @@ function e(baseClass, className) {
 }
 
 export default function createClasses(baseClass) {
+  var returnObj = {};
   var classesArray = Object.entries(classes);
-  return Object.fromEntries(classesArray.map(function (_ref) {
+  classesArray.map(function (_ref) {
     var _ref2 = _slicedToArray(_ref, 2),
         key = _ref2[0],
         cls = _ref2[1];
 
     return [key, e(baseClass, cls)];
-  }));
+  }).forEach(function (_ref3) {
+    var _ref4 = _slicedToArray(_ref3, 2),
+        key = _ref4[0],
+        cls = _ref4[1];
+
+    returnObj[key] = cls;
+  });
+  return returnObj;
 }

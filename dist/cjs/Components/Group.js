@@ -21,9 +21,17 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 var Group = function Group(props) {
   var theme = (0, _react.useContext)(_Context.default);
-  var name = theme.renderers.groupHeader(props.name);
+  var className = "".concat(theme.classes.row, " ").concat(theme.classes.row, "--group");
+  var render = theme.renderers.groupHeader;
+  var name = props.name;
+
+  if (typeof render === 'function') {
+    name = render(name);
+  }
+
   return _react.default.createElement("li", {
-    className: theme.classes.row,
+    className: className,
+    role: "none",
     key: props.groupId
   }, _react.default.createElement("div", {
     className: theme.classes.group

@@ -42,7 +42,8 @@ Value.defaultProps = {
   placeholder: '',
   onChange: null,
   type: 'text',
-  option: null
+  option: null,
+  className: null
 };
 Value.propTypes = {
   tabIndex: _propTypes.default.string.isRequired,
@@ -50,15 +51,16 @@ Value.propTypes = {
   onClick: _propTypes.default.func.isRequired,
   readOnly: _propTypes.default.bool.isRequired,
   value: _propTypes.default.string.isRequired,
-  placeholder: _propTypes.default.string,
-  onChange: _propTypes.default.func,
-  type: _propTypes.default.string,
   option: _propTypes.default.shape({
     value: _propTypes.default.string,
     name: _propTypes.default.string
   }),
   // eslint-disable-next-line react/forbid-prop-types
-  state: _propTypes.default.object.isRequired
+  state: _propTypes.default.object.isRequired,
+  placeholder: _propTypes.default.string,
+  onChange: _propTypes.default.func,
+  type: _propTypes.default.string,
+  className: _propTypes.default.string
 };
 
 var _default = (0, _react.memo)(Value);

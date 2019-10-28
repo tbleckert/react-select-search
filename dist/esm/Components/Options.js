@@ -7,9 +7,10 @@ import Context from '../Context';
 
 var Options = function Options(_ref) {
   var options = _ref.options;
-  var classes = useContext(Context);
+  var theme = useContext(Context);
   return React.createElement("ul", {
-    className: classes.options
+    className: theme.classes.options,
+    role: "menu"
   }, options.map(function (option) {
     var key = option.type === 'group' ? option.groupId : option.value;
     return React.createElement(Option, _extends({}, option, {

@@ -5,22 +5,16 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-function FindGroup(options, id) {
-  var foundIndex = null;
-  options.forEach(function (option, i) {
-    if ({}.hasOwnProperty.call(option, 'groupId') && option.groupId === id) {
-      foundIndex = i;
-    }
-  });
-  return foundIndex;
-}
+var _FindGroupIndex = _interopRequireDefault(require("./FindGroupIndex"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var GroupOptions = function GroupOptions(options) {
   var nextOptions = [];
   options.forEach(function (option, i) {
     if ('groupId' in option) {
       var nextOption = Object.assign({}, option);
-      var groupIndex = FindGroup(nextOptions, nextOption.groupId);
+      var groupIndex = (0, _FindGroupIndex.default)(nextOptions, nextOption.groupId);
       nextOption.index = i;
 
       if (groupIndex !== null && groupIndex > -1) {
