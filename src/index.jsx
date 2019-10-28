@@ -1,4 +1,7 @@
 import React, { memo, forwardRef } from 'react';
+import onClickOutside from 'react-onclickoutside';
 import SelectSearch from './SelectSearch';
 
-export default memo(forwardRef((props, ref) => <SelectSearch innerRef={ref} {...props} />));
+const Component = onClickOutside(SelectSearch);
+
+export default memo(forwardRef((props, ref) => <Component innerRef={ref} {...props} />));

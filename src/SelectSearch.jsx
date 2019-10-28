@@ -1,4 +1,4 @@
-import React, { forwardRef, memo } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import Fuse from 'fuse.js';
 import onClickOutside from 'react-onclickoutside';
@@ -27,7 +27,7 @@ class SelectSearch extends React.PureComponent {
         autoComplete: 'on',
         autofocus: false,
         renderOption: null,
-        renderGroupHeader: title => title,
+        renderGroupHeader: null,
         renderValue: null,
         onChange: null,
         disabled: false,
@@ -55,8 +55,8 @@ class SelectSearch extends React.PureComponent {
         let stateValue = (!val && multiple) ? [] : val;
         const flattenedOptions = FlattenOptions(options);
 
-        if (!stateValue && !placeholder) {
-            stateValue = flattenedOptions[0].name;
+        if (!stateValue && !placeholder && flattenedOptions.length) {
+            stateValue = flattenedOptions[0].value;
         }
 
         this.state = {
@@ -96,7 +96,7 @@ class SelectSearch extends React.PureComponent {
             highlighted,
         } = this.state;
 
-        const { prevFocus, prevHighlighted } = prevState;
+        const { focus: prevFocus, highlighted: prevHighlighted } = prevState;
 
         if (prevFocus !== focus) {
             if (focus) {
@@ -107,7 +107,7 @@ class SelectSearch extends React.PureComponent {
         }
 
         if (highlighted !== null && highlighted !== prevHighlighted) {
-            this.scrollToHighlighted();
+            this.scrollToType('highlighted');
         }
     }
 
@@ -116,19 +116,7 @@ class SelectSearch extends React.PureComponent {
             return;
         }
 
-        const { multiple } = this.props;
-        const { value } = this.state;
-        let search = '';
-
-        if (value && !multiple) {
-            const option = findByValue(null, value);
-
-            if (option) {
-                search = option.name;
-            }
-        }
-
-        this.setState({ focus: false, highlighted: null, search });
+        this.setState({ focus: false, highlighted: null, search: '' });
     };
 
     onFocus = () => {
@@ -160,10 +148,6 @@ class SelectSearch extends React.PureComponent {
         }
 
         if (this.props.multiple) {
-            if (!currentValue) {
-                currentValue = [];
-            }
-
             const currentIndex = currentValue.indexOf(option.value);
 
             if (currentIndex > -1) {
@@ -238,7 +222,6 @@ class SelectSearch extends React.PureComponent {
     };
 
     getNewOptionsList(options, value) {
-        const { maxOptions } = this.props;
         let newOptions = options;
 
         if (options && options.length > 0 && value && value.length > 0) {
@@ -249,20 +232,15 @@ class SelectSearch extends React.PureComponent {
                 .map((item, index) => Object.assign({}, item, { index }));
         }
 
-        if (maxOptions) {
-            newOptions = newOptions.slice(0, maxOptions);
-        }
-
         return newOptions;
     }
 
     getOptionsForRender() {
-        const { multiple } = this.props;
+        const { multiple, maxOptions } = this.props;
         const { options, ...state } = this.state;
-
-        return GroupOptions(options.map((option, i) => {
+        let mappedOptions = options.map((option, i) => {
             const selected = (
-                (multiple && state.value.indexOf(option.value) >= 0)
+                (multiple && Array.isArray(state.value) && state.value.indexOf(option.value) >= 0)
                 || option.value === state.value
             );
 
@@ -293,7 +271,13 @@ class SelectSearch extends React.PureComponent {
                 },
                 key: `${option.value}-option`,
             };
-        }));
+        });
+
+        if (maxOptions) {
+            mappedOptions = mappedOptions.slice(0, maxOptions);
+        }
+
+        return GroupOptions(mappedOptions);
     }
 
     getValueProps(value) {
@@ -320,11 +304,21 @@ class SelectSearch extends React.PureComponent {
     }
 
     getValue() {
+        let value = null;
+
         if (this.controlledValue) {
-            return this.props.value;
+            ({ value } = this.props);
+        } else {
+            ({ value } = this.state);
         }
 
-        return this.state.value;
+        if (!value && this.props.multiple) {
+            value = [];
+        } else if (this.props.multiple && !Array.isArray(value)) {
+            value = [value];
+        }
+
+        return value;
     }
 
     handleClickOutside = () => {
@@ -378,15 +372,13 @@ class SelectSearch extends React.PureComponent {
     }
 
     handleFocus() {
-        if (this.props.disabled) {
-            return;
-        }
-
         document.addEventListener('keydown', this.onKeyDown);
         document.addEventListener('keypress', this.onKeyPress);
         document.addEventListener('keyup', this.onKeyUp);
 
-        this.scrollToSelected();
+        if (!this.props.multiple) {
+            this.scrollToType('selected');
+        }
     }
 
     handleBlur() {
@@ -395,32 +387,16 @@ class SelectSearch extends React.PureComponent {
         document.removeEventListener('keyup', this.onKeyUp);
     }
 
-    scrollToSelected() {
-        if (this.props.multiple || !this.state.value || !this.parentRef.current) {
+    scrollToType(type) {
+        if (!this.parentRef.current) {
             return;
         }
 
         const parent = this.parentRef.current;
-        const selected = parent.querySelector('[data-selected="true"]');
+        const element = parent.querySelector(`[data-${type}="true"]`);
 
-        if (selected) {
-            selected.scrollIntoView({
-                behavior: 'auto',
-                block: 'center',
-            });
-        }
-    }
-
-    scrollToHighlighted() {
-        if (this.state.highlighted == null || !this.parentRef.current) {
-            return;
-        }
-
-        const parent = this.parentRef.current;
-        const highlighted = parent.querySelector('[data-highlighted="true"]');
-
-        if (highlighted) {
-            highlighted.scrollIntoView({
+        if (element) {
+            element.scrollIntoView({
                 behavior: 'auto',
                 block: 'center',
             });
@@ -522,4 +498,4 @@ SelectSearch.propTypes = {
     disabled: PropTypes.bool,
 };
 
-export default onClickOutside(SelectSearch);
+export default SelectSearch;

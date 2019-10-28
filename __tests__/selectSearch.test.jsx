@@ -9,6 +9,7 @@ import SelectSearchComponent from '../src/SelectSearch';
 import Value from '../src/Components/Value';
 import Options from '../src/Components/Options';
 import Option from '../src/Components/Option';
+import FlattenOptions from '../src/lib/FlattenOptions';
 
 const className = 'select-search';
 const random = (source) => Math.floor(Math.random() * source.length);
@@ -18,6 +19,19 @@ describe('Test component', () => {
         const wrapper = mount(<SelectSearch className={className} options={countries} />);
 
         expect(wrapper.find(`div.${className}`).length).toBe(1);
+    });
+
+    test('Has correct options', () => {
+        const wrapper = mount(<SelectSearch className={className} options={countries} />);
+        const flatOptions = FlattenOptions(countries);
+
+        expect(wrapper.childAt(0).childAt(0).state('options')).toStrictEqual(flatOptions);
+        expect(wrapper.childAt(0).childAt(0).state('defaultOptions')).toStrictEqual(flatOptions);
+
+        const wrapper2 = mount(<SelectSearch className={className} options={null} />);
+
+        expect(wrapper2.childAt(0).childAt(0).state('options')).toStrictEqual([]);
+        expect(wrapper2.childAt(0).childAt(0).state('defaultOptions')).toStrictEqual([]);
     });
 
     test('Has correct modifiers', () => {
@@ -152,7 +166,7 @@ describe('Test component', () => {
 
     test('Can highlight option', () => {
         const highlighted = random(countries);
-        const wrapper = mount(<SelectSearch className={className} options={countries} />);
+        const wrapper = mount(<SelectSearch className={className} placeholder="Select country" options={countries} />);
         const scrollIntoViewMock = jest.fn();
 
         global.HTMLElement.prototype.scrollIntoView = scrollIntoViewMock;
@@ -178,5 +192,99 @@ describe('Test component', () => {
 
         expect(scrollIntoViewMock.mock.calls.length).toBe(1);
         expect(wrapper.find('.is-selected').length).toBe(1);
+    });
+
+    test('Should not attempt to scroll on missing ref', () => {
+        const selected = random(countries);
+        const wrapper = mount(<SelectSearchComponent className={className} innerRef={1} defaultValue={countries[selected].value} options={countries} />);
+        const scrollIntoViewMock = jest.fn();
+
+        global.HTMLElement.prototype.scrollIntoView = scrollIntoViewMock;
+
+        wrapper.find('input').at(0).simulate('focus');
+
+        expect(scrollIntoViewMock.mock.calls.length).toBe(0);
+    });
+
+    test('Can autofocus if search', () => {
+        const wrapper = mount(<SelectSearchComponent className={className} search autofocus options={countries} />);
+
+        expect(wrapper.find('input:focus').length).toBe(1);
+    });
+
+    test('Doesn\'t autofocus if false', () => {
+        const wrapper = mount(<SelectSearchComponent className={className} search autofocus={false} options={countries} />);
+
+        expect(wrapper.find('input:focus').length).toBe(0);
+    });
+
+    test('Doesn\'t autofocus if not search', () => {
+        const wrapper = mount(<SelectSearchComponent className={className} autofocus options={countries} />);
+
+        expect(wrapper.find('input:focus').length).toBe(0);
+    });
+
+    test('Can use custom classes', () => {
+        const classes = {
+            main: 'container',
+            search: 'search',
+            select: 'select',
+            options: 'options',
+            row: 'row',
+            option: 'option',
+            group: 'group',
+            groupHeader: 'group-header',
+        };
+
+        const wrapper = mount(<SelectSearchComponent className={classes} search autofocus options={countries} />);
+
+        expect(wrapper.find('div.container').length).toBe(1);
+        expect(wrapper.find('input.search').length).toBe(1);
+    });
+
+    test('Doesn\'t focus if disabled', () => {
+        const wrapper = mount(<SelectSearchComponent className={className} disabled options={countries} />);
+
+        wrapper.find('input').at(0).simulate('focus');
+
+        expect(wrapper.state('focus')).toBe(false);
+    });
+
+    test('Doesn\'t change value disabled', () => {
+        const wrapper = mount(<SelectSearchComponent multiple className={className} disabled options={countries} />);
+
+        expect(wrapper.state('value')).toStrictEqual([]);
+
+        wrapper.find(Option).at(0).prop('onChange')();
+
+        expect(wrapper.state('value')).toStrictEqual([]);
+        expect(wrapper.state('focus')).toBe(false);
+    });
+
+    test('onChange should select highlighted or first value if undefined', () => {
+        const wrapper = shallow(<SelectSearchComponent className={className} placeholder="Select country" options={countries} />);
+
+        expect(wrapper.state('value')).toBe('');
+
+        wrapper.instance().handleEnter();
+
+        expect(wrapper.state('value')).toBe(countries[0].value);
+
+        const highlighted = random(countries);
+
+        wrapper.setState({ highlighted });
+
+        wrapper.instance().handleEnter();
+
+        expect(wrapper.state('value')).toBe(countries[highlighted].value);
+    });
+
+    test('maxOptions limits options', () => {
+        const wrapper = mount(<SelectSearchComponent className={className} maxOptions={10} options={countries} />);
+
+        wrapper.find('input').simulate('focus');
+
+        expect(wrapper.state('defaultOptions').length).toBe(countries.length);
+        expect(wrapper.find(Option).length).toBe(10);
     });
 });

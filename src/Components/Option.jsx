@@ -54,12 +54,14 @@ Option.defaultProps = {
     items: [],
     optionProps: null,
     option: null,
+    onChange: null,
 };
 
 Option.propTypes = {
     highlighted: PropTypes.bool,
     selected: PropTypes.bool,
     name: PropTypes.string.isRequired,
+    onChange: PropTypes.func,
     optionProps: PropTypes.shape({
         'data-selected': PropTypes.string,
         role: PropTypes.string,

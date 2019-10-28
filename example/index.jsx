@@ -84,6 +84,7 @@ class App extends React.PureComponent {
                     options={countries}
                     onChange={value => this.setState({ country: value })}
                     placeholder="Your country"
+                    maxOptions={10}
                     search
                     disabled={this.state.disabled}
                 />

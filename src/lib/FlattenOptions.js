@@ -1,4 +1,8 @@
 const FlattenOptions = (options) => {
+    if (!Array.isArray(options)) {
+        return [];
+    }
+
     const nextOptions = [];
 
     options.forEach((option, index) => {
