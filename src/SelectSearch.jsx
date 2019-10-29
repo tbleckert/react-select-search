@@ -17,7 +17,6 @@ class SelectSearch extends React.PureComponent {
         defaultValue: undefined,
         multiple: false,
         placeholder: '',
-        maxOptions: null,
         fuse: true,
         className: 'select-search-box',
         autoComplete: 'on',
@@ -260,9 +259,9 @@ class SelectSearch extends React.PureComponent {
     }
 
     getOptionsForRender() {
-        const { multiple, maxOptions } = this.props;
+        const { multiple } = this.props;
         const { options, ...state } = this.state;
-        let mappedOptions = options.map((option, i) => {
+        const mappedOptions = options.map((option, i) => {
             const selected = (
                 (multiple && Array.isArray(state.value) && state.value.indexOf(option.value) >= 0)
                 || option.value === state.value
@@ -284,6 +283,7 @@ class SelectSearch extends React.PureComponent {
                 option,
                 selected,
                 highlighted,
+                disabled: option.disabled,
                 onChange: () => this.onChange(option.value),
                 optionProps: {
                     className,
@@ -291,15 +291,11 @@ class SelectSearch extends React.PureComponent {
                     role: 'menuitem',
                     'data-selected': (selected) ? 'true' : null,
                     'data-highlighted': (highlighted) ? 'true' : null,
-                    disabled: this.props.disabled,
+                    disabled: this.props.disabled || option.disabled,
                 },
                 key: `${option.value}-option`,
             };
         });
-
-        if (maxOptions) {
-            mappedOptions = mappedOptions.slice(0, maxOptions);
-        }
 
         return GroupOptions(mappedOptions);
     }
@@ -533,7 +529,6 @@ SelectSearch.propTypes = {
     search: PropTypes.bool,
     disabled: PropTypes.bool,
     placeholder: PropTypes.string,
-    maxOptions: PropTypes.number,
     className: PropTypes.oneOfType([PropTypes.string, PropTypes.shape({
         main: PropTypes.string,
         value: PropTypes.string,

@@ -92,7 +92,6 @@ class App extends React.PureComponent {
                     options={countries}
                     onChange={value => this.setState({ country: value })}
                     placeholder="Your country"
-                    maxOptions={10}
                     search
                     disabled={this.state.disabled}
                     filterOptions={delayOptions}
@@ -105,6 +104,7 @@ class App extends React.PureComponent {
                     options={friends}
                     placeholder="Search friends"
                     renderOption={renderFriend}
+                    filterOptions={options => options}
                     autofocus
                 />
             </div>

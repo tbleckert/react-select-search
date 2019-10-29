@@ -187,6 +187,11 @@
             border-top: none;
         }
 
+    .select-search-box__row.is-disabled {
+        opacity: 0.5;
+        cursor: default;
+    }
+
     .select-search-box__option {
         display: block;
         width: 100%;

@@ -261,13 +261,4 @@ describe('Test component', () => {
 
         expect(wrapper.state('value')).toBe(countries[highlighted].value);
     });
-
-    test('maxOptions limits options', () => {
-        const wrapper = mount(<SelectSearchComponent className={className} maxOptions={10} options={countries} />);
-
-        wrapper.find('input').simulate('focus');
-
-        expect(wrapper.state('defaultOptions').length).toBe(countries.length);
-        expect(wrapper.find(Option).length).toBe(10);
-    });
 });

@@ -12,6 +12,7 @@ const Option = (props) => {
         highlighted,
         selected,
         option,
+        disabled,
     } = props;
 
     if (type && type === 'group') {
@@ -26,8 +27,12 @@ const Option = (props) => {
 
     const theme = useContext(Context);
     const { option: renderOption } = theme.renderers;
-    const className = theme.classes.row;
+    let className = theme.classes.row;
     const optionSnapshot = { highlighted, selected };
+
+    if (disabled) {
+        className += ' is-disabled';
+    }
 
     if (typeof renderOption === 'function') {
         return (
@@ -51,6 +56,7 @@ Option.defaultProps = {
     type: null,
     selected: false,
     highlighted: false,
+    disabled: false,
     items: [],
     optionProps: null,
     option: null,
@@ -60,6 +66,7 @@ Option.defaultProps = {
 Option.propTypes = {
     highlighted: PropTypes.bool,
     selected: PropTypes.bool,
+    disabled: PropTypes.bool,
     name: PropTypes.string.isRequired,
     onChange: PropTypes.func,
     optionProps: PropTypes.shape({

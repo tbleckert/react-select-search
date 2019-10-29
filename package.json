@@ -65,7 +65,9 @@
     "webpack-dev-server": "^3.9.0"
   },
   "dependencies": {
-    "fuse.js": "^3.4.5",
     "react-onclickoutside": "^6.9.0"
+  },
+  "optionalDependencies": {
+    "fuse.js": "^3.4.5"
   }
 }

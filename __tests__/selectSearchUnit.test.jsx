@@ -467,11 +467,4 @@ describe('Test component', () => {
         expect(wrapper.state('searching')).toBe(true);
         expect(typeof wrapper.instance().searchPromise).toBe('object');
     });
-
-    test('maxOptions limits results', () => {
-        const wrapper = shallow(<SelectSearch defaultValue="IT" maxOptions={10} className={className} options={countries} />);
-        const options = wrapper.instance().getOptionsForRender();
-
-        expect(options.length).toBe(10);
-    });
 });
