@@ -38,9 +38,17 @@ var Value = (0, _react.forwardRef)(function (_ref, ref) {
     });
   }
 
+  var className = valueProps.className;
+
+  if (searching) {
+    className += ' is-searching';
+  }
+
   return _react.default.createElement("input", _extends({
     ref: ref
-  }, valueProps));
+  }, valueProps, {
+    className: className
+  }));
 });
 Value.defaultProps = {
   placeholder: '',

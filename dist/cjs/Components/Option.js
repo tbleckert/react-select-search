@@ -28,7 +28,8 @@ var Option = function Option(props) {
       optionProps = props.optionProps,
       highlighted = props.highlighted,
       selected = props.selected,
-      option = props.option;
+      option = props.option,
+      disabled = props.disabled;
 
   if (type && type === 'group') {
     return _react.default.createElement(_Group.default, _extends({}, props, {
@@ -44,6 +45,10 @@ var Option = function Option(props) {
     highlighted: highlighted,
     selected: selected
   };
+
+  if (disabled) {
+    className += ' is-disabled';
+  }
 
   if (typeof renderOption === 'function') {
     return _react.default.createElement("li", {
@@ -65,6 +70,7 @@ Option.defaultProps = {
   type: null,
   selected: false,
   highlighted: false,
+  disabled: false,
   items: [],
   optionProps: null,
   option: null,
@@ -73,6 +79,7 @@ Option.defaultProps = {
 Option.propTypes = {
   highlighted: _propTypes.default.bool,
   selected: _propTypes.default.bool,
+  disabled: _propTypes.default.bool,
   name: _propTypes.default.string.isRequired,
   onChange: _propTypes.default.func,
   optionProps: _propTypes.default.shape({

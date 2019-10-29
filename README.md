@@ -68,3 +68,27 @@ const options = [
 For examples you can take a look at the [example](example/index.jsx) file.
 
 You will also need some CSS to make it look right. Example theme can be found in [style.css](style.css)
+
+## Configuration
+
+Below is all the available options you can pass to the component. Options without defaults are required.
+
+| Name | Type | Default | Description |
+| ---- | ---- | ------- | ----------- |
+| options | array | | Se the [options documentation](#the-options-object) below |
+| defaultValue | string, array | undefined | Set only a defaultValue for [uncontrolled](#controlled-component) usage. The value should be an array if multiple mode. |
+| value | string, array | undefined | Use together with `onChange` for [controlled](#controlled-component) usage. The value should be an array if multiple mode. |
+| multiple | boolean | false | Set to true if you want to allow multiple selected options. This will also set `alwaysRenderOptions` to true if not specifically set. |
+| alwaysRenderOptions | boolean | undefined | By default, options are only rendered on focus and then unmounted again on blur. Set this to true to change this behavior. |
+| search | boolean | false | Set to true to enable search functionality |
+| disabled | boolean | false | Disables all functionality |
+| placeholder | string | empty string | Displayed if no option is selected and/or when search field is focused with empty value. |
+| autoComplete | string, on/off | off | Disables/Enables autoComplete functionality in search field. |
+| autoFocus | boolean | false | Autofocus on select |
+| fuse | object, boolean | true | Use fuse.js to apply fuzzy search on search. Set to true to use default options or pass a fuse.js config option. If `search` is enabled and no `filterOptions` callback is passed, this will be set to `true` automatically. |
+| className | string, object | select-search-box | Set a base class string or pass in a className object for complete controll. Se [custom classNames](#custom-classnames) for more. |
+| onChange | function | null | Function to receive and handle value changes. Use together with the `value` prop for [controlled](#controlled-component) component usage. |
+| renderOption | function | null | Function that renders the options. See [custom renderers](#custom-renderers) for more. |
+| renderValue | function | null | Function that renders the value/search field. See [custom renderers](#custom-renderers) for more. |
+| renderGroupHeader | function | null | Function that renders the group header. See [custom renderers](#custom-renderers) for more. |
+| filterOptions | function | null | Filter the options list. See [filter options](#filter-options) for more. |

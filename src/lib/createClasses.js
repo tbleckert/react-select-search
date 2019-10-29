@@ -14,7 +14,7 @@ function e(baseClass, className) {
         return baseClass;
     }
 
-    return `${baseClass}__${className}`;
+    return `${baseClass.split(' ')[0].trim()}__${className}`;
 }
 
 export default function createClasses(baseClass) {

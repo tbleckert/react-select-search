@@ -82,7 +82,6 @@ class App extends React.PureComponent {
                 <SelectSearch
                     key="fonts"
                     ref={this.ref}
-                    defaultValue={this.state.font}
                     options={fontStacks}
                     renderValue={renderFontValue}
                     renderOption={renderFontOption}
@@ -105,7 +104,7 @@ class App extends React.PureComponent {
                     placeholder="Search friends"
                     renderOption={renderFriend}
                     filterOptions={options => options}
-                    autofocus
+                    autoFocus
                 />
             </div>
         );

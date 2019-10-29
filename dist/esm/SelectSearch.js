@@ -251,10 +251,10 @@ function (_React$PureComponent) {
     key: "componentDidMount",
     value: function componentDidMount() {
       var _this$props = this.props,
-          autofocus = _this$props.autofocus,
+          autoFocus = _this$props.autoFocus,
           search = _this$props.search;
 
-      if (autofocus && search && this.valueRef.current) {
+      if (autoFocus && search && this.valueRef.current) {
         this.valueRef.current.focus();
       }
     }
@@ -310,9 +310,7 @@ function (_React$PureComponent) {
     value: function getOptionsForRender() {
       var _this3 = this;
 
-      var _this$props2 = this.props,
-          multiple = _this$props2.multiple,
-          maxOptions = _this$props2.maxOptions;
+      var multiple = this.props.multiple;
 
       var _this$state2 = this.state,
           options = _this$state2.options,
@@ -335,6 +333,7 @@ function (_React$PureComponent) {
           option: option,
           selected: selected,
           highlighted: highlighted,
+          disabled: option.disabled,
           onChange: function onChange() {
             return _this3.onChange(option.value);
           },
@@ -346,25 +345,20 @@ function (_React$PureComponent) {
             role: 'menuitem',
             'data-selected': selected ? 'true' : null,
             'data-highlighted': highlighted ? 'true' : null,
-            disabled: _this3.props.disabled
+            disabled: _this3.props.disabled || option.disabled
           },
           key: "".concat(option.value, "-option")
         });
       });
-
-      if (maxOptions) {
-        mappedOptions = mappedOptions.slice(0, maxOptions);
-      }
-
       return GroupOptions(mappedOptions);
     }
   }, {
     key: "getValueProps",
     value: function getValueProps(value) {
-      var _this$props3 = this.props,
-          searchEnabled = _this$props3.search,
-          autoComplete = _this$props3.autoComplete,
-          disabled = _this$props3.disabled;
+      var _this$props2 = this.props,
+          searchEnabled = _this$props2.search,
+          autoComplete = _this$props2.autoComplete,
+          disabled = _this$props2.disabled;
       var _this$state3 = this.state,
           focus = _this$state3.focus,
           error = _this$state3.error,
@@ -534,11 +528,13 @@ function (_React$PureComponent) {
       var _this$state4 = this.state,
           defaultOptions = _this$state4.defaultOptions,
           options = _this$state4.options,
-          focus = _this$state4.focus;
-      var _this$props4 = this.props,
-          search = _this$props4.search,
-          multiple = _this$props4.multiple,
-          disabled = _this$props4.disabled;
+          focus = _this$state4.focus,
+          searching = _this$state4.searching;
+      var _this$props3 = this.props,
+          search = _this$props3.search,
+          multiple = _this$props3.multiple,
+          disabled = _this$props3.disabled,
+          alwaysRenderOptions = _this$props3.alwaysRenderOptions;
       var selectedOption = findByValue(defaultOptions, this.getValue());
       var mappedOptions = this.getOptionsForRender();
       var valueProps = this.getValueProps(selectedOption);
@@ -560,6 +556,16 @@ function (_React$PureComponent) {
         className += ' has-focus';
       }
 
+      if (searching) {
+        className += ' is-searching';
+      }
+
+      var showOptions = options.length > 0 && (focus || multiple);
+
+      if (!showOptions && alwaysRenderOptions) {
+        showOptions = true;
+      }
+
       return React.createElement(Context.Provider, {
         value: this.theme
       }, React.createElement("div", {
@@ -567,7 +573,7 @@ function (_React$PureComponent) {
         className: className
       }, (search || !multiple) && React.createElement(Value, _extends({
         ref: this.valueRef
-      }, valueProps)), options.length > 0 && (focus || multiple) && React.createElement("div", {
+      }, valueProps)), showOptions && React.createElement("div", {
         className: this.theme.classes.select
       }, React.createElement(Options, {
         options: mappedOptions
@@ -583,12 +589,12 @@ _defineProperty(SelectSearch, "defaultProps", {
   value: undefined,
   defaultValue: undefined,
   multiple: false,
+  alwaysRenderOptions: undefined,
   placeholder: '',
-  maxOptions: null,
   fuse: true,
   className: 'select-search-box',
   autoComplete: 'on',
-  autofocus: false,
+  autoFocus: false,
   renderOption: null,
   renderGroupHeader: null,
   renderValue: null,
@@ -612,8 +618,8 @@ SelectSearch.propTypes = {
   multiple: PropTypes.bool,
   search: PropTypes.bool,
   disabled: PropTypes.bool,
+  alwaysRenderOptions: PropTypes.bool,
   placeholder: PropTypes.string,
-  maxOptions: PropTypes.number,
   className: PropTypes.oneOfType([PropTypes.string, PropTypes.shape({
     main: PropTypes.string,
     value: PropTypes.string,
@@ -625,8 +631,9 @@ SelectSearch.propTypes = {
     group: PropTypes.string,
     groupHeader: PropTypes.string
   })]),
+  modifier: PropTypes.string,
   autoComplete: PropTypes.oneOf(['on', 'off']),
-  autofocus: PropTypes.bool,
+  autoFocus: PropTypes.bool,
   // eslint-disable-next-line react/forbid-prop-types
   fuse: PropTypes.oneOfType([PropTypes.bool, PropTypes.shape({
     keys: PropTypes.arrayOf(PropTypes.string).isRequired,

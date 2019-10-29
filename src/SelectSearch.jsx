@@ -16,11 +16,12 @@ class SelectSearch extends React.PureComponent {
         value: undefined,
         defaultValue: undefined,
         multiple: false,
+        alwaysRenderOptions: undefined,
         placeholder: '',
         fuse: true,
         className: 'select-search-box',
         autoComplete: 'on',
-        autofocus: false,
+        autoFocus: false,
         renderOption: null,
         renderGroupHeader: null,
         renderValue: null,
@@ -83,9 +84,9 @@ class SelectSearch extends React.PureComponent {
     }
 
     componentDidMount() {
-        const { autofocus, search } = this.props;
+        const { autoFocus, search } = this.props;
 
-        if (autofocus && search && this.valueRef.current) {
+        if (autoFocus && search && this.valueRef.current) {
             this.valueRef.current.focus();
         }
     }
@@ -459,7 +460,12 @@ class SelectSearch extends React.PureComponent {
             searching,
         } = this.state;
 
-        const { search, multiple, disabled } = this.props;
+        const {
+            search,
+            multiple,
+            disabled,
+            alwaysRenderOptions,
+        } = this.props;
         const selectedOption = findByValue(defaultOptions, this.getValue());
         const mappedOptions = this.getOptionsForRender();
         const valueProps = this.getValueProps(selectedOption);
@@ -485,6 +491,12 @@ class SelectSearch extends React.PureComponent {
             className += ' is-searching';
         }
 
+        let showOptions = options.length > 0 && (focus || multiple);
+
+        if (!showOptions && alwaysRenderOptions) {
+            showOptions = true;
+        }
+
         return (
             <Context.Provider value={this.theme}>
                 <div ref={this.parentRef} className={className}>
@@ -492,7 +504,7 @@ class SelectSearch extends React.PureComponent {
                         <Value ref={this.valueRef} {...valueProps} />
                     )}
 
-                    {options.length > 0 && (focus || multiple) && (
+                    {showOptions && (
                         <div className={this.theme.classes.select}>
                             <Options options={mappedOptions} />
                         </div>
@@ -528,6 +540,7 @@ SelectSearch.propTypes = {
     multiple: PropTypes.bool,
     search: PropTypes.bool,
     disabled: PropTypes.bool,
+    alwaysRenderOptions: PropTypes.bool,
     placeholder: PropTypes.string,
     className: PropTypes.oneOfType([PropTypes.string, PropTypes.shape({
         main: PropTypes.string,
@@ -540,8 +553,9 @@ SelectSearch.propTypes = {
         group: PropTypes.string,
         groupHeader: PropTypes.string,
     })]),
+    modifier: PropTypes.string,
     autoComplete: PropTypes.oneOf(['on', 'off']),
-    autofocus: PropTypes.bool,
+    autoFocus: PropTypes.bool,
     // eslint-disable-next-line react/forbid-prop-types
     fuse: PropTypes.oneOfType([PropTypes.bool, PropTypes.shape({
         keys: PropTypes.arrayOf(PropTypes.string).isRequired,

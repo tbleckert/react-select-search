@@ -22,7 +22,7 @@ function e(baseClass, className) {
     return baseClass;
   }
 
-  return "".concat(baseClass, "__").concat(className);
+  return "".concat(baseClass.split(' ')[0].trim(), "__").concat(className);
 }
 
 export default function createClasses(baseClass) {
