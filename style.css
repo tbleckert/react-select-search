@@ -43,6 +43,21 @@
         z-index: 1;
     }
 
+    .select-search-box.is-searching::after {
+        content: '';
+        box-sizing: border-box;
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        width: 20px;
+        height: 20px;
+        margin-top: -10px;
+        border-radius: 50%;
+        border: 2px solid #ccc;
+        border-top-color: #000;
+        animation: spinner .6s linear infinite;
+    }
+
     .select-search-box--multiple::after, .select-search-box--focus::after {
         content:"\f002";
     }
@@ -147,6 +162,10 @@
         max-height: 490px;
     }
 
+    .select-search-box.is-searching .select-search-box__select {
+        display: none;
+    }
+
     .select-search-box--multiple .select-search-box__select {
         display: block;
         position: static;
@@ -219,3 +238,7 @@
             color: rgba(0, 0, 0, 0.5);
             font-size: 12px;
         }
+
+@keyframes spinner {
+    to {transform: rotate(360deg);}
+}

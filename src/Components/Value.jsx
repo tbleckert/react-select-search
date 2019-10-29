@@ -17,10 +17,17 @@ const Value = forwardRef(({
         });
     }
 
+    let { className } = valueProps;
+
+    if (searching) {
+        className += ' is-searching';
+    }
+
     return (
         <input
             ref={ref}
             {...valueProps}
+            className={className}
         />
     );
 });

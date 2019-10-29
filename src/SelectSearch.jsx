@@ -460,6 +460,7 @@ class SelectSearch extends React.PureComponent {
             defaultOptions,
             options,
             focus,
+            searching,
         } = this.state;
 
         const { search, multiple, disabled } = this.props;
@@ -482,6 +483,10 @@ class SelectSearch extends React.PureComponent {
 
         if (focus) {
             className += ' has-focus';
+        }
+
+        if (searching) {
+            className += ' is-searching';
         }
 
         return (
