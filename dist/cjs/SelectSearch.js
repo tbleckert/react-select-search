@@ -76,26 +76,42 @@ function (_React$PureComponent) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(SelectSearch).call(this, props));
 
     _defineProperty(_assertThisInitialized(_this), "onBlur", function () {
-      if (_this.props.disabled) {
+      var _this$props = _this.props,
+          disabled = _this$props.disabled,
+          multiple = _this$props.multiple,
+          alwaysRenderOptions = _this$props.alwaysRenderOptions;
+      var _this$state = _this.state,
+          focus = _this$state.focus,
+          search = _this$state.search;
+
+      if (disabled || !focus) {
+        return;
+      }
+
+      if (multiple || alwaysRenderOptions) {
+        _this.setState({
+          focus: false,
+          highlighted: null
+        });
+
         return;
       }
 
       _this.setState({
         focus: false,
         highlighted: null,
+        options: _this.state.defaultOptions,
         search: ''
       });
     });
 
     _defineProperty(_assertThisInitialized(_this), "onFocus", function () {
-      if (_this.props.disabled) {
+      if (_this.props.disabled || _this.state.focus) {
         return;
       }
 
       _this.setState({
-        focus: true,
-        options: _this.state.defaultOptions,
-        search: ''
+        focus: true
       });
     });
 
@@ -229,7 +245,7 @@ function (_React$PureComponent) {
     var _options = props.options,
         _value = props.value,
         defaultValue = props.defaultValue,
-        multiple = props.multiple,
+        _multiple = props.multiple,
         className = props.className,
         renderOption = props.renderOption,
         renderValue = props.renderValue,
@@ -238,7 +254,7 @@ function (_React$PureComponent) {
         placeholder = props.placeholder;
     _this.controlledValue = _value !== undefined && typeof onChange === 'function';
     var val = (0, _toString.default)(_this.controlledValue ? _value : defaultValue);
-    var stateValue = !val && multiple ? [] : val;
+    var stateValue = !val && _multiple ? [] : val;
     var flattenedOptions = (0, _FlattenOptions.default)(_options);
 
     if (!stateValue && !placeholder && flattenedOptions.length) {
@@ -273,9 +289,9 @@ function (_React$PureComponent) {
   _createClass(SelectSearch, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      var _this$props = this.props,
-          autoFocus = _this$props.autoFocus,
-          search = _this$props.search;
+      var _this$props2 = this.props,
+          autoFocus = _this$props2.autoFocus,
+          search = _this$props2.search;
 
       if (autoFocus && search && this.valueRef.current) {
         this.valueRef.current.focus();
@@ -284,9 +300,9 @@ function (_React$PureComponent) {
   }, {
     key: "componentDidUpdate",
     value: function componentDidUpdate(prevProps, prevState) {
-      var _this$state = this.state,
-          focus = _this$state.focus,
-          highlighted = _this$state.highlighted;
+      var _this$state2 = this.state,
+          focus = _this$state2.focus,
+          highlighted = _this$state2.highlighted;
       var prevFocus = prevState.focus,
           prevHighlighted = prevState.highlighted;
 
@@ -335,9 +351,9 @@ function (_React$PureComponent) {
 
       var multiple = this.props.multiple;
 
-      var _this$state2 = this.state,
-          options = _this$state2.options,
-          state = _objectWithoutProperties(_this$state2, ["options"]);
+      var _this$state3 = this.state,
+          options = _this$state3.options,
+          state = _objectWithoutProperties(_this$state3, ["options"]);
 
       var mappedOptions = options.map(function (option, i) {
         var selected = multiple && Array.isArray(state.value) && state.value.indexOf(option.value) >= 0 || option.value === state.value;
@@ -378,18 +394,20 @@ function (_React$PureComponent) {
   }, {
     key: "getValueProps",
     value: function getValueProps(value) {
-      var _this$props2 = this.props,
-          searchEnabled = _this$props2.search,
-          autoComplete = _this$props2.autoComplete,
-          disabled = _this$props2.disabled;
-      var _this$state3 = this.state,
-          focus = _this$state3.focus,
-          error = _this$state3.error,
-          searching = _this$state3.searching;
+      var _this$props3 = this.props,
+          searchEnabled = _this$props3.search,
+          autoComplete = _this$props3.autoComplete,
+          disabled = _this$props3.disabled,
+          multiple = _this$props3.multiple,
+          alwaysRenderOptions = _this$props3.alwaysRenderOptions;
+      var _this$state4 = this.state,
+          focus = _this$state4.focus,
+          error = _this$state4.error,
+          searching = _this$state4.searching;
       var search = this.state.search;
       var val = value ? value.name : '';
 
-      if (!focus) {
+      if (!focus && !(multiple || alwaysRenderOptions)) {
         search = val;
       }
 
@@ -550,16 +568,16 @@ function (_React$PureComponent) {
   }, {
     key: "render",
     value: function render() {
-      var _this$state4 = this.state,
-          defaultOptions = _this$state4.defaultOptions,
-          options = _this$state4.options,
-          focus = _this$state4.focus,
-          searching = _this$state4.searching;
-      var _this$props3 = this.props,
-          search = _this$props3.search,
-          multiple = _this$props3.multiple,
-          disabled = _this$props3.disabled,
-          alwaysRenderOptions = _this$props3.alwaysRenderOptions;
+      var _this$state5 = this.state,
+          defaultOptions = _this$state5.defaultOptions,
+          options = _this$state5.options,
+          focus = _this$state5.focus,
+          searching = _this$state5.searching;
+      var _this$props4 = this.props,
+          search = _this$props4.search,
+          multiple = _this$props4.multiple,
+          disabled = _this$props4.disabled,
+          alwaysRenderOptions = _this$props4.alwaysRenderOptions;
       var selectedOption = (0, _findByValue.default)(defaultOptions, this.getValue());
       var mappedOptions = this.getOptionsForRender();
       var valueProps = this.getValueProps(selectedOption);

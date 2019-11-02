@@ -113,19 +113,33 @@ class SelectSearch extends React.PureComponent {
     }
 
     onBlur = () => {
-        if (this.props.disabled) {
+        const { disabled, multiple, alwaysRenderOptions } = this.props;
+        const { focus, search } = this.state;
+
+        if (disabled || !focus) {
             return;
         }
 
-        this.setState({ focus: false, highlighted: null, search: '' });
+        if (multiple || alwaysRenderOptions) {
+            this.setState({ focus: false, highlighted: null });
+
+            return;
+        }
+
+        this.setState({
+            focus: false,
+            highlighted: null,
+            options: this.state.defaultOptions,
+            search: '',
+        });
     };
 
     onFocus = () => {
-        if (this.props.disabled) {
+        if (this.props.disabled || this.state.focus) {
             return;
         }
 
-        this.setState({ focus: true, options: this.state.defaultOptions, search: '' });
+        this.setState({ focus: true });
     };
 
     onChange = (value) => {
@@ -302,12 +316,19 @@ class SelectSearch extends React.PureComponent {
     }
 
     getValueProps(value) {
-        const { search: searchEnabled, autoComplete, disabled } = this.props;
+        const {
+            search: searchEnabled,
+            autoComplete,
+            disabled,
+            multiple,
+            alwaysRenderOptions,
+        } = this.props;
+
         const { focus, error, searching } = this.state;
         let { search } = this.state;
         const val = value ? value.name : '';
 
-        if (!focus) {
+        if (!focus && !(multiple || alwaysRenderOptions)) {
             search = val;
         }
 
