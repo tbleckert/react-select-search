@@ -53,19 +53,14 @@ function (_React$PureComponent) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(SelectSearch).call(this, props));
 
     _defineProperty(_assertThisInitialized(_this), "onBlur", function () {
-      var _this$props = _this.props,
-          disabled = _this$props.disabled,
-          multiple = _this$props.multiple,
-          alwaysRenderOptions = _this$props.alwaysRenderOptions;
-      var _this$state = _this.state,
-          focus = _this$state.focus,
-          search = _this$state.search;
+      var multiple = _this.props.multiple;
+      var focus = _this.state.focus;
 
-      if (disabled || !focus) {
+      if (!focus) {
         return;
       }
 
-      if (multiple || alwaysRenderOptions) {
+      if (multiple) {
         _this.setState({
           focus: false,
           highlighted: null
@@ -266,29 +261,27 @@ function (_React$PureComponent) {
   _createClass(SelectSearch, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      var _this$props2 = this.props,
-          autoFocus = _this$props2.autoFocus,
-          search = _this$props2.search;
+      var _this$props = this.props,
+          autoFocus = _this$props.autoFocus,
+          search = _this$props.search,
+          disabled = _this$props.disabled;
 
-      if (autoFocus && search && this.valueRef.current) {
+      if (!disabled && autoFocus && search && this.valueRef.current) {
         this.valueRef.current.focus();
+        this.onFocus();
       }
     }
   }, {
     key: "componentDidUpdate",
     value: function componentDidUpdate(prevProps, prevState) {
-      var _this$state2 = this.state,
-          focus = _this$state2.focus,
-          highlighted = _this$state2.highlighted;
+      var _this$state = this.state,
+          focus = _this$state.focus,
+          highlighted = _this$state.highlighted;
       var prevFocus = prevState.focus,
           prevHighlighted = prevState.highlighted;
 
-      if (prevFocus !== focus) {
-        if (focus) {
-          this.handleFocus();
-        } else {
-          this.handleBlur();
-        }
+      if (prevFocus !== focus && focus) {
+        this.handleFocus();
       }
 
       if (highlighted !== null && highlighted !== prevHighlighted) {
@@ -328,9 +321,9 @@ function (_React$PureComponent) {
 
       var multiple = this.props.multiple;
 
-      var _this$state3 = this.state,
-          options = _this$state3.options,
-          state = _objectWithoutProperties(_this$state3, ["options"]);
+      var _this$state2 = this.state,
+          options = _this$state2.options,
+          state = _objectWithoutProperties(_this$state2, ["options"]);
 
       var mappedOptions = options.map(function (option, i) {
         var selected = multiple && Array.isArray(state.value) && state.value.indexOf(option.value) >= 0 || option.value === state.value;
@@ -371,20 +364,19 @@ function (_React$PureComponent) {
   }, {
     key: "getValueProps",
     value: function getValueProps(value) {
-      var _this$props3 = this.props,
-          searchEnabled = _this$props3.search,
-          autoComplete = _this$props3.autoComplete,
-          disabled = _this$props3.disabled,
-          multiple = _this$props3.multiple,
-          alwaysRenderOptions = _this$props3.alwaysRenderOptions;
-      var _this$state4 = this.state,
-          focus = _this$state4.focus,
-          error = _this$state4.error,
-          searching = _this$state4.searching;
+      var _this$props2 = this.props,
+          searchEnabled = _this$props2.search,
+          autoComplete = _this$props2.autoComplete,
+          disabled = _this$props2.disabled,
+          multiple = _this$props2.multiple;
+      var _this$state3 = this.state,
+          focus = _this$state3.focus,
+          error = _this$state3.error,
+          searching = _this$state3.searching;
       var search = this.state.search;
       var val = value ? value.name : '';
 
-      if (!focus && !(multiple || alwaysRenderOptions)) {
+      if (!focus && !multiple) {
         search = val;
       }
 
@@ -401,6 +393,9 @@ function (_React$PureComponent) {
         value: searchEnabled ? search : val,
         placeholder: this.props.placeholder,
         onChange: searchEnabled ? this.onSearch : null,
+        onKeyDown: this.onKeyDown,
+        onKeyUp: this.onKeyUp,
+        onKeyPress: this.onKeyPress,
         type: searchEnabled ? 'search' : null,
         autoComplete: searchEnabled ? autoComplete : null,
         'aria-label': searchEnabled ? 'Search' : 'Select'
@@ -508,20 +503,9 @@ function (_React$PureComponent) {
   }, {
     key: "handleFocus",
     value: function handleFocus() {
-      document.addEventListener('keydown', this.onKeyDown);
-      document.addEventListener('keypress', this.onKeyPress);
-      document.addEventListener('keyup', this.onKeyUp);
-
       if (!this.props.multiple) {
         this.scrollToType('selected');
       }
-    }
-  }, {
-    key: "handleBlur",
-    value: function handleBlur() {
-      document.removeEventListener('keydown', this.onKeyDown);
-      document.removeEventListener('keypress', this.onKeyPress);
-      document.removeEventListener('keyup', this.onKeyUp);
     }
   }, {
     key: "scrollToType",
@@ -543,16 +527,15 @@ function (_React$PureComponent) {
   }, {
     key: "render",
     value: function render() {
-      var _this$state5 = this.state,
-          defaultOptions = _this$state5.defaultOptions,
-          options = _this$state5.options,
-          focus = _this$state5.focus,
-          searching = _this$state5.searching;
-      var _this$props4 = this.props,
-          search = _this$props4.search,
-          multiple = _this$props4.multiple,
-          disabled = _this$props4.disabled,
-          alwaysRenderOptions = _this$props4.alwaysRenderOptions;
+      var _this$state4 = this.state,
+          defaultOptions = _this$state4.defaultOptions,
+          options = _this$state4.options,
+          focus = _this$state4.focus,
+          searching = _this$state4.searching;
+      var _this$props3 = this.props,
+          search = _this$props3.search,
+          multiple = _this$props3.multiple,
+          disabled = _this$props3.disabled;
       var selectedOption = findByValue(defaultOptions, this.getValue());
       var mappedOptions = this.getOptionsForRender();
       var valueProps = this.getValueProps(selectedOption);
@@ -567,7 +550,7 @@ function (_React$PureComponent) {
       }
 
       if (disabled) {
-        className += " ".concat(this.theme.classes.main, "--disabled");
+        className += ' is-disabled';
       }
 
       if (focus) {
@@ -579,11 +562,6 @@ function (_React$PureComponent) {
       }
 
       var showOptions = options.length > 0 && (focus || multiple);
-
-      if (!showOptions && alwaysRenderOptions) {
-        showOptions = true;
-      }
-
       return React.createElement(Context.Provider, {
         value: this.theme
       }, React.createElement("div", {
@@ -607,7 +585,6 @@ _defineProperty(SelectSearch, "defaultProps", {
   value: undefined,
   defaultValue: undefined,
   multiple: false,
-  alwaysRenderOptions: undefined,
   placeholder: '',
   fuse: true,
   className: 'select-search-box',
@@ -636,7 +613,6 @@ SelectSearch.propTypes = {
   multiple: PropTypes.bool,
   search: PropTypes.bool,
   disabled: PropTypes.bool,
-  alwaysRenderOptions: PropTypes.bool,
   placeholder: PropTypes.string,
   className: PropTypes.oneOfType([PropTypes.string, PropTypes.shape({
     main: PropTypes.string,
@@ -649,7 +625,6 @@ SelectSearch.propTypes = {
     group: PropTypes.string,
     groupHeader: PropTypes.string
   })]),
-  modifier: PropTypes.string,
   autoComplete: PropTypes.oneOf(['on', 'off']),
   autoFocus: PropTypes.bool,
   // eslint-disable-next-line react/forbid-prop-types

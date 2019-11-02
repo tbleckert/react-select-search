@@ -98,13 +98,11 @@ class App extends React.PureComponent {
                 <SelectSearch
                     name="friends"
                     multiple
-                    search
                     defaultValue={this.state.friends}
                     options={friends}
                     placeholder="Search friends"
                     renderOption={renderFriend}
                     filterOptions={options => options}
-                    autoFocus
                 />
             </div>
         );

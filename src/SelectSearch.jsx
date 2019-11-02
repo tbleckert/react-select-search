@@ -16,7 +16,6 @@ class SelectSearch extends React.PureComponent {
         value: undefined,
         defaultValue: undefined,
         multiple: false,
-        alwaysRenderOptions: undefined,
         placeholder: '',
         fuse: true,
         className: 'select-search-box',
@@ -84,10 +83,11 @@ class SelectSearch extends React.PureComponent {
     }
 
     componentDidMount() {
-        const { autoFocus, search } = this.props;
+        const { autoFocus, search, disabled } = this.props;
 
-        if (autoFocus && search && this.valueRef.current) {
+        if (!disabled && autoFocus && search && this.valueRef.current) {
             this.valueRef.current.focus();
+            this.onFocus();
         }
     }
 
@@ -99,12 +99,8 @@ class SelectSearch extends React.PureComponent {
 
         const { focus: prevFocus, highlighted: prevHighlighted } = prevState;
 
-        if (prevFocus !== focus) {
-            if (focus) {
-                this.handleFocus();
-            } else {
-                this.handleBlur();
-            }
+        if (prevFocus !== focus && focus) {
+            this.handleFocus();
         }
 
         if (highlighted !== null && highlighted !== prevHighlighted) {
@@ -113,14 +109,14 @@ class SelectSearch extends React.PureComponent {
     }
 
     onBlur = () => {
-        const { disabled, multiple, alwaysRenderOptions } = this.props;
-        const { focus, search } = this.state;
+        const { multiple } = this.props;
+        const { focus } = this.state;
 
-        if (disabled || !focus) {
+        if (!focus) {
             return;
         }
 
-        if (multiple || alwaysRenderOptions) {
+        if (multiple) {
             this.setState({ focus: false, highlighted: null });
 
             return;
@@ -321,14 +317,13 @@ class SelectSearch extends React.PureComponent {
             autoComplete,
             disabled,
             multiple,
-            alwaysRenderOptions,
         } = this.props;
 
         const { focus, error, searching } = this.state;
         let { search } = this.state;
         const val = value ? value.name : '';
 
-        if (!focus && !(multiple || alwaysRenderOptions)) {
+        if (!focus && !multiple) {
             search = val;
         }
 
@@ -345,6 +340,9 @@ class SelectSearch extends React.PureComponent {
             value: (searchEnabled) ? search : val,
             placeholder: this.props.placeholder,
             onChange: (searchEnabled) ? this.onSearch : null,
+            onKeyDown: this.onKeyDown,
+            onKeyUp: this.onKeyUp,
+            onKeyPress: this.onKeyPress,
             type: (searchEnabled) ? 'search' : null,
             autoComplete: (searchEnabled) ? autoComplete : null,
             'aria-label': (searchEnabled) ? 'Search' : 'Select',
@@ -442,19 +440,9 @@ class SelectSearch extends React.PureComponent {
     }
 
     handleFocus() {
-        document.addEventListener('keydown', this.onKeyDown);
-        document.addEventListener('keypress', this.onKeyPress);
-        document.addEventListener('keyup', this.onKeyUp);
-
         if (!this.props.multiple) {
             this.scrollToType('selected');
         }
-    }
-
-    handleBlur() {
-        document.removeEventListener('keydown', this.onKeyDown);
-        document.removeEventListener('keypress', this.onKeyPress);
-        document.removeEventListener('keyup', this.onKeyUp);
     }
 
     scrollToType(type) {
@@ -485,7 +473,6 @@ class SelectSearch extends React.PureComponent {
             search,
             multiple,
             disabled,
-            alwaysRenderOptions,
         } = this.props;
         const selectedOption = findByValue(defaultOptions, this.getValue());
         const mappedOptions = this.getOptionsForRender();
@@ -501,7 +488,7 @@ class SelectSearch extends React.PureComponent {
         }
 
         if (disabled) {
-            className += ` ${this.theme.classes.main}--disabled`;
+            className += ' is-disabled';
         }
 
         if (focus) {
@@ -512,11 +499,7 @@ class SelectSearch extends React.PureComponent {
             className += ' is-searching';
         }
 
-        let showOptions = options.length > 0 && (focus || multiple);
-
-        if (!showOptions && alwaysRenderOptions) {
-            showOptions = true;
-        }
+        const showOptions = options.length > 0 && (focus || multiple);
 
         return (
             <Context.Provider value={this.theme}>
@@ -561,7 +544,6 @@ SelectSearch.propTypes = {
     multiple: PropTypes.bool,
     search: PropTypes.bool,
     disabled: PropTypes.bool,
-    alwaysRenderOptions: PropTypes.bool,
     placeholder: PropTypes.string,
     className: PropTypes.oneOfType([PropTypes.string, PropTypes.shape({
         main: PropTypes.string,
@@ -574,7 +556,6 @@ SelectSearch.propTypes = {
         group: PropTypes.string,
         groupHeader: PropTypes.string,
     })]),
-    modifier: PropTypes.string,
     autoComplete: PropTypes.oneOf(['on', 'off']),
     autoFocus: PropTypes.bool,
     // eslint-disable-next-line react/forbid-prop-types

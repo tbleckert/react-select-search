@@ -1,3 +1,3 @@
 dist
 example
-__tests__
+__tests__/**
