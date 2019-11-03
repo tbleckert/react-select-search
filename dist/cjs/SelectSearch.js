@@ -35,8 +35,6 @@ function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return 
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; if (obj != null) { var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -44,6 +42,8 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
 
 function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -75,29 +75,12 @@ function (_React$PureComponent) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(SelectSearch).call(this, props));
 
-    _defineProperty(_assertThisInitialized(_this), "onBlur", function () {
-      var multiple = _this.props.multiple;
-      var focus = _this.state.focus;
+    _defineProperty(_assertThisInitialized(_this), "onBlur", function (e) {
+      var relatedTarget = e.relatedTarget;
 
-      if (!focus) {
-        return;
+      if (!relatedTarget || !relatedTarget.closest(".".concat(_this.theme.classes.main))) {
+        _this.handleBlur();
       }
-
-      if (multiple) {
-        _this.setState({
-          focus: false,
-          highlighted: null
-        });
-
-        return;
-      }
-
-      _this.setState({
-        focus: false,
-        highlighted: null,
-        options: _this.state.defaultOptions,
-        search: ''
-      });
     });
 
     _defineProperty(_assertThisInitialized(_this), "onFocus", function () {
@@ -111,10 +94,6 @@ function (_React$PureComponent) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "onChange", function (value) {
-      if (_this.props.disabled) {
-        return;
-      }
-
       var currentValue = _this.getValue().slice();
 
       var option;
@@ -122,8 +101,8 @@ function (_React$PureComponent) {
       if (!value) {
         var index = _this.state.highlighted;
 
-        if (!index || _this.state.options.length - 1 < index) {
-          index = 0;
+        if (index === null || _this.state.options.length - 1 < index) {
+          return;
         }
 
         option = _this.state.options[index];
@@ -143,7 +122,6 @@ function (_React$PureComponent) {
         currentValue = option.value;
       }
 
-      var options = _this.state.defaultOptions;
       var highlighted = _this.props.multiple ? _this.state.highlighted : null;
 
       if (typeof _this.props.onChange === 'function') {
@@ -152,95 +130,52 @@ function (_React$PureComponent) {
 
       _this.setState({
         value: currentValue,
-        options: options,
         highlighted: highlighted,
         focus: _this.props.multiple
       });
     });
 
     _defineProperty(_assertThisInitialized(_this), "onSearch", function (e) {
-      if (_this.searchPromise) {
-        _this.searchPromise.cancel();
-      }
-
-      var value = e.target.value;
-      var defaultOptions = _this.state.defaultOptions;
-
-      var promise = _this.getNewOptionsList(defaultOptions, (0, _toString.default)(value));
-
-      _this.searchPromise = (0, _cancelablePromise.default)(promise);
-
-      _this.setState({
-        search: value,
-        searching: true
-      });
-
-      _this.searchPromise.promise.then(function (options) {
-        _this.setState({
-          options: options,
-          searching: false
-        });
-      }).catch(function (error) {
-        _this.setState({
-          error: error,
-          searching: false
-        });
+      return _this.setState({
+        search: e.target.value
       });
     });
 
     _defineProperty(_assertThisInitialized(_this), "onKeyPress", function (e) {
-      if (!_this.state.options || _this.state.options.length < 1) {
-        return;
-      }
-      /** Enter */
-
-
-      if (e.keyCode === 13) {
-        _this.handleEnter();
+      if (e.key === 'Enter') {
+        _this.onChange();
       }
     });
 
     _defineProperty(_assertThisInitialized(_this), "onKeyDown", function (e) {
-      if (!_this.state.focus) {
-        return;
-      }
-      /** Tab */
-
-
-      if (e.keyCode === 9) {
-        _this.onBlur();
-
+      if (e.key === 'Tab' && !_this.props.multiple) {
+        e.preventDefault();
         return;
       }
       /** Arrow Down */
 
 
-      if (e.keyCode === 40) {
+      if (e.key === 'ArrowDown') {
         _this.handleArrowDown();
       }
       /** Arrow Up */
 
 
-      if (e.keyCode === 38) {
+      if (e.key === 'ArrowUp') {
         _this.handleArrowUp();
       }
     });
 
     _defineProperty(_assertThisInitialized(_this), "onKeyUp", function (e) {
-      /** Esc */
-      if (e.keyCode === 27) {
-        _this.handleEsc();
+      if (e.key === 'Escape') {
+        _this.handleBlur();
       }
     });
 
-    _defineProperty(_assertThisInitialized(_this), "handleClickOutside", function () {
-      _this.onBlur();
-    });
-
-    var _options = props.options,
+    var options = props.options,
         _value = props.value,
         defaultValue = props.defaultValue,
-        _multiple = props.multiple,
+        multiple = props.multiple,
         className = props.className,
         renderOption = props.renderOption,
         renderValue = props.renderValue,
@@ -249,10 +184,10 @@ function (_React$PureComponent) {
         placeholder = props.placeholder;
     _this.controlledValue = _value !== undefined && typeof onChange === 'function';
     var val = (0, _toString.default)(_this.controlledValue ? _value : defaultValue);
-    var stateValue = !val && _multiple ? [] : val;
-    var flattenedOptions = (0, _FlattenOptions.default)(_options);
+    var stateValue = !val && multiple ? [] : val;
+    var flattenedOptions = (0, _FlattenOptions.default)(options);
 
-    if (!stateValue && !placeholder && flattenedOptions.length) {
+    if (!stateValue && !placeholder && flattenedOptions.length && !_this.props.multiple) {
       stateValue = flattenedOptions[0].value;
     }
 
@@ -260,13 +195,15 @@ function (_React$PureComponent) {
       search: '',
       value: stateValue,
       defaultOptions: flattenedOptions,
-      options: flattenedOptions,
+      options: [],
       highlighted: null,
       focus: false,
       error: false,
       searching: false
     };
     _this.theme = {
+      multiple: _this.props.multiple,
+      search: _this.props.search,
       classes: typeof className === 'string' ? (0, _createClasses.default)(className) : className,
       renderers: {
         option: renderOption,
@@ -287,11 +224,17 @@ function (_React$PureComponent) {
       var _this$props = this.props,
           autoFocus = _this$props.autoFocus,
           search = _this$props.search,
-          disabled = _this$props.disabled;
+          disabled = _this$props.disabled,
+          multiple = _this$props.multiple;
+      var focus = this.state.focus;
 
       if (!disabled && autoFocus && search && this.valueRef.current) {
         this.valueRef.current.focus();
         this.onFocus();
+      }
+
+      if (multiple || focus) {
+        this.search();
       }
     }
   }, {
@@ -299,16 +242,17 @@ function (_React$PureComponent) {
     value: function componentDidUpdate(prevProps, prevState) {
       var _this$state = this.state,
           focus = _this$state.focus,
-          highlighted = _this$state.highlighted;
+          search = _this$state.search;
       var prevFocus = prevState.focus,
-          prevHighlighted = prevState.highlighted;
+          prevSearch = prevState.search;
+      var multiple = this.props.multiple;
 
-      if (prevFocus !== focus && focus) {
-        this.handleFocus();
+      if (search !== prevSearch || prevFocus !== focus && focus && !multiple) {
+        this.search();
       }
 
-      if (highlighted !== null && highlighted !== prevHighlighted) {
-        this.scrollToType('highlighted');
+      if (prevFocus !== focus && !focus) {
+        this.valueRef.current.blur();
       }
     }
   }, {
@@ -318,8 +262,12 @@ function (_React$PureComponent) {
 
       return new Promise(function (resolve, reject) {
         var filterOptions = _this2.props.filterOptions;
+        var fuseOptions = _typeof(_this2.props.fuse) === 'object' ? _this2.props.fuse : {
+          keys: ['name', 'groupName'],
+          threshold: 0.3
+        };
 
-        var newOptions = _this2.fuzzySearch(options, value);
+        var newOptions = _this2.fuzzySearch(options, value, fuseOptions);
 
         if (typeof filterOptions === 'function') {
           newOptions.then(function (fuzzyOptions) {
@@ -366,14 +314,12 @@ function (_React$PureComponent) {
           selected: selected,
           highlighted: highlighted,
           disabled: option.disabled,
-          onChange: function onChange() {
-            return _this3.onChange(option.value);
-          },
           optionProps: {
             className: className,
             onClick: function onClick() {
               return _this3.onChange(option.value);
             },
+            tabIndex: -1,
             role: 'menuitem',
             'data-selected': selected ? 'true' : null,
             'data-highlighted': highlighted ? 'true' : null,
@@ -411,7 +357,7 @@ function (_React$PureComponent) {
         className: this.theme.classes.search,
         tabIndex: '0',
         onFocus: this.onFocus,
-        onClick: this.onFocus,
+        onBlur: this.onBlur,
         readOnly: !this.props.search,
         value: searchEnabled ? search : val,
         placeholder: this.props.placeholder,
@@ -444,16 +390,41 @@ function (_React$PureComponent) {
       return value;
     }
   }, {
-    key: "fuzzySearch",
-    value: function fuzzySearch(options, value) {
+    key: "search",
+    value: function search() {
       var _this4 = this;
 
+      if (this.searchPromise) {
+        this.searchPromise.cancel();
+      }
+
+      var _this$state4 = this.state,
+          defaultOptions = _this$state4.defaultOptions,
+          search = _this$state4.search;
+      var promise = this.getNewOptionsList(defaultOptions, (0, _toString.default)(search));
+      this.searchPromise = (0, _cancelablePromise.default)(promise);
+      this.setState({
+        searching: true
+      });
+      this.searchPromise.promise.then(function (options) {
+        _this4.setState({
+          options: options,
+          searching: false
+        });
+      }).catch(function (error) {
+        _this4.setState({
+          error: error,
+          searching: false
+        });
+      });
+    }
+  }, {
+    key: "fuzzySearch",
+    value: function fuzzySearch(options, value, fuseOptions) {
+      var _this5 = this;
+
       return new Promise(function (resolve, reject) {
-        if (_this4.props.fuse && options && options.length > 0 && value && value.length > 0) {
-          var fuseOptions = _typeof(_this4.props.fuse) === 'object' ? _this4.props.fuse : {
-            keys: ['name', 'groupName'],
-            threshold: 0.3
-          };
+        if (_this5.props.fuse && options && options.length > 0 && value && value.length > 0) {
           Promise.resolve().then(function () {
             return _interopRequireWildcard(require('fuse.js'));
           }).then(function (_ref) {
@@ -516,47 +487,22 @@ function (_React$PureComponent) {
       });
     }
   }, {
-    key: "handleEnter",
-    value: function handleEnter() {
-      this.onChange();
-    }
-  }, {
-    key: "handleEsc",
-    value: function handleEsc() {
-      this.onBlur();
-    }
-  }, {
-    key: "handleFocus",
-    value: function handleFocus() {
-      if (!this.props.multiple) {
-        this.scrollToType('selected');
-      }
-    }
-  }, {
-    key: "scrollToType",
-    value: function scrollToType(type) {
-      if (!this.parentRef.current) {
-        return;
-      }
-
-      var parent = this.parentRef.current;
-      var element = parent.querySelector("[data-".concat(type, "=\"true\"]"));
-
-      if (element) {
-        element.scrollIntoView({
-          behavior: 'auto',
-          block: 'center'
-        });
-      }
+    key: "handleBlur",
+    value: function handleBlur() {
+      this.setState({
+        focus: false,
+        highlighted: null,
+        search: ''
+      });
     }
   }, {
     key: "render",
     value: function render() {
-      var _this$state4 = this.state,
-          defaultOptions = _this$state4.defaultOptions,
-          options = _this$state4.options,
-          focus = _this$state4.focus,
-          searching = _this$state4.searching;
+      var _this$state5 = this.state,
+          defaultOptions = _this$state5.defaultOptions,
+          options = _this$state5.options,
+          focus = _this$state5.focus,
+          searching = _this$state5.searching;
       var _this$props3 = this.props,
           search = _this$props3.search,
           multiple = _this$props3.multiple,

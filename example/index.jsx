@@ -102,7 +102,7 @@ class App extends React.PureComponent {
                     options={friends}
                     placeholder="Search friends"
                     renderOption={renderFriend}
-                    filterOptions={options => options}
+                    search
                 />
             </div>
         );

@@ -51,7 +51,7 @@ class SelectSearch extends React.PureComponent {
         let stateValue = (!val && multiple) ? [] : val;
         const flattenedOptions = FlattenOptions(options);
 
-        if (!stateValue && !placeholder && flattenedOptions.length) {
+        if (!stateValue && !placeholder && flattenedOptions.length && !this.props.multiple) {
             stateValue = flattenedOptions[0].value;
         }
 
@@ -59,7 +59,7 @@ class SelectSearch extends React.PureComponent {
             search: '',
             value: stateValue,
             defaultOptions: flattenedOptions,
-            options: flattenedOptions,
+            options: [],
             highlighted: null,
             focus: false,
             error: false,
@@ -67,6 +67,8 @@ class SelectSearch extends React.PureComponent {
         };
 
         this.theme = {
+            multiple: this.props.multiple,
+            search: this.props.search,
             classes: (typeof className === 'string') ? createClasses(className) : className,
             renderers: {
                 option: renderOption,
@@ -83,51 +85,45 @@ class SelectSearch extends React.PureComponent {
     }
 
     componentDidMount() {
-        const { autoFocus, search, disabled } = this.props;
+        const {
+            autoFocus,
+            search,
+            disabled,
+            multiple,
+        } = this.props;
+
+        const { focus } = this.state;
 
         if (!disabled && autoFocus && search && this.valueRef.current) {
             this.valueRef.current.focus();
             this.onFocus();
         }
+
+        if (multiple || focus) {
+            this.search();
+        }
     }
 
     componentDidUpdate(prevProps, prevState) {
-        const {
-            focus,
-            highlighted,
-        } = this.state;
+        const { focus, search } = this.state;
+        const { focus: prevFocus, search: prevSearch } = prevState;
+        const { multiple } = this.props;
 
-        const { focus: prevFocus, highlighted: prevHighlighted } = prevState;
-
-        if (prevFocus !== focus && focus) {
-            this.handleFocus();
+        if (search !== prevSearch || (prevFocus !== focus && focus && !multiple)) {
+            this.search();
         }
 
-        if (highlighted !== null && highlighted !== prevHighlighted) {
-            this.scrollToType('highlighted');
+        if (prevFocus !== focus && !focus) {
+            this.valueRef.current.blur();
         }
     }
 
-    onBlur = () => {
-        const { multiple } = this.props;
-        const { focus } = this.state;
+    onBlur = (e) => {
+        const { relatedTarget } = e;
 
-        if (!focus) {
-            return;
+        if (!relatedTarget || !relatedTarget.closest(`.${this.theme.classes.main}`)) {
+            this.handleBlur();
         }
-
-        if (multiple) {
-            this.setState({ focus: false, highlighted: null });
-
-            return;
-        }
-
-        this.setState({
-            focus: false,
-            highlighted: null,
-            options: this.state.defaultOptions,
-            search: '',
-        });
     };
 
     onFocus = () => {
@@ -139,18 +135,14 @@ class SelectSearch extends React.PureComponent {
     };
 
     onChange = (value) => {
-        if (this.props.disabled) {
-            return;
-        }
-
         let currentValue = this.getValue().slice();
         let option;
 
         if (!value) {
-            let index = this.state.highlighted;
+            const index = this.state.highlighted;
 
-            if (!index || (this.state.options.length - 1) < index) {
-                index = 0;
+            if (index === null || (this.state.options.length - 1) < index) {
+                return;
             }
 
             option = this.state.options[index];
@@ -170,7 +162,6 @@ class SelectSearch extends React.PureComponent {
             currentValue = option.value;
         }
 
-        const options = this.state.defaultOptions;
         const highlighted = (this.props.multiple) ? this.state.highlighted : null;
 
         if (typeof this.props.onChange === 'function') {
@@ -179,75 +170,52 @@ class SelectSearch extends React.PureComponent {
 
         this.setState({
             value: currentValue,
-            options,
             highlighted,
             focus: this.props.multiple,
         });
     };
 
-    onSearch = (e) => {
-        if (this.searchPromise) {
-            this.searchPromise.cancel();
-        }
-
-        const { value } = e.target;
-        const { defaultOptions } = this.state;
-        const promise = this.getNewOptionsList(defaultOptions, toString(value));
-        this.searchPromise = cancelablePromise(promise);
-
-        this.setState({ search: value, searching: true });
-
-        this.searchPromise.promise.then((options) => {
-            this.setState({ options, searching: false });
-        }).catch((error) => {
-            this.setState({ error, searching: false });
-        });
-    };
+    onSearch = e => this.setState({ search: e.target.value });
 
     onKeyPress = (e) => {
-        if (!this.state.options || this.state.options.length < 1) {
-            return;
-        }
-
-        /** Enter */
-        if (e.keyCode === 13) {
-            this.handleEnter();
+        if (e.key === 'Enter') {
+            this.onChange();
         }
     };
 
     onKeyDown = (e) => {
-        if (!this.state.focus) {
-            return;
-        }
+        if (e.key === 'Tab' && !this.props.multiple) {
+            e.preventDefault();
 
-        /** Tab */
-        if (e.keyCode === 9) {
-            this.onBlur();
             return;
         }
 
         /** Arrow Down */
-        if (e.keyCode === 40) {
+        if (e.key === 'ArrowDown') {
             this.handleArrowDown();
         }
 
         /** Arrow Up */
-        if (e.keyCode === 38) {
+        if (e.key === 'ArrowUp') {
             this.handleArrowUp();
         }
     };
 
     onKeyUp = (e) => {
-        /** Esc */
-        if (e.keyCode === 27) {
-            this.handleEsc();
+        if (e.key === 'Escape') {
+            this.handleBlur();
         }
     };
 
     getNewOptionsList(options, value) {
         return new Promise((resolve, reject) => {
             const { filterOptions } = this.props;
-            const newOptions = this.fuzzySearch(options, value);
+            const fuseOptions = (typeof this.props.fuse === 'object') ? this.props.fuse : {
+                keys: ['name', 'groupName'],
+                threshold: 0.3,
+            };
+
+            const newOptions = this.fuzzySearch(options, value, fuseOptions);
 
             if (typeof filterOptions === 'function') {
                 newOptions.then((fuzzyOptions) => {
@@ -295,10 +263,10 @@ class SelectSearch extends React.PureComponent {
                 selected,
                 highlighted,
                 disabled: option.disabled,
-                onChange: () => this.onChange(option.value),
                 optionProps: {
                     className,
                     onClick: () => this.onChange(option.value),
+                    tabIndex: -1,
                     role: 'menuitem',
                     'data-selected': (selected) ? 'true' : null,
                     'data-highlighted': (highlighted) ? 'true' : null,
@@ -335,7 +303,7 @@ class SelectSearch extends React.PureComponent {
             className: this.theme.classes.search,
             tabIndex: '0',
             onFocus: this.onFocus,
-            onClick: this.onFocus,
+            onBlur: this.onBlur,
             readOnly: !this.props.search,
             value: (searchEnabled) ? search : val,
             placeholder: this.props.placeholder,
@@ -367,14 +335,27 @@ class SelectSearch extends React.PureComponent {
         return value;
     }
 
-    fuzzySearch(options, value) {
+    search() {
+        if (this.searchPromise) {
+            this.searchPromise.cancel();
+        }
+
+        const { defaultOptions, search } = this.state;
+        const promise = this.getNewOptionsList(defaultOptions, toString(search));
+        this.searchPromise = cancelablePromise(promise);
+
+        this.setState({ searching: true });
+
+        this.searchPromise.promise.then((options) => {
+            this.setState({ options, searching: false });
+        }).catch((error) => {
+            this.setState({ error, searching: false });
+        });
+    }
+
+    fuzzySearch(options, value, fuseOptions) {
         return new Promise((resolve, reject) => {
             if (this.props.fuse && options && options.length > 0 && value && value.length > 0) {
-                const fuseOptions = (typeof this.props.fuse === 'object') ? this.props.fuse : {
-                    keys: ['name', 'groupName'],
-                    threshold: 0.3,
-                };
-
                 import('fuse.js').then(({ default: Fuse }) => {
                     const fuse = new Fuse(options, fuseOptions);
                     const newOptions = fuse
@@ -388,10 +369,6 @@ class SelectSearch extends React.PureComponent {
             }
         });
     }
-
-    handleClickOutside = () => {
-        this.onBlur();
-    };
 
     handleArrowDown() {
         if (this.state.options.length < 1) {
@@ -431,34 +408,12 @@ class SelectSearch extends React.PureComponent {
         this.setState({ highlighted });
     }
 
-    handleEnter() {
-        this.onChange();
-    }
-
-    handleEsc() {
-        this.onBlur();
-    }
-
-    handleFocus() {
-        if (!this.props.multiple) {
-            this.scrollToType('selected');
-        }
-    }
-
-    scrollToType(type) {
-        if (!this.parentRef.current) {
-            return;
-        }
-
-        const parent = this.parentRef.current;
-        const element = parent.querySelector(`[data-${type}="true"]`);
-
-        if (element) {
-            element.scrollIntoView({
-                behavior: 'auto',
-                block: 'center',
-            });
-        }
+    handleBlur() {
+        this.setState({
+            focus: false,
+            highlighted: null,
+            search: '',
+        });
     }
 
     render() {

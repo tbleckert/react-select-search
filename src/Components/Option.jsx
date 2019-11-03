@@ -1,4 +1,4 @@
-import React, { useContext, memo } from 'react';
+import React, { useContext, memo, useEffect, createRef } from 'react';
 import PropTypes from 'prop-types';
 import Context from '../Context';
 import Group from './Group';
@@ -25,7 +25,25 @@ const Option = (props) => {
         );
     }
 
+    const ref = createRef();
     const theme = useContext(Context);
+    const scrollConf = {
+        behavior: 'auto',
+        block: 'center',
+    };
+
+    if (!theme.multiple) {
+        useEffect(() => {
+            if (!selected) return;
+            ref.current.scrollIntoView(scrollConf);
+        }, [selected]);
+    }
+
+    useEffect(() => {
+        if (!highlighted) return;
+        ref.current.scrollIntoView(scrollConf);
+    }, [highlighted]);
+
     const { option: renderOption } = theme.renderers;
     let className = theme.classes.row;
     const optionSnapshot = { highlighted, selected };
@@ -36,14 +54,14 @@ const Option = (props) => {
 
     if (typeof renderOption === 'function') {
         return (
-            <li role="presentation" className={className}>
+            <li ref={ref} role="presentation" className={className}>
                 {renderOption(optionProps, option, optionSnapshot)}
             </li>
         );
     }
 
     return (
-        <li role="presentation" className={className}>
+        <li ref={ref} role="presentation" className={className}>
             <button {...optionProps} type="button">
                 {name}
             </button>
@@ -68,7 +86,6 @@ Option.propTypes = {
     selected: PropTypes.bool,
     disabled: PropTypes.bool,
     name: PropTypes.string.isRequired,
-    onChange: PropTypes.func,
     optionProps: PropTypes.shape({
         'data-selected': PropTypes.string,
         role: PropTypes.string,

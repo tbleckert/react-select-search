@@ -38,7 +38,24 @@ var Option = function Option(props) {
     }));
   }
 
+  var ref = (0, _react.createRef)();
   var theme = (0, _react.useContext)(_Context.default);
+  var scrollConf = {
+    behavior: 'auto',
+    block: 'center'
+  };
+
+  if (!theme.multiple) {
+    (0, _react.useEffect)(function () {
+      if (!selected) return;
+      ref.current.scrollIntoView(scrollConf);
+    }, [selected]);
+  }
+
+  (0, _react.useEffect)(function () {
+    if (!highlighted) return;
+    ref.current.scrollIntoView(scrollConf);
+  }, [highlighted]);
   var renderOption = theme.renderers.option;
   var className = theme.classes.row;
   var optionSnapshot = {
@@ -52,12 +69,14 @@ var Option = function Option(props) {
 
   if (typeof renderOption === 'function') {
     return _react.default.createElement("li", {
+      ref: ref,
       role: "presentation",
       className: className
     }, renderOption(optionProps, option, optionSnapshot));
   }
 
   return _react.default.createElement("li", {
+    ref: ref,
     role: "presentation",
     className: className
   }, _react.default.createElement("button", _extends({}, optionProps, {
@@ -81,7 +100,6 @@ Option.propTypes = {
   selected: _propTypes.default.bool,
   disabled: _propTypes.default.bool,
   name: _propTypes.default.string.isRequired,
-  onChange: _propTypes.default.func,
   optionProps: _propTypes.default.shape({
     'data-selected': _propTypes.default.string,
     role: _propTypes.default.string,

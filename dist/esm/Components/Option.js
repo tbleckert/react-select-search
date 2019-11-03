@@ -1,6 +1,6 @@
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
-import React, { useContext, memo } from 'react';
+import React, { useContext, memo, useEffect, createRef } from 'react';
 import PropTypes from 'prop-types';
 import Context from '../Context';
 import Group from './Group';
@@ -22,7 +22,24 @@ var Option = function Option(props) {
     }));
   }
 
+  var ref = createRef();
   var theme = useContext(Context);
+  var scrollConf = {
+    behavior: 'auto',
+    block: 'center'
+  };
+
+  if (!theme.multiple) {
+    useEffect(function () {
+      if (!selected) return;
+      ref.current.scrollIntoView(scrollConf);
+    }, [selected]);
+  }
+
+  useEffect(function () {
+    if (!highlighted) return;
+    ref.current.scrollIntoView(scrollConf);
+  }, [highlighted]);
   var renderOption = theme.renderers.option;
   var className = theme.classes.row;
   var optionSnapshot = {
@@ -36,12 +53,14 @@ var Option = function Option(props) {
 
   if (typeof renderOption === 'function') {
     return React.createElement("li", {
+      ref: ref,
       role: "presentation",
       className: className
     }, renderOption(optionProps, option, optionSnapshot));
   }
 
   return React.createElement("li", {
+    ref: ref,
     role: "presentation",
     className: className
   }, React.createElement("button", _extends({}, optionProps, {
@@ -65,7 +84,6 @@ Option.propTypes = {
   selected: PropTypes.bool,
   disabled: PropTypes.bool,
   name: PropTypes.string.isRequired,
-  onChange: PropTypes.func,
   optionProps: PropTypes.shape({
     'data-selected': PropTypes.string,
     role: PropTypes.string,

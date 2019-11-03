@@ -60,7 +60,7 @@ Value.defaultProps = {
 Value.propTypes = {
   tabIndex: _propTypes.default.string.isRequired,
   onFocus: _propTypes.default.func.isRequired,
-  onClick: _propTypes.default.func.isRequired,
+  onBlur: _propTypes.default.func.isRequired,
   readOnly: _propTypes.default.bool.isRequired,
   value: _propTypes.default.string.isRequired,
   searching: _propTypes.default.bool.isRequired,

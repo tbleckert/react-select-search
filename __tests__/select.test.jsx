@@ -64,47 +64,66 @@ describe('Test select component', () => {
         expect(wrapper.find('input').at(0).instance().hasAttribute('readonly')).toBe(true);
     });
 
-    test('Displays options on focus', () => {
+    test('Displays options on focus', (done) => {
         const wrapper = mount(<SelectSearch className={className} options={countries} />);
 
         expect(wrapper.childAt(0).hasClass('has-focus')).toBe(false);
 
         wrapper.find('input').simulate('focus');
 
-        expect(wrapper.find(Options).length).toBe(1);
-        expect(wrapper.find(Option).length).toBe(countries.length);
-        expect(wrapper.childAt(0).hasClass('has-focus')).toBe(true);
+        setImmediate(() => {
+            wrapper.update();
+
+            expect(wrapper.find(Options).length).toBe(1);
+            expect(wrapper.find(Option).length).toBe(countries.length);
+            expect(wrapper.childAt(0).hasClass('has-focus')).toBe(true);
+
+            done();
+        });
     });
 
-    test('Displays options containing groups on focus', () => {
+    test('Displays options containing groups on focus', (done) => {
         const wrapper = mount(<SelectSearch className={className} options={fontStacks} />);
 
         expect(wrapper.childAt(0).hasClass('has-focus')).toBe(false);
 
         wrapper.find('input').simulate('focus');
 
-        expect(wrapper.find(Options).length).toBe(5);
-        expect(wrapper.find(Group).length).toBe(4);
-        expect(wrapper.find(Option).length).toBe(10);
-        expect(wrapper.childAt(0).hasClass('has-focus')).toBe(true);
+        setImmediate(() => {
+            wrapper.update();
+
+            expect(wrapper.find(Options).length).toBe(5);
+            expect(wrapper.find(Group).length).toBe(4);
+            expect(wrapper.find(Option).length).toBe(10);
+            expect(wrapper.childAt(0).hasClass('has-focus')).toBe(true);
+
+            done();
+        });
     });
 
-    test('Selects option on click and closes', () => {
+    test('Selects option on click and closes', (done) => {
         const wrapper = mount(<SelectSearch className={className} options={countries} />);
 
         wrapper.find('input').simulate('focus');
-        wrapper.find(Option).at(10).find('button').simulate('click');
 
-        expect(wrapper.state('value')).toBe(countries[10].value);
-        expect(wrapper.state('focus')).toBe(false);
-        expect(wrapper.find(Options).length).toBe(0);
-        expect(wrapper.find(Value).find('input').at(0).instance().value).toBe(countries[10].name);
+        setImmediate(() => {
+            wrapper.update();
 
-        wrapper.find('input').simulate('focus');
-        wrapper.find(Option).at(11).find('button').simulate('click');
+            wrapper.find(Option).at(10).find('button').simulate('click');
 
-        expect(wrapper.state('value')).toBe(countries[11].value);
-        expect(wrapper.find(Value).find('input').at(0).instance().value).toBe(countries[11].name);
+            expect(wrapper.state('value')).toBe(countries[10].value);
+            expect(wrapper.state('focus')).toBe(false);
+            expect(wrapper.find(Options).length).toBe(0);
+            expect(wrapper.find(Value).find('input').at(0).instance().value).toBe(countries[10].name);
+
+            wrapper.find('input').simulate('focus');
+            wrapper.find(Option).at(11).find('button').simulate('click');
+
+            expect(wrapper.state('value')).toBe(countries[11].value);
+            expect(wrapper.find(Value).find('input').at(0).instance().value).toBe(countries[11].name);
+
+            done();
+        });
     });
 
     test('Can disable', () => {
@@ -117,7 +136,7 @@ describe('Test select component', () => {
         expect(wrapper.find(Options).length).toBe(0);
     });
 
-    test('Can disable single options', () => {
+    test('Can disable single options', (done) => {
         const options = countries.slice();
 
         options[10].disabled = true;
@@ -125,11 +144,18 @@ describe('Test select component', () => {
         const wrapper = mount(<SelectSearch className={className} placeholder="Select" options={options} />);
 
         wrapper.find('input').simulate('focus');
-        wrapper.find(Option).at(10).find('button').simulate('click');
 
-        expect(wrapper.state('focus')).toBe(true);
-        expect(wrapper.state('value')).toBe('');
-        expect(wrapper.find(Option).at(10).find('li').hasClass('is-disabled')).toBe(true);
+        setImmediate(() => {
+            wrapper.update();
+
+            wrapper.find(Option).at(10).find('button').simulate('click');
+
+            expect(wrapper.state('focus')).toBe(true);
+            expect(wrapper.state('value')).toBe('');
+            expect(wrapper.find(Option).at(10).find('li').hasClass('is-disabled')).toBe(true);
+
+            done();
+        });
     });
 
     test('Search renders correctly', () => {
@@ -161,14 +187,21 @@ describe('Test select component', () => {
         expect(wrapper.find('input').instance().value).toBe('');
     });
 
-    test('Can autocous', () => {
+    test('Can autocous', (done) => {
         const wrapper = mount(<SelectSearch className={className} search autoFocus options={countries} />);
 
         expect(wrapper.find('input:focus').length).toBe(1);
         expect(wrapper.state('focus')).toBe(true);
-        expect(wrapper.find(Options).length).toBe(1);
-        expect(wrapper.find(Option).length).toBe(countries.length);
-        expect(wrapper.childAt(0).hasClass('has-focus')).toBe(true);
+
+        setImmediate(() => {
+            wrapper.update();
+
+            expect(wrapper.find(Options).length).toBe(1);
+            expect(wrapper.find(Option).length).toBe(countries.length);
+            expect(wrapper.childAt(0).hasClass('has-focus')).toBe(true);
+
+            done();
+        });
     });
 
     test('Can search', (done) => {
@@ -187,38 +220,57 @@ describe('Test select component', () => {
         });
     });
 
-    test('Multiple renders correctly', () => {
+    test('Multiple renders correctly', (done) => {
         const wrapper = mount(<SelectSearch className={className} multiple options={countries} />);
 
         expect(wrapper.find(`div.${className}--multiple`).length).toBe(1);
-        expect(wrapper.find(Options).length).toBe(1);
-        expect(wrapper.find(Option).length).toBe(countries.length);
-        expect(wrapper.state('value')).toStrictEqual([]);
-        expect(wrapper.find(Value).length).toBe(0);
+
+        setImmediate(() => {
+            wrapper.update();
+
+            expect(wrapper.find(Options).length).toBe(1);
+            expect(wrapper.find(Option).length).toBe(countries.length);
+            expect(wrapper.state('value')).toStrictEqual([]);
+            expect(wrapper.find(Value).length).toBe(0);
+
+            done();
+        });
     });
 
-    test('Multiple can select and deselect option', () => {
+    test('Multiple can select and deselect option', (done) => {
         const wrapper = mount(<SelectSearch className={className} multiple options={countries} />);
 
-        wrapper.find(Option).at(11).find('button').simulate('click');
-        expect(wrapper.state('value')).toStrictEqual([countries[11].value]);
-        expect(wrapper.find(`.${className}__option.is-selected`).length).toBe(1);
+        setImmediate(() => {
+            wrapper.update();
 
-        wrapper.find(Option).at(11).find('button').simulate('click');
-        expect(wrapper.state('value')).toStrictEqual([]);
-        expect(wrapper.find(`.${className}__option.is-selected`).length).toBe(0);
+            wrapper.find(Option).at(11).find('button').simulate('click');
+            expect(wrapper.state('value')).toStrictEqual([countries[11].value]);
+            expect(wrapper.find(`.${className}__option.is-selected`).length).toBe(1);
+
+            wrapper.find(Option).at(11).find('button').simulate('click');
+            expect(wrapper.state('value')).toStrictEqual([]);
+            expect(wrapper.find(`.${className}__option.is-selected`).length).toBe(0);
+
+            done();
+        });
     });
 
-    test('Multiple can select multiple options', () => {
+    test('Multiple can select multiple options', (done) => {
         const wrapper = mount(<SelectSearch className={className} multiple options={countries} />);
 
-        wrapper.find(Option).at(11).find('button').simulate('click');
-        expect(wrapper.state('value')).toStrictEqual([countries[11].value]);
-        expect(wrapper.find(`.${className}__option.is-selected`).length).toBe(1);
+        setImmediate(() => {
+            wrapper.update();
 
-        wrapper.find(Option).at(12).find('button').simulate('click');
-        expect(wrapper.state('value')).toStrictEqual([countries[11].value, countries[12].value]);
-        expect(wrapper.find(`.${className}__option.is-selected`).length).toBe(2);
+            wrapper.find(Option).at(11).find('button').simulate('click');
+            expect(wrapper.state('value')).toStrictEqual([countries[11].value]);
+            expect(wrapper.find(`.${className}__option.is-selected`).length).toBe(1);
+
+            wrapper.find(Option).at(12).find('button').simulate('click');
+            expect(wrapper.state('value')).toStrictEqual([countries[11].value, countries[12].value]);
+            expect(wrapper.find(`.${className}__option.is-selected`).length).toBe(2);
+
+            done();
+        });
     });
 
     test('Multiple can have search', () => {
@@ -227,49 +279,127 @@ describe('Test select component', () => {
         expect(wrapper.find(Value).length).toBe(1);
     });
 
-    test('Can highlight options with keyboard', () => {
+    test('Can highlight options with keyboard', (done) => {
         const wrapper = mount(<SelectSearch className={className} options={countries} />);
         expect(wrapper.state('highlighted')).toBe(null);
 
         wrapper.find('input').simulate('focus');
-        wrapper.find('input').simulate('keydown', { keyCode: 40 });
 
-        expect(wrapper.state('highlighted')).toBe(0);
+        setImmediate(() => {
+            wrapper.find('input').simulate('keydown', { key: 'ArrowDown' });
 
-        wrapper.find('input').simulate('keydown', { keyCode: 40 });
-        expect(wrapper.state('highlighted')).toBe(1);
+            expect(wrapper.state('highlighted')).toBe(0);
 
-        wrapper.find('input').simulate('keydown', { keyCode: 38 });
-        expect(wrapper.state('highlighted')).toBe(0);
+            wrapper.find('input').simulate('keydown', { key: 'ArrowDown' });
+            expect(wrapper.state('highlighted')).toBe(1);
 
-        wrapper.find('input').simulate('keydown', { keyCode: 38 });
-        expect(wrapper.state('highlighted')).toBe(countries.length - 1);
+            wrapper.find('input').simulate('keydown', { key: 'ArrowUp' });
+            expect(wrapper.state('highlighted')).toBe(0);
 
-        wrapper.find('input').simulate('keydown', { keyCode: 38 });
-        expect(wrapper.state('highlighted')).toBe(countries.length - 2);
+            wrapper.find('input').simulate('keydown', { key: 'ArrowUp' });
+            expect(wrapper.state('highlighted')).toBe(countries.length - 1);
 
-        wrapper.find('input').simulate('keydown', { keyCode: 40 });
-        wrapper.find('input').simulate('keydown', { keyCode: 40 });
-        expect(wrapper.state('highlighted')).toBe(0);
+            wrapper.find('input').simulate('keydown', { key: 'ArrowUp' });
+            expect(wrapper.state('highlighted')).toBe(countries.length - 2);
+
+            wrapper.find('input').simulate('keydown', { key: 'ArrowDown' });
+            wrapper.find('input').simulate('keydown', { key: 'ArrowDown' });
+            expect(wrapper.state('highlighted')).toBe(0);
+
+            done();
+        });
     });
 
-    test('Can select highlighted options with keyboard', () => {
+    test('Up key highlights last item if nothing highlighted', (done) => {
         const wrapper = mount(<SelectSearch className={className} options={countries} />);
         expect(wrapper.state('highlighted')).toBe(null);
 
         wrapper.find('input').simulate('focus');
-        wrapper.find('input').simulate('keydown', { keyCode: 40 });
-        wrapper.find('input').simulate('keydown', { keyCode: 40 });
 
-        expect(wrapper.state('highlighted')).toBe(1);
+        setImmediate(() => {
+            wrapper.find('input').simulate('keydown', { key: 'ArrowUp' });
 
-        wrapper.find('input').simulate('keypress', { keyCode: 13 });
+            expect(wrapper.state('highlighted')).toBe(countries.length - 1);
 
-        expect(wrapper.state('value')).toBe(countries[1].value);
+            done();
+        });
+    });
+
+    test('Key up/down should do nothing if no options', (done) => {
+        const wrapper = mount(<SelectSearch className={className} options={[]} />);
+
+        expect(wrapper.state('highlighted')).toBe(null);
+
+        wrapper.find('input').simulate('focus');
+
+        setImmediate(() => {
+            wrapper.update();
+
+            wrapper.find('input').simulate('keydown', { key: 'ArrowDown' });
+
+            expect(wrapper.state('highlighted')).toBe(null);
+
+            wrapper.find('input').simulate('keydown', { key: 'ArrowUp' });
+            expect(wrapper.state('highlighted')).toBe(null);
+
+            done();
+        });
+    });
+
+    test('Can select highlighted options with keyboard', (done) => {
+        const wrapper = mount(<SelectSearch className={className} options={countries} />);
+        expect(wrapper.state('highlighted')).toBe(null);
+
+        wrapper.find('input').simulate('focus');
+
+        setImmediate(() => {
+            wrapper.update();
+
+            wrapper.find('input').simulate('keydown', { key: 'ArrowDown' });
+            wrapper.find('input').simulate('keydown', { key: 'ArrowDown' });
+
+            expect(wrapper.state('highlighted')).toBe(1);
+
+            wrapper.find('input').simulate('keypress', { key: 'Enter' });
+
+            expect(wrapper.state('value')).toBe(countries[1].value);
+            expect(wrapper.state('focus')).toBe(false);
+
+            done();
+        });
+    });
+
+    test('Enter key without highlight should do nothing', (done) => {
+        const wrapper = mount(<SelectSearch className={className} options={countries} />);
+        expect(wrapper.state('highlighted')).toBe(null);
+
+        wrapper.find('input').simulate('focus');
+
+        setImmediate(() => {
+            wrapper.update();
+
+            const state = wrapper.state();
+
+            wrapper.find('input').simulate('keypress', { key: 'Enter' });
+
+            expect(wrapper.state()).toStrictEqual(state);
+
+            done();
+        });
+    });
+
+    test('Input blur should be handled', () => {
+        const wrapper = mount(<SelectSearch className={className} options={countries} />);
+        expect(wrapper.state('highlighted')).toBe(null);
+
+        wrapper.find('input').simulate('focus');
+        expect(wrapper.state('focus')).toBe(true);
+
+        wrapper.find('input').simulate('blur', { relatedTarget: null });
         expect(wrapper.state('focus')).toBe(false);
     });
 
-    test('Blurs on esc and tab', () => {
+    test('Blurs on esc', () => {
         const wrapper = mount(<SelectSearch className={className} options={countries} />);
         expect(wrapper.state('highlighted')).toBe(null);
 
@@ -277,14 +407,65 @@ describe('Test select component', () => {
         expect(wrapper.state('focus')).toBe(true);
 
         // esc
-        wrapper.find('input').simulate('keyup', { keyCode: 27 });
+        wrapper.find('input').simulate('keyup', { key: 'Escape' });
         expect(wrapper.state('focus')).toBe(false);
+    });
+
+    test('Tab should be prevented if not multiple', (done) => {
+        const wrapper = mount(<SelectSearch className={className} options={countries} />);
+        expect(wrapper.state('highlighted')).toBe(null);
 
         wrapper.find('input').simulate('focus');
         expect(wrapper.state('focus')).toBe(true);
 
-        // tab
-        wrapper.find('input').simulate('keydown', { keyCode: 9 });
-        expect(wrapper.state('focus')).toBe(false);
+        setImmediate(() => {
+            wrapper.update();
+
+            wrapper.find('input').simulate('keydown', { key: 'Tab' });
+
+            expect(wrapper.state('focus')).toBe(true);
+            done();
+        });
+    });
+
+    test('Can filter options', (done) => {
+        const filterOptions = (options) => options.slice(0, 10);
+
+        const wrapper = mount(<SelectSearch className={className} filterOptions={filterOptions} options={countries} />);
+
+        expect(wrapper.state('options').length).toBe(0);
+
+        wrapper.find('input').simulate('focus');
+
+        setImmediate(() => {
+            expect(wrapper.update().find(Option).length).toBe(10);
+            done();
+        });
+    });
+
+    test('Calls onChange for controlled select', (done) => {
+        const onChange = jest.fn();
+        const wrapper = mount(<SelectSearch
+            className={className}
+            options={countries}
+            value="SE"
+            onChange={onChange}
+        />);
+
+        wrapper.find('input').simulate('focus');
+
+        setImmediate(() => {
+            wrapper.update();
+            wrapper.find(Option).at(11).find('button').simulate('click');
+
+            expect(onChange.mock.calls.length).toBe(1);
+            expect(onChange.mock.calls[0][0]).toBe(countries[11].value);
+            expect(onChange.mock.calls[0][1]).toStrictEqual({
+                ...countries[11],
+                index: 11,
+            });
+
+            done();
+        });
     });
 });

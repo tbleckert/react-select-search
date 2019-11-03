@@ -64,9 +64,7 @@
     "webpack-cli": "^3.3.9",
     "webpack-dev-server": "^3.9.0"
   },
-  "dependencies": {
-    "react-onclickoutside": "^6.9.0"
-  },
+  "dependencies": {},
   "optionalDependencies": {
     "fuse.js": "^3.4.5"
   }

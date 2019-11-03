@@ -211,7 +211,8 @@
         outline: none;
     }
 
-        .select-search-box__option.is-highlighted, .select-search-box__option:hover {
+        .select-search-box__option.is-highlighted, .select-search-box__option:hover,
+        .select-search-box__option:focus {
             background: #f4f7fa;
         }
 
