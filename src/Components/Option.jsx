@@ -13,6 +13,7 @@ const Option = (props) => {
         selected,
         option,
         disabled,
+        focus,
     } = props;
 
     if (type && type === 'group') {
@@ -36,7 +37,7 @@ const Option = (props) => {
         useEffect(() => {
             if (!selected) return;
             ref.current.scrollIntoView(scrollConf);
-        }, [selected]);
+        }, [selected, focus]);
     }
 
     useEffect(() => {
@@ -78,7 +79,6 @@ Option.defaultProps = {
     items: [],
     optionProps: null,
     option: null,
-    onChange: null,
 };
 
 Option.propTypes = {

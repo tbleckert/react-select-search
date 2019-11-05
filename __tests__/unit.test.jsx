@@ -14,7 +14,8 @@ const className = 'select-search';
 const random = (source) => Math.floor(Math.random() * source.length);
 const classes = {
     main: 'select-search',
-    search: 'search',
+    value: 'value',
+    input: 'input',
     select: 'select',
     options: 'options',
     row: 'row',
@@ -56,7 +57,7 @@ describe('Test select component class methods', () => {
         wrapper.instance().onBlur({ relatedTarget: document.body });
         expect(spy.mock.calls.length).toBe(2);
 
-        wrapper.instance().onBlur({ relatedTarget: wrapper.find('input').at(0) });
+        wrapper.instance().onBlur({ relatedTarget: wrapper.find('input').at(0).instance() });
 
         expect(spy.mock.calls.length).toBe(2);
     });
@@ -89,8 +90,6 @@ describe('Test select component class methods', () => {
 
         wrapper.instance().getNewOptionsList(wrapper.state('options'), 'Sweden')
             .then((response) => {
-                console.log(response);
-
                 expect(spy.mock.calls.length).toBe(1);
                 expect(spy.mock.calls[0][2]).toStrictEqual({
                     keys: ['name', 'groupName'],
@@ -112,12 +111,21 @@ describe('Test select component class methods', () => {
 
         wrapper.instance().getNewOptionsList(wrapper.state('options'), 'Sweden')
             .then((response) => {
-                console.log(response);
-
                 expect(spy.mock.calls.length).toBe(1);
                 expect(spy.mock.calls[0][2]).toStrictEqual(fuse);
 
                 done();
             });
+    });
+
+    test('Single selects without placeholder should have the first option selected by default', () => {
+        const wrapper = shallow(<SelectSearch className={className} options={countries} />);
+
+        expect(wrapper.state('value')).toBe(countries[0].value);
+
+        wrapper.setState({ value: '' });
+        expect(wrapper.state('value')).toBe('');
+
+        expect(wrapper.instance().getValue()).toBe(countries[0].value);
     });
 });

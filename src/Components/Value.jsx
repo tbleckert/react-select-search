@@ -10,25 +10,26 @@ const Value = forwardRef(({
 }, ref) => {
     const theme = useContext(Context);
 
-    if (typeof theme.renderers.value === 'function') {
-        return theme.renderers.value(valueProps, ref, option, {
-            searching,
-            error,
-        });
-    }
-
-    let { className } = valueProps;
+    let className = theme.classes.value;
 
     if (searching) {
         className += ' is-searching';
     }
 
-    return (
+    const content = (typeof theme.renderers.value === 'function') ? theme.renderers.value(valueProps, ref, option, {
+        searching,
+        error,
+    }) : (
         <input
             ref={ref}
             {...valueProps}
-            className={className}
         />
+    );
+
+    return (
+        <div className={className}>
+            {content}
+        </div>
     );
 });
 

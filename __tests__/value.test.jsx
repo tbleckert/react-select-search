@@ -27,19 +27,19 @@ describe('Test Value component', () => {
     test('Input renders passed input props', () => {
         const wrapper = mount((
             <Context.Provider value={theme}>
-                <Value value="" className={classes.search} />
+                <Value value="" className={classes.input} />
             </Context.Provider>
         ));
 
-        expect(wrapper.find('input').hasClass(classes.search)).toEqual(true);
+        expect(wrapper.find('input').hasClass(classes.input)).toEqual(true);
     });
 
     test('Uses custom renderer', () => {
         const themeWithRenderer = {
             classes,
             renderers: {
-                value: ({ className, ...inputProps }, ref) => (
-                    <div className={className}>
+                value: (inputProps, ref) => (
+                    <div className="wrapper">
                         <input {...inputProps} ref={ref} />
                     </div>
                 ),
@@ -48,11 +48,12 @@ describe('Test Value component', () => {
 
         const wrapper = mount((
             <Context.Provider value={themeWithRenderer}>
-                <Value value="" className={classes.search} />
+                <Value value="" className={classes.input} />
             </Context.Provider>
         ));
 
-        expect(wrapper.find('div').hasClass(classes.search)).toEqual(true);
+        expect(wrapper.find('input').hasClass(classes.input)).toEqual(true);
+        expect(wrapper.find('.wrapper').length).toEqual(1);
         expect(wrapper.find('div > input').length).toEqual(1);
     });
 });

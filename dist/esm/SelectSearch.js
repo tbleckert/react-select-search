@@ -1,12 +1,16 @@
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) { return; } var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
-
-function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -54,8 +58,9 @@ function (_React$PureComponent) {
 
     _defineProperty(_assertThisInitialized(_this), "onBlur", function (e) {
       var relatedTarget = e.relatedTarget;
+      var parent = !relatedTarget ? null : relatedTarget.closest(".".concat(_this.theme.classes.main));
 
-      if (!relatedTarget || !relatedTarget.closest(".".concat(_this.theme.classes.main))) {
+      if (!parent || parent !== _this.parentRef.current) {
         _this.handleBlur();
       }
     });
@@ -125,13 +130,7 @@ function (_React$PureComponent) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "onKeyDown", function (e) {
-      if (e.key === 'Tab' && !_this.props.multiple) {
-        e.preventDefault();
-        return;
-      }
       /** Arrow Down */
-
-
       if (e.key === 'ArrowDown') {
         _this.handleArrowDown();
       }
@@ -201,18 +200,14 @@ function (_React$PureComponent) {
       var _this$props = this.props,
           autoFocus = _this$props.autoFocus,
           search = _this$props.search,
-          disabled = _this$props.disabled,
-          multiple = _this$props.multiple;
-      var focus = this.state.focus;
+          disabled = _this$props.disabled;
 
       if (!disabled && autoFocus && search && this.valueRef.current) {
         this.valueRef.current.focus();
         this.onFocus();
       }
 
-      if (multiple || focus) {
-        this.search();
-      }
+      this.search();
     }
   }, {
     key: "componentDidUpdate",
@@ -268,17 +263,17 @@ function (_React$PureComponent) {
       var _this3 = this;
 
       var multiple = this.props.multiple;
-
       var _this$state2 = this.state,
           options = _this$state2.options,
-          state = _objectWithoutProperties(_this$state2, ["options"]);
-
+          focus = _this$state2.focus,
+          highlighted = _this$state2.highlighted;
+      var value = this.getValue();
       var mappedOptions = options.map(function (option, i) {
-        var selected = multiple && Array.isArray(state.value) && state.value.indexOf(option.value) >= 0 || option.value === state.value;
-        var highlighted = i === state.highlighted;
+        var selected = multiple && Array.isArray(value) && value.indexOf(option.value) >= 0 || option.value === value;
+        var isHighlighted = i === highlighted;
         var className = _this3.theme.classes.option;
 
-        if (highlighted) {
+        if (isHighlighted) {
           className += ' is-highlighted';
         }
 
@@ -289,7 +284,8 @@ function (_React$PureComponent) {
         return _objectSpread({}, option, {
           option: option,
           selected: selected,
-          highlighted: highlighted,
+          focus: focus,
+          highlighted: isHighlighted,
           disabled: option.disabled,
           optionProps: {
             className: className,
@@ -331,7 +327,7 @@ function (_React$PureComponent) {
         error: error,
         searching: searching,
         option: value,
-        className: this.theme.classes.search,
+        className: this.theme.classes.input,
         tabIndex: '0',
         onFocus: this.onFocus,
         onBlur: this.onBlur,
@@ -362,6 +358,11 @@ function (_React$PureComponent) {
         value = [];
       } else if (this.props.multiple && !Array.isArray(value)) {
         value = [value];
+      } else if (!value && !this.props.placeholder && this.state.defaultOptions.length) {
+        var _this$state$defaultOp = _slicedToArray(this.state.defaultOptions, 1),
+            option = _this$state$defaultOp[0];
+
+        value = option.value;
       }
 
       return value;
@@ -475,7 +476,6 @@ function (_React$PureComponent) {
     value: function render() {
       var _this$state5 = this.state,
           defaultOptions = _this$state5.defaultOptions,
-          options = _this$state5.options,
           focus = _this$state5.focus,
           searching = _this$state5.searching;
       var _this$props3 = this.props,
@@ -507,7 +507,6 @@ function (_React$PureComponent) {
         className += ' is-searching';
       }
 
-      var showOptions = options.length > 0 && (focus || multiple);
       return React.createElement(Context.Provider, {
         value: this.theme
       }, React.createElement("div", {
@@ -515,7 +514,7 @@ function (_React$PureComponent) {
         className: className
       }, (search || !multiple) && React.createElement(Value, _extends({
         ref: this.valueRef
-      }, valueProps)), showOptions && React.createElement("div", {
+      }, valueProps)), !disabled && React.createElement("div", {
         className: this.theme.classes.select
       }, React.createElement(Options, {
         options: mappedOptions

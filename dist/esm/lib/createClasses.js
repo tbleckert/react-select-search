@@ -8,7 +8,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 var classes = {
   main: null,
-  search: 'search',
+  value: 'value',
+  input: 'input',
   select: 'select',
   options: 'options',
   row: 'row',

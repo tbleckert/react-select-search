@@ -29,7 +29,8 @@ var Option = function Option(props) {
       highlighted = props.highlighted,
       selected = props.selected,
       option = props.option,
-      disabled = props.disabled;
+      disabled = props.disabled,
+      focus = props.focus;
 
   if (type && type === 'group') {
     return _react.default.createElement(_Group.default, _extends({}, props, {
@@ -49,7 +50,7 @@ var Option = function Option(props) {
     (0, _react.useEffect)(function () {
       if (!selected) return;
       ref.current.scrollIntoView(scrollConf);
-    }, [selected]);
+    }, [selected, focus]);
   }
 
   (0, _react.useEffect)(function () {
@@ -92,8 +93,7 @@ Option.defaultProps = {
   disabled: false,
   items: [],
   optionProps: null,
-  option: null,
-  onChange: null
+  option: null
 };
 Option.propTypes = {
   highlighted: _propTypes.default.bool,

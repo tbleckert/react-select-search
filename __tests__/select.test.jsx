@@ -113,7 +113,6 @@ describe('Test select component', () => {
 
             expect(wrapper.state('value')).toBe(countries[10].value);
             expect(wrapper.state('focus')).toBe(false);
-            expect(wrapper.find(Options).length).toBe(0);
             expect(wrapper.find(Value).find('input').at(0).instance().value).toBe(countries[10].name);
 
             wrapper.find('input').simulate('focus');

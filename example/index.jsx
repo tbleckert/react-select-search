@@ -13,7 +13,7 @@ function renderFriend(props, option) {
 
     return (
         <button {...props} type="button">
-            <span><img alt="" style={imgStyle} width="40" height="40" src={option.photo} /><span>{option.name}</span></span>
+            <span><img alt="" style={imgStyle} width="32" height="32" src={option.photo} /><span>{option.name}</span></span>
         </button>
     );
 }
@@ -34,14 +34,6 @@ function renderFontOption(props, { name, stack }) {
             <span style={{ fontFamily: stack }}>{name}</span>
         </button>
     );
-}
-
-function delayOptions(options) {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            resolve(options);
-        }, 1000);
-    });
 }
 
 class App extends React.PureComponent {
@@ -72,36 +64,47 @@ class App extends React.PureComponent {
         });
     };
 
+    updateFont = (value) => this.setState({ font: value });
+    updateCountry = (value) => this.setState({ country: value });
+    updateFriends = (value) => this.setState({ friends: value });
+
     render() {
+        const text = (this.state.disabled) ? 'Enable' : 'Disable';
+
         return (
             <div>
                 <div className="test-btns">
                     <button type="button" className="clear" onClick={this.clear}>Clear values</button>
-                    <button type="button" className="clear" onClick={this.disable}>Disable/Enable</button>
+                    <button type="button" className="clear" onClick={this.disable}>{text}</button>
                 </div>
                 <SelectSearch
                     key="fonts"
                     ref={this.ref}
                     options={fontStacks}
+                    value={this.state.font}
+                    onChange={this.updateFont}
                     renderValue={renderFontValue}
                     renderOption={renderFontOption}
+                    disabled={this.state.disabled}
                 />
                 <SelectSearch
+                    key="countries"
                     value={this.state.country}
                     options={countries}
-                    onChange={value => this.setState({ country: value })}
+                    onChange={this.updateCountry}
                     placeholder="Your country"
                     search
                     disabled={this.state.disabled}
-                    filterOptions={delayOptions}
                 />
                 <SelectSearch
                     name="friends"
                     multiple
-                    defaultValue={this.state.friends}
+                    value={this.state.friends}
+                    onChange={this.updateFriends}
                     options={friends}
                     placeholder="Search friends"
                     renderOption={renderFriend}
+                    disabled={this.state.disabled}
                     search
                 />
             </div>

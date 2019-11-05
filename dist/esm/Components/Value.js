@@ -14,25 +14,21 @@ var Value = forwardRef(function (_ref, ref) {
       valueProps = _objectWithoutProperties(_ref, ["option", "searching", "error"]);
 
   var theme = useContext(Context);
-
-  if (typeof theme.renderers.value === 'function') {
-    return theme.renderers.value(valueProps, ref, option, {
-      searching: searching,
-      error: error
-    });
-  }
-
-  var className = valueProps.className;
+  var className = theme.classes.value;
 
   if (searching) {
     className += ' is-searching';
   }
 
-  return React.createElement("input", _extends({
+  var content = typeof theme.renderers.value === 'function' ? theme.renderers.value(valueProps, ref, option, {
+    searching: searching,
+    error: error
+  }) : React.createElement("input", _extends({
     ref: ref
-  }, valueProps, {
+  }, valueProps));
+  return React.createElement("div", {
     className: className
-  }));
+  }, content);
 });
 Value.defaultProps = {
   placeholder: '',

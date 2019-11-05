@@ -78,8 +78,7 @@ Below is all the available options you can pass to the component. Options withou
 | options | array | | Se the [options documentation](#the-options-object) below |
 | defaultValue | string, array | undefined | Set only a defaultValue for [uncontrolled](#controlled-component) usage. The value should be an array if multiple mode. |
 | value | string, array | undefined | Use together with `onChange` for [controlled](#controlled-component) usage. The value should be an array if multiple mode. |
-| multiple | boolean | false | Set to true if you want to allow multiple selected options. This will also set `alwaysRenderOptions` to true if not specifically set. |
-| alwaysRenderOptions | boolean | undefined | By default, options are only rendered on focus and then unmounted again on blur. Set this to true to change this behavior. |
+| multiple | boolean | false | Set to true if you want to allow multiple selected options. |
 | search | boolean | false | Set to true to enable search functionality |
 | disabled | boolean | false | Disables all functionality |
 | placeholder | string | empty string | Displayed if no option is selected and/or when search field is focused with empty value. |

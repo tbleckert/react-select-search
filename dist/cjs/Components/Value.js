@@ -30,25 +30,21 @@ var Value = (0, _react.forwardRef)(function (_ref, ref) {
       valueProps = _objectWithoutProperties(_ref, ["option", "searching", "error"]);
 
   var theme = (0, _react.useContext)(_Context.default);
-
-  if (typeof theme.renderers.value === 'function') {
-    return theme.renderers.value(valueProps, ref, option, {
-      searching: searching,
-      error: error
-    });
-  }
-
-  var className = valueProps.className;
+  var className = theme.classes.value;
 
   if (searching) {
     className += ' is-searching';
   }
 
-  return _react.default.createElement("input", _extends({
+  var content = typeof theme.renderers.value === 'function' ? theme.renderers.value(valueProps, ref, option, {
+    searching: searching,
+    error: error
+  }) : _react.default.createElement("input", _extends({
     ref: ref
-  }, valueProps, {
+  }, valueProps));
+  return _react.default.createElement("div", {
     className: className
-  }));
+  }, content);
 });
 Value.defaultProps = {
   placeholder: '',

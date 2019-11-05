@@ -89,19 +89,14 @@ class SelectSearch extends React.PureComponent {
             autoFocus,
             search,
             disabled,
-            multiple,
         } = this.props;
-
-        const { focus } = this.state;
 
         if (!disabled && autoFocus && search && this.valueRef.current) {
             this.valueRef.current.focus();
             this.onFocus();
         }
 
-        if (multiple || focus) {
-            this.search();
-        }
+        this.search();
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -121,7 +116,9 @@ class SelectSearch extends React.PureComponent {
     onBlur = (e) => {
         const { relatedTarget } = e;
 
-        if (!relatedTarget || !relatedTarget.closest(`.${this.theme.classes.main}`)) {
+        const parent = (!relatedTarget) ? null : relatedTarget.closest(`.${this.theme.classes.main}`);
+
+        if (!parent || parent !== this.parentRef.current) {
             this.handleBlur();
         }
     };
@@ -184,12 +181,6 @@ class SelectSearch extends React.PureComponent {
     };
 
     onKeyDown = (e) => {
-        if (e.key === 'Tab' && !this.props.multiple) {
-            e.preventDefault();
-
-            return;
-        }
-
         /** Arrow Down */
         if (e.key === 'ArrowDown') {
             this.handleArrowDown();
@@ -239,17 +230,23 @@ class SelectSearch extends React.PureComponent {
 
     getOptionsForRender() {
         const { multiple } = this.props;
-        const { options, ...state } = this.state;
+        const {
+            options,
+            focus,
+            highlighted,
+        } = this.state;
+        const value = this.getValue();
+
         const mappedOptions = options.map((option, i) => {
             const selected = (
-                (multiple && Array.isArray(state.value) && state.value.indexOf(option.value) >= 0)
-                || option.value === state.value
+                (multiple && Array.isArray(value) && value.indexOf(option.value) >= 0)
+                || option.value === value
             );
 
-            const highlighted = i === state.highlighted;
+            const isHighlighted = i === highlighted;
             let className = this.theme.classes.option;
 
-            if (highlighted) {
+            if (isHighlighted) {
                 className += ' is-highlighted';
             }
 
@@ -261,7 +258,8 @@ class SelectSearch extends React.PureComponent {
                 ...option,
                 option,
                 selected,
-                highlighted,
+                focus,
+                highlighted: isHighlighted,
                 disabled: option.disabled,
                 optionProps: {
                     className,
@@ -300,7 +298,7 @@ class SelectSearch extends React.PureComponent {
             error,
             searching,
             option: value,
-            className: this.theme.classes.search,
+            className: this.theme.classes.input,
             tabIndex: '0',
             onFocus: this.onFocus,
             onBlur: this.onBlur,
@@ -330,6 +328,9 @@ class SelectSearch extends React.PureComponent {
             value = [];
         } else if (this.props.multiple && !Array.isArray(value)) {
             value = [value];
+        } else if (!value && !this.props.placeholder && this.state.defaultOptions.length) {
+            const [option] = this.state.defaultOptions;
+            ({ value } = option);
         }
 
         return value;
@@ -419,7 +420,6 @@ class SelectSearch extends React.PureComponent {
     render() {
         const {
             defaultOptions,
-            options,
             focus,
             searching,
         } = this.state;
@@ -454,8 +454,6 @@ class SelectSearch extends React.PureComponent {
             className += ' is-searching';
         }
 
-        const showOptions = options.length > 0 && (focus || multiple);
-
         return (
             <Context.Provider value={this.theme}>
                 <div ref={this.parentRef} className={className}>
@@ -463,7 +461,7 @@ class SelectSearch extends React.PureComponent {
                         <Value ref={this.valueRef} {...valueProps} />
                     )}
 
-                    {showOptions && (
+                    {!disabled && (
                         <div className={this.theme.classes.select}>
                             <Options options={mappedOptions} />
                         </div>
