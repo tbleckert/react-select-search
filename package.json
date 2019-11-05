@@ -1,6 +1,6 @@
 {
   "name": "react-select-search",
-  "version": "1.0.0",
+  "version": "1.0.0-rc3",
   "description": "React powered selectbox with search",
   "main": "dist/esm/index.js",
   "scripts": {
@@ -54,6 +54,7 @@
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.16.0",
+    "fuse.js": "^3.4.5",
     "html-webpack-plugin": "^3.2.0",
     "jest": "^24.9.0",
     "prop-types": "^15.7.2",

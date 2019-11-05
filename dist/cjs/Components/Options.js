@@ -22,7 +22,9 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
 var Options = function Options(_ref) {
-  var options = _ref.options;
+  var options = _ref.options,
+      snapshot = _ref.snapshot,
+      onChange = _ref.onChange;
   var theme = (0, _react.useContext)(_Context.default);
   return _react.default.createElement("ul", {
     className: theme.classes.options,
@@ -30,13 +32,20 @@ var Options = function Options(_ref) {
   }, options.map(function (option) {
     var key = option.type === 'group' ? option.groupId : option.value;
     return _react.default.createElement(_Option.default, _extends({}, option, {
+      snapshot: snapshot,
+      onChange: onChange,
       key: key
     }));
   }));
 };
 
 Options.propTypes = {
-  options: _propTypes.default.arrayOf(_propTypes.default.object).isRequired
+  options: _propTypes.default.arrayOf(_propTypes.default.object).isRequired,
+  onChange: _propTypes.default.func.isRequired,
+  snapshot: _propTypes.default.shape({
+    value: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.arrayOf(_propTypes.default.string)]),
+    highlighted: _propTypes.default.number
+  }).isRequired
 };
 
 var _default = (0, _react.memo)(Options);

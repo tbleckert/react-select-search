@@ -7,24 +7,21 @@ import Group from './Group';
 
 var Option = function Option(props) {
   var type = props.type,
-      groupId = props.groupId,
       name = props.name,
-      optionProps = props.optionProps,
-      highlighted = props.highlighted,
-      selected = props.selected,
-      option = props.option,
+      value = props.value,
+      index = props.index,
       disabled = props.disabled,
-      focus = props.focus;
+      onChange = props.onChange,
+      snapshot = props.snapshot;
 
   if (type && type === 'group') {
-    return React.createElement(Group, _extends({}, props, {
-      name: name,
-      key: groupId
-    }));
+    return React.createElement(Group, props);
   }
 
   var ref = createRef();
   var theme = useContext(Context);
+  var highlighted = index === snapshot.highlighted;
+  var selected = Array.isArray(snapshot.value) && snapshot.value.indexOf(value) >= 0 || value === snapshot.value;
   var scrollConf = {
     behavior: 'auto',
     block: 'center'
@@ -34,19 +31,40 @@ var Option = function Option(props) {
     useEffect(function () {
       if (!selected) return;
       ref.current.scrollIntoView(scrollConf);
-    }, [selected, focus]);
+    }, [selected, snapshot.focus]);
   }
 
   useEffect(function () {
     if (!highlighted) return;
     ref.current.scrollIntoView(scrollConf);
   }, [highlighted]);
+  var optionClass = [theme.classes.option];
+
+  if (selected) {
+    optionClass.push('is-selected');
+  }
+
+  if (highlighted) {
+    optionClass.push('is-highlighted');
+  }
+
   var renderOption = theme.renderers.option;
-  var className = theme.classes.row;
   var optionSnapshot = {
     highlighted: highlighted,
     selected: selected
   };
+  var optionProps = {
+    disabled: disabled,
+    value: value,
+    className: optionClass.join(' '),
+    onClick: onChange,
+    tabIndex: -1,
+    role: 'menuitem',
+    'data-selected': selected ? 'true' : null,
+    'data-highlighted': highlighted ? 'true' : null,
+    key: value
+  };
+  var className = theme.classes.row;
 
   if (disabled) {
     className += ' is-disabled';
@@ -55,13 +73,15 @@ var Option = function Option(props) {
   if (typeof renderOption === 'function') {
     return React.createElement("li", {
       ref: ref,
+      key: value,
       role: "presentation",
       className: className
-    }, renderOption(optionProps, option, optionSnapshot));
+    }, renderOption(optionProps, props, optionSnapshot));
   }
 
   return React.createElement("li", {
     ref: ref,
+    key: value,
     role: "presentation",
     className: className
   }, React.createElement("button", _extends({}, optionProps, {
@@ -70,33 +90,26 @@ var Option = function Option(props) {
 };
 
 Option.defaultProps = {
-  groupId: null,
   type: null,
-  selected: false,
-  highlighted: false,
+  groupId: null,
   disabled: false,
-  items: [],
-  optionProps: null,
-  option: null
+  index: null,
+  value: null,
+  items: null
 };
 Option.propTypes = {
-  highlighted: PropTypes.bool,
-  selected: PropTypes.bool,
-  disabled: PropTypes.bool,
   name: PropTypes.string.isRequired,
-  optionProps: PropTypes.shape({
-    'data-selected': PropTypes.string,
-    role: PropTypes.string,
-    onClick: PropTypes.func,
-    className: PropTypes.string,
-    disabled: PropTypes.bool
-  }),
-  items: PropTypes.arrayOf(PropTypes.object),
-  groupId: PropTypes.string,
+  value: PropTypes.string,
   type: PropTypes.string,
-  option: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    value: PropTypes.string.isRequired
-  })
+  groupId: PropTypes.string,
+  items: PropTypes.arrayOf(PropTypes.object),
+  disabled: PropTypes.bool,
+  onChange: PropTypes.func.isRequired,
+  index: PropTypes.number,
+  snapshot: PropTypes.shape({
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
+    highlighted: PropTypes.number,
+    focus: PropTypes.bool
+  }).isRequired
 };
 export default memo(Option);

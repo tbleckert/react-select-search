@@ -23,24 +23,21 @@ function _extends() { _extends = Object.assign || function (target) { for (var i
 
 var Option = function Option(props) {
   var type = props.type,
-      groupId = props.groupId,
       name = props.name,
-      optionProps = props.optionProps,
-      highlighted = props.highlighted,
-      selected = props.selected,
-      option = props.option,
+      value = props.value,
+      index = props.index,
       disabled = props.disabled,
-      focus = props.focus;
+      onChange = props.onChange,
+      snapshot = props.snapshot;
 
   if (type && type === 'group') {
-    return _react.default.createElement(_Group.default, _extends({}, props, {
-      name: name,
-      key: groupId
-    }));
+    return _react.default.createElement(_Group.default, props);
   }
 
   var ref = (0, _react.createRef)();
   var theme = (0, _react.useContext)(_Context.default);
+  var highlighted = index === snapshot.highlighted;
+  var selected = Array.isArray(snapshot.value) && snapshot.value.indexOf(value) >= 0 || value === snapshot.value;
   var scrollConf = {
     behavior: 'auto',
     block: 'center'
@@ -50,19 +47,40 @@ var Option = function Option(props) {
     (0, _react.useEffect)(function () {
       if (!selected) return;
       ref.current.scrollIntoView(scrollConf);
-    }, [selected, focus]);
+    }, [selected, snapshot.focus]);
   }
 
   (0, _react.useEffect)(function () {
     if (!highlighted) return;
     ref.current.scrollIntoView(scrollConf);
   }, [highlighted]);
+  var optionClass = [theme.classes.option];
+
+  if (selected) {
+    optionClass.push('is-selected');
+  }
+
+  if (highlighted) {
+    optionClass.push('is-highlighted');
+  }
+
   var renderOption = theme.renderers.option;
-  var className = theme.classes.row;
   var optionSnapshot = {
     highlighted: highlighted,
     selected: selected
   };
+  var optionProps = {
+    disabled: disabled,
+    value: value,
+    className: optionClass.join(' '),
+    onClick: onChange,
+    tabIndex: -1,
+    role: 'menuitem',
+    'data-selected': selected ? 'true' : null,
+    'data-highlighted': highlighted ? 'true' : null,
+    key: value
+  };
+  var className = theme.classes.row;
 
   if (disabled) {
     className += ' is-disabled';
@@ -71,13 +89,15 @@ var Option = function Option(props) {
   if (typeof renderOption === 'function') {
     return _react.default.createElement("li", {
       ref: ref,
+      key: value,
       role: "presentation",
       className: className
-    }, renderOption(optionProps, option, optionSnapshot));
+    }, renderOption(optionProps, props, optionSnapshot));
   }
 
   return _react.default.createElement("li", {
     ref: ref,
+    key: value,
     role: "presentation",
     className: className
   }, _react.default.createElement("button", _extends({}, optionProps, {
@@ -86,34 +106,27 @@ var Option = function Option(props) {
 };
 
 Option.defaultProps = {
-  groupId: null,
   type: null,
-  selected: false,
-  highlighted: false,
+  groupId: null,
   disabled: false,
-  items: [],
-  optionProps: null,
-  option: null
+  index: null,
+  value: null,
+  items: null
 };
 Option.propTypes = {
-  highlighted: _propTypes.default.bool,
-  selected: _propTypes.default.bool,
-  disabled: _propTypes.default.bool,
   name: _propTypes.default.string.isRequired,
-  optionProps: _propTypes.default.shape({
-    'data-selected': _propTypes.default.string,
-    role: _propTypes.default.string,
-    onClick: _propTypes.default.func,
-    className: _propTypes.default.string,
-    disabled: _propTypes.default.bool
-  }),
-  items: _propTypes.default.arrayOf(_propTypes.default.object),
-  groupId: _propTypes.default.string,
+  value: _propTypes.default.string,
   type: _propTypes.default.string,
-  option: _propTypes.default.shape({
-    name: _propTypes.default.string.isRequired,
-    value: _propTypes.default.string.isRequired
-  })
+  groupId: _propTypes.default.string,
+  items: _propTypes.default.arrayOf(_propTypes.default.object),
+  disabled: _propTypes.default.bool,
+  onChange: _propTypes.default.func.isRequired,
+  index: _propTypes.default.number,
+  snapshot: _propTypes.default.shape({
+    value: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.arrayOf(_propTypes.default.string)]),
+    highlighted: _propTypes.default.number,
+    focus: _propTypes.default.bool
+  }).isRequired
 };
 
 var _default = (0, _react.memo)(Option);

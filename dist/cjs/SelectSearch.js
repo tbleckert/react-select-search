@@ -31,10 +31,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; if (obj != null) { var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
@@ -42,10 +38,6 @@ function _nonIterableRest() { throw new TypeError("Invalid attempt to destructur
 function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) { return; } var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -66,6 +58,17 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var Fuse = null;
+
+try {
+  // eslint-disable-next-line global-require
+  Fuse = require('fuse.js');
+} catch (e) {
+  if (process.env.NODE_ENV !== 'production') {
+    console.warn('React Select Search: Not using fuzzy search. Please install fuse.js to enable this feature.');
+  }
+}
 
 var SelectSearch =
 /*#__PURE__*/
@@ -96,6 +99,10 @@ function (_React$PureComponent) {
       _this.setState({
         focus: true
       });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "onOptionClick", function (e) {
+      return _this.onChange(e.currentTarget.value);
     });
 
     _defineProperty(_assertThisInitialized(_this), "onChange", function (value) {
@@ -281,52 +288,6 @@ function (_React$PureComponent) {
       });
     }
   }, {
-    key: "getOptionsForRender",
-    value: function getOptionsForRender() {
-      var _this3 = this;
-
-      var multiple = this.props.multiple;
-      var _this$state2 = this.state,
-          options = _this$state2.options,
-          focus = _this$state2.focus,
-          highlighted = _this$state2.highlighted;
-      var value = this.getValue();
-      var mappedOptions = options.map(function (option, i) {
-        var selected = multiple && Array.isArray(value) && value.indexOf(option.value) >= 0 || option.value === value;
-        var isHighlighted = i === highlighted;
-        var className = _this3.theme.classes.option;
-
-        if (isHighlighted) {
-          className += ' is-highlighted';
-        }
-
-        if (selected) {
-          className += ' is-selected';
-        }
-
-        return _objectSpread({}, option, {
-          option: option,
-          selected: selected,
-          focus: focus,
-          highlighted: isHighlighted,
-          disabled: option.disabled,
-          optionProps: {
-            className: className,
-            onClick: function onClick() {
-              return _this3.onChange(option.value);
-            },
-            tabIndex: -1,
-            role: 'menuitem',
-            'data-selected': selected ? 'true' : null,
-            'data-highlighted': highlighted ? 'true' : null,
-            disabled: _this3.props.disabled || option.disabled
-          },
-          key: "".concat(option.value, "-option")
-        });
-      });
-      return (0, _GroupOptions.default)(mappedOptions);
-    }
-  }, {
     key: "getValueProps",
     value: function getValueProps(value) {
       var _this$props2 = this.props,
@@ -334,10 +295,10 @@ function (_React$PureComponent) {
           autoComplete = _this$props2.autoComplete,
           disabled = _this$props2.disabled,
           multiple = _this$props2.multiple;
-      var _this$state3 = this.state,
-          focus = _this$state3.focus,
-          error = _this$state3.error,
-          searching = _this$state3.searching;
+      var _this$state2 = this.state,
+          focus = _this$state2.focus,
+          error = _this$state2.error,
+          searching = _this$state2.searching;
       var search = this.state.search;
       var val = value ? value.name : '';
 
@@ -393,27 +354,27 @@ function (_React$PureComponent) {
   }, {
     key: "search",
     value: function search() {
-      var _this4 = this;
+      var _this3 = this;
 
       if (this.searchPromise) {
         this.searchPromise.cancel();
       }
 
-      var _this$state4 = this.state,
-          defaultOptions = _this$state4.defaultOptions,
-          search = _this$state4.search;
+      var _this$state3 = this.state,
+          defaultOptions = _this$state3.defaultOptions,
+          search = _this$state3.search;
       var promise = this.getNewOptionsList(defaultOptions, (0, _toString.default)(search));
       this.searchPromise = (0, _cancelablePromise.default)(promise);
       this.setState({
         searching: true
       });
       this.searchPromise.promise.then(function (options) {
-        _this4.setState({
-          options: options,
+        _this3.setState({
+          options: (0, _GroupOptions.default)(options),
           searching: false
         });
       }).catch(function (error) {
-        _this4.setState({
+        _this3.setState({
           error: error,
           searching: false
         });
@@ -422,22 +383,22 @@ function (_React$PureComponent) {
   }, {
     key: "fuzzySearch",
     value: function fuzzySearch(options, value, fuseOptions) {
-      var _this5 = this;
+      var _this4 = this;
 
-      return new Promise(function (resolve, reject) {
-        if (_this5.props.fuse && options && options.length > 0 && value && value.length > 0) {
-          Promise.resolve().then(function () {
-            return _interopRequireWildcard(require('fuse.js'));
-          }).then(function (_ref) {
-            var Fuse = _ref.default;
-            var fuse = new Fuse(options, fuseOptions);
-            var newOptions = fuse.search(value).map(function (item, index) {
-              return Object.assign({}, item, {
-                index: index
-              });
+      return new Promise(function (resolve) {
+        if (!Fuse) {
+          resolve(options);
+          return;
+        }
+
+        if (_this4.props.fuse && options && options.length > 0 && value && value.length > 0) {
+          var fuse = new Fuse(options, fuseOptions);
+          var newOptions = fuse.search(value).map(function (item, index) {
+            return Object.assign({}, item, {
+              index: index
             });
-            resolve(newOptions);
-          }).catch(reject);
+          });
+          resolve(newOptions);
         } else {
           resolve(options);
         }
@@ -499,17 +460,24 @@ function (_React$PureComponent) {
   }, {
     key: "render",
     value: function render() {
-      var _this$state5 = this.state,
-          defaultOptions = _this$state5.defaultOptions,
-          focus = _this$state5.focus,
-          searching = _this$state5.searching;
+      var _this$state4 = this.state,
+          defaultOptions = _this$state4.defaultOptions,
+          focus = _this$state4.focus,
+          searching = _this$state4.searching,
+          options = _this$state4.options,
+          highlighted = _this$state4.highlighted;
       var _this$props3 = this.props,
           search = _this$props3.search,
           multiple = _this$props3.multiple,
           disabled = _this$props3.disabled;
-      var selectedOption = (0, _findByValue.default)(defaultOptions, this.getValue());
-      var mappedOptions = this.getOptionsForRender();
+      var value = this.getValue();
+      var selectedOption = (0, _findByValue.default)(defaultOptions, value);
       var valueProps = this.getValueProps(selectedOption);
+      var snapshot = {
+        value: value,
+        highlighted: highlighted,
+        focus: focus
+      };
       var className = this.theme.classes.main;
 
       if (search) {
@@ -542,7 +510,9 @@ function (_React$PureComponent) {
       }, valueProps)), !disabled && _react.default.createElement("div", {
         className: this.theme.classes.select
       }, _react.default.createElement(_Options.default, {
-        options: mappedOptions
+        options: options,
+        snapshot: snapshot,
+        onChange: this.onOptionClick
       }))));
     }
   }]);

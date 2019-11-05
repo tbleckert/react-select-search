@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Option from './Option';
 import Context from '../Context';
 
-const Options = ({ options }) => {
+const Options = ({ options, snapshot, onChange }) => {
     const theme = useContext(Context);
 
     return (
@@ -12,7 +12,7 @@ const Options = ({ options }) => {
                 const key = (option.type === 'group') ? option.groupId : option.value;
 
                 return (
-                    <Option {...option} key={key} />
+                    <Option {...option} snapshot={snapshot} onChange={onChange} key={key} />
                 );
             })}
         </ul>
@@ -21,6 +21,14 @@ const Options = ({ options }) => {
 
 Options.propTypes = {
     options: PropTypes.arrayOf(PropTypes.object).isRequired,
+    onChange: PropTypes.func.isRequired,
+    snapshot: PropTypes.shape({
+        value: PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.arrayOf(PropTypes.string),
+        ]),
+        highlighted: PropTypes.number,
+    }).isRequired,
 };
 
 export default memo(Options);

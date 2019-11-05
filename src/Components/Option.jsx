@@ -6,28 +6,28 @@ import Group from './Group';
 const Option = (props) => {
     const {
         type,
-        groupId,
         name,
-        optionProps,
-        highlighted,
-        selected,
-        option,
+        value,
+        index,
         disabled,
-        focus,
+        onChange,
+        snapshot,
     } = props;
 
     if (type && type === 'group') {
         return (
-            <Group
-                {...props}
-                name={name}
-                key={groupId}
-            />
+            <Group {...props} />
         );
     }
 
     const ref = createRef();
     const theme = useContext(Context);
+    const highlighted = index === snapshot.highlighted;
+    const selected = (
+        (Array.isArray(snapshot.value) && snapshot.value.indexOf(value) >= 0)
+        || value === snapshot.value
+    );
+
     const scrollConf = {
         behavior: 'auto',
         block: 'center',
@@ -37,7 +37,7 @@ const Option = (props) => {
         useEffect(() => {
             if (!selected) return;
             ref.current.scrollIntoView(scrollConf);
-        }, [selected, focus]);
+        }, [selected, snapshot.focus]);
     }
 
     useEffect(() => {
@@ -45,9 +45,31 @@ const Option = (props) => {
         ref.current.scrollIntoView(scrollConf);
     }, [highlighted]);
 
+    const optionClass = [theme.classes.option];
+
+    if (selected) {
+        optionClass.push('is-selected');
+    }
+
+    if (highlighted) {
+        optionClass.push('is-highlighted');
+    }
+
     const { option: renderOption } = theme.renderers;
-    let className = theme.classes.row;
     const optionSnapshot = { highlighted, selected };
+    const optionProps = {
+        disabled,
+        value,
+        className: optionClass.join(' '),
+        onClick: onChange,
+        tabIndex: -1,
+        role: 'menuitem',
+        'data-selected': (selected) ? 'true' : null,
+        'data-highlighted': (highlighted) ? 'true' : null,
+        key: value,
+    };
+
+    let className = theme.classes.row;
 
     if (disabled) {
         className += ' is-disabled';
@@ -55,14 +77,14 @@ const Option = (props) => {
 
     if (typeof renderOption === 'function') {
         return (
-            <li ref={ref} role="presentation" className={className}>
-                {renderOption(optionProps, option, optionSnapshot)}
+            <li ref={ref} key={value} role="presentation" className={className}>
+                {renderOption(optionProps, props, optionSnapshot)}
             </li>
         );
     }
 
     return (
-        <li ref={ref} role="presentation" className={className}>
+        <li ref={ref} key={value} role="presentation" className={className}>
             <button {...optionProps} type="button">
                 {name}
             </button>
@@ -71,35 +93,31 @@ const Option = (props) => {
 };
 
 Option.defaultProps = {
-    groupId: null,
     type: null,
-    selected: false,
-    highlighted: false,
+    groupId: null,
     disabled: false,
-    items: [],
-    optionProps: null,
-    option: null,
+    index: null,
+    value: null,
+    items: null,
 };
 
 Option.propTypes = {
-    highlighted: PropTypes.bool,
-    selected: PropTypes.bool,
-    disabled: PropTypes.bool,
     name: PropTypes.string.isRequired,
-    optionProps: PropTypes.shape({
-        'data-selected': PropTypes.string,
-        role: PropTypes.string,
-        onClick: PropTypes.func,
-        className: PropTypes.string,
-        disabled: PropTypes.bool,
-    }),
-    items: PropTypes.arrayOf(PropTypes.object),
-    groupId: PropTypes.string,
+    value: PropTypes.string,
     type: PropTypes.string,
-    option: PropTypes.shape({
-        name: PropTypes.string.isRequired,
-        value: PropTypes.string.isRequired,
-    }),
+    groupId: PropTypes.string,
+    items: PropTypes.arrayOf(PropTypes.object),
+    disabled: PropTypes.bool,
+    onChange: PropTypes.func.isRequired,
+    index: PropTypes.number,
+    snapshot: PropTypes.shape({
+        value: PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.arrayOf(PropTypes.string),
+        ]),
+        highlighted: PropTypes.number,
+        focus: PropTypes.bool,
+    }).isRequired,
 };
 
 export default memo(Option);

@@ -23,6 +23,8 @@ var Group = function Group(props) {
   var theme = (0, _react.useContext)(_Context.default);
   var className = "".concat(theme.classes.row, " ").concat(theme.classes.row, "--group");
   var render = theme.renderers.groupHeader;
+  var onChange = props.onChange,
+      snapshot = props.snapshot;
   var name = props.name;
 
   if (typeof render === 'function') {
@@ -38,14 +40,21 @@ var Group = function Group(props) {
   }, _react.default.createElement("div", {
     className: theme.classes.groupHeader
   }, name), _react.default.createElement(_Options.default, {
-    options: props.items
+    options: props.items,
+    onChange: onChange,
+    snapshot: snapshot
   })));
 };
 
 Group.propTypes = {
   groupId: _propTypes.default.string.isRequired,
   name: _propTypes.default.string.isRequired,
-  items: _propTypes.default.arrayOf(_propTypes.default.object).isRequired
+  items: _propTypes.default.arrayOf(_propTypes.default.object).isRequired,
+  onChange: _propTypes.default.func.isRequired,
+  snapshot: _propTypes.default.shape({
+    value: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.arrayOf(_propTypes.default.string)]),
+    highlighted: _propTypes.default.number
+  }).isRequired
 };
 
 var _default = (0, _react.memo)(Group);

@@ -18,12 +18,16 @@
     <a href="https://www.npmjs.com/package/react-select-search">
         <img src="https://img.shields.io/npm/dm/react-select-search.svg" style="max-width:100%;" />
     </a>
+    <a href="https://bundlephobia.com/result?p=react-select-search@next">
+      <img src="https://badgen.net/bundlephobia/minzip/react-select-search@next" />
+    </a>
     <a href="https://beerpay.io/tbleckert/react-select-search">
       <img src="https://beerpay.io/tbleckert/react-select-search/badge.svg?style=flat" />
     </a>
 </p>
 
 ## Features
+* Lightweight, with zero dependencies*
 * Full test coverage
 * Accessible
 * Basic HTML select functionality, including multiple
@@ -32,6 +36,8 @@
 * Keyboard support
 * Group options with group names, you can search group names
 * Fully stylable
+
+_*One optional dependency required for built-in fuzzy search_
 
 ## Demo
 

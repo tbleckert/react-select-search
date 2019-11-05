@@ -10,6 +10,17 @@ import Value from './Components/Value';
 import Options from './Components/Options';
 import Context from './Context';
 
+let Fuse = null;
+
+try {
+    // eslint-disable-next-line global-require
+    Fuse = require('fuse.js');
+} catch (e) {
+    if (process.env.NODE_ENV !== 'production') {
+        console.warn('React Select Search: Not using fuzzy search. Please install fuse.js to enable this feature.');
+    }
+}
+
 class SelectSearch extends React.PureComponent {
     static defaultProps = {
         search: false,
@@ -131,6 +142,8 @@ class SelectSearch extends React.PureComponent {
         this.setState({ focus: true });
     };
 
+    onOptionClick = e => this.onChange(e.currentTarget.value);
+
     onChange = (value) => {
         let currentValue = this.getValue().slice();
         let option;
@@ -228,55 +241,6 @@ class SelectSearch extends React.PureComponent {
         });
     }
 
-    getOptionsForRender() {
-        const { multiple } = this.props;
-        const {
-            options,
-            focus,
-            highlighted,
-        } = this.state;
-        const value = this.getValue();
-
-        const mappedOptions = options.map((option, i) => {
-            const selected = (
-                (multiple && Array.isArray(value) && value.indexOf(option.value) >= 0)
-                || option.value === value
-            );
-
-            const isHighlighted = i === highlighted;
-            let className = this.theme.classes.option;
-
-            if (isHighlighted) {
-                className += ' is-highlighted';
-            }
-
-            if (selected) {
-                className += ' is-selected';
-            }
-
-            return {
-                ...option,
-                option,
-                selected,
-                focus,
-                highlighted: isHighlighted,
-                disabled: option.disabled,
-                optionProps: {
-                    className,
-                    onClick: () => this.onChange(option.value),
-                    tabIndex: -1,
-                    role: 'menuitem',
-                    'data-selected': (selected) ? 'true' : null,
-                    'data-highlighted': (highlighted) ? 'true' : null,
-                    disabled: this.props.disabled || option.disabled,
-                },
-                key: `${option.value}-option`,
-            };
-        });
-
-        return GroupOptions(mappedOptions);
-    }
-
     getValueProps(value) {
         const {
             search: searchEnabled,
@@ -348,23 +312,30 @@ class SelectSearch extends React.PureComponent {
         this.setState({ searching: true });
 
         this.searchPromise.promise.then((options) => {
-            this.setState({ options, searching: false });
+            this.setState({
+                options: GroupOptions(options),
+                searching: false,
+            });
         }).catch((error) => {
             this.setState({ error, searching: false });
         });
     }
 
     fuzzySearch(options, value, fuseOptions) {
-        return new Promise((resolve, reject) => {
-            if (this.props.fuse && options && options.length > 0 && value && value.length > 0) {
-                import('fuse.js').then(({ default: Fuse }) => {
-                    const fuse = new Fuse(options, fuseOptions);
-                    const newOptions = fuse
-                        .search(value)
-                        .map((item, index) => Object.assign({}, item, { index }));
+        return new Promise((resolve) => {
+            if (!Fuse) {
+                resolve(options);
 
-                    resolve(newOptions);
-                }).catch(reject);
+                return;
+            }
+
+            if (this.props.fuse && options && options.length > 0 && value && value.length > 0) {
+                const fuse = new Fuse(options, fuseOptions);
+                const newOptions = fuse
+                    .search(value)
+                    .map((item, index) => Object.assign({}, item, { index }));
+
+                resolve(newOptions);
             } else {
                 resolve(options);
             }
@@ -422,6 +393,8 @@ class SelectSearch extends React.PureComponent {
             defaultOptions,
             focus,
             searching,
+            options,
+            highlighted,
         } = this.state;
 
         const {
@@ -429,9 +402,16 @@ class SelectSearch extends React.PureComponent {
             multiple,
             disabled,
         } = this.props;
-        const selectedOption = findByValue(defaultOptions, this.getValue());
-        const mappedOptions = this.getOptionsForRender();
+
+        const value = this.getValue();
+        const selectedOption = findByValue(defaultOptions, value);
         const valueProps = this.getValueProps(selectedOption);
+        const snapshot = {
+            value,
+            highlighted,
+            focus,
+        };
+
         let className = this.theme.classes.main;
 
         if (search) {
@@ -463,7 +443,11 @@ class SelectSearch extends React.PureComponent {
 
                     {!disabled && (
                         <div className={this.theme.classes.select}>
-                            <Options options={mappedOptions} />
+                            <Options
+                                options={options}
+                                snapshot={snapshot}
+                                onChange={this.onOptionClick}
+                            />
                         </div>
                     )}
                 </div>
