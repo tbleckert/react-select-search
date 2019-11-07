@@ -18,7 +18,7 @@ describe('Test Option component', () => {
     test('Renders element', () => {
         const wrapper = mount((
             <Context.Provider value={theme}>
-                <Option name="Helvetica" value="helvetica" optionProps={{ className: classes.option }} />
+                <Option name="Helvetica" value="helvetica" snapshot={{}} />
             </Context.Provider>
         ));
 
@@ -42,7 +42,7 @@ describe('Test Option component', () => {
         const mockCallback = jest.fn();
         const wrapper = mount((
             <Context.Provider value={theme}>
-                <Option name="Helvetica" value="helvetica" optionProps={{ className: classes.option, onClick: mockCallback }} />
+                <Option name="Helvetica" value="helvetica" onChange={mockCallback} snapshot={{}} />
             </Context.Provider>
         ));
 
@@ -57,7 +57,7 @@ describe('Test Option component', () => {
         const mockCallback = jest.fn();
         const wrapper = mount((
             <Context.Provider value={theme}>
-                <Option name="Helvetica" value="helvetica" optionProps={{ className: classes.option, onClick: mockCallback, disabled: true }} />
+                <Option name="Helvetica" value="helvetica" disabled={true} snapshot={{ highlighted: null }} />
             </Context.Provider>
         ));
 
@@ -83,7 +83,7 @@ describe('Test Option component', () => {
         const option = { name: 'Helvetica', value: 'helvetica' };
         const wrapper = mount((
             <Context.Provider value={themeWithRenderer}>
-                <Option {...option} option={option} optionProps={{ className: classes.option }} />
+                <Option {...option} option={option} snapshot={{ highlighted: false, value: null }} />
             </Context.Provider>
         ));
 

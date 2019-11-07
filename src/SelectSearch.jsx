@@ -16,6 +16,7 @@ try {
     // eslint-disable-next-line global-require
     Fuse = require('fuse.js');
 } catch (e) {
+    /* istanbul ignore next */
     if (process.env.NODE_ENV !== 'production') {
         console.warn('React Select Search: Not using fuzzy search. Please install fuse.js to enable this feature.');
     }
@@ -323,22 +324,18 @@ class SelectSearch extends React.PureComponent {
 
     fuzzySearch(options, value, fuseOptions) {
         return new Promise((resolve) => {
-            if (!Fuse) {
-                resolve(options);
-
-                return;
-            }
-
-            if (this.props.fuse && options && options.length > 0 && value && value.length > 0) {
+            if (Fuse && this.props.fuse && options.length > 0 && value && value.length > 0) {
                 const fuse = new Fuse(options, fuseOptions);
                 const newOptions = fuse
                     .search(value)
                     .map((item, index) => Object.assign({}, item, { index }));
 
                 resolve(newOptions);
-            } else {
-                resolve(options);
+
+                return;
             }
+
+            resolve(options);
         });
     }
 

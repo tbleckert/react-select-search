@@ -65,6 +65,7 @@ try {
   // eslint-disable-next-line global-require
   Fuse = require('fuse.js');
 } catch (e) {
+  /* istanbul ignore next */
   if (process.env.NODE_ENV !== 'production') {
     console.warn('React Select Search: Not using fuzzy search. Please install fuse.js to enable this feature.');
   }
@@ -386,12 +387,7 @@ function (_React$PureComponent) {
       var _this4 = this;
 
       return new Promise(function (resolve) {
-        if (!Fuse) {
-          resolve(options);
-          return;
-        }
-
-        if (_this4.props.fuse && options && options.length > 0 && value && value.length > 0) {
+        if (Fuse && _this4.props.fuse && options.length > 0 && value && value.length > 0) {
           var fuse = new Fuse(options, fuseOptions);
           var newOptions = fuse.search(value).map(function (item, index) {
             return Object.assign({}, item, {
@@ -399,9 +395,10 @@ function (_React$PureComponent) {
             });
           });
           resolve(newOptions);
-        } else {
-          resolve(options);
+          return;
         }
+
+        resolve(options);
       });
     }
   }, {

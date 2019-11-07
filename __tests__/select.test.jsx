@@ -151,7 +151,7 @@ describe('Test select component', () => {
 
             expect(wrapper.state('focus')).toBe(true);
             expect(wrapper.state('value')).toBe('');
-            expect(wrapper.find(Option).at(10).find('li').hasClass('is-disabled')).toBe(true);
+            expect(wrapper.find(Option).at(10).find('button').hasClass('is-disabled')).toBe(true);
 
             done();
         });

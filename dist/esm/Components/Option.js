@@ -1,94 +1,134 @@
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
-import React, { useContext, memo, useEffect, createRef } from 'react';
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+import React, { createRef } from 'react';
 import PropTypes from 'prop-types';
 import Context from '../Context';
 import Group from './Group';
 
-var Option = function Option(props) {
-  var type = props.type,
-      name = props.name,
-      value = props.value,
-      index = props.index,
-      disabled = props.disabled,
-      onChange = props.onChange,
-      snapshot = props.snapshot;
+var Option =
+/*#__PURE__*/
+function (_React$PureComponent) {
+  _inherits(Option, _React$PureComponent);
 
-  if (type && type === 'group') {
-    return React.createElement(Group, props);
+  function Option(props) {
+    var _this;
+
+    _classCallCheck(this, Option);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Option).call(this, props));
+    _this.ref = createRef();
+    return _this;
   }
 
-  var ref = createRef();
-  var theme = useContext(Context);
-  var highlighted = index === snapshot.highlighted;
-  var selected = Array.isArray(snapshot.value) && snapshot.value.indexOf(value) >= 0 || value === snapshot.value;
-  var scrollConf = {
-    behavior: 'auto',
-    block: 'center'
-  };
+  _createClass(Option, [{
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps) {
+      var _this2 = this;
 
-  if (!theme.multiple) {
-    useEffect(function () {
-      if (!selected) return;
-      ref.current.scrollIntoView(scrollConf);
-    }, [selected, snapshot.focus]);
-  }
+      var prevSnap = prevProps.snapshot;
+      var prevFocus = prevSnap.focus;
+      var _this$props = this.props,
+          snapshot = _this$props.snapshot,
+          value = _this$props.value,
+          index = _this$props.index;
+      var focus = snapshot.focus,
+          highlighted = snapshot.highlighted;
+      var scrollConf = {
+        behavior: 'auto',
+        block: 'center'
+      };
+      setImmediate(function () {
+        if (focus) {
+          var selected = Array.isArray(snapshot.value) && snapshot.value.indexOf(value) >= 0 || value === snapshot.value;
+          var isHighlighted = index === highlighted;
+          var prevIsHighlighted = index === prevSnap.highlighted;
 
-  useEffect(function () {
-    if (!highlighted) return;
-    ref.current.scrollIntoView(scrollConf);
-  }, [highlighted]);
-  var optionClass = [theme.classes.option];
+          if (isHighlighted && isHighlighted !== prevIsHighlighted || selected && focus !== prevFocus) {
+            _this2.ref.current.scrollIntoView(scrollConf);
+          }
+        }
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      if (this.props.type === 'group') {
+        return React.createElement(Group, this.props);
+      }
 
-  if (selected) {
-    optionClass.push('is-selected');
-  }
+      var _this$props2 = this.props,
+          name = _this$props2.name,
+          value = _this$props2.value,
+          index = _this$props2.index,
+          disabled = _this$props2.disabled,
+          onChange = _this$props2.onChange,
+          snapshot = _this$props2.snapshot;
+      var optionClass = [this.context.classes.option];
+      var renderOption = this.context.renderers.option;
+      var highlighted = index === snapshot.highlighted;
+      var selected = Array.isArray(snapshot.value) && snapshot.value.indexOf(value) >= 0 || value === snapshot.value;
 
-  if (highlighted) {
-    optionClass.push('is-highlighted');
-  }
+      if (selected) {
+        optionClass.push('is-selected');
+      }
 
-  var renderOption = theme.renderers.option;
-  var optionSnapshot = {
-    highlighted: highlighted,
-    selected: selected
-  };
-  var optionProps = {
-    disabled: disabled,
-    value: value,
-    className: optionClass.join(' '),
-    onClick: onChange,
-    tabIndex: -1,
-    role: 'menuitem',
-    'data-selected': selected ? 'true' : null,
-    'data-highlighted': highlighted ? 'true' : null,
-    key: value
-  };
-  var className = theme.classes.row;
+      if (highlighted) {
+        optionClass.push('is-highlighted');
+      }
 
-  if (disabled) {
-    className += ' is-disabled';
-  }
+      if (disabled) {
+        optionClass.push('is-disabled');
+      }
 
-  if (typeof renderOption === 'function') {
-    return React.createElement("li", {
-      ref: ref,
-      key: value,
-      role: "presentation",
-      className: className
-    }, renderOption(optionProps, props, optionSnapshot));
-  }
+      var optionSnapshot = {
+        highlighted: highlighted,
+        selected: selected
+      };
+      var optionProps = {
+        disabled: disabled,
+        value: value,
+        className: optionClass.join(' '),
+        onClick: onChange,
+        tabIndex: -1,
+        role: 'menuitem',
+        'data-selected': selected ? 'true' : null,
+        'data-highlighted': highlighted ? 'true' : null,
+        key: value
+      };
+      var content = typeof renderOption === 'function' ? renderOption(optionProps, this.props, optionSnapshot) : React.createElement("button", _extends({}, optionProps, {
+        type: "button"
+      }), name);
+      return React.createElement("li", {
+        ref: this.ref,
+        key: value,
+        role: "presentation",
+        className: this.context.classes.row
+      }, content);
+    }
+  }]);
 
-  return React.createElement("li", {
-    ref: ref,
-    key: value,
-    role: "presentation",
-    className: className
-  }, React.createElement("button", _extends({}, optionProps, {
-    type: "button"
-  }), name));
-};
+  return Option;
+}(React.PureComponent);
 
+Option.contextType = Context;
 Option.defaultProps = {
   type: null,
   groupId: null,
@@ -112,4 +152,4 @@ Option.propTypes = {
     focus: PropTypes.bool
   }).isRequired
 };
-export default memo(Option);
+export default Option;

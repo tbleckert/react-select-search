@@ -41,7 +41,7 @@ describe('Test Options component', () => {
 
         const wrapper = mount((
             <Context.Provider value={theme}>
-                <Options options={groupedOptions} />
+                <Options options={groupedOptions} snapshot={{}} />
             </Context.Provider>
         ));
 

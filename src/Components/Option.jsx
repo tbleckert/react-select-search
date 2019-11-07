@@ -1,96 +1,106 @@
-import React, { useContext, memo, useEffect, createRef } from 'react';
+import React, { createRef } from 'react';
 import PropTypes from 'prop-types';
 import Context from '../Context';
 import Group from './Group';
 
-const Option = (props) => {
-    const {
-        type,
-        name,
-        value,
-        index,
-        disabled,
-        onChange,
-        snapshot,
-    } = props;
+class Option extends React.PureComponent {
+    constructor(props) {
+        super(props);
 
-    if (type && type === 'group') {
-        return (
-            <Group {...props} />
+        this.ref = createRef();
+    }
+
+    componentDidUpdate(prevProps) {
+        const prevSnap = prevProps.snapshot;
+        const prevFocus = prevSnap.focus;
+        const { snapshot, value, index } = this.props;
+        const { focus, highlighted } = snapshot;
+        const scrollConf = { behavior: 'auto', block: 'center' };
+
+        setImmediate(() => {
+            if (focus) {
+                const selected = (
+                    (Array.isArray(snapshot.value) && snapshot.value.indexOf(value) >= 0)
+                    || value === snapshot.value
+                );
+
+                const isHighlighted = index === highlighted;
+                const prevIsHighlighted = index === prevSnap.highlighted;
+
+                if (
+                    (isHighlighted && isHighlighted !== prevIsHighlighted)
+                    || (selected && focus !== prevFocus)
+                ) {
+                    this.ref.current.scrollIntoView(scrollConf);
+                }
+            }
+        });
+    }
+
+    render() {
+        if (this.props.type === 'group') {
+            return <Group {...this.props} />;
+        }
+
+        const {
+            name,
+            value,
+            index,
+            disabled,
+            onChange,
+            snapshot,
+        } = this.props;
+
+        const optionClass = [this.context.classes.option];
+        const { option: renderOption } = this.context.renderers;
+        const highlighted = index === snapshot.highlighted;
+        const selected = (
+            (Array.isArray(snapshot.value) && snapshot.value.indexOf(value) >= 0)
+            || value === snapshot.value
         );
-    }
 
-    const ref = createRef();
-    const theme = useContext(Context);
-    const highlighted = index === snapshot.highlighted;
-    const selected = (
-        (Array.isArray(snapshot.value) && snapshot.value.indexOf(value) >= 0)
-        || value === snapshot.value
-    );
+        if (selected) {
+            optionClass.push('is-selected');
+        }
 
-    const scrollConf = {
-        behavior: 'auto',
-        block: 'center',
-    };
+        if (highlighted) {
+            optionClass.push('is-highlighted');
+        }
 
-    if (!theme.multiple) {
-        useEffect(() => {
-            if (!selected) return;
-            ref.current.scrollIntoView(scrollConf);
-        }, [selected, snapshot.focus]);
-    }
+        if (disabled) {
+            optionClass.push('is-disabled');
+        }
 
-    useEffect(() => {
-        if (!highlighted) return;
-        ref.current.scrollIntoView(scrollConf);
-    }, [highlighted]);
+        const optionSnapshot = { highlighted, selected };
+        const optionProps = {
+            disabled,
+            value,
+            className: optionClass.join(' '),
+            onClick: onChange,
+            tabIndex: -1,
+            role: 'menuitem',
+            'data-selected': (selected) ? 'true' : null,
+            'data-highlighted': (highlighted) ? 'true' : null,
+            key: value,
+        };
 
-    const optionClass = [theme.classes.option];
+        const content = (typeof renderOption === 'function') ?
+            renderOption(optionProps, this.props, optionSnapshot) :
+            (
+                <button {...optionProps} type="button">
+                    {name}
+                </button>
+            );
 
-    if (selected) {
-        optionClass.push('is-selected');
-    }
-
-    if (highlighted) {
-        optionClass.push('is-highlighted');
-    }
-
-    const { option: renderOption } = theme.renderers;
-    const optionSnapshot = { highlighted, selected };
-    const optionProps = {
-        disabled,
-        value,
-        className: optionClass.join(' '),
-        onClick: onChange,
-        tabIndex: -1,
-        role: 'menuitem',
-        'data-selected': (selected) ? 'true' : null,
-        'data-highlighted': (highlighted) ? 'true' : null,
-        key: value,
-    };
-
-    let className = theme.classes.row;
-
-    if (disabled) {
-        className += ' is-disabled';
-    }
-
-    if (typeof renderOption === 'function') {
         return (
-            <li ref={ref} key={value} role="presentation" className={className}>
-                {renderOption(optionProps, props, optionSnapshot)}
+            <li ref={this.ref} key={value} role="presentation" className={this.context.classes.row}>
+                {content}
             </li>
         );
     }
+}
 
-    return (
-        <li ref={ref} key={value} role="presentation" className={className}>
-            <button {...optionProps} type="button">
-                {name}
-            </button>
-        </li>
-    );
-};
+Option.contextType = Context;
 
 Option.defaultProps = {
     type: null,
@@ -120,4 +130,4 @@ Option.propTypes = {
     }).isRequired,
 };
 
-export default memo(Option);
+export default Option;
