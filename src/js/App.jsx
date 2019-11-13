@@ -207,7 +207,7 @@ class App extends React.PureComponent {
                         </p>
                         <div className="section__content">
                             <SelectSearch
-                                className="select-search-box"
+                                className="select-search-box select-search-box--emoji"
                                 value={emoji}
                                 search
                                 placeholder="Choose your favorite emoji"

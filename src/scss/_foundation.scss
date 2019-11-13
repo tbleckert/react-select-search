@@ -26,9 +26,13 @@ ul {
 h1 {
     color: var(--headline-color);
     font-family: var(--headline-font);
-    font-size: 80px;
+    font-size: 48px;
     font-weight: 900;
     line-height: 1;
+
+    @media screen and (min-width: 47.9375rem) {
+        font-size: 80px;
+    }
 }
 
 p {

@@ -1,7 +1,7 @@
 .select-search-box {
     $root: &;
 
-    width: 400px;
+    max-width: 25rem;
     position: relative;
     margin-top: 20px;
     font-family: 'Nunito Sans', sans-serif;
@@ -34,22 +34,23 @@
     &--emoji {
         #{$root}__options {
             display: flex;
-            width: 402px;
+            max-width: 25.0625rem;
             flex-wrap: wrap;
-            border: none;
-            border-right: 1px solid var(--border-color);
-            border-bottom: 1px solid var(--border-color);
         }
 
         #{$root}__row {
-            flex: 0 0 50px;
-            width: 50px;
-            height: 50px;
-            border-top: 1px solid var(--border-color);
-            border-left: 1px solid var(--border-color);
+            position: relative;
+            flex: 0 0 12.5%;
+            width: 12.5%;
+            height: 0;
+            padding-top: 12.5%;
+            border: none !important;
         }
 
         #{$root}__option {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
             padding: 0;
@@ -96,11 +97,11 @@
         padding: 0 1rem;
         background: var(--background);
         border: 1px solid var(--border-color);
-        box-shadow: 0 .0625rem .125rem rgba(0, 0, 0, 0.15);
-        border-radius: .1875rem;
+        box-shadow: 0 0.0625rem 0.125rem rgba(0, 0, 0, 0.15);
+        border-radius: 0.1875rem;
         outline: none;
         font-family: 'Nunito Sans', sans-serif;
-        font-size: 16px;
+        font-size: 1rem;
         color: var(--text-color);
         -webkit-appearance: none;
 
@@ -126,11 +127,16 @@
         }
 
         #{$root}--emoji & {
-            width: 50px;
-            transition: 0.3s width;
+            width: 3.125rem;
+            padding: 0;
+            transition: 0.3s width, 0.3s padding;
+            text-align: center;
 
             &:focus {
-                width: 400px;
+                width: 100%;
+                max-width: 25rem;
+                padding: 0 1rem;
+                text-align: left;
             }
         }
     }
@@ -138,6 +144,9 @@
     &__select {
         display: none;
         margin-bottom: 2rem;
+        background:  var(--background);
+        border: 1px solid var(--border-color);
+        box-shadow: 0 .0625rem .125rem rgba(0, 0, 0, 0.15);
 
         .has-focus &,
         #{$root}--multiple & {
@@ -147,9 +156,6 @@
 
     &__options {
         list-style: none;
-        background:  var(--background);
-        border: 1px solid var(--border-color);
-        box-shadow: 0 .0625rem .125rem rgba(0, 0, 0, 0.15);
     }
 
     &__row:not(:first-child) {
@@ -179,6 +185,13 @@
                 border-top-color: var(--highlight-color);
             }
         }
+
+        &:not(.is-selected) {
+            &:hover,
+            &.is-highlighted {
+                background: var(--subtle);
+            }
+        }
     }
 
     &__group-header {
@@ -186,5 +199,6 @@
         font-size: 0.625rem;
         text-transform: uppercase;
         padding: 0.5rem 1rem;
+        border-bottom: 1px solid var(--border-color);
     }
 }
