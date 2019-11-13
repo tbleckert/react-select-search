@@ -8,6 +8,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 var classes = {
   main: null,
+  modifier: null,
   value: 'value',
   input: 'input',
   select: 'select',
@@ -18,9 +19,19 @@ var classes = {
   groupHeader: 'group-header'
 };
 
-function e(baseClass, className) {
-  if (className === null) {
-    return baseClass;
+function e(baseClass, className, key) {
+  if (key === 'main') {
+    return baseClass.split(' ')[0].trim();
+  }
+
+  if (key === 'modifier') {
+    var classNames = baseClass.split(' ');
+
+    if (classNames.length > 1) {
+      return classNames[1].trim();
+    }
+
+    return '';
   }
 
   return "".concat(baseClass.split(' ')[0].trim(), "__").concat(className);
@@ -34,7 +45,7 @@ export default function createClasses(baseClass) {
         key = _ref2[0],
         cls = _ref2[1];
 
-    return [key, e(baseClass, cls)];
+    return [key, e(baseClass, cls, key)];
   }).forEach(function (_ref3) {
     var _ref4 = _slicedToArray(_ref3, 2),
         key = _ref4[0],

@@ -4,6 +4,7 @@ describe('Create classes', () => {
     const baseClass = 'react-select-search-test';
     const expectedClasses = {
         main: `${baseClass}`,
+        modifier: 'friends',
         value: `${baseClass}__value`,
         input: `${baseClass}__input`,
         select: `${baseClass}__select`,
@@ -15,7 +16,7 @@ describe('Create classes', () => {
     };
 
     test('Should return expected object of class names', () => {
-        const classNames = createClasses(baseClass);
+        const classNames = createClasses(`${baseClass} friends`);
 
         expect(classNames).toEqual(expectedClasses);
     });

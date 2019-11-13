@@ -475,7 +475,7 @@ function (_React$PureComponent) {
         highlighted: highlighted,
         focus: focus
       };
-      var className = this.theme.classes.main;
+      var className = "".concat(this.theme.classes.main, " ").concat(this.theme.classes.modifier);
 
       if (search) {
         className += " ".concat(this.theme.classes.main, "--search");
@@ -502,7 +502,8 @@ function (_React$PureComponent) {
       }, _react.default.createElement("div", {
         ref: this.parentRef,
         className: className
-      }, (search || !multiple) && _react.default.createElement(_Value.default, _extends({
+      }, (search || !multiple) && // eslint-disable-next-line react/jsx-props-no-spreading
+      _react.default.createElement(_Value.default, _extends({
         ref: this.valueRef
       }, valueProps)), !disabled && _react.default.createElement("div", {
         className: this.theme.classes.select

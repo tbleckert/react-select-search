@@ -409,7 +409,7 @@ class SelectSearch extends React.PureComponent {
             focus,
         };
 
-        let className = this.theme.classes.main;
+        let className = `${this.theme.classes.main} ${this.theme.classes.modifier}`;
 
         if (search) {
             className += ` ${this.theme.classes.main}--search`;
@@ -435,6 +435,7 @@ class SelectSearch extends React.PureComponent {
             <Context.Provider value={this.theme}>
                 <div ref={this.parentRef} className={className}>
                     {(search || !multiple) && (
+                        // eslint-disable-next-line react/jsx-props-no-spreading
                         <Value ref={this.valueRef} {...valueProps} />
                     )}
 

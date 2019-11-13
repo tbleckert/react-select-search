@@ -99,6 +99,7 @@ class App extends React.PureComponent {
                 <SelectSearch
                     name="friends"
                     multiple
+                    className="select-search-box select-search-box--friends"
                     value={this.state.friends}
                     onChange={this.updateFriends}
                     options={friends}
