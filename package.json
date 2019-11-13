@@ -1,16 +1,47 @@
 {
   "private": true,
+  "scripts": {
+    "start": "npm run dev",
+    "dev": "NODE_ENV=development webpack-dev-server",
+    "build": "NODE_ENV=production webpack --mode production"
+  },
   "devDependencies": {
-    "@babel/preset-react": "^7.0.0",
-    "laravel-mix": "^4.0.14",
-    "vue-template-compiler": "^2.6.3"
+    "@babel/core": "^7.7.2",
+    "@babel/plugin-proposal-class-properties": "^7.7.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.6.2",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+    "@babel/preset-env": "^7.7.1",
+    "@babel/preset-react": "^7.7.0",
+    "babel-eslint": "^10.0.3",
+    "babel-loader": "^8.0.6",
+    "copy-webpack-plugin": "^5.0.5",
+    "core-js": "^3.4.1",
+    "css-loader": "^3.2.0",
+    "eslint": "^6.6.0",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-loader": "^3.0.2",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.16.0",
+    "html-webpack-plugin": "^3.2.0",
+    "mini-css-extract-plugin": "^0.8.0",
+    "node-sass": "^4.13.0",
+    "optimize-css-assets-webpack-plugin": "^5.0.3",
+    "sass-loader": "^8.0.0",
+    "source-map-loader": "^0.2.4",
+    "style-loader": "^1.0.0",
+    "terser-webpack-plugin": "^2.2.1",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.9.0"
   },
   "dependencies": {
     "babel-core": "^6.26.3",
+    "emojilib": "^2.4.0",
     "fuse.js": "^3.2.0",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
-    "react-onclickoutside": "^6.7.1",
-    "react-select-search": "^0.9.5"
+    "react-select-search": "^1.0.0-rc4",
+    "webfontloader": "^1.6.28"
   }
 }

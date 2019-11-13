@@ -1,0 +1,190 @@
+.select-search-box {
+    $root: &;
+
+    width: 400px;
+    position: relative;
+    margin-top: 20px;
+    font-family: 'Nunito Sans', sans-serif;
+
+    &.is-disabled {
+        opacity: 0.5;
+    }
+
+    &:not(.is-disabled) {
+        #{$root}__input {
+            cursor: pointer;
+        }
+    }
+
+    &:not(&--multiple) {
+        #{$root}__select {
+            position: absolute;
+            z-index: 2;
+            top: 56px;
+            right: 0;
+            left: 0;
+        }
+
+        #{$root}__options {
+            overflow: auto;
+            max-height: 360px;
+        }
+    }
+
+    &--emoji {
+        #{$root}__options {
+            display: flex;
+            width: 402px;
+            flex-wrap: wrap;
+            border: none;
+            border-right: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        #{$root}__row {
+            flex: 0 0 50px;
+            width: 50px;
+            height: 50px;
+            border-top: 1px solid var(--border-color);
+            border-left: 1px solid var(--border-color);
+        }
+
+        #{$root}__option {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+
+    &__value {
+        position: relative;
+
+        #{$root}:not(#{$root}--emoji) & {
+            &::after {
+                content: '';
+                display: inline-block;
+                position: absolute;
+                top: calc(50% - 9px);
+                right: 19px;
+                width: 11px;
+                height: 11px;
+                transform: rotate(45deg);
+                border-right: .0625rem solid var(--text-color);
+                border-bottom: .0625rem solid var(--text-color);
+                pointer-events: none;
+            }
+        }
+
+        span {
+            display: flex;
+            align-items: center;
+
+            span {
+                font-size: 0.75rem;
+                white-space: nowrap;
+            }
+        }
+    }
+
+    &__input {
+        display: block;
+        height: 46px;
+        width: 100%;
+        padding: 0 1rem;
+        background: var(--background);
+        border: 1px solid var(--border-color);
+        box-shadow: 0 .0625rem .125rem rgba(0, 0, 0, 0.15);
+        border-radius: .1875rem;
+        outline: none;
+        font-family: 'Nunito Sans', sans-serif;
+        font-size: 16px;
+        color: var(--text-color);
+        -webkit-appearance: none;
+
+        &:not([readonly]):focus {
+            cursor: initial;
+        }
+
+        &::-webkit-search-decoration,
+        &::-webkit-search-cancel-button,
+        &::-webkit-search-results-button,
+        &::-webkit-search-results-decoration {
+            -webkit-appearance:none;
+        }
+
+        #{$root}:not(.is-disabled) & {
+            &:hover {
+                border-color: var(--border-color-hover);
+            }
+
+            &:focus {
+                border-color: var(--border-color-focus);
+            }
+        }
+
+        #{$root}--emoji & {
+            width: 50px;
+            transition: 0.3s width;
+
+            &:focus {
+                width: 400px;
+            }
+        }
+    }
+
+    &__select {
+        display: none;
+        margin-bottom: 2rem;
+
+        .has-focus &,
+        #{$root}--multiple & {
+            display: block;
+        }
+    }
+
+    &__options {
+        list-style: none;
+        background:  var(--background);
+        border: 1px solid var(--border-color);
+        box-shadow: 0 .0625rem .125rem rgba(0, 0, 0, 0.15);
+    }
+
+    &__row:not(:first-child) {
+        border-top: 1px solid var(--border-color);
+    }
+
+    &__option {
+        display: block;
+        height: 2.875rem;
+        width: 100%;
+        padding: 0 1rem;
+        background: var(--background);
+        border: none;
+        outline: none;
+        font-family: 'Noto Sans', sans-serif;
+        font-size: 14px;
+        text-align: left;
+        color: var(--text-color);
+        cursor: pointer;
+
+        &.is-selected {
+            background: var(--highlight-color);
+            border-top-color: var(--highlight-color);
+            color: var(--color-snow);
+
+            + #{$root}__option {
+                border-top-color: var(--highlight-color);
+            }
+        }
+    }
+
+    &__group-header {
+        background: var(--subtle);
+        font-size: 0.625rem;
+        text-transform: uppercase;
+        padding: 0.5rem 1rem;
+    }
+}

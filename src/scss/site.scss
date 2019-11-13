@@ -1,0 +1,34 @@
+@import url('https://fonts.googleapis.com/css?family=Nunito+Sans:400,900|Source+Sans+Pro:700&display=swap');
+
+@import 'config';
+@import 'foundation';
+@import 'select';
+
+.wrapper {
+    max-width: var(--layout-content-width);
+    margin: 0 auto;
+}
+
+.hero {
+    padding: 120px 0;
+    background: var(--hero-bg);
+
+    h1 {
+        max-width: 60%;
+        color: var(--hero-color);
+    }
+}
+
+.section {
+    padding: 60px 0;
+
+    h1 {
+        font-family: var(--font);
+        font-size: 18px;
+        text-transform: uppercase;
+    }
+
+    p {
+        max-width: 600px;
+    }
+}

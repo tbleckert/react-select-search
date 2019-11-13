@@ -1,0 +1,74 @@
+html {
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    background: var(--background);
+    box-sizing: border-box;
+    color: var(--text-color);
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+body {
+    margin: 0;
+    font: 400 20px/1.5 var(--font);
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+}
+
+h1,
+ul {
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    color: var(--headline-color);
+    font-family: var(--headline-font);
+    font-size: 80px;
+    font-weight: 900;
+    line-height: 1;
+}
+
+p {
+    margin: 1rem 0 0;
+}
+
+strong {
+    font-weight: bold;
+}
+
+a,
+button {
+    color: inherit;
+}
+
+a {
+    text-decoration: none;
+}
+
+button {
+    overflow: visible;
+    border: 0;
+    font: inherit;
+    -webkit-font-smoothing: inherit;
+    letter-spacing: inherit;
+    background: none;
+    cursor: pointer;
+}
+
+::-moz-focus-inner {
+    padding: 0;
+    border: 0;
+}
+
+:focus {
+    outline: 0;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    border: 0;
+}

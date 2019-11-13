@@ -1,0 +1,39 @@
+:root {
+    --font: 'Nunito Sans', sans-serif;
+    --headline-font: 'Source Sans Pro', sans-serif;
+
+    --color-shamrock: #2FCC8B;
+    --color-havelock-blue: #6779E1;
+    --color-nadeshiko-pink: #F9B0BC;
+    --color-eerie-black: #161925;
+    --color-japanese-indigo: #23395B;
+    --color-snow: #fff;
+
+    --layout-content-width: 1140px;
+}
+
+html {
+    --background: var(--color-snow);
+    --text-color: var(--color-eerie-black);
+    --hero-bg: var(--color-nadeshiko-pink);
+    --hero-color: var(--color-havelock-blue);
+    --headline-color: var(--color-havelock-blue);
+    --border-color: rgba(0, 0, 0, 0.1);
+    --border-color-hover: rgba(0, 0, 0, 0.3);
+    --border-color-focus: var(--color-shamrock);
+    --highlight-color: var(--color-shamrock);
+    --subtle: rgba(0, 0, 0, 0.03);
+
+    &.dark-mode {
+        --background: var(--color-eerie-black);
+        --text-color: var(--color-snow);
+        --hero-bg: var(--color-havelock-blue);
+        --hero-color: var(--color-snow);
+        --headline-color: var(--color-nadeshiko-pink);
+        --border-color: rgba(255, 255, 255, 0.2);
+        --border-color-hover: rgba(255, 255, 255, 0.3);
+        --border-color-focus: var(--color-havelock-blue);
+        --highlight-color: var(--color-havelock-blue);
+        --subtle: rgba(255, 255, 255, 0.05);
+    }
+}
