@@ -352,7 +352,9 @@ class SelectSearch extends React.PureComponent {
             highlighted = 0;
         }
 
-        if (highlighted > this.state.options.length - 1) {
+        const flatOptions = FlattenOptions(this.state.options);
+
+        if (highlighted > flatOptions.length - 1) {
             highlighted = 0;
         }
 
@@ -360,18 +362,20 @@ class SelectSearch extends React.PureComponent {
     }
 
     handleArrowUp() {
-        if (this.state.options.length < 1) {
+        const flatOptions = FlattenOptions(this.state.options);
+
+        if (flatOptions.length < 1) {
             return;
         }
 
-        let highlighted = this.state.options.length - 1;
+        let highlighted = flatOptions.length - 1;
 
         if (this.state.highlighted != null) {
             highlighted = this.state.highlighted - 1;
         }
 
         if (highlighted < 0) {
-            highlighted = this.state.options.length - 1;
+            highlighted = flatOptions.length - 1;
         }
 
         this.setState({ highlighted });

@@ -246,12 +246,12 @@ export const countries = [
 ];
 
 export const fontStacks = [
-    { name: 'Helvetica', value: 'Helvetica', stack: 'Helvetica, sans-serif' },
     {
         type: 'group',
         name: 'Sans serif',
         items: [
             { name: 'Roboto', value: 'Roboto', stack: 'Roboto, sans-serif' },
+            { name: 'Helvetica', value: 'Helvetica', stack: 'Helvetica, sans-serif' },
         ],
     },
     {

@@ -416,7 +416,9 @@ function (_React$PureComponent) {
         highlighted = 0;
       }
 
-      if (highlighted > this.state.options.length - 1) {
+      var flatOptions = (0, _FlattenOptions.default)(this.state.options);
+
+      if (highlighted > flatOptions.length - 1) {
         highlighted = 0;
       }
 
@@ -427,18 +429,20 @@ function (_React$PureComponent) {
   }, {
     key: "handleArrowUp",
     value: function handleArrowUp() {
-      if (this.state.options.length < 1) {
+      var flatOptions = (0, _FlattenOptions.default)(this.state.options);
+
+      if (flatOptions.length < 1) {
         return;
       }
 
-      var highlighted = this.state.options.length - 1;
+      var highlighted = flatOptions.length - 1;
 
       if (this.state.highlighted != null) {
         highlighted = this.state.highlighted - 1;
       }
 
       if (highlighted < 0) {
-        highlighted = this.state.options.length - 1;
+        highlighted = flatOptions.length - 1;
       }
 
       this.setState({
