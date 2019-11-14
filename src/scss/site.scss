@@ -11,12 +11,16 @@
 }
 
 .hero {
-    padding: 120px 0;
+    padding: 60px 0;
     background: var(--hero-bg);
 
     h1 {
         max-width: 60%;
         color: var(--hero-color);
+    }
+
+    @media screen and (min-width: 47.9375rem) {
+        padding: 120px 0;
     }
 }
 

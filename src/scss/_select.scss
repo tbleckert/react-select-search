@@ -27,7 +27,34 @@
 
         #{$root}__options {
             overflow: auto;
-            max-height: 360px;
+            max-height: 18.75rem;
+        }
+    }
+
+    &--multiple {
+        margin-bottom: 2rem;
+        border: 1px solid var(--border-color);
+        border-radius: 0.1875rem;
+        overflow: hidden;
+
+        #{$root}__input {
+            border: none;
+            border-bottom: 1px solid var(--border-color);
+            border-radius: 0;
+            box-shadow: none;
+        }
+
+        #{$root}__select {
+            margin: 0;
+            border: none;
+            border-radius: 0;
+            box-shadow: none;
+            max-height: 22.5rem;
+            overflow: auto;
+        }
+
+        #{$root}__option {
+            height: 4.5rem;
         }
     }
 
@@ -63,7 +90,7 @@
     &__value {
         position: relative;
 
-        #{$root}:not(#{$root}--emoji) & {
+        #{$root}:not(#{$root}--search) & {
             &::after {
                 content: '';
                 display: inline-block;
@@ -127,16 +154,14 @@
         }
 
         #{$root}--emoji & {
+            height: 3.125rem;
             width: 3.125rem;
-            padding: 0;
-            transition: 0.3s width, 0.3s padding;
-            text-align: center;
+            padding: 0 1rem;
+            transition: 0.3s width;
 
             &:focus {
                 width: 100%;
                 max-width: 25rem;
-                padding: 0 1rem;
-                text-align: left;
             }
         }
     }
@@ -184,6 +209,11 @@
             + #{$root}__option {
                 border-top-color: var(--highlight-color);
             }
+        }
+
+        &.is-disabled {
+            opacity: 0.2;
+            cursor: default;
         }
 
         &:not(.is-selected) {

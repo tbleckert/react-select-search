@@ -1,75 +1,11 @@
 import React from 'react';
-import emojilib from 'emojilib';
 import SelectSearch from 'react-select-search';
-
-const themes = [
-    {
-        value: 'light',
-        name: 'Light',
-    },
-    {
-        value: 'dark',
-        name: 'Dark',
-    },
-];
-
-const fonts = [
-    {
-        type: 'group',
-        name: 'Sans serif',
-        items: [
-            {
-                value: 'nunito-sans',
-                name: 'Nunito Sans',
-                fontFamily: '\'Nunito Sans\', sans-serif',
-            },
-            {
-                value: 'source-sans-pro',
-                name: 'Source Sans Pro',
-                fontFamily: '\'Source Sans Pro\', sans-serif',
-            },
-        ],
-    },
-    {
-        type: 'group',
-        name: 'Serif',
-        items: [
-            {
-                value: 'merriweather',
-                name: 'Merriweather',
-                fontFamily: 'Merriweather, serif',
-            },
-            {
-                value: 'rufina',
-                name: 'Rufina',
-                fontFamily: 'Rufina, serif',
-            },
-        ],
-    },
-    {
-        type: 'group',
-        name: 'Cursive',
-        items: [
-            {
-                value: 'lobster',
-                name: 'Lobster',
-                fontFamily: 'Lobster, cusive',
-            },
-            {
-                value: 'pacifico',
-                name: 'Pacifico',
-                fontFamily: 'Pacifico, cursive',
-            },
-        ],
-    },
-];
-
-const emojis = Object.entries(emojilib.lib).map(([value, data]) => ({
-    value,
-    name: data.char,
-    category: data.category,
-    keywords: data.keywords,
-}));
+import {
+    emojis,
+    fonts,
+    themes,
+    friends,
+} from 'mjs/data';
 
 function loadFonts() {
     let flatFonts = [];
@@ -91,6 +27,22 @@ function loadFonts() {
         s.parentNode.insertBefore(wf, s);
     }(document));
 }
+
+const imgStyle = {
+    borderRadius: '50%',
+    verticalAlign: 'middle',
+    marginRight: 10,
+};
+
+const renderFriend = (props, option) => (
+    // eslint-disable-next-line react/jsx-props-no-spreading
+    <button {...props} type="button">
+        <span>
+            <img alt="" style={imgStyle} width="40" height="40" src={option.photo} />
+            <span>{option.name}</span>
+        </span>
+    </button>
+);
 
 const renderFontValue = (valueProps, ref, { fontFamily }) => {
     const style = {
@@ -118,6 +70,7 @@ class App extends React.PureComponent {
             theme: 'light',
             font: 'nunito-sans',
             emoji: 'sunglasses',
+            myFriends: [],
         };
     }
 
@@ -153,7 +106,12 @@ class App extends React.PureComponent {
     };
 
     render() {
-        const { theme, font, emoji } = this.state;
+        const {
+            theme,
+            font,
+            emoji,
+            myFriends,
+        } = this.state;
 
         return (
             <>
@@ -212,12 +170,34 @@ class App extends React.PureComponent {
                                 search
                                 placeholder="Choose your favorite emoji"
                                 onChange={this.onEmojiChange}
-                                filterOptions={(options) => options.slice(0, 24)}
+                                filterOptions={(options) => options.slice(0, 124)}
                                 fuse={{
                                     keys: ['category', 'keywords'],
                                     threshold: 0.1,
                                 }}
                                 options={emojis}
+                            />
+                        </div>
+                    </div>
+                </section>
+                <section className="section alt">
+                    <div className="wrapper">
+                        <h1>Multiple</h1>
+                        <p>
+                            With a simple flag you can also enable multiple options to be
+                            selected. In this example we have styled it differently than
+                            the single selects. The select box will have different class modifiers
+                            based the features that are enabled.
+                        </p>
+                        <div className="section__content">
+                            <SelectSearch
+                                className="select-search-box"
+                                defaultValue={myFriends}
+                                search
+                                multiple
+                                placeholder="Select your friends..."
+                                renderOption={renderFriend}
+                                options={friends}
                             />
                         </div>
                     </div>
