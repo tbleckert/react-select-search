@@ -62,7 +62,7 @@ class App extends React.Component {
                 <button type="button" className="clear" onClick={this.clear}>Clear values</button>
                 <SelectSearch
                     name="floors"
-                    search={false}
+                    search={true}
                     value={this.state.floor}
                     options={floors}
                     placeholder="Choose floor"

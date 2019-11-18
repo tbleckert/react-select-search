@@ -5,7 +5,7 @@ import onClickOutside from 'react-onclickoutside';
 import Bem from './Bem';
 import FlattenOptions from './FlattenOptions';
 import GroupOptions from './GroupOptions';
-import { isUndef, isArray } from './Utils';
+import { isDef, isUndef, isArray } from './Utils';
 
 class SelectSearch extends React.PureComponent {
     static defaultProps = {
@@ -44,7 +44,7 @@ class SelectSearch extends React.PureComponent {
 
         let search = '';
 
-        if (stateValue) {
+        if (isDef(stateValue)) {
             const option = this.findByValue(flattenedOptions, stateValue);
 
             if (option) {
@@ -173,7 +173,7 @@ class SelectSearch extends React.PureComponent {
 
         let search = '';
 
-        if (this.state.value && this.props.search && !this.props.multiple) {
+        if (isDef(this.state.value) && this.props.search && !this.props.multiple) {
             const option = this.findByValue(null, this.state.value);
 
             if (option) {
@@ -414,7 +414,7 @@ class SelectSearch extends React.PureComponent {
     }
 
     removeOption(value) {
-        if (!value) {
+        if (isUndef(value)) {
             return false;
         }
 
