@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import SelectSearch from '../src';
 import '../style.css';
-import { countries, fontStacks, friends, colors } from './data';
+import { countries, fontStacks, friends, colors, floors } from './data';
 
 function renderFontValue(label, option) {
     if (!option) {
@@ -43,7 +43,8 @@ class App extends React.Component {
         font: 'Playfair Display',
         country: 'SE',
         friends: [],
-        colors: ['red', 'purple']
+        colors: ['red', 'purple'],
+        floor: null
     };
 
     clear = () => {
@@ -59,6 +60,13 @@ class App extends React.Component {
         return (
             <div>
                 <button type="button" className="clear" onClick={this.clear}>Clear values</button>
+                <SelectSearch
+                    name="floors"
+                    search={false}
+                    value={this.state.floor}
+                    options={floors}
+                    placeholder="Choose floor"
+                />
                 <SelectSearch
                     name="font"
                     value={this.state.font}
