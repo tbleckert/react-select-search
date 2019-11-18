@@ -342,7 +342,6 @@ class SelectSearch extends React.PureComponent {
     findByValue(source, value) {
         let findSource = source;
 
-
         if (!source || source.length < 1) {
             findSource = this.state.defaultOptions;
         }
