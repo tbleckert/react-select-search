@@ -5,6 +5,7 @@ import onClickOutside from 'react-onclickoutside';
 import Bem from './Bem';
 import FlattenOptions from './FlattenOptions';
 import GroupOptions from './GroupOptions';
+import { isUndef } from './Utils';
 
 class SelectSearch extends React.PureComponent {
     static defaultProps = {
@@ -341,6 +342,7 @@ class SelectSearch extends React.PureComponent {
     findByValue(source, value) {
         let findSource = source;
 
+
         if (!source || source.length < 1) {
             findSource = this.state.defaultOptions;
         }
@@ -361,11 +363,11 @@ class SelectSearch extends React.PureComponent {
     };
 
     chooseOption(value) {
-        let currentValue = this.state.value.slice();
+        let currentValue = !this.state.value.slice ? this.state.value : this.state.value.slice();
         let option;
         let search;
 
-        if (!value) {
+        if (isUndef(value)) {
             let index = this.state.highlighted;
 
             if (!index || (this.state.options.length - 1) < index) {
@@ -418,7 +420,7 @@ class SelectSearch extends React.PureComponent {
         }
 
         const option = this.findByValue(this.state.defaultOptions, value);
-        const optionValue = this.state.value.slice();
+        const optionValue = !this.state.value.slice ? this.state.value : this.state.value.slice();
 
         if (!option || optionValue.indexOf(option.value) < 0) {
             return false;
@@ -632,7 +634,7 @@ class SelectSearch extends React.PureComponent {
             let labelValue;
             let labelClassName;
 
-            if (!this.state.value) {
+            if (isUndef(this.state.value)) {
                 labelValue = this.props.placeholder;
                 labelClassName = `${this.classes.search} ${Bem.m(this.classes.search, 'placeholder')}`;
             } else {
@@ -691,6 +693,7 @@ SelectSearch.propTypes = {
     value: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.array,
+        PropTypes.number
     ]),
 };
 
