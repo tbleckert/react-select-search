@@ -44,7 +44,7 @@ class App extends React.Component {
         country: 'SE',
         friends: [],
         colors: ['red', 'purple'],
-        floor: null
+        floor: 0
     };
 
     clear = () => {
