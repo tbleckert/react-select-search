@@ -5,7 +5,7 @@ import onClickOutside from 'react-onclickoutside';
 import Bem from './Bem';
 import FlattenOptions from './FlattenOptions';
 import GroupOptions from './GroupOptions';
-import { isUndef } from './Utils';
+import { isUndef, isArray } from './Utils';
 
 class SelectSearch extends React.PureComponent {
     static defaultProps = {
@@ -363,7 +363,7 @@ class SelectSearch extends React.PureComponent {
     };
 
     chooseOption(value) {
-        let currentValue = !this.state.value.slice ? this.state.value : this.state.value.slice();
+        let currentValue = isArray(this.state.value) ? this.state.value.slice() : this.state.value;
         let option;
         let search;
 
@@ -420,7 +420,7 @@ class SelectSearch extends React.PureComponent {
         }
 
         const option = this.findByValue(this.state.defaultOptions, value);
-        const optionValue = !this.state.value.slice ? this.state.value : this.state.value.slice();
+        const optionValue = isArray(this.state.value) ? this.state.value.slice() : this.state.value;
 
         if (!option || optionValue.indexOf(option.value) < 0) {
             return false;
