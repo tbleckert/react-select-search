@@ -76,7 +76,7 @@ class Option extends React.PureComponent {
             disabled,
             value,
             className: optionClass.join(' '),
-            onClick: onChange,
+            onMouseDown: onChange,
             tabIndex: -1,
             role: 'menuitem',
             'data-selected': (selected) ? 'true' : null,

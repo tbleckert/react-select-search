@@ -125,14 +125,8 @@ class SelectSearch extends React.PureComponent {
         }
     }
 
-    onBlur = (e) => {
-        const { relatedTarget } = e;
-
-        const parent = (!relatedTarget) ? null : relatedTarget.closest(`.${this.theme.classes.main}`);
-
-        if (!parent || parent !== this.parentRef.current) {
-            this.handleBlur();
-        }
+    onBlur = () => {
+        this.handleBlur();
     };
 
     onFocus = () => {

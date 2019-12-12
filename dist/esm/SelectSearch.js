@@ -63,13 +63,8 @@ function (_React$PureComponent) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(SelectSearch).call(this, props));
 
-    _defineProperty(_assertThisInitialized(_this), "onBlur", function (e) {
-      var relatedTarget = e.relatedTarget;
-      var parent = !relatedTarget ? null : relatedTarget.closest(".".concat(_this.theme.classes.main));
-
-      if (!parent || parent !== _this.parentRef.current) {
-        _this.handleBlur();
-      }
+    _defineProperty(_assertThisInitialized(_this), "onBlur", function () {
+      _this.handleBlur();
     });
 
     _defineProperty(_assertThisInitialized(_this), "onFocus", function () {

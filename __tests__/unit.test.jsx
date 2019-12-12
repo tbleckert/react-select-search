@@ -47,21 +47,6 @@ describe('Test select component class methods', () => {
         expect(wrapper3.update().instance().getValue()).toStrictEqual([]);
     });
 
-    test('onBlur shouldn\'t trigger handleBlur if related target is within component', () => {
-        const wrapper = mount(<SelectSearch className={className} options={countries} />);
-        const spy = jest.spyOn(wrapper.instance(), 'handleBlur');
-
-        wrapper.instance().onBlur({ relatedTarget: null });
-        expect(spy.mock.calls.length).toBe(1);
-
-        wrapper.instance().onBlur({ relatedTarget: document.body });
-        expect(spy.mock.calls.length).toBe(2);
-
-        wrapper.instance().onBlur({ relatedTarget: wrapper.find('input').at(0).instance() });
-
-        expect(spy.mock.calls.length).toBe(2);
-    });
-
     test('onKeyPress should only trigger onChange if correct key', () => {
         const wrapper = mount(<SelectSearch className={className} options={countries} />);
         const spy = jest.spyOn(wrapper.instance(), 'onChange');

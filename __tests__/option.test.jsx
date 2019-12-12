@@ -48,7 +48,7 @@ describe('Test Option component', () => {
 
         const button = wrapper.find(`button.${classes.option}`);
 
-        button.simulate('click');
+        button.simulate('mouseDown');
 
         expect(mockCallback.mock.calls.length).toBe(1);
     });
@@ -63,7 +63,7 @@ describe('Test Option component', () => {
 
         const button = wrapper.find(`button.${classes.option}`);
 
-        button.simulate('click');
+        button.simulate('mouseDown');
 
         expect(mockCallback.mock.calls.length).toBe(0);
     });

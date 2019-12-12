@@ -122,7 +122,7 @@ function (_React$PureComponent) {
         disabled: disabled,
         value: value,
         className: optionClass.join(' '),
-        onClick: onChange,
+        onMouseDown: onChange,
         tabIndex: -1,
         role: 'menuitem',
         'data-selected': selected ? 'true' : null,

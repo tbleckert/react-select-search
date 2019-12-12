@@ -97,3 +97,44 @@ Below is all the available options you can pass to the component. Options withou
 | renderValue | function | null | Function that renders the value/search field. See [custom renderers](#custom-renderers) for more. |
 | renderGroupHeader | function | null | Function that renders the group header. See [custom renderers](#custom-renderers) for more. |
 | filterOptions | function | null | Filter the options list. See [filter options](#filter-options) for more. |
+
+## The options object
+
+The options object can contain any properties and values you like. The only required one is `name`.
+
+| Property | Type | Description | Required |
+| -------- | ---- | ----------- | -------- |
+| name     | string | The name of the option | Yes |
+| value    | string | The value of the option | Yes, if the type is not "group" |
+| type     | string | If you set the type to "group" you can add an array of options that will be grouped | No |
+| items    | array | Array of option objects that will be used if the type is set to "group" | Yes, if `type` is set to "group" |
+| disabled | boolean | Set to `true` to disable this option | No |
+
+## Controlled component
+
+You can decide if you want full control of the state or if you want it handled automatically.
+If you decide to not control it, the component will not be updated if you change the value.
+
+To control the component you need to set an `onChange` handler and keep the `value` attribute up to date yourself.
+If you don't want to control it, you can omit the `onChange` handler and set `defaultValue` instead of `value`.
+
+## Custom class names
+
+If you set a string as the `className` attribute value, the component will use that as a base and BEMify the class names for all elements.
+If you want to fully control the class names you can pass on object with the following shape:
+
+```js
+{
+    main: 'select',
+    value: 'select-value',
+    input: 'select-input',
+    select: 'select-select',
+    options: 'select-options',
+    row: 'select-row',
+    option: 'select-option',
+    group: 'select-group',
+    groupHeader: 'select-group-header',
+}
+```
+
+## Custom renderers

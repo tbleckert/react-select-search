@@ -109,14 +109,14 @@ describe('Test select component', () => {
         setImmediate(() => {
             wrapper.update();
 
-            wrapper.find(Option).at(10).find('button').simulate('click');
+            wrapper.find(Option).at(10).find('button').simulate('mouseDown');
 
             expect(wrapper.state('value')).toBe(countries[10].value);
             expect(wrapper.state('focus')).toBe(false);
             expect(wrapper.find(Value).find('input').at(0).instance().value).toBe(countries[10].name);
 
             wrapper.find('input').simulate('focus');
-            wrapper.find(Option).at(11).find('button').simulate('click');
+            wrapper.find(Option).at(11).find('button').simulate('mouseDown');
 
             expect(wrapper.state('value')).toBe(countries[11].value);
             expect(wrapper.find(Value).find('input').at(0).instance().value).toBe(countries[11].name);
@@ -147,7 +147,7 @@ describe('Test select component', () => {
         setImmediate(() => {
             wrapper.update();
 
-            wrapper.find(Option).at(10).find('button').simulate('click');
+            wrapper.find(Option).at(10).find('button').simulate('mouseDown');
 
             expect(wrapper.state('focus')).toBe(true);
             expect(wrapper.state('value')).toBe('');
@@ -242,11 +242,11 @@ describe('Test select component', () => {
         setImmediate(() => {
             wrapper.update();
 
-            wrapper.find(Option).at(11).find('button').simulate('click');
+            wrapper.find(Option).at(11).find('button').simulate('mouseDown');
             expect(wrapper.state('value')).toStrictEqual([countries[11].value]);
             expect(wrapper.find(`.${className}__option.is-selected`).length).toBe(1);
 
-            wrapper.find(Option).at(11).find('button').simulate('click');
+            wrapper.find(Option).at(11).find('button').simulate('mouseDown');
             expect(wrapper.state('value')).toStrictEqual([]);
             expect(wrapper.find(`.${className}__option.is-selected`).length).toBe(0);
 
@@ -260,11 +260,11 @@ describe('Test select component', () => {
         setImmediate(() => {
             wrapper.update();
 
-            wrapper.find(Option).at(11).find('button').simulate('click');
+            wrapper.find(Option).at(11).find('button').simulate('mouseDown');
             expect(wrapper.state('value')).toStrictEqual([countries[11].value]);
             expect(wrapper.find(`.${className}__option.is-selected`).length).toBe(1);
 
-            wrapper.find(Option).at(12).find('button').simulate('click');
+            wrapper.find(Option).at(12).find('button').simulate('mouseDown');
             expect(wrapper.state('value')).toStrictEqual([countries[11].value, countries[12].value]);
             expect(wrapper.find(`.${className}__option.is-selected`).length).toBe(2);
 
@@ -455,7 +455,7 @@ describe('Test select component', () => {
 
         setImmediate(() => {
             wrapper.update();
-            wrapper.find(Option).at(11).find('button').simulate('click');
+            wrapper.find(Option).at(11).find('button').simulate('mouseDown');
 
             expect(onChange.mock.calls.length).toBe(1);
             expect(onChange.mock.calls[0][0]).toBe(countries[11].value);
