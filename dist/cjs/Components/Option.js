@@ -103,15 +103,15 @@ function (_React$PureComponent) {
       var selected = Array.isArray(snapshot.value) && snapshot.value.indexOf(value) >= 0 || value === snapshot.value;
 
       if (selected) {
-        optionClass.push('is-selected');
+        optionClass.push(this.context.classes.optionSelected);
       }
 
       if (highlighted) {
-        optionClass.push('is-highlighted');
+        optionClass.push(this.context.classes.optionHighlighted);
       }
 
       if (disabled) {
-        optionClass.push('is-disabled');
+        optionClass.push(this.context.classes.optionDisabled);
       }
 
       var optionSnapshot = {

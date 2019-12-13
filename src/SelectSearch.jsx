@@ -407,26 +407,18 @@ class SelectSearch extends React.PureComponent {
             focus,
         };
 
-        let className = `${this.theme.classes.main} ${this.theme.classes.modifier}`;
-
-        if (search) {
-            className += ` ${this.theme.classes.main}--search`;
-        }
-
-        if (multiple) {
-            className += ` ${this.theme.classes.main}--multiple`;
-        }
+        let className = `${this.theme.classes.main} ${this.theme.classes.variant}`;
 
         if (disabled) {
-            className += ' is-disabled';
+            className += ` ${this.theme.classes.disabled}`;
         }
 
         if (focus) {
-            className += ' has-focus';
+            className += ` ${this.theme.classes.focus}`;
         }
 
         if (searching) {
-            className += ' is-searching';
+            className += ` ${this.theme.classes.searching}`;
         }
 
         return (

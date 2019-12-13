@@ -1,12 +1,18 @@
 const classes = {
     main: null,
-    modifier: null,
+    variant: null,
+    focus: '!has-focus',
+    disabled: '!is-disabled',
+    searching: '!is-searching',
     value: 'value',
     input: 'input',
     select: 'select',
     options: 'options',
     row: 'row',
     option: 'option',
+    optionSelected: '!is-selected',
+    optionDisabled: '!is-disabled',
+    optionHighlighted: '!is-highlighted',
     group: 'group',
     groupHeader: 'group-header',
 };
@@ -16,14 +22,20 @@ function e(baseClass, className, key) {
         return baseClass.split(' ')[0].trim();
     }
 
-    if (key === 'modifier') {
+    if (key === 'variant') {
         const classNames = baseClass.split(' ');
 
-        if (classNames.length > 1) {
-            return classNames[1].trim();
+        classNames.shift();
+
+        if (classNames.length > 0) {
+            return classNames.join(' ').trim();
         }
 
         return '';
+    }
+
+    if (className.indexOf('!') === 0) {
+        return className.replace('!', '');
     }
 
     return `${baseClass.split(' ')[0].trim()}__${className}`;

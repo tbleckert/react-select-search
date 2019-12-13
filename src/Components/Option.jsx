@@ -60,15 +60,15 @@ class Option extends React.PureComponent {
         );
 
         if (selected) {
-            optionClass.push('is-selected');
+            optionClass.push(this.context.classes.optionSelected);
         }
 
         if (highlighted) {
-            optionClass.push('is-highlighted');
+            optionClass.push(this.context.classes.optionHighlighted);
         }
 
         if (disabled) {
-            optionClass.push('is-disabled');
+            optionClass.push(this.context.classes.optionDisabled);
         }
 
         const optionSnapshot = { highlighted, selected };

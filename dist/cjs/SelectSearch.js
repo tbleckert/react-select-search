@@ -474,26 +474,18 @@ function (_React$PureComponent) {
         highlighted: highlighted,
         focus: focus
       };
-      var className = "".concat(this.theme.classes.main, " ").concat(this.theme.classes.modifier);
-
-      if (search) {
-        className += " ".concat(this.theme.classes.main, "--search");
-      }
-
-      if (multiple) {
-        className += " ".concat(this.theme.classes.main, "--multiple");
-      }
+      var className = "".concat(this.theme.classes.main, " ").concat(this.theme.classes.variant);
 
       if (disabled) {
-        className += ' is-disabled';
+        className += " ".concat(this.theme.classes.disabled);
       }
 
       if (focus) {
-        className += ' has-focus';
+        className += " ".concat(this.theme.classes.focus);
       }
 
       if (searching) {
-        className += ' is-searching';
+        className += " ".concat(this.theme.classes.searching);
       }
 
       return _react.default.createElement(_Context.default.Provider, {

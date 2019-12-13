@@ -126,12 +126,19 @@ If you want to fully control the class names you can pass on object with the fol
 ```js
 {
     main: 'select',
+    variant: 'multiple',
+    focus: 'has-focus',
+    disabled: 'is-disabled',
+    searching: 'is-searching',
     value: 'select-value',
     input: 'select-input',
     select: 'select-select',
     options: 'select-options',
     row: 'select-row',
     option: 'select-option',
+    optionSelected: 'is-selected',
+    optionDisabled: 'is-disabled',
+    optionHighlighted: 'is-highlighted',
     group: 'select-group',
     groupHeader: 'select-group-header',
 }

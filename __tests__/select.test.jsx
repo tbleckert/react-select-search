@@ -161,7 +161,7 @@ describe('Test select component', () => {
         const placeholder = 'Search';
         const wrapper = mount(<SelectSearch className={className} search placeholder={placeholder} options={countries} />);
 
-        expect(wrapper.find(`div.${className}--search`).length).toBe(1);
+        expect(wrapper.find(`div.${className}`).length).toBe(1);
         expect(wrapper.state('value')).toBe('');
         expect(wrapper.find('input').instance().getAttribute('placeholder')).toBe(placeholder);
         expect(wrapper.find('input').at(0).instance().hasAttribute('readonly')).toBe(false);
@@ -222,7 +222,7 @@ describe('Test select component', () => {
     test('Multiple renders correctly', (done) => {
         const wrapper = mount(<SelectSearch className={className} multiple options={countries} />);
 
-        expect(wrapper.find(`div.${className}--multiple`).length).toBe(1);
+        expect(wrapper.find(`div.${className}`).length).toBe(1);
 
         setImmediate(() => {
             wrapper.update();
