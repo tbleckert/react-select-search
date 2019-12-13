@@ -14,6 +14,14 @@ var Value = forwardRef(function (_ref, ref) {
       valueProps = _objectWithoutProperties(_ref, ["option", "searching", "error"]);
 
   var theme = useContext(Context);
+
+  var onChange = valueProps.onChange,
+      props = _objectWithoutProperties(valueProps, ["onChange"]);
+
+  var onInput = function onInput(e) {
+    return onChange(e.target.value);
+  };
+
   var className = theme.classes.value;
 
   if (searching) {
@@ -24,8 +32,9 @@ var Value = forwardRef(function (_ref, ref) {
     searching: searching,
     error: error
   }) : React.createElement("input", _extends({
-    ref: ref
-  }, valueProps));
+    ref: ref,
+    onChange: onInput
+  }, props));
   return React.createElement("div", {
     className: className
   }, content);

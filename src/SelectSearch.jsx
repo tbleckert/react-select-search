@@ -180,7 +180,7 @@ class SelectSearch extends React.PureComponent {
         });
     };
 
-    onSearch = e => this.setState({ search: e.target.value });
+    onSearch = value => this.setState({ search: value });
 
     onKeyPress = (e) => {
         if (e.key === 'Enter') {

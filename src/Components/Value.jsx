@@ -9,6 +9,8 @@ const Value = forwardRef(({
     ...valueProps
 }, ref) => {
     const theme = useContext(Context);
+    const { onChange, ...props } = valueProps;
+    const onInput = e => onChange(e.target.value);
 
     let className = theme.classes.value;
 
@@ -22,7 +24,8 @@ const Value = forwardRef(({
     }) : (
         <input
             ref={ref}
-            {...valueProps}
+            onChange={onInput}
+            {...props}
         />
     );
 

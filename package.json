@@ -1,6 +1,6 @@
 {
   "name": "react-select-search",
-  "version": "1.0.0-rc9",
+  "version": "1.0.0-rc10",
   "description": "React powered selectbox with search",
   "main": "dist/esm/index.js",
   "scripts": {

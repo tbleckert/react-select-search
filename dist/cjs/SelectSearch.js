@@ -143,9 +143,9 @@ function (_React$PureComponent) {
       });
     });
 
-    _defineProperty(_assertThisInitialized(_this), "onSearch", function (e) {
+    _defineProperty(_assertThisInitialized(_this), "onSearch", function (value) {
       return _this.setState({
-        search: e.target.value
+        search: value
       });
     });
 
