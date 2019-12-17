@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
-        <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+        <meta charset="UTF-8">
         <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah|Monoton|Playfair+Display|Roboto|VT323" rel="stylesheet">
         <title><%= htmlWebpackPlugin.options.title %></title>
         <style>
@@ -11,28 +11,30 @@
             }
 
             body {
-                background: #F1F6FC;
+                background: #F9B0BC;
                 width: 300px;
                 margin: 100px auto 40px;
             }
 
-            .clear {
+            .test-btns {
                 position: absolute;
                 top: 16px;
                 right: 16px;
-                margin: 0;
+            }
+
+            .clear {
+                display: block;
+                margin: 0 0 8px auto;
                 padding: 8px 16px;
                 border: none;
-                background: #EA526F;
+                background: #6779E1;
                 color: #fff;
                 font-size: 16px;
                 border-radius: 4px;
-                box-shadow: 0 7px 14px 0 rgba(50, 50, 93, 0.1), 0 3px 6px 0 rgba(0, 0, 0, 0.07);
             }
         </style>
     </head>
     <body>
         <div id="app"></div>
-        <script src="/static/index.js"></script>
     </body>
 </html>

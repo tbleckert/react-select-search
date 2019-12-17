@@ -250,29 +250,30 @@ export const fontStacks = [
         type: 'group',
         name: 'Sans serif',
         items: [
-            { name: 'Roboto', value: 'Roboto', 'data-stack': 'Roboto, sans-serif' },
+            { name: 'Roboto', value: 'Roboto', stack: 'Roboto, sans-serif' },
+            { name: 'Helvetica', value: 'Helvetica', stack: 'Helvetica, sans-serif' },
         ],
     },
     {
         type: 'group',
         name: 'Serif',
         items: [
-            { name: 'Playfair Display', value: 'Playfair Display', 'data-stack': '"Playfair Display", serif' },
+            { name: 'Playfair Display', value: 'Playfair Display', stack: '"Playfair Display", serif' },
         ],
     },
     {
         type: 'group',
         name: 'Cursive',
         items: [
-            { name: 'Monoton', value: 'Monoton', 'data-stack': 'Monoton, cursive' },
-            { name: 'Gloria Hallelujah', value: 'Gloria Hallelujah', 'data-stack': '"Gloria Hallelujah", cursive' },
+            { name: 'Monoton', value: 'Monoton', stack: 'Monoton, cursive' },
+            { name: 'Gloria Hallelujah', value: 'Gloria Hallelujah', stack: '"Gloria Hallelujah", cursive' },
         ],
     },
     {
         type: 'group',
         name: 'Monospace',
         items: [
-            { name: 'VT323', value: 'VT323', 'data-stack': 'VT323, monospace' },
+            { name: 'VT323', value: 'VT323', stack: 'VT323, monospace' },
         ],
     },
 ];
@@ -280,7 +281,7 @@ export const fontStacks = [
 // https://randomuser.me/
 export const friends = [
     { name: 'Annie Cruz', value: 'annie.cruz', photo: 'https://randomuser.me/api/portraits/women/60.jpg' },
-    { name: 'Eli Shelton', value: 'eli.shelton', photo: 'https://randomuser.me/api/portraits/men/7.jpg' },
+    { name: 'Eli Shelton', disabled: true, value: 'eli.shelton', photo: 'https://randomuser.me/api/portraits/men/7.jpg' },
     { name: 'Loretta Rogers', value: 'loretta.rogers', photo: 'https://randomuser.me/api/portraits/women/51.jpg' },
     { name: 'Lloyd Fisher', value: 'lloyd.fisher', photo: 'https://randomuser.me/api/portraits/men/34.jpg' },
     { name: 'Tiffany Gonzales', value: 'tiffany.gonzales', photo: 'https://randomuser.me/api/portraits/women/71.jpg' },

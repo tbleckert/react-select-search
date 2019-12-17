@@ -1,14 +1,11 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
 var FlattenOptions = function FlattenOptions(options) {
+  if (!Array.isArray(options)) {
+    return [];
+  }
+
   var nextOptions = [];
   options.forEach(function (option, index) {
-    if ({}.hasOwnProperty.call(option, 'type') && option.type === 'group') {
+    if ('type' in option && option.type === 'group') {
       var id = Math.random().toString(36).substr(2, 9);
       option.items.forEach(function (groupOption) {
         var nextGroupOption = Object.assign({}, groupOption);
@@ -25,5 +22,4 @@ var FlattenOptions = function FlattenOptions(options) {
   return nextOptions;
 };
 
-var _default = FlattenOptions;
-exports.default = _default;
+export default FlattenOptions;

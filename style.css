@@ -1,198 +1,157 @@
-@import 'http://weloveiconfonts.com/api/?family=fontawesome';
-
-[class*="fontawesome-"]:before {
-    font-family: 'fontawesome', sans-serif;
-}
-
-body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-}
+@import url('https://fonts.googleapis.com/css?family=Nunito+Sans&display=swap');
 
 .select-search-box {
     width: 300px;
     position: relative;
     margin-bottom: 20px;
-    background: #fff;
-    border-radius: 4px;
+    font-family: 'Nunito Sans', sans-serif;
+    box-sizing: border-box;
 }
 
-    .select-search-box--multiple {
-        border-radius: 4px;
-        box-shadow: 0 7px 14px 0 rgba(50, 50, 93, 0.1), 0 3px 6px 0 rgba(0, 0, 0, 0.07);
-        overflow: hidden;
+.select-search-box *,
+.select-search-box *::after,
+.select-search-box *::before {
+    box-sizing: inherit;
+}
+
+    .select-search-box.is-disabled {
+        opacity: 0.5;
     }
 
-    .select-search-box::after {
-        font-family: fontawesome;
-        content:"\f078";
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: 40px;
-        text-align: center;
-        line-height: 50px;
-        color: #222f3e;
-        z-index: 1;
-    }
-
-    .select-search-box--multiple::after, .select-search-box--focus::after {
-        content:"\f002";
-    }
-    
-    .select-search-box__icon--disabled::after {
-        content: none !important;
-    }
-
-    .select-search-box--input::after {
-        display: none !important;
-    }
-
-    .select-search-box__out {
-        display: none;
-    }
-
-    .select-search-box__search {
-        display: block;
-        width: 100%;
-        height: 50px;
-        border: none;
-        background: none;
-        outline: none;
-        font-size: 16px;
-        padding: 0 20px;
-        color: #222f3e;
-        -webkit-appearance: none;
-        box-sizing: border-box;
+    .select-search-box__value {
         position: relative;
-        z-index: 2;
-        cursor: pointer;
-        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-        line-height: 50px;
-        box-shadow: 0 7px 14px 0 rgba(50, 50, 93, 0.1), 0 3px 6px 0 rgba(0, 0, 0, 0.07);
     }
 
-    input.select-search-box__search {
-        line-height: 1;
+    .select-search-box__value::after {
+        content: '';
+        display: inline-block;
+        position: absolute;
+        top: calc(50% - 9px);
+        right: 19px;
+        width: 11px;
+        height: 11px;
+        transform: rotate(45deg);
+        border-right: 1px solid #000;
+        border-bottom: 1px solid #000;
+        pointer-events: none;
     }
 
-    .select-search-box--multiple .select-search-box__search {
-        box-shadow: none;
-    }
-
-    .select-search-box--input .select-search-box__search {
-        cursor: text;
-    }
-
-        .select-search-box__search:focus {
-            cursor: text;
-        }
-
-        .select-search-box__search--placeholder {
-            font-style: italic;
-            font-weight: normal;
-        }
-
-    .select-search-box input::-webkit-input-placeholder {
-        color: #ccc;
-        font-style: italic;
-        font-weight: normal;
-    }
-
-    .select-search-box input::-moz-placeholder {
-        color: #ccc;
-        font-style: italic;
-        font-weight: normal;
-    }
-
-    .select-search-box input:-moz-placeholder {
-        color: #ccc;
-        font-style: italic;
-        font-weight: normal;
-    }
-
-    .select-search-box input:-ms-input-placeholder {
-        color: #ccc;
-        font-style: italic;
-        font-weight: normal;
-    }
-
-    input[type='search']::-webkit-search-cancel-button, input[type='search']::-webkit-search-decoration {
+    .select-search-box__input {
+        display: block;
+        height: 36px;
+        width: 100%;
+        padding: 0 16px;
+        background: #fff;
+        border: none;
+        box-shadow: 0 .0625rem .125rem rgba(0, 0, 0, 0.15);
+        border-radius: 3px;
+        outline: none;
+        font-family: 'Noto Sans', sans-serif;
+        font-size: 14px;
         -webkit-appearance: none;
+    }
+
+    .select-search-box:not(.is-disabled) .select-search-box__input {
+        cursor: pointer;
+    }
+
+    .select-search-box--multiple .select-search-box__input {
+        cursor: initial;
+    }
+
+    .select-search-box__input::-webkit-search-decoration,
+    .select-search-box__input::-webkit-search-cancel-button,
+    .select-search-box__input::-webkit-search-results-button,
+    .select-search-box__input::-webkit-search-results-decoration {
+        -webkit-appearance:none;
+    }
+
+    .select-search-box--multiple .select-search-box__input {
+        border-radius: 3px 3px 0 0;
+    }
+
+    .select-search-box__input:hover {
+        border-color: #2FCC8B;
+    }
+
+    .select-search-box__input:not([readonly]):focus {
+        cursor: initial;
     }
 
     .select-search-box__select {
         display: none;
-        position: absolute;
-        top: 60px;
-        left: 0;
-        right: 0;
         background: #fff;
-        border-radius: 4px;
+        box-shadow: 0 .0625rem .125rem rgba(0, 0, 0, 0.15);
+    }
+
+    .select-search-box.has-focus .select-search-box__select,
+    .select-search-box--multiple .select-search-box__select {
+        display: block;
+    }
+
+    .select-search-box:not(.select-search-box--multiple) .select-search-box__select {
+        position: absolute;
+        z-index: 2;
+        top: 44px;
+        right: 0;
+        left: 0;
+        border-radius: 3px;
         overflow: auto;
-        box-shadow: 0 7px 14px 0 rgba(50, 50, 93, 0.1), 0 3px 6px 0 rgba(0, 0, 0, 0.07);
-        z-index: 100;
-        min-height: 49px;
+        max-height: 360px;
     }
 
     .select-search-box--multiple .select-search-box__select {
-        display: block;
-        position: static;
+        height: 180px;
+        overflow: auto;
         border-top: 1px solid #eee;
-        border-radius: 0;
-        box-shadow: none;
+        border-radius: 0 0 3px 3px;
     }
 
-        .select-search-box__select--display {
-            display: block;
-        }
+    .select-search-box__options {
+        list-style: none;
+    }
+
+    .select-search-box__row:not(:first-child) {
+        border-top: 1px solid #eee;
+    }
 
     .select-search-box__option {
-        font-size: 16px;
-        font-weight: 400;
-        color: #616b74;
-        padding: 15px 20px;
-        border-top: 1px solid #eee;
+        display: block;
+        height: 36px;
+        width: 100%;
+        padding: 0 16px;
+        background: #fff;
+        border: none;
+        outline: none;
+        font-family: 'Noto Sans', sans-serif;
+        font-size: 14px;
+        text-align: left;
         cursor: pointer;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        user-select: none;
     }
 
-        .select-search-box__option:first-child {
-            border-top: none;
-        }
+    .select-search-box--multiple .select-search-box__option {
+        height: 48px;
+    }
 
-        .select-search-box__option--hover, .select-search-box__option:hover {
-            background: #f4f7fa;
-        }
+    .select-search-box__option.is-selected {
+        background: #2FCC8B;
+        color: #fff;
+    }
 
-        .select-search-box__option--selected {
-            background: #54A0FF;
-            color: #fff;
-            border-top-color: #2184ff;
-        }
+    .select-search-box__option.is-highlighted,
+    .select-search-box__option:not(.is-selected):hover {
+        background: rgba(47, 204, 139, 0.1);
+    }
 
-            .select-search-box__option--selected:hover, .select-search-box__option--selected.select-search-box__option--hover {
-                background: #2184ff;
-                color: #fff;
-                border-top-color: #2184ff;
-            }
+    .select-search-box__option.is-highlighted.is-selected,
+    .select-search-box__option.is-selected:hover {
+        background: #2eb378;
+        color: #fff;
+    }
 
-        .select-search-box__group {
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 1px solid #eee;
-            position: relative;
-        }
-
-        .select-search-box__group-header {
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: white;
-            padding: 0 10px;
-            color: rgba(0, 0, 0, 0.5);
-            font-size: 12px;
-        }
+    .select-search-box__group-header {
+        font-size: 10px;
+        text-transform: uppercase;
+        background: #eee;
+        padding: 8px 16px;
+    }
