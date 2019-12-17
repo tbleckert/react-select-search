@@ -145,3 +145,21 @@ If you want to fully control the class names you can pass on object with the fol
 ```
 
 ## Custom renderers
+
+If CSS isn't enough, you can also control the HTML for the different parts of the component.
+
+| Callback | Args | Description |
+| -------- | ---- | ----------- |
+| renderOption | optionsProps: object, optionData: object, optionSnapshot: object | Controls the rendering of the options. |
+| renderGroupHeader | name: string | Controls the rendering of the group header name |
+| renderValue | valueProps: object, ref: React.ref, selectedValue: object | Controls the rendering of the value/input element |
+
+The optionProps and the valueProps are needed for the component you render to work. For example:
+
+```jsx
+<SelectSearch renderValue={(valueProps) => <input {...valueProps} />} />
+```
+
+Monkeypatch it if you need to but make sure to not remove important props.
+
+The optionSnapshot is an object that contains the object state: `{ selected: bool, highlighted: bool, disabled: bool }`.
