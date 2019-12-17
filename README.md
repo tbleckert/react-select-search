@@ -42,8 +42,8 @@ _*One optional dependency required for built-in fuzzy search_
 ## Demo
 
 Live demo can be found here: [http://tbleckert.github.io/react-select-search/](http://tbleckert.github.io/react-select-search/)
-
-<img src="https://user-images.githubusercontent.com/263465/40550492-86aa5662-603a-11e8-8518-315529cbdec3.png" alt="Demo" />
+  
+<img src="https://user-images.githubusercontent.com/263465/71011520-d4ef1e00-20ed-11ea-9fad-b3c952089258.png" alt="Demo" />
 
 ## How to use
 
