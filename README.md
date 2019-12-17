@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/263465/71013168-868f4e80-20f0-11ea-9ec4-2449ea92a4d3.png" alt="React Select Search" />
+  <img src="https://user-images.githubusercontent.com/263465/71013376-e4bc3180-20f0-11ea-9768-2a21f6e1607d.png" alt="React Select Search" />
 </p>
 
 <p align="center">
