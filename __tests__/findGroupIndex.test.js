@@ -1,4 +1,4 @@
-import FindGroupIndex from '../src/lib/FindGroupIndex';
+import findGroupIndex from '../src/lib/findGroupIndex';
 
 describe('Unit test for GroupOptions function', () => {
     const groupedOptions = [
@@ -27,15 +27,15 @@ describe('Unit test for GroupOptions function', () => {
     ];
 
     test('Finds correct index in group', () => {
-        const serifIndex = FindGroupIndex(groupedOptions, 'serif');
-        const cursiveIndex = FindGroupIndex(groupedOptions, 'cursive');
+        const serifIndex = findGroupIndex(groupedOptions, 'serif');
+        const cursiveIndex = findGroupIndex(groupedOptions, 'cursive');
 
         expect(serifIndex).toEqual(0);
         expect(cursiveIndex).toEqual(1);
     });
 
     test('Returns null on not found', () => {
-        const index = FindGroupIndex(groupedOptions, 'foo');
+        const index = findGroupIndex(groupedOptions, 'foo');
 
         expect(index).toEqual(null);
     });

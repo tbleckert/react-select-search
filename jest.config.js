@@ -1,4 +1,4 @@
 module.exports = {
-  collectCoverageFrom: ["src/**/{!(Context.js|index.jsx),}.{js,jsx}"],
+  collectCoverageFrom: ["src/**/{!(types.js|index.js),}.{js,jsx}"],
   testMatch: ["<rootDir>/__tests__/*.test.{js,jsx}"],
 };

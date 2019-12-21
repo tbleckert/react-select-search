@@ -1,4 +1,4 @@
-import FindGroupIndex from './FindGroupIndex';
+import findGroupIndex from './findGroupIndex';
 
 const GroupOptions = (options) => {
     const nextOptions = [];
@@ -6,7 +6,7 @@ const GroupOptions = (options) => {
     options.forEach((option, i) => {
         if ('groupId' in option) {
             const nextOption = Object.assign({}, option);
-            const groupIndex = FindGroupIndex(nextOptions, nextOption.groupId);
+            const groupIndex = findGroupIndex(nextOptions, nextOption.groupId);
 
             nextOption.index = i;
 

@@ -3,9 +3,9 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = FindGroupIndex;
+exports.default = findGroupIndex;
 
-function FindGroupIndex(options, id) {
+function findGroupIndex(options, id) {
   var foundIndex = null;
   options.forEach(function (option, i) {
     if ('groupId' in option && option.groupId === id) {

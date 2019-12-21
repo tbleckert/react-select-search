@@ -1,4 +1,4 @@
-export default function FindGroupIndex(options, id) {
+export default function findGroupIndex(options, id) {
     let foundIndex = null;
 
     options.forEach((option, i) => {
