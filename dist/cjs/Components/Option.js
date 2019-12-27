@@ -30,19 +30,19 @@ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) r
 var Option = function Option(_ref) {
   var optionProps = _ref.optionProps,
       highlighted = _ref.highlighted,
-      active = _ref.active,
+      selected = _ref.selected,
       className = _ref.className,
       renderOption = _ref.renderOption,
-      option = _objectWithoutProperties(_ref, ["optionProps", "highlighted", "active", "className", "renderOption"]);
+      option = _objectWithoutProperties(_ref, ["optionProps", "highlighted", "selected", "className", "renderOption"]);
 
   var optionRef = (0, _react.useRef)(null);
   var optionClass = [className('option'), (0, _react.useMemo)(function () {
-    if (active) {
+    if (selected) {
       return 'is-selected';
     }
 
     return false;
-  }, [active]), (0, _react.useMemo)(function () {
+  }, [selected]), (0, _react.useMemo)(function () {
     if (highlighted) {
       return 'is-highlighted';
     }
@@ -52,13 +52,13 @@ var Option = function Option(_ref) {
     return !!cls;
   }).join(' ');
   (0, _react.useEffect)(function () {
-    if (optionRef.current && (active || highlighted)) {
+    if (optionRef.current && (selected || highlighted)) {
       optionRef.current.scrollIntoView({
         behavior: 'auto',
         block: 'center'
       });
     }
-  }, [optionRef, active, highlighted]);
+  }, [optionRef, selected, highlighted]);
 
   var domProps = _objectSpread({}, optionProps, {
     value: option.value,
@@ -66,7 +66,7 @@ var Option = function Option(_ref) {
   });
 
   var comp = renderOption ? renderOption(domProps, option, {
-    active: active,
+    selected: selected,
     highlighted: highlighted
   }, optionClass) : _react.default.createElement("button", _extends({
     className: optionClass
@@ -97,7 +97,7 @@ Option.propTypes = {
   disabled: _propTypes.default.bool,
   index: _propTypes.default.number,
   highlighted: _propTypes.default.bool.isRequired,
-  active: _propTypes.default.bool.isRequired,
+  selected: _propTypes.default.bool.isRequired,
   optionProps: _propTypes.default.shape({
     tabIndex: _propTypes.default.string.isRequired,
     onMouseDown: _propTypes.default.func.isRequired

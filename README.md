@@ -45,11 +45,13 @@ Live demo can be found here: [http://tbleckert.github.io/react-select-search/](h
   
 <img src="https://user-images.githubusercontent.com/263465/71011520-d4ef1e00-20ed-11ea-9fad-b3c952089258.png" alt="Demo" />
 
-## How to use
+## Install
 
 Install it with npm (`npm install react-select-search --save`) and import it like you normally would.
 
-```javascript
+## Quick example
+
+```jsx harmony
 import SelectSearch from 'react-select-search';
 
 /**
@@ -75,6 +77,39 @@ For examples you can take a look at the [example](example/index.jsx) file.
 
 You will also need some CSS to make it look right. Example theme can be found in [style.css](style.css)
 
+## Headless mode with hooks
+
+If you want complete control (more than styling and [custom renderers](#custom-renderers)) you can use hooks to pass data to your own components and build it yourself.
+
+```jsx harmony
+import React from 'react';
+import { useSelect } from 'react-select-search';
+
+const CustomSelect = ({ options, value, multiple, disabled }) => {
+    const [snapshot, valueProps, optionProps] = useSelect({
+        options,
+        value,
+        multiple,
+        disabled,
+    });
+
+    return (
+        <div>
+            <button {...valueProps}>{snapshot.displayValue}</button>
+            {snapshot.focus && (
+                <ul>
+                    {snapshot.options.map((option) => (
+                        <li key={option.value}>
+                            <button {...optionProps} value={option.value}>{option.name}</button>
+                        </li>
+                    ))}
+                </ul>
+            )}
+        </div>
+    );
+};
+```
+
 ## Configuration
 
 Below is all the available options you can pass to the component. Options without defaults are required.
@@ -82,8 +117,7 @@ Below is all the available options you can pass to the component. Options withou
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
 | options | array | | Se the [options documentation](#the-options-object) below |
-| defaultValue | string, array | undefined | Set only a defaultValue for [uncontrolled](#controlled-component) usage. The value should be an array if multiple mode. |
-| value | string, array | undefined | Use together with `onChange` for [controlled](#controlled-component) usage. The value should be an array if multiple mode. |
+| value | string, array | undefined | The value should be an array if multiple mode. |
 | multiple | boolean | false | Set to true if you want to allow multiple selected options. |
 | search | boolean | false | Set to true to enable search functionality |
 | disabled | boolean | false | Disables all functionality |
@@ -91,8 +125,8 @@ Below is all the available options you can pass to the component. Options withou
 | autoComplete | string, on/off | off | Disables/Enables autoComplete functionality in search field. |
 | autoFocus | boolean | false | Autofocus on select |
 | fuse | object, boolean | true | Use fuse.js to apply fuzzy search on search. Set to true to use default options or pass a fuse.js config option. If `search` is enabled and no `filterOptions` callback is passed, this will be set to `true` automatically. |
-| className | string, object | select-search-box | Set a base class string or pass in a className object for complete controll. Se [custom classNames](#custom-classnames) for more. |
-| onChange | function | null | Function to receive and handle value changes. Use together with the `value` prop for [controlled](#controlled-component) component usage. |
+| className | string, function | select-search-box | Set a base class string or pass a function for complete control. Se [custom classNames](#custom-classnames) for more. |
+| onChange | function | null | Function to receive and handle value changes. |
 | renderOption | function | null | Function that renders the options. See [custom renderers](#custom-renderers) for more. |
 | renderValue | function | null | Function that renders the value/search field. See [custom renderers](#custom-renderers) for more. |
 | renderGroupHeader | function | null | Function that renders the group header. See [custom renderers](#custom-renderers) for more. |
@@ -110,39 +144,22 @@ The options object can contain any properties and values you like. The only requ
 | items    | array | Array of option objects that will be used if the type is set to "group" | Yes, if `type` is set to "group" |
 | disabled | boolean | Set to `true` to disable this option | No |
 
-## Controlled component
-
-You can decide if you want full control of the state or if you want it handled automatically.
-If you decide to not control it, the component will not be updated if you change the value.
-
-To control the component you need to set an `onChange` handler and keep the `value` attribute up to date yourself.
-If you don't want to control it, you can omit the `onChange` handler and set `defaultValue` instead of `value`.
-
 ## Custom class names
 
-If you set a string as the `className` attribute value, the component will use that as a base and BEMify the class names for all elements.
-If you want to fully control the class names you can pass on object with the following shape:
+If you set a string as the `className` attribute value, the component will use that as a base and BEM-ify the class names for all elements.
+If you want to fully control the class names you can pass a function that takes a key and returns a class name. The following keys exists:
 
-```js
-{
-    main: 'select',
-    variant: 'multiple',
-    focus: 'has-focus',
-    disabled: 'is-disabled',
-    searching: 'is-searching',
-    value: 'select-value',
-    input: 'select-input',
-    select: 'select-select',
-    options: 'select-options',
-    row: 'select-row',
-    option: 'select-option',
-    optionSelected: 'is-selected',
-    optionDisabled: 'is-disabled',
-    optionHighlighted: 'is-highlighted',
-    group: 'select-group',
-    groupHeader: 'select-group-header',
-}
-```
+* container
+* value
+* input
+* select
+* options
+* option
+* group
+* group-header
+* is-selected
+* is-highlighted
+* is-loading
 
 ## Custom renderers
 

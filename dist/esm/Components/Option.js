@@ -16,19 +16,19 @@ import PropTypes from 'prop-types';
 var Option = function Option(_ref) {
   var optionProps = _ref.optionProps,
       highlighted = _ref.highlighted,
-      active = _ref.active,
+      selected = _ref.selected,
       className = _ref.className,
       renderOption = _ref.renderOption,
-      option = _objectWithoutProperties(_ref, ["optionProps", "highlighted", "active", "className", "renderOption"]);
+      option = _objectWithoutProperties(_ref, ["optionProps", "highlighted", "selected", "className", "renderOption"]);
 
   var optionRef = useRef(null);
   var optionClass = [className('option'), useMemo(function () {
-    if (active) {
+    if (selected) {
       return 'is-selected';
     }
 
     return false;
-  }, [active]), useMemo(function () {
+  }, [selected]), useMemo(function () {
     if (highlighted) {
       return 'is-highlighted';
     }
@@ -38,13 +38,13 @@ var Option = function Option(_ref) {
     return !!cls;
   }).join(' ');
   useEffect(function () {
-    if (optionRef.current && (active || highlighted)) {
+    if (optionRef.current && (selected || highlighted)) {
       optionRef.current.scrollIntoView({
         behavior: 'auto',
         block: 'center'
       });
     }
-  }, [optionRef, active, highlighted]);
+  }, [optionRef, selected, highlighted]);
 
   var domProps = _objectSpread({}, optionProps, {
     value: option.value,
@@ -52,7 +52,7 @@ var Option = function Option(_ref) {
   });
 
   var comp = renderOption ? renderOption(domProps, option, {
-    active: active,
+    selected: selected,
     highlighted: highlighted
   }, optionClass) : React.createElement("button", _extends({
     className: optionClass
@@ -83,7 +83,7 @@ Option.propTypes = {
   disabled: PropTypes.bool,
   index: PropTypes.number,
   highlighted: PropTypes.bool.isRequired,
-  active: PropTypes.bool.isRequired,
+  selected: PropTypes.bool.isRequired,
   optionProps: PropTypes.shape({
     tabIndex: PropTypes.string.isRequired,
     onMouseDown: PropTypes.func.isRequired

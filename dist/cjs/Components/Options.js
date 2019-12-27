@@ -51,7 +51,7 @@ var Options = function Options(_ref) {
       key: option.value,
       className: className,
       optionProps: optionProps,
-      active: (0, _isSelected.default)(option.value, snapshot.value),
+      selected: (0, _isSelected.default)(option.value, snapshot.value),
       highlighted: snapshot.highlighted === option.index,
       renderOption: renderOption
     }, option));

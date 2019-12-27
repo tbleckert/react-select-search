@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const Option = ({
     optionProps,
     highlighted,
-    active,
+    selected,
     className,
     renderOption,
     ...option
@@ -13,12 +13,12 @@ const Option = ({
     const optionClass = [
         className('option'),
         useMemo(() => {
-            if (active) {
+            if (selected) {
                 return 'is-selected';
             }
 
             return false;
-        }, [active]),
+        }, [selected]),
         useMemo(() => {
             if (highlighted) {
                 return 'is-highlighted';
@@ -29,10 +29,10 @@ const Option = ({
     ].filter(cls => !!cls).join(' ');
 
     useEffect(() => {
-        if (optionRef.current && (active || highlighted)) {
+        if (optionRef.current && (selected || highlighted)) {
             optionRef.current.scrollIntoView({ behavior: 'auto', block: 'center' });
         }
-    }, [optionRef, active, highlighted]);
+    }, [optionRef, selected, highlighted]);
 
     const domProps = {
         ...optionProps,
@@ -41,7 +41,7 @@ const Option = ({
     };
 
     const comp = (renderOption) ?
-        renderOption(domProps, option, { active, highlighted }, optionClass)
+        renderOption(domProps, option, { selected, highlighted }, optionClass)
         : (
             <button
                 className={optionClass}
@@ -77,7 +77,7 @@ Option.propTypes = {
     disabled: PropTypes.bool,
     index: PropTypes.number,
     highlighted: PropTypes.bool.isRequired,
-    active: PropTypes.bool.isRequired,
+    selected: PropTypes.bool.isRequired,
     optionProps: PropTypes.shape({
         tabIndex: PropTypes.string.isRequired,
         onMouseDown: PropTypes.func.isRequired,
