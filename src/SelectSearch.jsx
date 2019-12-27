@@ -75,7 +75,17 @@ const SelectSearch = forwardRef(({
 
     const valueComp = (renderValue) ? (
         <div className={classNameFn('value')}>
-            {renderValue(valueProps, snapshot, classNameFn('input'))}
+            {renderValue(
+                {
+                    ...valueProps,
+                    placeholder: (search) ? placeholder : null,
+                    autoFocus: (search) ? autoFocus : null,
+                    autoComplete: (search) ? autoComplete : null,
+                    value: (search) ? value : null,
+                },
+                snapshot,
+                classNameFn('input'),
+            )}
         </div>
     ) : (
         <Value
