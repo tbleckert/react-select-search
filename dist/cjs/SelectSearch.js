@@ -67,8 +67,12 @@ var SelectSearch = (0, _react.forwardRef)(function (_ref, ref) {
   var prevValue = (0, _react.useRef)(snapshot.value);
   var classNameFn = (0, _react.useMemo)(function () {
     return typeof className === 'string' ? function (key) {
-      if (!key) {
+      if (key === 'container') {
         return 'select-search';
+      }
+
+      if (key.indexOf('is-') === 0) {
+        return key;
       }
 
       return "select-search__".concat(key);
@@ -86,7 +90,7 @@ var SelectSearch = (0, _react.forwardRef)(function (_ref, ref) {
     displayValue = defaultOptions[0].name;
   }
 
-  var wrapperClass = classNameFn();
+  var wrapperClass = classNameFn('container');
 
   if (multiple) {
     wrapperClass += " ".concat(wrapperClass, "--multiple");

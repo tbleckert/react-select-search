@@ -14,14 +14,14 @@ const Option = ({
         className('option'),
         useMemo(() => {
             if (selected) {
-                return 'is-selected';
+                return className('is-selected');
             }
 
             return false;
         }, [selected]),
         useMemo(() => {
             if (highlighted) {
-                return 'is-highlighted';
+                return className('is-highlighted');
             }
 
             return false;

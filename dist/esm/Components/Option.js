@@ -24,13 +24,13 @@ var Option = function Option(_ref) {
   var optionRef = useRef(null);
   var optionClass = [className('option'), useMemo(function () {
     if (selected) {
-      return 'is-selected';
+      return className('is-selected');
     }
 
     return false;
   }, [selected]), useMemo(function () {
     if (highlighted) {
-      return 'is-highlighted';
+      return className('is-highlighted');
     }
 
     return false;

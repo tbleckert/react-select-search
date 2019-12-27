@@ -32,8 +32,12 @@ const SelectSearch = forwardRef(({
     const prevValue = useRef(snapshot.value);
     const classNameFn = useMemo(() => (
         (typeof className === 'string') ? (key) => {
-            if (!key) {
+            if (key === 'container') {
                 return 'select-search';
+            }
+
+            if (key.indexOf('is-') === 0) {
+                return key;
             }
 
             return `select-search__${key}`;
@@ -53,7 +57,7 @@ const SelectSearch = forwardRef(({
         displayValue = defaultOptions[0].name;
     }
 
-    let wrapperClass = classNameFn();
+    let wrapperClass = classNameFn('container');
 
     if (multiple) {
         wrapperClass += ` ${wrapperClass}--multiple`;

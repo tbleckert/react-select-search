@@ -38,13 +38,13 @@ var Option = function Option(_ref) {
   var optionRef = (0, _react.useRef)(null);
   var optionClass = [className('option'), (0, _react.useMemo)(function () {
     if (selected) {
-      return 'is-selected';
+      return className('is-selected');
     }
 
     return false;
   }, [selected]), (0, _react.useMemo)(function () {
     if (highlighted) {
-      return 'is-highlighted';
+      return className('is-highlighted');
     }
 
     return false;
