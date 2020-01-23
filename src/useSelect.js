@@ -11,6 +11,11 @@ function highlightReducer(highlighted, value) {
     }
 
     const { key, options } = value;
+
+    if (key !== 'ArrowDown' && key !== 'ArrowUp') {
+        return highlighted;
+    }
+
     let newHighlighted = null;
 
     if (key === 'ArrowDown' && highlighted < options.length) {
@@ -49,6 +54,10 @@ export default function useSelectSearch({
         setHighlighted(false);
 
         if (searchProps) {
+            if (searchProps.ref.current) {
+                searchProps.ref.current.blur();
+            }
+
             searchProps.onBlur();
         }
     }, [searchProps]);
@@ -61,18 +70,19 @@ export default function useSelectSearch({
     const displayValue = useMemo(() => getDisplayValue(value, flat), [value, flat]);
     const onKeyPress = useCallback(({ key }) => {
         if (key === 'Enter') {
-            const option = options[highlighted];
+            const option = flat[highlighted];
 
             if (option) {
                 setValue(getNewValue(option.value, value, multiple));
+                onBlur();
             }
         }
-    }, [options, highlighted, multiple, value]);
+    }, [onBlur, flat, highlighted, multiple, value]);
     const onKeyUp = useCallback(({ key }) => {
         if (key === 'Escape') {
-            setFocus(false);
+            onBlur();
         }
-    }, []);
+    }, [onBlur]);
 
     const valueProps = {
         ...searchProps,

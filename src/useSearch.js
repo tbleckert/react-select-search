@@ -1,4 +1,4 @@
-import { useMemo, useCallback, useState } from 'react';
+import { useMemo, useCallback, useState, useRef } from 'react';
 import doSearch from './search';
 import FlattenOptions from './lib/FlattenOptions';
 
@@ -10,6 +10,7 @@ export default function useSearch(
         threshold: 0.3,
     },
 ) {
+    const ref = useRef(null);
     const flatOptions = useMemo(() => FlattenOptions(defaultOptions), [defaultOptions]);
     const [search, setSearch] = useState('');
     const [options, setOptions] = useState(flatOptions);
@@ -17,9 +18,7 @@ export default function useSearch(
         setOptions(defaultOptions);
         setSearch('');
     }, [defaultOptions]);
-    const onSearch = useCallback((e) => {
-        const { value } = e.target;
-
+    const onSearch = useCallback((value) => {
         setSearch(value);
 
         if (value.length) {
@@ -37,6 +36,7 @@ export default function useSearch(
         onBlur,
         onChange: onSearch,
         value: search,
+        ref,
     };
 
     return [
