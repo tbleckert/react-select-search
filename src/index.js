@@ -5,6 +5,7 @@ import onClickOutside from 'react-onclickoutside';
 import Bem from './Bem';
 import FlattenOptions from './FlattenOptions';
 import GroupOptions from './GroupOptions';
+import { isNotEmpty, isEmpty, isArray } from './Utils';
 
 class SelectSearch extends React.PureComponent {
     static defaultProps = {
@@ -43,7 +44,7 @@ class SelectSearch extends React.PureComponent {
 
         let search = '';
 
-        if (stateValue) {
+        if (isNotEmpty(stateValue)) {
             const option = this.findByValue(flattenedOptions, stateValue);
 
             if (option) {
@@ -172,7 +173,7 @@ class SelectSearch extends React.PureComponent {
 
         let search = '';
 
-        if (this.state.value && this.props.search && !this.props.multiple) {
+        if (isNotEmpty(this.state.value) && this.props.search && !this.props.multiple) {
             const option = this.findByValue(null, this.state.value);
 
             if (option) {
@@ -361,11 +362,11 @@ class SelectSearch extends React.PureComponent {
     };
 
     chooseOption(value) {
-        let currentValue = this.state.value.slice();
+        let currentValue = isArray(this.state.value) ? this.state.value.slice() : this.state.value;
         let option;
         let search;
 
-        if (!value) {
+        if (isEmpty(value)) {
             let index = this.state.highlighted;
 
             if (!index || (this.state.options.length - 1) < index) {
@@ -413,12 +414,12 @@ class SelectSearch extends React.PureComponent {
     }
 
     removeOption(value) {
-        if (!value) {
+        if (isEmpty(value)) {
             return false;
         }
 
         const option = this.findByValue(this.state.defaultOptions, value);
-        const optionValue = this.state.value.slice();
+        const optionValue = isArray(this.state.value) ? this.state.value.slice() : this.state.value;
 
         if (!option || optionValue.indexOf(option.value) < 0) {
             return false;
@@ -632,7 +633,7 @@ class SelectSearch extends React.PureComponent {
             let labelValue;
             let labelClassName;
 
-            if (!this.state.value) {
+            if (isEmpty(this.state.value)) {
                 labelValue = this.props.placeholder;
                 labelClassName = `${this.classes.search} ${Bem.m(this.classes.search, 'placeholder')}`;
             } else {
@@ -691,6 +692,7 @@ SelectSearch.propTypes = {
     value: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.array,
+        PropTypes.number
     ]),
 };
 
