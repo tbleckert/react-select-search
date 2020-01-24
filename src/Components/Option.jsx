@@ -18,14 +18,14 @@ const Option = ({
             }
 
             return false;
-        }, [selected]),
+        }, [className, selected]),
         useMemo(() => {
             if (highlighted) {
                 return className('is-highlighted');
             }
 
             return false;
-        }, [highlighted]),
+        }, [className, highlighted]),
     ].filter(cls => !!cls).join(' ');
 
     useEffect(() => {
@@ -60,11 +60,9 @@ const Option = ({
 
 Option.defaultProps = {
     type: null,
-    groupId: null,
     disabled: false,
     index: null,
     value: null,
-    items: null,
     renderOption: null,
 };
 
@@ -72,8 +70,6 @@ Option.propTypes = {
     name: PropTypes.string.isRequired,
     value: PropTypes.string,
     type: PropTypes.string,
-    groupId: PropTypes.string,
-    items: PropTypes.arrayOf(PropTypes.object),
     disabled: PropTypes.bool,
     index: PropTypes.number,
     highlighted: PropTypes.bool.isRequired,

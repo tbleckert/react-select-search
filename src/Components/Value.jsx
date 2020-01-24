@@ -43,7 +43,6 @@ Value.propTypes = {
         onFocus: PropTypes.func.isRequired,
         tabIndex: PropTypes.string,
         onChange: PropTypes.func,
-        value: PropTypes.string,
     }).isRequired,
     disabled: PropTypes.bool,
     search: PropTypes.bool,
