@@ -30,6 +30,7 @@
 * Lightweight, with zero dependencies*
 * Full test coverage
 * Accessible
+* Headless mode
 * Basic HTML select functionality, including multiple
 * Search/filter options
 * Apply renderers to change markup and behavior
