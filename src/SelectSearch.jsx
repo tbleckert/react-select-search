@@ -4,6 +4,7 @@ import useSelect from './useSelect';
 import useSearch from './useSearch';
 import Value from './Components/Value';
 import Options from './Components/Options';
+import FlattenOptions from './lib/FlattenOptions';
 import { optionType, valueType } from './types';
 
 const SelectSearch = forwardRef(({
@@ -29,6 +30,7 @@ const SelectSearch = forwardRef(({
         disabled,
     }, searchProps);
 
+    const flatOptions = useMemo(() => FlattenOptions(options), [options]);
     const prevValue = useRef(snapshot.value);
     const classNameFn = useMemo(() => (
         (typeof className === 'string') ? (key) => {
@@ -53,8 +55,8 @@ const SelectSearch = forwardRef(({
 
     let { displayValue } = snapshot;
 
-    if (!placeholder && !displayValue && defaultOptions.length) {
-        displayValue = defaultOptions[0].name;
+    if (!placeholder && !displayValue && flatOptions.length) {
+        displayValue = flatOptions[0].name;
     }
 
     let wrapperClass = classNameFn('container');
@@ -83,7 +85,7 @@ const SelectSearch = forwardRef(({
                     autoComplete: (search) ? autoComplete : null,
                     value: (search) ? value : null,
                 },
-                snapshot,
+                { ...snapshot, displayValue },
                 classNameFn('input'),
             )}
         </div>
