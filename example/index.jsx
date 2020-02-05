@@ -25,7 +25,7 @@ function renderFontValue(valueProps, snapshot, className) {
     };
 
     return (
-        <button {...valueProps} type="button" className={className} style={style}>{snapshot.displayValue}</button>
+        <input {...valueProps} className={className} style={style} value={snapshot.displayValue} />
     );
 }
 

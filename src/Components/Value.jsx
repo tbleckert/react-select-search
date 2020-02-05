@@ -15,14 +15,13 @@ const Value = ({
             <input {...valueProps} value={displayValue} autoFocus={autoFocus} placeholder={placeholder} disabled={disabled} className={className('input')} />
         )}
         {!search && (
-            <button
+            <input
                 {...valueProps}
                 disabled={disabled}
                 className={className('input')}
                 autoFocus={autoFocus}
-            >
-                {displayValue}
-            </button>
+                value={displayValue}
+            />
         )}
     </div>
 );

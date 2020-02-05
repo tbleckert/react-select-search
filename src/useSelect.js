@@ -74,7 +74,10 @@ export default function useSelectSearch({
 
             if (option) {
                 setValue(getNewValue(option.value, value, multiple));
-                onBlur();
+
+                if (!multiple) {
+                    onBlur();
+                }
             }
         }
     }, [onBlur, flat, highlighted, multiple, value]);
@@ -87,6 +90,7 @@ export default function useSelectSearch({
     const valueProps = {
         ...searchProps,
         tabIndex: '0',
+        readOnly: !searchProps,
         onBlur,
         onFocus,
         onKeyPress,
