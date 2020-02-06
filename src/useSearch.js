@@ -4,11 +4,7 @@ import FlattenOptions from './lib/FlattenOptions';
 
 export default function useSearch(
     defaultOptions,
-    snapshot,
-    fuse = {
-        keys: ['name', 'groupName'],
-        threshold: 0.3,
-    },
+    fuse,
 ) {
     const ref = useRef(null);
     const flatOptions = useMemo(() => FlattenOptions(defaultOptions), [defaultOptions]);
@@ -18,7 +14,8 @@ export default function useSearch(
         setOptions(defaultOptions);
         setSearch('');
     }, [defaultOptions]);
-    const onSearch = useCallback((value) => {
+    const onSearch = useCallback(({ target }) => {
+        const { value } = target;
         setSearch(value);
 
         if (value.length) {

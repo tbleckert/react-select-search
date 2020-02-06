@@ -21,8 +21,12 @@ const SelectSearch = forwardRef(({
     renderValue,
     renderOption,
     renderGroupHeader,
+    fuse,
 }, ref) => {
-    const [searchProps, options] = (search) ? useSearch(defaultOptions) : [null, defaultOptions];
+    const [searchProps, options] = (search) ?
+        useSearch(defaultOptions, fuse)
+        : [null, defaultOptions];
+
     const [snapshot, valueProps, optionProps] = useSelect({
         options,
         value: defaultValue,
@@ -137,6 +141,10 @@ SelectSearch.defaultProps = {
     renderOption: null,
     renderGroupHeader: name => name,
     renderValue: null,
+    fuse: {
+        keys: ['name', 'groupName'],
+        threshold: 0.3,
+    },
 };
 
 SelectSearch.propTypes = {
@@ -156,6 +164,13 @@ SelectSearch.propTypes = {
     renderOption: PropTypes.func,
     renderGroupHeader: PropTypes.func,
     renderValue: PropTypes.func,
+    fuse: PropTypes.oneOfType([
+        PropTypes.bool,
+        PropTypes.shape({
+            keys: PropTypes.arrayOf(PropTypes.string),
+            threshold: PropTypes.number,
+        }),
+    ]),
 };
 
 export default memo(SelectSearch);
