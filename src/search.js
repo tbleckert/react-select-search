@@ -18,7 +18,7 @@ function fuzzySearch(value, options, fuseOptions) {
 }
 
 export default function search(value, options, fuseOptions) {
-    if (value.length) {
+    if (value.length && Fuse && fuseOptions) {
         return fuzzySearch(value, options, fuseOptions);
     }
 
