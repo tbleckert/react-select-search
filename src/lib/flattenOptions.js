@@ -1,4 +1,4 @@
-const FlattenOptions = (options) => {
+export default function flattenOptions(options) {
     if (!Array.isArray(options)) {
         return [];
     }
@@ -24,5 +24,3 @@ const FlattenOptions = (options) => {
 
     return nextOptions;
 };
-
-export default FlattenOptions;

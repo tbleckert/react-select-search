@@ -1,6 +1,6 @@
 import findGroupIndex from './findGroupIndex';
 
-const GroupOptions = (options) => {
+export default function groupOptions(options) {
     const nextOptions = [];
 
     options.forEach((option, i) => {
@@ -27,5 +27,3 @@ const GroupOptions = (options) => {
 
     return nextOptions;
 };
-
-export default GroupOptions;
