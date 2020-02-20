@@ -5,13 +5,17 @@ export default function highlightReducer(highlighted, value) {
 
     const { key, options } = value;
 
+    if (!options) {
+        return highlighted;
+    }
+
     if (key !== 'ArrowDown' && key !== 'ArrowUp') {
         return highlighted;
     }
 
     let newHighlighted = null;
 
-    if (key === 'ArrowDown' && highlighted < options.length) {
+    if (key === 'ArrowDown' && highlighted < options.length - 1) {
         newHighlighted = highlighted + 1;
     } else if (key === 'ArrowDown' && highlighted >= options.length - 1) {
         newHighlighted = 0;
