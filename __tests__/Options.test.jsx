@@ -1,12 +1,10 @@
 import React from 'react';
-import Enzyme, { mount } from 'enzyme';
+import renderer from 'react-test-renderer';
 import Options from '../src/Components/Options';
-import './helpers/setup-enzyme';
-import './helpers/setup-browser-env';
 
 describe('Test Options component', () => {
-    test('Renders value element', () => {
-        const wrapper = mount((
+    test('Renders correctly without groups', () => {
+        const tree = renderer.create((
             <Options
                 className={(key) => key}
                 options={[
@@ -23,9 +21,37 @@ describe('Test Options component', () => {
                     onMouseDown: () => {},
                 }}
             />
-        ));
+        )).toJSON();
 
-        expect(wrapper.find('li').length).toBe(2);
-        expect(wrapper.find('ul').length).toBe(1);
+        expect(tree).toMatchSnapshot();
+    });
+
+    test('Renders correctly with groups', () => {
+        const tree = renderer.create((
+            <Options
+                className={(key) => key}
+                options={[
+                    {
+                        name: 'Group',
+                        type: 'group',
+                        items: [
+                            { value: 'foo', name: 'Foo' },
+                            { value: 'bar', name: 'Bar' },
+                        ]
+                    },
+                ]}
+                snapshot={{
+                    value: null,
+                    highlighted: null,
+                    focus: false,
+                }}
+                optionProps={{
+                    tabIndex: 1,
+                    onMouseDown: () => {},
+                }}
+            />
+        )).toJSON();
+
+        expect(tree).toMatchSnapshot();
     });
 });

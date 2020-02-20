@@ -1,12 +1,10 @@
 import React from 'react';
-import Enzyme, { mount } from 'enzyme';
+import renderer from 'react-test-renderer';
 import Option from '../src/Components/Option';
-import './helpers/setup-enzyme';
-import './helpers/setup-browser-env';
 
 describe('Test Option component', () => {
     test('Renders value element', () => {
-        const wrapper = mount((
+        const tree = renderer.create((
             <Option
                 className={(key) => key}
                 name="Foo"
@@ -19,16 +17,13 @@ describe('Test Option component', () => {
                     onMouseDown: () => {},
                 }}
             />
-        ));
+        )).toJSON();
 
-        expect(wrapper.find('li').length).toBe(1);
-        expect(wrapper.find('button').length).toBe(1);
-        expect(wrapper.find('.row').length).toBe(1);
-        expect(wrapper.find('.option').length).toBe(1);
+        expect(tree).toMatchSnapshot();
     });
 
     test('Option can be selected', () => {
-        const wrapper = mount((
+        const tree = renderer.create((
             <Option
                 className={(key) => key}
                 name="Foo"
@@ -41,13 +36,13 @@ describe('Test Option component', () => {
                     onMouseDown: () => {},
                 }}
             />
-        ));
+        )).toJSON();
 
-        expect(wrapper.find('.option.is-selected').length).toBe(1);
+        expect(tree).toMatchSnapshot();
     });
 
     test('Option can be highlighted', () => {
-        const wrapper = mount((
+        const tree = renderer.create((
             <Option
                 className={(key) => key}
                 name="Foo"
@@ -60,13 +55,13 @@ describe('Test Option component', () => {
                     onMouseDown: () => {},
                 }}
             />
-        ));
+        )).toJSON();
 
-        expect(wrapper.find('.option.is-highlighted').length).toBe(1);
+        expect(tree).toMatchSnapshot();
     });
 
     test('Can render custom option', () => {
-        const wrapper = mount((
+        const tree = renderer.create((
             <Option
                 className={(key) => key}
                 name="Foo"
@@ -80,8 +75,8 @@ describe('Test Option component', () => {
                 }}
                 renderOption={() => <x-custom-element />}
             />
-        ));
+        )).toJSON();
 
-        expect(wrapper.find('x-custom-element').length).toBe(1);
+        expect(tree).toMatchSnapshot();
     });
 });

@@ -1,11 +1,10 @@
 import React from 'react';
-import Enzyme, { mount } from 'enzyme';
+import renderer from 'react-test-renderer';
 import Value from '../src/Components/Value';
-import './helpers/setup-enzyme';
 
 describe('Test Value component', () => {
     test('Renders value element', () => {
-        const wrapper = mount((
+        const tree = renderer.create((
             <Value
                 className={(key) => key}
                 displayValue="Foo"
@@ -18,15 +17,13 @@ describe('Test Value component', () => {
                 disabled={false}
                 search={false}
             />
-        ));
+        )).toJSON();
 
-        expect(wrapper.find('div').length).toBe(1);
-        expect(wrapper.find('.value').length).toBe(1);
-        expect(wrapper.find('.input').length).toBe(1);
+        expect(tree).toMatchSnapshot();
     });
 
     test('Renders search element', () => {
-        const wrapper = mount((
+        const tree = renderer.create((
             <Value
                 className={(key) => key}
                 displayValue="Foo"
@@ -39,10 +36,8 @@ describe('Test Value component', () => {
                 disabled={false}
                 search={true}
             />
-        ));
+        )).toJSON();
 
-        expect(wrapper.find('input').length).toBe(1);
-        expect(wrapper.find('.value').length).toBe(1);
-        expect(wrapper.find('.input').length).toBe(1);
+        expect(tree).toMatchSnapshot();
     });
 });
