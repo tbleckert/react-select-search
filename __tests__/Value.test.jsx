@@ -20,7 +20,7 @@ describe('Test Value component', () => {
             />
         ));
 
-        expect(wrapper.find('button').length).toBe(1);
+        expect(wrapper.find('div').length).toBe(1);
         expect(wrapper.find('.value').length).toBe(1);
         expect(wrapper.find('.input').length).toBe(1);
     });
