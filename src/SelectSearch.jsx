@@ -1,10 +1,9 @@
 import React, { useEffect, forwardRef, useMemo, memo, useRef } from 'react';
 import PropTypes from 'prop-types';
 import useSelect from './useSelect';
-import useSearch from './useSearch';
 import Value from './Components/Value';
 import Options from './Components/Options';
-import FlattenOptions from './lib/FlattenOptions';
+import FlattenOptions from './lib/flattenOptions';
 import { optionType, valueType } from './types';
 
 const SelectSearch = forwardRef(({
@@ -23,17 +22,16 @@ const SelectSearch = forwardRef(({
     renderGroupHeader,
     fuse,
 }, ref) => {
-    const [searchProps, options] = (search) ?
-        useSearch(defaultOptions, fuse)
-        : [null, defaultOptions];
-
     const [snapshot, valueProps, optionProps] = useSelect({
-        options,
+        options: defaultOptions,
         value: defaultValue,
         multiple,
         disabled,
-    }, searchProps);
+        fuse,
+        search,
+    });
 
+    const { options } = snapshot;
     const flatOptions = useMemo(() => FlattenOptions(options), [options]);
     const prevValue = useRef(snapshot.value);
     const classNameFn = useMemo(() => (
@@ -76,7 +74,7 @@ const SelectSearch = forwardRef(({
     let value = displayValue;
 
     if ((snapshot.focus || multiple) && search) {
-        ({ value } = searchProps);
+        value = snapshot.search;
     }
 
     const valueComp = (renderValue) ? (

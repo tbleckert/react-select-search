@@ -1,4 +1,4 @@
-import GroupOptions from '../src/lib/GroupOptions';
+import GroupOptions from '../src/lib/groupOptions';
 
 describe('Unit test for GroupOptions function', () => {
     const flattenOptions = [

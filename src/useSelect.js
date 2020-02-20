@@ -1,73 +1,57 @@
-import { useReducer, useEffect, useCallback, useMemo, useState } from 'react';
+import {
+    useReducer,
+    useEffect,
+    useCallback,
+    useMemo,
+    useState,
+    useRef,
+} from 'react';
+import highlightReducer from './highlightReducer';
 import getDisplayValue from './lib/getDisplayValue';
-import FlattenOptions from './lib/FlattenOptions';
-import GroupOptions from './lib/GroupOptions';
+import FlattenOptions from './lib/flattenOptions';
+import GroupOptions from './lib/groupOptions';
 import getNewValue from './lib/getNewValue';
 import getOption from './lib/getOption';
-
-function highlightReducer(highlighted, value) {
-    if (!value) {
-        return -1;
-    }
-
-    const { key, options } = value;
-
-    if (key !== 'ArrowDown' && key !== 'ArrowUp') {
-        return highlighted;
-    }
-
-    let newHighlighted = null;
-
-    if (key === 'ArrowDown' && highlighted < options.length) {
-        newHighlighted = highlighted + 1;
-    } else if (key === 'ArrowDown' && highlighted >= options.length - 1) {
-        newHighlighted = 0;
-    } else if (key === 'ArrowUp' && highlighted > 0) {
-        newHighlighted = highlighted - 1;
-    } else if (key === 'ArrowUp' && highlighted <= 0) {
-        newHighlighted = options.length - 1;
-    }
-
-    const option = options[newHighlighted];
-
-    if (option && option.disabled) {
-        return highlightReducer(newHighlighted, { key, options });
-    }
-
-    return newHighlighted;
-}
+import doSearch from './search';
 
 export default function useSelectSearch({
     value: defaultValue = null,
     disabled = false,
     multiple = false,
-    options,
-}, searchProps = null) {
-    const flat = useMemo(() => FlattenOptions(options), [options]);
-    const groupedOptions = useMemo(() => GroupOptions(flat), [flat]);
+    search: canSearch = false,
+    fuse = false,
+    options: defaultOptions,
+}) {
+    const ref = useRef(null);
+    const [flat, setOptions] = useState([]);
     const [value, setValue] = useState(defaultValue);
-    const selectedOption = useMemo(() => getOption(value, flat), [value, flat]);
+    const [search, setSearch] = useState('');
     const [focus, setFocus] = useState(false);
     const [highlighted, setHighlighted] = useReducer(highlightReducer, -1);
+
+    const options = useMemo(() => GroupOptions(flat), [flat]);
+    const selectedOption = useMemo(() => getOption(value, flat), [value, flat]);
+    const displayValue = useMemo(() => getDisplayValue(value, flat), [value, flat]);
+
     const onBlur = useCallback(() => {
         setFocus(false);
         setHighlighted(false);
 
-        if (searchProps) {
-            if (searchProps.ref.current) {
-                searchProps.ref.current.blur();
-            }
-
-            searchProps.onBlur();
+        if (ref.current) {
+            ref.current.blur();
         }
-    }, [searchProps]);
+
+        if (!multiple) {
+            setSearch('');
+            setOptions(defaultOptions);
+        }
+    }, [flat, ref]);
     const onFocus = useCallback(() => {
         setFocus(true);
     }, []);
 
     const onChange = e => setValue(getNewValue(e.currentTarget.value, value, multiple));
     const onKeyDown = useCallback(e => setHighlighted({ key: e.key, options: flat }), [flat]);
-    const displayValue = useMemo(() => getDisplayValue(value, flat), [value, flat]);
     const onKeyPress = useCallback(({ key }) => {
         if (key === 'Enter') {
             const option = flat[highlighted];
@@ -87,16 +71,32 @@ export default function useSelectSearch({
         }
     }, [onBlur]);
 
+    const onSearch = useCallback(({ target }) => {
+        const { value: inputVal } = target;
+        let newOptions = flat;
+        setSearch(inputVal);
+
+        if (inputVal.length) {
+            newOptions = doSearch(inputVal, flat, fuse);
+        }
+
+        setOptions(newOptions);
+    }, [flat, fuse]);
+
     const valueProps = {
-        ...searchProps,
         tabIndex: '0',
-        readOnly: !searchProps,
+        readOnly: !canSearch,
         onBlur,
         onFocus,
         onKeyPress,
         onKeyDown,
         onKeyUp,
+        ref,
     };
+
+    if (canSearch) {
+        valueProps.onChange = onSearch;
+    }
 
     const optionProps = { tabIndex: '-1', onMouseDown: onChange };
 
@@ -104,15 +104,20 @@ export default function useSelectSearch({
         setValue(defaultValue);
     }, [defaultValue]);
 
+    useEffect(() => {
+        setOptions(FlattenOptions(defaultOptions));
+    }, [defaultOptions]);
+
     return [
         {
             value,
             selectedOption,
             highlighted,
-            options: groupedOptions,
+            options,
             disabled,
             displayValue,
             focus,
+            search,
         },
         valueProps,
         optionProps,
