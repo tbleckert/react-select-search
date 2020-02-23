@@ -54,4 +54,34 @@ describe('Test Options component', () => {
 
         expect(tree).toMatchSnapshot();
     });
+
+    test('Renders custom group renderer', () => {
+        const tree = renderer.create((
+            <Options
+                className={(key) => key}
+                options={[
+                    {
+                        name: 'Group',
+                        type: 'group',
+                        items: [
+                            { value: 'foo', name: 'Foo' },
+                            { value: 'bar', name: 'Bar' },
+                        ]
+                    },
+                ]}
+                snapshot={{
+                    value: null,
+                    highlighted: null,
+                    focus: false,
+                }}
+                optionProps={{
+                    tabIndex: '1',
+                    onMouseDown: () => {},
+                }}
+                renderGroupHeader={(name) => `Group: ${name}`}
+            />
+        )).toJSON();
+
+        expect(tree).toMatchSnapshot();
+    });
 });

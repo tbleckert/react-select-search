@@ -50,10 +50,10 @@ const SelectSearch = forwardRef(({
 
     useEffect(() => {
         if (prevValue.current !== snapshot.value) {
-            onChange(snapshot.value);
+            onChange(snapshot.value, snapshot.selectedOption);
             prevValue.current = snapshot.value;
         }
-    }, [onChange, snapshot.value]);
+    }, [onChange, snapshot.value, snapshot.selectedOption]);
 
     let { displayValue } = snapshot;
 

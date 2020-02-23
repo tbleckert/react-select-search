@@ -87,3 +87,56 @@ exports[`Test Options component Renders correctly without groups 1`] = `
   </li>
 </ul>
 `;
+
+exports[`Test Options component Renders custom group renderer 1`] = `
+<ul
+  className="options"
+>
+  <li
+    className="row"
+    role="none"
+  >
+    <div
+      className="group"
+    >
+      <div
+        className="group-header"
+      >
+        Group: Group
+      </div>
+      <ul
+        className="options"
+      >
+        <li
+          className="row"
+          role="menuitem"
+        >
+          <button
+            className="option"
+            disabled={false}
+            onMouseDown={[Function]}
+            tabIndex="1"
+            value="foo"
+          >
+            Foo
+          </button>
+        </li>
+        <li
+          className="row"
+          role="menuitem"
+        >
+          <button
+            className="option"
+            disabled={false}
+            onMouseDown={[Function]}
+            tabIndex="1"
+            value="bar"
+          >
+            Bar
+          </button>
+        </li>
+      </ul>
+    </div>
+  </li>
+</ul>
+`;

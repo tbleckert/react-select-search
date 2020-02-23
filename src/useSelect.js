@@ -43,7 +43,7 @@ export default function useSelectSearch({
 
         if (!multiple) {
             setSearch('');
-            setOptions(defaultOptions);
+            setOptions(FlattenOptions(defaultOptions));
         }
     }, [flat, ref]);
     const onFocus = useCallback(() => {
