@@ -1,141 +1,78 @@
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
 
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-import React, { createRef } from 'react';
+import React, { useMemo, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
-import Context from '../Context';
-import Group from './Group';
 
-var Option =
-/*#__PURE__*/
-function (_React$PureComponent) {
-  _inherits(Option, _React$PureComponent);
+var Option = function Option(_ref) {
+  var optionProps = _ref.optionProps,
+      highlighted = _ref.highlighted,
+      selected = _ref.selected,
+      className = _ref.className,
+      renderOption = _ref.renderOption,
+      option = _objectWithoutProperties(_ref, ["optionProps", "highlighted", "selected", "className", "renderOption"]);
 
-  function Option(props) {
-    var _this;
+  var optionRef = useRef(null);
+  var optionClass = [className('option'), useMemo(function () {
+    if (selected) {
+      return className('is-selected');
+    }
 
-    _classCallCheck(this, Option);
+    return false;
+  }, [selected]), useMemo(function () {
+    if (highlighted) {
+      return className('is-highlighted');
+    }
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(Option).call(this, props));
-    _this.ref = createRef();
-    return _this;
-  }
-
-  _createClass(Option, [{
-    key: "componentDidUpdate",
-    value: function componentDidUpdate(prevProps) {
-      var _this2 = this;
-
-      var prevSnap = prevProps.snapshot;
-      var prevFocus = prevSnap.focus;
-      var _this$props = this.props,
-          snapshot = _this$props.snapshot,
-          value = _this$props.value,
-          index = _this$props.index;
-      var focus = snapshot.focus,
-          highlighted = snapshot.highlighted;
-      var scrollConf = {
+    return false;
+  }, [highlighted])].filter(function (cls) {
+    return !!cls;
+  }).join(' ');
+  useEffect(function () {
+    if (optionRef.current && (selected || highlighted)) {
+      optionRef.current.scrollIntoView({
         behavior: 'auto',
         block: 'center'
-      };
-      setImmediate(function () {
-        if (focus) {
-          var selected = Array.isArray(snapshot.value) && snapshot.value.indexOf(value) >= 0 || value === snapshot.value;
-          var isHighlighted = index === highlighted;
-          var prevIsHighlighted = index === prevSnap.highlighted;
-
-          if (isHighlighted && isHighlighted !== prevIsHighlighted || selected && focus !== prevFocus) {
-            _this2.ref.current.scrollIntoView(scrollConf);
-          }
-        }
       });
     }
-  }, {
-    key: "render",
-    value: function render() {
-      if (this.props.type === 'group') {
-        return React.createElement(Group, this.props);
-      }
+  }, [optionRef, selected, highlighted]);
 
-      var _this$props2 = this.props,
-          name = _this$props2.name,
-          value = _this$props2.value,
-          index = _this$props2.index,
-          disabled = _this$props2.disabled,
-          onChange = _this$props2.onChange,
-          snapshot = _this$props2.snapshot;
-      var optionClass = [this.context.classes.option];
-      var renderOption = this.context.renderers.option;
-      var highlighted = index === snapshot.highlighted;
-      var selected = Array.isArray(snapshot.value) && snapshot.value.indexOf(value) >= 0 || value === snapshot.value;
+  var domProps = _objectSpread({}, optionProps, {
+    value: option.value,
+    disabled: option.disabled
+  });
 
-      if (selected) {
-        optionClass.push(this.context.classes.optionSelected);
-      }
+  var comp = renderOption ? renderOption(domProps, option, {
+    selected: selected,
+    highlighted: highlighted
+  }, optionClass) : React.createElement("button", _extends({
+    className: optionClass
+  }, domProps), option.name);
+  return React.createElement("li", {
+    ref: optionRef,
+    className: className('row'),
+    role: "menuitem",
+    key: option.value
+  }, comp);
+};
 
-      if (highlighted) {
-        optionClass.push(this.context.classes.optionHighlighted);
-      }
-
-      if (disabled) {
-        optionClass.push(this.context.classes.optionDisabled);
-      }
-
-      var optionSnapshot = {
-        highlighted: highlighted,
-        selected: selected
-      };
-      var optionProps = {
-        disabled: disabled,
-        value: value,
-        className: optionClass.join(' '),
-        onMouseDown: onChange,
-        tabIndex: -1,
-        role: 'menuitem',
-        'data-selected': selected ? 'true' : null,
-        'data-highlighted': highlighted ? 'true' : null,
-        key: value
-      };
-      var content = typeof renderOption === 'function' ? renderOption(optionProps, this.props, optionSnapshot) : React.createElement("button", _extends({}, optionProps, {
-        type: "button"
-      }), name);
-      return React.createElement("li", {
-        ref: this.ref,
-        key: value,
-        role: "presentation",
-        className: this.context.classes.row
-      }, content);
-    }
-  }]);
-
-  return Option;
-}(React.PureComponent);
-
-Option.contextType = Context;
 Option.defaultProps = {
   type: null,
   groupId: null,
   disabled: false,
   index: null,
   value: null,
-  items: null
+  items: null,
+  renderOption: null
 };
 Option.propTypes = {
   name: PropTypes.string.isRequired,
@@ -144,12 +81,14 @@ Option.propTypes = {
   groupId: PropTypes.string,
   items: PropTypes.arrayOf(PropTypes.object),
   disabled: PropTypes.bool,
-  onChange: PropTypes.func.isRequired,
   index: PropTypes.number,
-  snapshot: PropTypes.shape({
-    value: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
-    highlighted: PropTypes.number,
-    focus: PropTypes.bool
-  }).isRequired
+  highlighted: PropTypes.bool.isRequired,
+  selected: PropTypes.bool.isRequired,
+  optionProps: PropTypes.shape({
+    tabIndex: PropTypes.string.isRequired,
+    onMouseDown: PropTypes.func.isRequired
+  }).isRequired,
+  className: PropTypes.func.isRequired,
+  renderOption: PropTypes.func
 };
 export default Option;

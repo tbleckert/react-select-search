@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Nunito+Sans&display=swap');
 
-.select-search-box {
+.select-search {
     width: 300px;
     position: relative;
     margin-bottom: 20px;
@@ -8,21 +8,21 @@
     box-sizing: border-box;
 }
 
-.select-search-box *,
-.select-search-box *::after,
-.select-search-box *::before {
+.select-search *,
+.select-search *::after,
+.select-search *::before {
     box-sizing: inherit;
 }
 
-    .select-search-box.is-disabled {
+    .select-search.is-disabled {
         opacity: 0.5;
     }
 
-    .select-search-box__value {
+    .select-search__value {
         position: relative;
     }
 
-    .select-search-box__value::after {
+    .select-search__value::after {
         content: '';
         display: inline-block;
         position: absolute;
@@ -36,7 +36,7 @@
         pointer-events: none;
     }
 
-    .select-search-box__input {
+    .select-search__input {
         display: block;
         height: 36px;
         width: 100%;
@@ -48,48 +48,44 @@
         outline: none;
         font-family: 'Noto Sans', sans-serif;
         font-size: 14px;
+        text-align: left;
+        line-height: 36px;
         -webkit-appearance: none;
     }
 
-    .select-search-box:not(.is-disabled) .select-search-box__input {
+    .select-search:not(.is-disabled) .select-search__input {
         cursor: pointer;
     }
 
-    .select-search-box--multiple .select-search-box__input {
+    .select-search--multiple .select-search__input {
         cursor: initial;
     }
 
-    .select-search-box__input::-webkit-search-decoration,
-    .select-search-box__input::-webkit-search-cancel-button,
-    .select-search-box__input::-webkit-search-results-button,
-    .select-search-box__input::-webkit-search-results-decoration {
+    .select-search__input::-webkit-search-decoration,
+    .select-search__input::-webkit-search-cancel-button,
+    .select-search__input::-webkit-search-results-button,
+    .select-search__input::-webkit-search-results-decoration {
         -webkit-appearance:none;
     }
 
-    .select-search-box--multiple .select-search-box__input {
+    .select-search--multiple .select-search__input {
         border-radius: 3px 3px 0 0;
     }
 
-    .select-search-box__input:hover {
+    .select-search__input:hover {
         border-color: #2FCC8B;
     }
 
-    .select-search-box__input:not([readonly]):focus {
+    .select-search__input:not([readonly]):focus {
         cursor: initial;
     }
 
-    .select-search-box__select {
-        display: none;
+    .select-search__select {
         background: #fff;
         box-shadow: 0 .0625rem .125rem rgba(0, 0, 0, 0.15);
     }
 
-    .select-search-box.has-focus .select-search-box__select,
-    .select-search-box--multiple .select-search-box__select {
-        display: block;
-    }
-
-    .select-search-box:not(.select-search-box--multiple) .select-search-box__select {
+    .select-search:not(.select-search--multiple) .select-search__select {
         position: absolute;
         z-index: 2;
         top: 44px;
@@ -100,22 +96,22 @@
         max-height: 360px;
     }
 
-    .select-search-box--multiple .select-search-box__select {
+    .select-search--multiple .select-search__select {
         height: 180px;
         overflow: auto;
         border-top: 1px solid #eee;
         border-radius: 0 0 3px 3px;
     }
 
-    .select-search-box__options {
+    .select-search__options {
         list-style: none;
     }
 
-    .select-search-box__row:not(:first-child) {
+    .select-search__row:not(:first-child) {
         border-top: 1px solid #eee;
     }
 
-    .select-search-box__option {
+    .select-search__option {
         display: block;
         height: 36px;
         width: 100%;
@@ -129,27 +125,27 @@
         cursor: pointer;
     }
 
-    .select-search-box--multiple .select-search-box__option {
+    .select-search--multiple .select-search__option {
         height: 48px;
     }
 
-    .select-search-box__option.is-selected {
+    .select-search__option.is-selected {
         background: #2FCC8B;
         color: #fff;
     }
 
-    .select-search-box__option.is-highlighted,
-    .select-search-box__option:not(.is-selected):hover {
+    .select-search__option.is-highlighted,
+    .select-search__option:not(.is-selected):hover {
         background: rgba(47, 204, 139, 0.1);
     }
 
-    .select-search-box__option.is-highlighted.is-selected,
-    .select-search-box__option.is-selected:hover {
+    .select-search__option.is-highlighted.is-selected,
+    .select-search__option.is-selected:hover {
         background: #2eb378;
         color: #fff;
     }
 
-    .select-search-box__group-header {
+    .select-search__group-header {
         font-size: 10px;
         text-transform: uppercase;
         background: #eee;

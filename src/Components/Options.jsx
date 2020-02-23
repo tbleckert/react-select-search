@@ -1,34 +1,70 @@
-import React, { useContext, memo } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import Option from './Option';
-import Context from '../Context';
+import { optionType, valueType } from '../types';
+import isSelected from '../lib/isSelected';
 
-const Options = ({ options, snapshot, onChange }) => {
-    const theme = useContext(Context);
-
-    return (
-        <ul className={theme.classes.options} role="menu">
-            {options.map((option) => {
-                const key = (option.type === 'group') ? option.groupId : option.value;
-
+const Options = ({
+    options,
+    optionProps,
+    snapshot,
+    className,
+    renderGroupHeader,
+    renderOption,
+}) => (
+    <ul className={className('options')}>
+        {options.map((option) => {
+            if (option.type === 'group') {
                 return (
-                    <Option {...option} snapshot={snapshot} onChange={onChange} key={key} />
+                    <li role="none" className={className('row')} key={option.groupId}>
+                        <div className={className('group')}>
+                            <div className={className('group-header')}>{renderGroupHeader(option.name)}</div>
+                            <Options
+                                options={option.items}
+                                snapshot={snapshot}
+                                optionProps={optionProps}
+                                className={className}
+                                renderOption={renderOption}
+                            />
+                        </div>
+                    </li>
                 );
-            })}
-        </ul>
-    );
+            }
+
+            return (
+                <Option
+                    key={option.value}
+                    className={className}
+                    optionProps={optionProps}
+                    selected={isSelected(option.value, snapshot.value)}
+                    highlighted={snapshot.highlighted === option.index}
+                    renderOption={renderOption}
+                    {...option}
+                />
+            );
+        })}
+    </ul>
+);
+
+Options.defaultProps = {
+    renderOption: null,
+    renderGroupHeader: name => name,
 };
 
 Options.propTypes = {
-    options: PropTypes.arrayOf(PropTypes.object).isRequired,
-    onChange: PropTypes.func.isRequired,
+    options: PropTypes.arrayOf(optionType).isRequired,
     snapshot: PropTypes.shape({
-        value: PropTypes.oneOfType([
-            PropTypes.string,
-            PropTypes.arrayOf(PropTypes.string),
-        ]),
+        value: valueType,
         highlighted: PropTypes.number,
+        focus: PropTypes.bool,
     }).isRequired,
+    optionProps: PropTypes.shape({
+        tabIndex: PropTypes.string.isRequired,
+        onMouseDown: PropTypes.func.isRequired,
+    }).isRequired,
+    className: PropTypes.func.isRequired,
+    renderOption: PropTypes.func,
+    renderGroupHeader: PropTypes.func,
 };
 
-export default memo(Options);
+export default Options;

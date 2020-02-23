@@ -4,7 +4,7 @@ import { fontStacks, countries, friends } from './data';
 import '../style.css';
 import SelectSearch from '../src';
 
-function renderFriend(props, option) {
+function renderFriend(props, option, snapshot, className) {
     const imgStyle = {
         borderRadius: '50%',
         verticalAlign: 'middle',
@@ -12,25 +12,26 @@ function renderFriend(props, option) {
     };
 
     return (
-        <button {...props} type="button">
+        <button {...props} className={className} type="button">
             <span><img alt="" style={imgStyle} width="32" height="32" src={option.photo} /><span>{option.name}</span></span>
         </button>
     );
 }
 
-function renderFontValue(valueProps, ref, props) {
+function renderFontValue(valueProps, snapshot, className) {
+    const { selectedOption } = snapshot;
     const style = {
-        fontFamily: (props && 'stack' in props) ? props.stack : null,
+        fontFamily: (selectedOption && 'stack' in selectedOption) ? selectedOption.stack : null,
     };
 
     return (
-        <input ref={ref} {...valueProps} style={style} />
+        <input {...valueProps} className={className} style={style} value={snapshot.displayValue} />
     );
 }
 
-function renderFontOption(props, { name, stack }) {
+function renderFontOption(props, { stack, name }, snapshot, className) {
     return (
-        <button {...props} type="button">
+        <button {...props} className={className} type="button">
             <span style={{ fontFamily: stack }}>{name}</span>
         </button>
     );
@@ -70,6 +71,7 @@ class App extends React.PureComponent {
 
     render() {
         const text = (this.state.disabled) ? 'Enable' : 'Disable';
+        console.log(this.state);
 
         return (
             <div>

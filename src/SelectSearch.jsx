@@ -1,498 +1,174 @@
-import React from 'react';
+import React, { useEffect, forwardRef, useMemo, memo, useRef } from 'react';
 import PropTypes from 'prop-types';
-import FlattenOptions from './lib/FlattenOptions';
-import GroupOptions from './lib/GroupOptions';
-import createClasses from './lib/createClasses';
-import findByValue from './lib/findByValue';
-import toString from './lib/toString';
-import cancelablePromise from './lib/cancelablePromise';
+import useSelect from './useSelect';
 import Value from './Components/Value';
 import Options from './Components/Options';
-import Context from './Context';
+import FlattenOptions from './lib/flattenOptions';
+import { optionType, valueType } from './types';
 
-let Fuse = null;
+const SelectSearch = forwardRef(({
+    value: defaultValue,
+    disabled,
+    placeholder,
+    multiple,
+    search,
+    autoFocus,
+    autoComplete,
+    options: defaultOptions,
+    onChange,
+    className,
+    renderValue,
+    renderOption,
+    renderGroupHeader,
+    fuse,
+}, ref) => {
+    const [snapshot, valueProps, optionProps] = useSelect({
+        options: defaultOptions,
+        value: defaultValue,
+        multiple,
+        disabled,
+        fuse,
+        search,
+    });
 
-try {
-    // eslint-disable-next-line global-require
-    Fuse = require('fuse.js');
-} catch (e) {
-    /* istanbul ignore next */
-    if (process.env.NODE_ENV !== 'production') {
-        console.warn('React Select Search: Not using fuzzy search. Please install fuse.js to enable this feature.');
-    }
-}
-
-class SelectSearch extends React.PureComponent {
-    static defaultProps = {
-        search: false,
-        value: undefined,
-        defaultValue: undefined,
-        multiple: false,
-        placeholder: '',
-        fuse: true,
-        className: 'select-search-box',
-        autoComplete: 'on',
-        autoFocus: false,
-        renderOption: null,
-        renderGroupHeader: null,
-        renderValue: null,
-        onChange: null,
-        filterOptions: null,
-        disabled: false,
-    };
-
-    constructor(props) {
-        super(props);
-
-        const {
-            options,
-            value,
-            defaultValue,
-            multiple,
-            className,
-            renderOption,
-            renderValue,
-            renderGroupHeader,
-            onChange,
-            placeholder,
-        } = props;
-
-        this.controlledValue = value !== undefined && typeof onChange === 'function';
-
-        const val = toString((this.controlledValue) ? value : defaultValue);
-        let stateValue = (!val && multiple) ? [] : val;
-        const flattenedOptions = FlattenOptions(options);
-
-        if (!stateValue && !placeholder && flattenedOptions.length && !this.props.multiple) {
-            stateValue = flattenedOptions[0].value;
-        }
-
-        this.state = {
-            search: '',
-            value: stateValue,
-            defaultOptions: flattenedOptions,
-            options: [],
-            highlighted: null,
-            focus: false,
-            error: false,
-            searching: false,
-        };
-
-        this.theme = {
-            multiple: this.props.multiple,
-            search: this.props.search,
-            classes: (typeof className === 'string') ? createClasses(className) : className,
-            renderers: {
-                option: renderOption,
-                value: renderValue,
-                groupHeader: renderGroupHeader,
-            },
-        };
-
-        // eslint-disable-next-line react/prop-types
-        this.parentRef = this.props.innerRef || React.createRef();
-        this.valueRef = React.createRef();
-
-        this.searchPromise = null;
-    }
-
-    componentDidMount() {
-        const {
-            autoFocus,
-            search,
-            disabled,
-        } = this.props;
-
-        if (!disabled && autoFocus && search && this.valueRef.current) {
-            this.valueRef.current.focus();
-            this.onFocus();
-        }
-
-        this.search();
-    }
-
-    componentDidUpdate(prevProps, prevState) {
-        const { focus, search } = this.state;
-        const { focus: prevFocus, search: prevSearch } = prevState;
-        const { multiple } = this.props;
-
-        if (search !== prevSearch || (prevFocus !== focus && focus && !multiple)) {
-            this.search();
-        }
-
-        if (prevFocus !== focus && !focus) {
-            this.valueRef.current.blur();
-        }
-    }
-
-    onBlur = () => {
-        this.handleBlur();
-    };
-
-    onFocus = () => {
-        if (this.props.disabled || this.state.focus) {
-            return;
-        }
-
-        this.setState({ focus: true });
-    };
-
-    onOptionClick = e => this.onChange(e.currentTarget.value);
-
-    onChange = (value) => {
-        let currentValue = this.getValue().slice();
-        let option;
-
-        if (!value) {
-            const index = this.state.highlighted;
-
-            if (index === null || (this.state.options.length - 1) < index) {
-                return;
+    const { options } = snapshot;
+    const flatOptions = useMemo(() => FlattenOptions(options), [options]);
+    const prevValue = useRef(snapshot.value);
+    const classNameFn = useMemo(() => (
+        (typeof className === 'string') ? (key) => {
+            if (key === 'container') {
+                return 'select-search';
             }
 
-            option = this.state.options[index];
-        } else {
-            option = findByValue(this.state.defaultOptions, value);
-        }
-
-        if (this.props.multiple) {
-            const currentIndex = currentValue.indexOf(option.value);
-
-            if (currentIndex > -1) {
-                currentValue.splice(currentIndex, 1);
-            } else {
-                currentValue.push(option.value);
-            }
-        } else {
-            currentValue = option.value;
-        }
-
-        const highlighted = (this.props.multiple) ? this.state.highlighted : null;
-
-        if (typeof this.props.onChange === 'function') {
-            this.props.onChange(currentValue, option);
-        }
-
-        this.setState({
-            value: currentValue,
-            highlighted,
-            focus: this.props.multiple,
-        });
-    };
-
-    onSearch = value => this.setState({ search: value });
-
-    onKeyPress = (e) => {
-        if (e.key === 'Enter') {
-            this.onChange();
-        }
-    };
-
-    onKeyDown = (e) => {
-        /** Arrow Down */
-        if (e.key === 'ArrowDown') {
-            this.handleArrowDown();
-        }
-
-        /** Arrow Up */
-        if (e.key === 'ArrowUp') {
-            this.handleArrowUp();
-        }
-    };
-
-    onKeyUp = (e) => {
-        if (e.key === 'Escape') {
-            this.handleBlur();
-        }
-    };
-
-    getNewOptionsList(options, value) {
-        return new Promise((resolve, reject) => {
-            const { filterOptions } = this.props;
-            const fuseOptions = (typeof this.props.fuse === 'object') ? this.props.fuse : {
-                keys: ['name', 'groupName'],
-                threshold: 0.3,
-            };
-
-            const newOptions = this.fuzzySearch(options, value, fuseOptions);
-
-            if (typeof filterOptions === 'function') {
-                newOptions.then((fuzzyOptions) => {
-                    const result = filterOptions(fuzzyOptions, {
-                        value: this.getValue(),
-                        search: this.state.search,
-                        selected: this.state.selected,
-                        highlighted: this.state.highlighted,
-                        allOptions: this.state.defaultOptions,
-                    });
-
-                    Promise.resolve(result)
-                        .then(resolve)
-                        .catch(reject);
-                }).catch(reject);
-            } else {
-                resolve(Promise.resolve(newOptions));
-            }
-        });
-    }
-
-    getValueProps(value) {
-        const {
-            search: searchEnabled,
-            autoComplete,
-            disabled,
-            multiple,
-        } = this.props;
-
-        const { focus, error, searching } = this.state;
-        let { search } = this.state;
-        const val = value ? value.name : '';
-
-        if (!focus && !multiple) {
-            search = val;
-        }
-
-        return {
-            disabled,
-            error,
-            searching,
-            option: value,
-            className: this.theme.classes.input,
-            tabIndex: '0',
-            onFocus: this.onFocus,
-            onBlur: this.onBlur,
-            readOnly: !this.props.search,
-            value: (searchEnabled) ? search : val,
-            placeholder: this.props.placeholder,
-            onChange: (searchEnabled) ? this.onSearch : null,
-            onKeyDown: this.onKeyDown,
-            onKeyUp: this.onKeyUp,
-            onKeyPress: this.onKeyPress,
-            type: (searchEnabled) ? 'search' : null,
-            autoComplete: (searchEnabled) ? autoComplete : null,
-            'aria-label': (searchEnabled) ? 'Search' : 'Select',
-        };
-    }
-
-    getValue() {
-        let value = null;
-
-        if (this.controlledValue) {
-            ({ value } = this.props);
-        } else {
-            ({ value } = this.state);
-        }
-
-        if (!value && this.props.multiple) {
-            value = [];
-        } else if (this.props.multiple && !Array.isArray(value)) {
-            value = [value];
-        } else if (!value && !this.props.placeholder && this.state.defaultOptions.length) {
-            const [option] = this.state.defaultOptions;
-            ({ value } = option);
-        }
-
-        return value;
-    }
-
-    search() {
-        if (this.searchPromise) {
-            this.searchPromise.cancel();
-        }
-
-        const { defaultOptions, search } = this.state;
-        const promise = this.getNewOptionsList(defaultOptions, toString(search));
-        this.searchPromise = cancelablePromise(promise);
-
-        this.setState({ searching: true });
-
-        this.searchPromise.promise.then((options) => {
-            this.setState({
-                options: GroupOptions(options),
-                searching: false,
-            });
-        }).catch((error) => {
-            this.setState({ error, searching: false });
-        });
-    }
-
-    fuzzySearch(options, value, fuseOptions) {
-        return new Promise((resolve) => {
-            if (Fuse && this.props.fuse && options.length > 0 && value && value.length > 0) {
-                const fuse = new Fuse(options, fuseOptions);
-                const newOptions = fuse
-                    .search(value)
-                    .map((item, index) => Object.assign({}, item, { index }));
-
-                resolve(newOptions);
-
-                return;
+            if (key.indexOf('is-') === 0) {
+                return key;
             }
 
-            resolve(options);
-        });
+            return `select-search__${key}`;
+        } : className
+    ), [className]);
+
+    useEffect(() => {
+        if (prevValue.current !== snapshot.value) {
+            onChange(snapshot.value, snapshot.selectedOption);
+            prevValue.current = snapshot.value;
+        }
+    }, [onChange, snapshot.value, snapshot.selectedOption]);
+
+    let { displayValue } = snapshot;
+
+    if (!placeholder && !displayValue && flatOptions.length) {
+        displayValue = flatOptions[0].name;
     }
 
-    handleArrowDown() {
-        if (this.state.options.length < 1) {
-            return;
-        }
+    let wrapperClass = classNameFn('container');
 
-        let highlighted = null;
-
-        if (this.state.highlighted != null) {
-            highlighted = this.state.highlighted + 1;
-        } else {
-            highlighted = 0;
-        }
-
-        const flatOptions = FlattenOptions(this.state.options);
-
-        if (highlighted > flatOptions.length - 1) {
-            highlighted = 0;
-        }
-
-        this.setState({ highlighted });
+    if (multiple) {
+        wrapperClass += ` ${wrapperClass}--multiple`;
     }
 
-    handleArrowUp() {
-        const flatOptions = FlattenOptions(this.state.options);
-
-        if (flatOptions.length < 1) {
-            return;
-        }
-
-        let highlighted = flatOptions.length - 1;
-
-        if (this.state.highlighted != null) {
-            highlighted = this.state.highlighted - 1;
-        }
-
-        if (highlighted < 0) {
-            highlighted = flatOptions.length - 1;
-        }
-
-        this.setState({ highlighted });
+    if (search) {
+        wrapperClass += ` ${wrapperClass}--search`;
     }
 
-    handleBlur() {
-        this.setState({
-            focus: false,
-            highlighted: null,
-            search: '',
-        });
+    let value = displayValue;
+
+    if ((snapshot.focus || multiple) && search) {
+        value = snapshot.search;
     }
 
-    render() {
-        const {
-            defaultOptions,
-            focus,
-            searching,
-            options,
-            highlighted,
-        } = this.state;
+    const valueComp = (renderValue) ? (
+        <div className={classNameFn('value')}>
+            {renderValue(
+                {
+                    ...valueProps,
+                    placeholder: (search) ? placeholder : null,
+                    autoFocus: (search) ? autoFocus : null,
+                    autoComplete: (search) ? autoComplete : null,
+                    value: (search) ? value : null,
+                },
+                { ...snapshot, displayValue },
+                classNameFn('input'),
+            )}
+        </div>
+    ) : (
+        <Value
+            snapshot={snapshot}
+            disabled={disabled}
+            search={search}
+            autoFocus={autoFocus}
+            displayValue={value}
+            className={classNameFn}
+            valueProps={valueProps}
+            autoComplete={autoComplete}
+            placeholder={placeholder}
+            multiple={multiple}
+            render={renderValue}
+        />
+    );
 
-        const {
-            search,
-            multiple,
-            disabled,
-        } = this.props;
-
-        const value = this.getValue();
-        const selectedOption = findByValue(defaultOptions, value);
-        const valueProps = this.getValueProps(selectedOption);
-        const snapshot = {
-            value,
-            highlighted,
-            focus,
-        };
-
-        let className = `${this.theme.classes.main} ${this.theme.classes.variant}`;
-
-        if (disabled) {
-            className += ` ${this.theme.classes.disabled}`;
-        }
-
-        if (focus) {
-            className += ` ${this.theme.classes.focus}`;
-        }
-
-        if (searching) {
-            className += ` ${this.theme.classes.searching}`;
-        }
-
-        return (
-            <Context.Provider value={this.theme}>
-                <div ref={this.parentRef} className={className}>
-                    {(search || !multiple) && (
-                        // eslint-disable-next-line react/jsx-props-no-spreading
-                        <Value ref={this.valueRef} {...valueProps} />
-                    )}
-
-                    {!disabled && (
-                        <div className={this.theme.classes.select}>
-                            <Options
-                                options={options}
-                                snapshot={snapshot}
-                                onChange={this.onOptionClick}
-                            />
-                        </div>
-                    )}
+    return (
+        <div ref={ref} className={wrapperClass}>
+            {(!multiple || search) && valueComp}
+            {!disabled && (snapshot.focus || multiple) && (
+                <div className={classNameFn('select')}>
+                    <Options
+                        options={snapshot.options}
+                        snapshot={snapshot}
+                        optionProps={optionProps}
+                        className={classNameFn}
+                        renderOption={renderOption}
+                        renderGroupHeader={renderGroupHeader}
+                    />
                 </div>
-            </Context.Provider>
-        );
-    }
-}
-
-const optionType = PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    value: PropTypes.string.isRequired,
+            )}
+        </div>
+    );
 });
 
+SelectSearch.defaultProps = {
+    className: 'select-search',
+    disabled: false,
+    search: false,
+    multiple: false,
+    placeholder: null,
+    autoFocus: false,
+    autoComplete: 'on',
+    value: '',
+    onChange: () => {},
+    renderOption: null,
+    renderGroupHeader: name => name,
+    renderValue: null,
+    fuse: {
+        keys: ['name', 'groupName'],
+        threshold: 0.3,
+    },
+};
+
 SelectSearch.propTypes = {
-    options: PropTypes.arrayOf(PropTypes.oneOfType([
-        optionType,
-        PropTypes.shape({
-            name: PropTypes.string.isRequired,
-            type: PropTypes.oneOf(['group']).isRequired,
-            items: PropTypes.arrayOf(optionType).isRequired,
-        }),
-    ])).isRequired,
-    defaultValue: PropTypes.oneOfType([
+    options: PropTypes.arrayOf(optionType).isRequired,
+    value: valueType,
+    className: PropTypes.oneOfType([
         PropTypes.string,
-        PropTypes.array,
-    ]),
-    value: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.array,
+        PropTypes.func,
     ]),
     multiple: PropTypes.bool,
     search: PropTypes.bool,
     disabled: PropTypes.bool,
     placeholder: PropTypes.string,
-    className: PropTypes.oneOfType([PropTypes.string, PropTypes.shape({
-        main: PropTypes.string,
-        value: PropTypes.string,
-        search: PropTypes.string,
-        select: PropTypes.string,
-        options: PropTypes.string,
-        optionRow: PropTypes.string,
-        option: PropTypes.string,
-        group: PropTypes.string,
-        groupHeader: PropTypes.string,
-    })]),
     autoComplete: PropTypes.oneOf(['on', 'off']),
     autoFocus: PropTypes.bool,
-    // eslint-disable-next-line react/forbid-prop-types
-    fuse: PropTypes.oneOfType([PropTypes.bool, PropTypes.shape({
-        keys: PropTypes.arrayOf(PropTypes.string).isRequired,
-        threshold: PropTypes.number.isRequired,
-    })]),
+    onChange: PropTypes.func,
     renderOption: PropTypes.func,
     renderGroupHeader: PropTypes.func,
     renderValue: PropTypes.func,
-    onChange: PropTypes.func,
-    filterOptions: PropTypes.func,
+    fuse: PropTypes.oneOfType([
+        PropTypes.bool,
+        PropTypes.shape({
+            keys: PropTypes.arrayOf(PropTypes.string),
+            threshold: PropTypes.number,
+        }),
+    ]),
 };
 
-export default SelectSearch;
+export default memo(SelectSearch);

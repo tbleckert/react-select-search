@@ -1,11 +1,11 @@
-import FindGroupIndex from './FindGroupIndex';
+import findGroupIndex from './findGroupIndex';
 
 var GroupOptions = function GroupOptions(options) {
   var nextOptions = [];
   options.forEach(function (option, i) {
     if ('groupId' in option) {
       var nextOption = Object.assign({}, option);
-      var groupIndex = FindGroupIndex(nextOptions, nextOption.groupId);
+      var groupIndex = findGroupIndex(nextOptions, nextOption.groupId);
       nextOption.index = i;
 
       if (groupIndex !== null && groupIndex > -1) {

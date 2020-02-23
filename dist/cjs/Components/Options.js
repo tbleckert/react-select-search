@@ -5,49 +5,79 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _react = _interopRequireWildcard(require("react"));
+var _react = _interopRequireDefault(require("react"));
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
 var _Option = _interopRequireDefault(require("./Option"));
 
-var _Context = _interopRequireDefault(require("../Context"));
+var _types = require("../types");
+
+var _isSelected = _interopRequireDefault(require("../lib/isSelected"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; if (obj != null) { var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
 var Options = function Options(_ref) {
   var options = _ref.options,
+      optionProps = _ref.optionProps,
       snapshot = _ref.snapshot,
-      onChange = _ref.onChange;
-  var theme = (0, _react.useContext)(_Context.default);
+      className = _ref.className,
+      renderGroupHeader = _ref.renderGroupHeader,
+      renderOption = _ref.renderOption;
   return _react.default.createElement("ul", {
-    className: theme.classes.options,
-    role: "menu"
+    className: className('options')
   }, options.map(function (option) {
-    var key = option.type === 'group' ? option.groupId : option.value;
-    return _react.default.createElement(_Option.default, _extends({}, option, {
-      snapshot: snapshot,
-      onChange: onChange,
-      key: key
-    }));
+    if (option.type === 'group') {
+      return _react.default.createElement("li", {
+        role: "none",
+        className: className('row'),
+        key: option.groupId
+      }, _react.default.createElement("div", {
+        className: className('group')
+      }, _react.default.createElement("div", {
+        className: className('group-header')
+      }, renderGroupHeader(option.name)), _react.default.createElement(Options, {
+        options: option.items,
+        snapshot: snapshot,
+        optionProps: optionProps,
+        className: className,
+        renderOption: renderOption
+      })));
+    }
+
+    return _react.default.createElement(_Option.default, _extends({
+      key: option.value,
+      className: className,
+      optionProps: optionProps,
+      selected: (0, _isSelected.default)(option.value, snapshot.value),
+      highlighted: snapshot.highlighted === option.index,
+      renderOption: renderOption
+    }, option));
   }));
 };
 
-Options.propTypes = {
-  options: _propTypes.default.arrayOf(_propTypes.default.object).isRequired,
-  onChange: _propTypes.default.func.isRequired,
-  snapshot: _propTypes.default.shape({
-    value: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.arrayOf(_propTypes.default.string)]),
-    highlighted: _propTypes.default.number
-  }).isRequired
+Options.defaultProps = {
+  renderOption: null,
+  renderGroupHeader: function renderGroupHeader(name) {
+    return name;
+  }
 };
-
-var _default = (0, _react.memo)(Options);
-
+Options.propTypes = {
+  options: _propTypes.default.arrayOf(_types.optionType).isRequired,
+  snapshot: _propTypes.default.shape({
+    value: _types.valueType,
+    highlighted: _propTypes.default.number,
+    focus: _propTypes.default.bool
+  }).isRequired,
+  optionProps: _propTypes.default.shape({
+    tabIndex: _propTypes.default.string.isRequired,
+    onMouseDown: _propTypes.default.func.isRequired
+  }).isRequired,
+  className: _propTypes.default.func.isRequired,
+  renderOption: _propTypes.default.func,
+  renderGroupHeader: _propTypes.default.func
+};
+var _default = Options;
 exports.default = _default;
