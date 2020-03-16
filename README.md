@@ -26,11 +26,8 @@
     </a>
 </p>
 
-⚠️ This README is for react-select-search@next. For the latest stable release switch to the v0.10 branch.
-
 ## Features
 * Lightweight, with zero dependencies*
-* Full test coverage
 * Accessible
 * Headless mode
 * Basic HTML select functionality, including multiple
