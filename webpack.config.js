@@ -52,11 +52,6 @@ module.exports = {
                 loader: 'babel-loader',
             },
             {
-                test: /\.jsx?$/,
-                enforce: 'pre',
-                loader: 'eslint-loader',
-            },
-            {
                 test: /\.jsx$/,
                 use: ['source-map-loader'],
                 enforce: 'pre',
@@ -66,7 +61,6 @@ module.exports = {
                 use: [
                     devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
                     'css-loader',
-                    'sass-loader',
                 ],
             },
         ],
@@ -82,8 +76,5 @@ module.exports = {
             // both options are optional
             filename: devMode ? 'css/app.css' : 'css/app.[hash].css',
         }),
-        new CopyPlugin([
-            { from: 'src/static', to: '' },
-        ]),
     ],
 };

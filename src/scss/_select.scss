@@ -1,4 +1,4 @@
-.select-search-box {
+.select-search {
     $root: &;
 
     max-width: 25rem;
@@ -167,16 +167,10 @@
     }
 
     &__select {
-        display: none;
         margin-bottom: 2rem;
         background:  var(--background);
         border: 1px solid var(--border-color);
         box-shadow: 0 .0625rem .125rem rgba(0, 0, 0, 0.15);
-
-        .has-focus &,
-        #{$root}--multiple & {
-            display: block;
-        }
     }
 
     &__options {

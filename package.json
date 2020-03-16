@@ -17,17 +17,10 @@
     "copy-webpack-plugin": "^5.0.5",
     "core-js": "^3.4.1",
     "css-loader": "^3.2.0",
-    "eslint": "^6.6.0",
-    "eslint-config-airbnb": "^18.0.1",
     "eslint-loader": "^3.0.2",
-    "eslint-plugin-import": "^2.18.2",
-    "eslint-plugin-jsx-a11y": "^6.2.3",
-    "eslint-plugin-react": "^7.16.0",
     "html-webpack-plugin": "^3.2.0",
     "mini-css-extract-plugin": "^0.8.0",
-    "node-sass": "^4.13.0",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
-    "sass-loader": "^8.0.0",
     "source-map-loader": "^0.2.4",
     "style-loader": "^1.0.0",
     "terser-webpack-plugin": "^2.2.1",
@@ -41,7 +34,7 @@
     "fuse.js": "^3.2.0",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
-    "react-select-search": "^1.0.0-rc5",
+    "react-select-search": "^1.0.1",
     "webfontloader": "^1.6.28"
   }
 }
