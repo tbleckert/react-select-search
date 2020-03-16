@@ -15,9 +15,9 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 import React, { useEffect, forwardRef, useMemo, memo, useRef } from 'react';
 import PropTypes from 'prop-types';
 import useSelect from './useSelect';
-import useSearch from './useSearch';
 import Value from './Components/Value';
 import Options from './Components/Options';
+import FlattenOptions from './lib/flattenOptions';
 import { optionType, valueType } from './types';
 var SelectSearch = forwardRef(function (_ref, ref) {
   var defaultValue = _ref.value,
@@ -32,24 +32,26 @@ var SelectSearch = forwardRef(function (_ref, ref) {
       className = _ref.className,
       renderValue = _ref.renderValue,
       renderOption = _ref.renderOption,
-      renderGroupHeader = _ref.renderGroupHeader;
-
-  var _ref2 = search ? useSearch(defaultOptions) : [null, defaultOptions],
-      _ref3 = _slicedToArray(_ref2, 2),
-      searchProps = _ref3[0],
-      options = _ref3[1];
+      renderGroupHeader = _ref.renderGroupHeader,
+      fuse = _ref.fuse;
 
   var _useSelect = useSelect({
-    options: options,
+    options: defaultOptions,
     value: defaultValue,
     multiple: multiple,
-    disabled: disabled
-  }, searchProps),
+    disabled: disabled,
+    fuse: fuse,
+    search: search
+  }),
       _useSelect2 = _slicedToArray(_useSelect, 3),
       snapshot = _useSelect2[0],
       valueProps = _useSelect2[1],
       optionProps = _useSelect2[2];
 
+  var options = snapshot.options;
+  var flatOptions = useMemo(function () {
+    return FlattenOptions(options);
+  }, [options]);
   var prevValue = useRef(snapshot.value);
   var classNameFn = useMemo(function () {
     return typeof className === 'string' ? function (key) {
@@ -66,14 +68,14 @@ var SelectSearch = forwardRef(function (_ref, ref) {
   }, [className]);
   useEffect(function () {
     if (prevValue.current !== snapshot.value) {
-      onChange(snapshot.value);
+      onChange(snapshot.value, snapshot.selectedOption);
       prevValue.current = snapshot.value;
     }
-  }, [onChange, snapshot.value]);
+  }, [onChange, snapshot.value, snapshot.selectedOption]);
   var displayValue = snapshot.displayValue;
 
-  if (!placeholder && !displayValue && defaultOptions.length) {
-    displayValue = defaultOptions[0].name;
+  if (!placeholder && !displayValue && flatOptions.length) {
+    displayValue = flatOptions[0].name;
   }
 
   var wrapperClass = classNameFn('container');
@@ -89,7 +91,7 @@ var SelectSearch = forwardRef(function (_ref, ref) {
   var value = displayValue;
 
   if ((snapshot.focus || multiple) && search) {
-    value = searchProps.value;
+    value = snapshot.search;
   }
 
   var valueComp = renderValue ? React.createElement("div", {
@@ -99,7 +101,9 @@ var SelectSearch = forwardRef(function (_ref, ref) {
     autoFocus: search ? autoFocus : null,
     autoComplete: search ? autoComplete : null,
     value: search ? value : null
-  }), snapshot, classNameFn('input'))) : React.createElement(Value, {
+  }), _objectSpread({}, snapshot, {
+    displayValue: displayValue
+  }), classNameFn('input'))) : React.createElement(Value, {
     snapshot: snapshot,
     disabled: disabled,
     search: search,
@@ -140,7 +144,11 @@ SelectSearch.defaultProps = {
   renderGroupHeader: function renderGroupHeader(name) {
     return name;
   },
-  renderValue: null
+  renderValue: null,
+  fuse: {
+    keys: ['name', 'groupName'],
+    threshold: 0.3
+  }
 };
 SelectSearch.propTypes = {
   options: PropTypes.arrayOf(optionType).isRequired,
@@ -155,6 +163,10 @@ SelectSearch.propTypes = {
   onChange: PropTypes.func,
   renderOption: PropTypes.func,
   renderGroupHeader: PropTypes.func,
-  renderValue: PropTypes.func
+  renderValue: PropTypes.func,
+  fuse: PropTypes.oneOfType([PropTypes.bool, PropTypes.shape({
+    keys: PropTypes.arrayOf(PropTypes.string),
+    threshold: PropTypes.number
+  })])
 };
 export default memo(SelectSearch);

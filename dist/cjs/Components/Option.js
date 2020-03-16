@@ -42,13 +42,13 @@ var Option = function Option(_ref) {
     }
 
     return false;
-  }, [selected]), (0, _react.useMemo)(function () {
+  }, [className, selected]), (0, _react.useMemo)(function () {
     if (highlighted) {
       return className('is-highlighted');
     }
 
     return false;
-  }, [highlighted])].filter(function (cls) {
+  }, [className, highlighted])].filter(function (cls) {
     return !!cls;
   }).join(' ');
   (0, _react.useEffect)(function () {
@@ -81,19 +81,15 @@ var Option = function Option(_ref) {
 
 Option.defaultProps = {
   type: null,
-  groupId: null,
   disabled: false,
   index: null,
   value: null,
-  items: null,
   renderOption: null
 };
 Option.propTypes = {
   name: _propTypes.default.string.isRequired,
   value: _propTypes.default.string,
   type: _propTypes.default.string,
-  groupId: _propTypes.default.string,
-  items: _propTypes.default.arrayOf(_propTypes.default.object),
   disabled: _propTypes.default.bool,
   index: _propTypes.default.number,
   highlighted: _propTypes.default.bool.isRequired,

@@ -1,4 +1,5 @@
-var FlattenOptions = function FlattenOptions(options) {
+import getGroupId from './getGroupId';
+export default function flattenOptions(options) {
   if (!Array.isArray(options)) {
     return [];
   }
@@ -6,7 +7,7 @@ var FlattenOptions = function FlattenOptions(options) {
   var nextOptions = [];
   options.forEach(function (option, index) {
     if ('type' in option && option.type === 'group') {
-      var id = Math.random().toString(36).substr(2, 9);
+      var id = getGroupId(option);
       option.items.forEach(function (groupOption) {
         var nextGroupOption = Object.assign({}, groupOption);
         nextGroupOption.groupId = id;
@@ -20,6 +21,5 @@ var FlattenOptions = function FlattenOptions(options) {
     }
   });
   return nextOptions;
-};
-
-export default FlattenOptions;
+}
+;

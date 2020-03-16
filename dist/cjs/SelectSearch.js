@@ -11,11 +11,11 @@ var _propTypes = _interopRequireDefault(require("prop-types"));
 
 var _useSelect3 = _interopRequireDefault(require("./useSelect"));
 
-var _useSearch = _interopRequireDefault(require("./useSearch"));
-
 var _Value = _interopRequireDefault(require("./Components/Value"));
 
 var _Options = _interopRequireDefault(require("./Components/Options"));
+
+var _flattenOptions = _interopRequireDefault(require("./lib/flattenOptions"));
 
 var _types = require("./types");
 
@@ -52,24 +52,26 @@ var SelectSearch = (0, _react.forwardRef)(function (_ref, ref) {
       className = _ref.className,
       renderValue = _ref.renderValue,
       renderOption = _ref.renderOption,
-      renderGroupHeader = _ref.renderGroupHeader;
-
-  var _ref2 = search ? (0, _useSearch.default)(defaultOptions) : [null, defaultOptions],
-      _ref3 = _slicedToArray(_ref2, 2),
-      searchProps = _ref3[0],
-      options = _ref3[1];
+      renderGroupHeader = _ref.renderGroupHeader,
+      fuse = _ref.fuse;
 
   var _useSelect = (0, _useSelect3.default)({
-    options: options,
+    options: defaultOptions,
     value: defaultValue,
     multiple: multiple,
-    disabled: disabled
-  }, searchProps),
+    disabled: disabled,
+    fuse: fuse,
+    search: search
+  }),
       _useSelect2 = _slicedToArray(_useSelect, 3),
       snapshot = _useSelect2[0],
       valueProps = _useSelect2[1],
       optionProps = _useSelect2[2];
 
+  var options = snapshot.options;
+  var flatOptions = (0, _react.useMemo)(function () {
+    return (0, _flattenOptions.default)(options);
+  }, [options]);
   var prevValue = (0, _react.useRef)(snapshot.value);
   var classNameFn = (0, _react.useMemo)(function () {
     return typeof className === 'string' ? function (key) {
@@ -86,14 +88,14 @@ var SelectSearch = (0, _react.forwardRef)(function (_ref, ref) {
   }, [className]);
   (0, _react.useEffect)(function () {
     if (prevValue.current !== snapshot.value) {
-      onChange(snapshot.value);
+      onChange(snapshot.value, snapshot.selectedOption);
       prevValue.current = snapshot.value;
     }
-  }, [onChange, snapshot.value]);
+  }, [onChange, snapshot.value, snapshot.selectedOption]);
   var displayValue = snapshot.displayValue;
 
-  if (!placeholder && !displayValue && defaultOptions.length) {
-    displayValue = defaultOptions[0].name;
+  if (!placeholder && !displayValue && flatOptions.length) {
+    displayValue = flatOptions[0].name;
   }
 
   var wrapperClass = classNameFn('container');
@@ -109,7 +111,7 @@ var SelectSearch = (0, _react.forwardRef)(function (_ref, ref) {
   var value = displayValue;
 
   if ((snapshot.focus || multiple) && search) {
-    value = searchProps.value;
+    value = snapshot.search;
   }
 
   var valueComp = renderValue ? _react.default.createElement("div", {
@@ -119,7 +121,9 @@ var SelectSearch = (0, _react.forwardRef)(function (_ref, ref) {
     autoFocus: search ? autoFocus : null,
     autoComplete: search ? autoComplete : null,
     value: search ? value : null
-  }), snapshot, classNameFn('input'))) : _react.default.createElement(_Value.default, {
+  }), _objectSpread({}, snapshot, {
+    displayValue: displayValue
+  }), classNameFn('input'))) : _react.default.createElement(_Value.default, {
     snapshot: snapshot,
     disabled: disabled,
     search: search,
@@ -160,7 +164,11 @@ SelectSearch.defaultProps = {
   renderGroupHeader: function renderGroupHeader(name) {
     return name;
   },
-  renderValue: null
+  renderValue: null,
+  fuse: {
+    keys: ['name', 'groupName'],
+    threshold: 0.3
+  }
 };
 SelectSearch.propTypes = {
   options: _propTypes.default.arrayOf(_types.optionType).isRequired,
@@ -175,7 +183,11 @@ SelectSearch.propTypes = {
   onChange: _propTypes.default.func,
   renderOption: _propTypes.default.func,
   renderGroupHeader: _propTypes.default.func,
-  renderValue: _propTypes.default.func
+  renderValue: _propTypes.default.func,
+  fuse: _propTypes.default.oneOfType([_propTypes.default.bool, _propTypes.default.shape({
+    keys: _propTypes.default.arrayOf(_propTypes.default.string),
+    threshold: _propTypes.default.number
+  })])
 };
 
 var _default = (0, _react.memo)(SelectSearch);

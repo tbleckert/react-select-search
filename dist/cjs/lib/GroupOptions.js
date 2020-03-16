@@ -3,13 +3,13 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.default = groupOptions;
 
 var _findGroupIndex = _interopRequireDefault(require("./findGroupIndex"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var GroupOptions = function GroupOptions(options) {
+function groupOptions(options) {
   var nextOptions = [];
   options.forEach(function (option, i) {
     if ('groupId' in option) {
@@ -32,7 +32,6 @@ var GroupOptions = function GroupOptions(options) {
     }
   });
   return nextOptions;
-};
+}
 
-var _default = GroupOptions;
-exports.default = _default;
+;

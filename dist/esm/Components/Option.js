@@ -28,13 +28,13 @@ var Option = function Option(_ref) {
     }
 
     return false;
-  }, [selected]), useMemo(function () {
+  }, [className, selected]), useMemo(function () {
     if (highlighted) {
       return className('is-highlighted');
     }
 
     return false;
-  }, [highlighted])].filter(function (cls) {
+  }, [className, highlighted])].filter(function (cls) {
     return !!cls;
   }).join(' ');
   useEffect(function () {
@@ -67,19 +67,15 @@ var Option = function Option(_ref) {
 
 Option.defaultProps = {
   type: null,
-  groupId: null,
   disabled: false,
   index: null,
   value: null,
-  items: null,
   renderOption: null
 };
 Option.propTypes = {
   name: PropTypes.string.isRequired,
   value: PropTypes.string,
   type: PropTypes.string,
-  groupId: PropTypes.string,
-  items: PropTypes.arrayOf(PropTypes.object),
   disabled: PropTypes.bool,
   index: PropTypes.number,
   highlighted: PropTypes.bool.isRequired,

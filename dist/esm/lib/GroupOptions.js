@@ -1,6 +1,5 @@
 import findGroupIndex from './findGroupIndex';
-
-var GroupOptions = function GroupOptions(options) {
+export default function groupOptions(options) {
   var nextOptions = [];
   options.forEach(function (option, i) {
     if ('groupId' in option) {
@@ -23,6 +22,5 @@ var GroupOptions = function GroupOptions(options) {
     }
   });
   return nextOptions;
-};
-
-export default GroupOptions;
+}
+;

@@ -19,11 +19,12 @@ var Value = function Value(_ref) {
     placeholder: placeholder,
     disabled: disabled,
     className: className('input')
-  })), !search && React.createElement("button", _extends({}, valueProps, {
+  })), !search && React.createElement("input", _extends({}, valueProps, {
     disabled: disabled,
     className: className('input'),
-    autoFocus: autoFocus
-  }), displayValue));
+    autoFocus: autoFocus,
+    value: displayValue
+  })));
 };
 
 Value.defaultProps = {
@@ -40,8 +41,7 @@ Value.propTypes = {
     onBlur: PropTypes.func.isRequired,
     onFocus: PropTypes.func.isRequired,
     tabIndex: PropTypes.string,
-    onChange: PropTypes.func,
-    value: PropTypes.string
+    onChange: PropTypes.func
   }).isRequired,
   disabled: PropTypes.bool,
   search: PropTypes.bool,
