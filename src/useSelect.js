@@ -73,15 +73,16 @@ export default function useSelectSearch({
 
     const onSearch = useCallback(({ target }) => {
         const { value: inputVal } = target;
-        let newOptions = flat;
+        const allOptions = FlattenOptions(defaultOptions);
+        let newOptions = allOptions;
         setSearch(inputVal);
 
         if (inputVal.length) {
-            newOptions = doSearch(inputVal, flat, fuse);
+            newOptions = doSearch(inputVal, allOptions, fuse);
         }
 
         setOptions(newOptions);
-    }, [flat, fuse]);
+    }, [defaultOptions, fuse]);
 
     const valueProps = {
         tabIndex: '0',
