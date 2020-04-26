@@ -28,11 +28,9 @@ export default function useSelectSearch({
     const [search, setSearch] = useState('');
     const [focus, setFocus] = useState(false);
     const [highlighted, setHighlighted] = useReducer(highlightReducer, -1);
-
     const options = useMemo(() => GroupOptions(flat), [flat]);
     const selectedOption = useMemo(() => getOption(value, flat), [value, flat]);
     const displayValue = useMemo(() => getDisplayValue(value, flat), [value, flat]);
-
     const onBlur = useCallback(() => {
         setFocus(false);
         setHighlighted(false);
@@ -45,14 +43,12 @@ export default function useSelectSearch({
             setSearch('');
             setOptions(FlattenOptions(defaultOptions));
         }
-    }, [flat, ref]);
-    const onFocus = useCallback(() => {
-        setFocus(true);
-    }, []);
+    }, [defaultOptions]);
 
+    const onFocus = () => setFocus(true);
     const onChange = e => setValue(getNewValue(e.currentTarget.value, value, multiple));
-    const onKeyDown = useCallback(e => setHighlighted({ key: e.key, options: flat }), [flat]);
-    const onKeyPress = useCallback(({ key }) => {
+    const onKeyDown = e => setHighlighted({ key: e.key, options: flat });
+    const onKeyPress = ({ key }) => {
         if (key === 'Enter') {
             const option = flat[highlighted];
 
@@ -64,24 +60,25 @@ export default function useSelectSearch({
                 }
             }
         }
-    }, [onBlur, flat, highlighted, multiple, value]);
-    const onKeyUp = useCallback(({ key }) => {
+    };
+
+    const onKeyUp = ({ key }) => {
         if (key === 'Escape') {
             onBlur();
         }
-    }, [onBlur]);
+    };
 
     const onSearch = useCallback(({ target }) => {
         const { value: inputVal } = target;
-        let newOptions = flat;
+        let newOptions = FlattenOptions(defaultOptions);
         setSearch(inputVal);
 
         if (inputVal.length) {
-            newOptions = doSearch(inputVal, flat, fuse);
+            newOptions = doSearch(inputVal, newOptions, fuse);
         }
 
         setOptions(newOptions);
-    }, [flat, fuse]);
+    }, [defaultOptions]);
 
     const valueProps = {
         tabIndex: '0',
