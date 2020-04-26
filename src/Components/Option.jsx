@@ -1,4 +1,4 @@
-import React, { useMemo, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 
 const Option = ({
@@ -12,20 +12,8 @@ const Option = ({
     const optionRef = useRef(null);
     const optionClass = [
         className('option'),
-        useMemo(() => {
-            if (selected) {
-                return className('is-selected');
-            }
-
-            return false;
-        }, [className, selected]),
-        useMemo(() => {
-            if (highlighted) {
-                return className('is-highlighted');
-            }
-
-            return false;
-        }, [className, highlighted]),
+        (selected) ? className('is-selected') : false,
+        (highlighted) ? className('is-highlighted') : false,
     ].filter(cls => !!cls).join(' ');
 
     useEffect(() => {
