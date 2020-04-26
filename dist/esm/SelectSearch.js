@@ -12,7 +12,7 @@ function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) ||
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
-import React, { useEffect, forwardRef, useMemo, memo, useRef } from 'react';
+import React, { forwardRef, useMemo, memo } from 'react';
 import PropTypes from 'prop-types';
 import useSelect from './useSelect';
 import Value from './Components/Value';

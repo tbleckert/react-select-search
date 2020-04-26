@@ -1,4 +1,4 @@
-import React, { useEffect, forwardRef, useMemo, memo, useRef } from 'react';
+import React, { forwardRef, useMemo, memo } from 'react';
 import PropTypes from 'prop-types';
 import useSelect from './useSelect';
 import Value from './Components/Value';
