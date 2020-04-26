@@ -90,7 +90,7 @@ export default function useSelectSearch(_ref) {
   var onSelect = function onSelect(val) {
     var newValue = getNewValue(val, value, multiple);
     setValue(newValue);
-    onChange(newValue);
+    onChange(newValue, getOption(newValue, allOptions));
   };
 
   var onMouseDown = function onMouseDown(e) {

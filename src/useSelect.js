@@ -52,7 +52,7 @@ export default function useSelectSearch({
         const newValue = getNewValue(val, value, multiple);
 
         setValue(newValue);
-        onChange(newValue);
+        onChange(newValue, getOption(newValue, allOptions));
     };
 
     const onMouseDown = e => onSelect(e.currentTarget.value);

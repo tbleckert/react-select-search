@@ -107,7 +107,7 @@ function useSelectSearch(_ref) {
   var onSelect = function onSelect(val) {
     var newValue = (0, _getNewValue.default)(val, value, multiple);
     setValue(newValue);
-    onChange(newValue);
+    onChange(newValue, (0, _getOption.default)(newValue, allOptions));
   };
 
   var onMouseDown = function onMouseDown(e) {
