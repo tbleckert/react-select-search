@@ -41,7 +41,8 @@ var SelectSearch = forwardRef(function (_ref, ref) {
     multiple: multiple,
     disabled: disabled,
     fuse: fuse,
-    search: search
+    search: search,
+    onChange: onChange
   }),
       _useSelect2 = _slicedToArray(_useSelect, 3),
       snapshot = _useSelect2[0],
@@ -52,7 +53,6 @@ var SelectSearch = forwardRef(function (_ref, ref) {
   var flatOptions = useMemo(function () {
     return FlattenOptions(options);
   }, [options]);
-  var prevValue = useRef(snapshot.value);
   var classNameFn = useMemo(function () {
     return typeof className === 'string' ? function (key) {
       if (key === 'container') {
@@ -66,12 +66,6 @@ var SelectSearch = forwardRef(function (_ref, ref) {
       return "select-search__".concat(key);
     } : className;
   }, [className]);
-  useEffect(function () {
-    if (prevValue.current !== snapshot.value) {
-      onChange(snapshot.value, snapshot.selectedOption);
-      prevValue.current = snapshot.value;
-    }
-  }, [onChange, snapshot.value, snapshot.selectedOption]);
   var displayValue = snapshot.displayValue;
 
   if (!placeholder && !displayValue && flatOptions.length) {

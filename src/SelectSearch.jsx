@@ -29,11 +29,11 @@ const SelectSearch = forwardRef(({
         disabled,
         fuse,
         search,
+        onChange,
     });
 
     const { options } = snapshot;
     const flatOptions = useMemo(() => FlattenOptions(options), [options]);
-    const prevValue = useRef(snapshot.value);
     const classNameFn = useMemo(() => (
         (typeof className === 'string') ? (key) => {
             if (key === 'container') {
@@ -47,13 +47,6 @@ const SelectSearch = forwardRef(({
             return `select-search__${key}`;
         } : className
     ), [className]);
-
-    useEffect(() => {
-        if (prevValue.current !== snapshot.value) {
-            onChange(snapshot.value, snapshot.selectedOption);
-            prevValue.current = snapshot.value;
-        }
-    }, [onChange, snapshot.value, snapshot.selectedOption]);
 
     let { displayValue } = snapshot;
 

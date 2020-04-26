@@ -61,7 +61,8 @@ var SelectSearch = (0, _react.forwardRef)(function (_ref, ref) {
     multiple: multiple,
     disabled: disabled,
     fuse: fuse,
-    search: search
+    search: search,
+    onChange: onChange
   }),
       _useSelect2 = _slicedToArray(_useSelect, 3),
       snapshot = _useSelect2[0],
@@ -72,7 +73,6 @@ var SelectSearch = (0, _react.forwardRef)(function (_ref, ref) {
   var flatOptions = (0, _react.useMemo)(function () {
     return (0, _flattenOptions.default)(options);
   }, [options]);
-  var prevValue = (0, _react.useRef)(snapshot.value);
   var classNameFn = (0, _react.useMemo)(function () {
     return typeof className === 'string' ? function (key) {
       if (key === 'container') {
@@ -86,12 +86,6 @@ var SelectSearch = (0, _react.forwardRef)(function (_ref, ref) {
       return "select-search__".concat(key);
     } : className;
   }, [className]);
-  (0, _react.useEffect)(function () {
-    if (prevValue.current !== snapshot.value) {
-      onChange(snapshot.value, snapshot.selectedOption);
-      prevValue.current = snapshot.value;
-    }
-  }, [onChange, snapshot.value, snapshot.selectedOption]);
   var displayValue = snapshot.displayValue;
 
   if (!placeholder && !displayValue && flatOptions.length) {

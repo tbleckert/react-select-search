@@ -25,28 +25,35 @@ export default function useSelectSearch(_ref) {
       canSearch = _ref$search === void 0 ? false : _ref$search,
       _ref$fuse = _ref.fuse,
       fuse = _ref$fuse === void 0 ? false : _ref$fuse,
-      defaultOptions = _ref.options;
+      defaultOptions = _ref.options,
+      _ref$onChange = _ref.onChange,
+      onChange = _ref$onChange === void 0 ? function () {} : _ref$onChange;
   var ref = useRef(null);
 
-  var _useState = useState([]),
+  var _useState = useState(FlattenOptions(defaultOptions)),
       _useState2 = _slicedToArray(_useState, 2),
-      flat = _useState2[0],
-      setOptions = _useState2[1];
+      allOptions = _useState2[0],
+      setAllOptions = _useState2[1];
 
-  var _useState3 = useState(defaultValue),
+  var _useState3 = useState([]),
       _useState4 = _slicedToArray(_useState3, 2),
-      value = _useState4[0],
-      setValue = _useState4[1];
+      flat = _useState4[0],
+      setOptions = _useState4[1];
 
-  var _useState5 = useState(''),
+  var _useState5 = useState(defaultValue),
       _useState6 = _slicedToArray(_useState5, 2),
-      search = _useState6[0],
-      setSearch = _useState6[1];
+      value = _useState6[0],
+      setValue = _useState6[1];
 
-  var _useState7 = useState(false),
+  var _useState7 = useState(''),
       _useState8 = _slicedToArray(_useState7, 2),
-      focus = _useState8[0],
-      setFocus = _useState8[1];
+      search = _useState8[0],
+      setSearch = _useState8[1];
+
+  var _useState9 = useState(false),
+      _useState10 = _slicedToArray(_useState9, 2),
+      focus = _useState10[0],
+      setFocus = _useState10[1];
 
   var _useReducer = useReducer(highlightReducer, -1),
       _useReducer2 = _slicedToArray(_useReducer, 2),
@@ -57,11 +64,11 @@ export default function useSelectSearch(_ref) {
     return GroupOptions(flat);
   }, [flat]);
   var selectedOption = useMemo(function () {
-    return getOption(value, flat);
-  }, [value, flat]);
+    return getOption(value, allOptions);
+  }, [value, allOptions]);
   var displayValue = useMemo(function () {
-    return getDisplayValue(value, flat);
-  }, [value, flat]);
+    return getDisplayValue(value, allOptions);
+  }, [value, allOptions]);
   var onBlur = useCallback(function () {
     setFocus(false);
     setHighlighted(false);
@@ -72,16 +79,22 @@ export default function useSelectSearch(_ref) {
 
     if (!multiple) {
       setSearch('');
-      setOptions(FlattenOptions(defaultOptions));
+      setOptions(allOptions);
     }
-  }, [defaultOptions]);
+  }, [allOptions]);
 
   var onFocus = function onFocus() {
     return setFocus(true);
   };
 
-  var onChange = function onChange(e) {
-    return setValue(getNewValue(e.currentTarget.value, value, multiple));
+  var onSelect = function onSelect(val) {
+    var newValue = getNewValue(val, value, multiple);
+    setValue(newValue);
+    onChange(newValue);
+  };
+
+  var onMouseDown = function onMouseDown(e) {
+    return onSelect(e.currentTarget.value);
   };
 
   var onKeyDown = function onKeyDown(e) {
@@ -98,7 +111,7 @@ export default function useSelectSearch(_ref) {
       var option = flat[highlighted];
 
       if (option) {
-        setValue(getNewValue(option.value, value, multiple));
+        onSelect(option.value);
 
         if (!multiple) {
           onBlur();
@@ -118,7 +131,7 @@ export default function useSelectSearch(_ref) {
   var onSearch = useCallback(function (_ref4) {
     var target = _ref4.target;
     var inputVal = target.value;
-    var newOptions = FlattenOptions(defaultOptions);
+    var newOptions = allOptions;
     setSearch(inputVal);
 
     if (inputVal.length) {
@@ -126,7 +139,7 @@ export default function useSelectSearch(_ref) {
     }
 
     setOptions(newOptions);
-  }, [defaultOptions]);
+  }, [allOptions]);
   var valueProps = {
     tabIndex: '0',
     readOnly: !canSearch,
@@ -144,13 +157,15 @@ export default function useSelectSearch(_ref) {
 
   var optionProps = {
     tabIndex: '-1',
-    onMouseDown: onChange
+    onMouseDown: onMouseDown
   };
   useEffect(function () {
     setValue(defaultValue);
   }, [defaultValue]);
   useEffect(function () {
-    setOptions(FlattenOptions(defaultOptions));
+    var flatOptions = FlattenOptions(defaultOptions);
+    setAllOptions(flatOptions);
+    setOptions(flatOptions);
   }, [defaultOptions]);
   return [{
     value: value,

@@ -80,7 +80,6 @@ class App extends React.PureComponent {
                     <button type="button" className="clear" onClick={this.disable}>{text}</button>
                 </div>
                 <SelectSearch
-                    key="fonts"
                     ref={this.ref}
                     options={fontStacks}
                     value={this.state.font}
@@ -90,7 +89,6 @@ class App extends React.PureComponent {
                     disabled={this.state.disabled}
                 />
                 <SelectSearch
-                    key="countries"
                     value={this.state.country}
                     options={countries}
                     onChange={this.updateCountry}
@@ -99,7 +97,6 @@ class App extends React.PureComponent {
                     disabled={this.state.disabled}
                 />
                 <SelectSearch
-                    name="friends"
                     multiple
                     className="select-search-box select-search-box--friends select-search-box--multiple"
                     value={this.state.friends}
