@@ -10,7 +10,7 @@ function _objectWithoutProperties(source, excluded) { if (source == null) return
 
 function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
 
-import React, { useMemo, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 
 var Option = function Option(_ref) {
@@ -22,19 +22,7 @@ var Option = function Option(_ref) {
       option = _objectWithoutProperties(_ref, ["optionProps", "highlighted", "selected", "className", "renderOption"]);
 
   var optionRef = useRef(null);
-  var optionClass = [className('option'), useMemo(function () {
-    if (selected) {
-      return className('is-selected');
-    }
-
-    return false;
-  }, [className, selected]), useMemo(function () {
-    if (highlighted) {
-      return className('is-highlighted');
-    }
-
-    return false;
-  }, [className, highlighted])].filter(function (cls) {
+  var optionClass = [className('option'), selected ? className('is-selected') : false, highlighted ? className('is-highlighted') : false].filter(function (cls) {
     return !!cls;
   }).join(' ');
   useEffect(function () {

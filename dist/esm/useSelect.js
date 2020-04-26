@@ -74,22 +74,24 @@ export default function useSelectSearch(_ref) {
       setSearch('');
       setOptions(FlattenOptions(defaultOptions));
     }
-  }, [flat, ref]);
-  var onFocus = useCallback(function () {
-    setFocus(true);
-  }, []);
+  }, [defaultOptions]);
+
+  var onFocus = function onFocus() {
+    return setFocus(true);
+  };
 
   var onChange = function onChange(e) {
     return setValue(getNewValue(e.currentTarget.value, value, multiple));
   };
 
-  var onKeyDown = useCallback(function (e) {
+  var onKeyDown = function onKeyDown(e) {
     return setHighlighted({
       key: e.key,
       options: flat
     });
-  }, [flat]);
-  var onKeyPress = useCallback(function (_ref2) {
+  };
+
+  var onKeyPress = function onKeyPress(_ref2) {
     var key = _ref2.key;
 
     if (key === 'Enter') {
@@ -103,26 +105,28 @@ export default function useSelectSearch(_ref) {
         }
       }
     }
-  }, [onBlur, flat, highlighted, multiple, value]);
-  var onKeyUp = useCallback(function (_ref3) {
+  };
+
+  var onKeyUp = function onKeyUp(_ref3) {
     var key = _ref3.key;
 
     if (key === 'Escape') {
       onBlur();
     }
-  }, [onBlur]);
+  };
+
   var onSearch = useCallback(function (_ref4) {
     var target = _ref4.target;
     var inputVal = target.value;
-    var newOptions = flat;
+    var newOptions = FlattenOptions(defaultOptions);
     setSearch(inputVal);
 
     if (inputVal.length) {
-      newOptions = doSearch(inputVal, flat, fuse);
+      newOptions = doSearch(inputVal, newOptions, fuse);
     }
 
     setOptions(newOptions);
-  }, [flat, fuse]);
+  }, [defaultOptions]);
   var valueProps = {
     tabIndex: '0',
     readOnly: !canSearch,

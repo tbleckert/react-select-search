@@ -36,19 +36,7 @@ var Option = function Option(_ref) {
       option = _objectWithoutProperties(_ref, ["optionProps", "highlighted", "selected", "className", "renderOption"]);
 
   var optionRef = (0, _react.useRef)(null);
-  var optionClass = [className('option'), (0, _react.useMemo)(function () {
-    if (selected) {
-      return className('is-selected');
-    }
-
-    return false;
-  }, [className, selected]), (0, _react.useMemo)(function () {
-    if (highlighted) {
-      return className('is-highlighted');
-    }
-
-    return false;
-  }, [className, highlighted])].filter(function (cls) {
+  var optionClass = [className('option'), selected ? className('is-selected') : false, highlighted ? className('is-highlighted') : false].filter(function (cls) {
     return !!cls;
   }).join(' ');
   (0, _react.useEffect)(function () {

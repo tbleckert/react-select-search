@@ -91,22 +91,24 @@ function useSelectSearch(_ref) {
       setSearch('');
       setOptions((0, _flattenOptions.default)(defaultOptions));
     }
-  }, [flat, ref]);
-  var onFocus = (0, _react.useCallback)(function () {
-    setFocus(true);
-  }, []);
+  }, [defaultOptions]);
+
+  var onFocus = function onFocus() {
+    return setFocus(true);
+  };
 
   var onChange = function onChange(e) {
     return setValue((0, _getNewValue.default)(e.currentTarget.value, value, multiple));
   };
 
-  var onKeyDown = (0, _react.useCallback)(function (e) {
+  var onKeyDown = function onKeyDown(e) {
     return setHighlighted({
       key: e.key,
       options: flat
     });
-  }, [flat]);
-  var onKeyPress = (0, _react.useCallback)(function (_ref2) {
+  };
+
+  var onKeyPress = function onKeyPress(_ref2) {
     var key = _ref2.key;
 
     if (key === 'Enter') {
@@ -120,26 +122,28 @@ function useSelectSearch(_ref) {
         }
       }
     }
-  }, [onBlur, flat, highlighted, multiple, value]);
-  var onKeyUp = (0, _react.useCallback)(function (_ref3) {
+  };
+
+  var onKeyUp = function onKeyUp(_ref3) {
     var key = _ref3.key;
 
     if (key === 'Escape') {
       onBlur();
     }
-  }, [onBlur]);
+  };
+
   var onSearch = (0, _react.useCallback)(function (_ref4) {
     var target = _ref4.target;
     var inputVal = target.value;
-    var newOptions = flat;
+    var newOptions = (0, _flattenOptions.default)(defaultOptions);
     setSearch(inputVal);
 
     if (inputVal.length) {
-      newOptions = (0, _search.default)(inputVal, flat, fuse);
+      newOptions = (0, _search.default)(inputVal, newOptions, fuse);
     }
 
     setOptions(newOptions);
-  }, [flat, fuse]);
+  }, [defaultOptions]);
   var valueProps = {
     tabIndex: '0',
     readOnly: !canSearch,
