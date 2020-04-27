@@ -19,9 +19,9 @@ function renderFriend(props, option, snapshot, className) {
 }
 
 function renderFontValue(valueProps, snapshot, className) {
-    const { selectedOption } = snapshot;
+    const { value } = snapshot;
     const style = {
-        fontFamily: (selectedOption && 'stack' in selectedOption) ? selectedOption.stack : null,
+        fontFamily: (value && 'stack' in value) ? value.stack : null,
     };
 
     return (
@@ -106,6 +106,22 @@ class App extends React.PureComponent {
                     renderOption={renderFriend}
                     disabled={this.state.disabled}
                     search
+                />
+                <SelectSearch
+                    options={[]}
+                    getOptions={(query) => {
+                        return new Promise((resolve, reject) => {
+                            fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${query}`)
+                                .then(response => response.json())
+                                .then(({ drinks }) => {
+                                    resolve(drinks.map(({ idDrink, strDrink }) => ({ value: idDrink, name: strDrink })))
+                                })
+                                .catch(reject);
+                        });
+                    }}
+                    placeholder="Your favorite drink"
+                    search
+                    disabled={this.state.disabled}
                 />
             </div>
         );

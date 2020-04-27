@@ -6,9 +6,8 @@ describe('Unit test for getDisplayValue function', () => {
         const option = friends[Math.floor(Math.random() * friends.length)];
         const secondOption = friends[Math.floor(Math.random() * friends.length)];
 
-        expect(getDisplayValue(option.value, friends)).toEqual(option.name);
-        expect(getDisplayValue([option.value, secondOption.value], friends)).toStrictEqual(`${option.name}, ${secondOption.name}`);
-        expect(getDisplayValue('foo', friends)).toEqual('');
-        expect(getDisplayValue(null, friends)).toEqual('');
+        expect(getDisplayValue(option)).toEqual(option.name);
+        expect(getDisplayValue([option, secondOption])).toStrictEqual(`${option.name}, ${secondOption.name}`);
+        expect(getDisplayValue('foo')).toEqual('');
     });
 });

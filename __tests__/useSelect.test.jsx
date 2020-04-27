@@ -27,13 +27,13 @@ describe('Test SelectSearch component', () => {
         const output = wrapper.find('div').props();
 
         expect(output.snapshot).toStrictEqual({
-            value: initialOption.value,
-            selectedOption: initialOption,
+            value: initialOption,
             highlighted: -1,
             options: groupedOptions,
             disabled: false,
             displayValue: initialOption.name,
             focus: false,
+            searching: false,
             search: '',
         });
     });

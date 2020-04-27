@@ -1,4 +1,4 @@
-var Fuse = null;
+let Fuse = null;
 
 try {
   // eslint-disable-next-line global-require,import/no-extraneous-dependencies
@@ -12,12 +12,10 @@ try {
 }
 
 function fuzzySearch(value, options, fuseOptions) {
-  var fuse = new Fuse(options, fuseOptions);
-  return fuse.search(value).map(function (item, index) {
-    return Object.assign({}, item, {
-      index: index
-    });
-  });
+  const fuse = new Fuse(options, fuseOptions);
+  return fuse.search(value).map((item, index) => Object.assign({}, item, {
+    index
+  }));
 }
 
 export default function search(value, options, fuseOptions) {

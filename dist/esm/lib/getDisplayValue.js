@@ -1,15 +1,10 @@
-import getOption from './getOption';
-export default function getDisplayValue(value, defaultOptions) {
-  var option = getOption(value, defaultOptions);
-
-  if (option) {
-    if (Array.isArray(option)) {
-      return option.map(function (singleOption) {
-        return singleOption.name;
-      }).join(', ');
+export default function getDisplayValue(value) {
+  if (value && typeof value === 'object') {
+    if (Array.isArray(value)) {
+      return value.map(singleOption => singleOption.name).join(', ');
     }
 
-    return option.name;
+    return value.name;
   }
 
   return '';

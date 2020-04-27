@@ -10,7 +10,7 @@ export default function getNewValue(value, oldValue, multiple) {
             newValue = [...oldValue];
         }
 
-        const valueIndex = newValue.indexOf(value);
+        const valueIndex = newValue.findIndex(val => val.value === value.value);
 
         if (valueIndex >= 0) {
             newValue.splice(valueIndex, 1);

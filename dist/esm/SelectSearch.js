@@ -1,16 +1,8 @@
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
-
-function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) { return; } var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 import React, { forwardRef, useMemo, memo } from 'react';
 import PropTypes from 'prop-types';
@@ -19,76 +11,77 @@ import Value from './Components/Value';
 import Options from './Components/Options';
 import FlattenOptions from './lib/flattenOptions';
 import { optionType, valueType } from './types';
-var SelectSearch = forwardRef(function (_ref, ref) {
-  var defaultValue = _ref.value,
-      disabled = _ref.disabled,
-      placeholder = _ref.placeholder,
-      multiple = _ref.multiple,
-      search = _ref.search,
-      autoFocus = _ref.autoFocus,
-      autoComplete = _ref.autoComplete,
-      defaultOptions = _ref.options,
-      onChange = _ref.onChange,
-      className = _ref.className,
-      renderValue = _ref.renderValue,
-      renderOption = _ref.renderOption,
-      renderGroupHeader = _ref.renderGroupHeader,
-      fuse = _ref.fuse;
-
-  var _useSelect = useSelect({
+const SelectSearch = forwardRef(({
+  value: defaultValue,
+  disabled,
+  placeholder,
+  multiple,
+  search,
+  autoFocus,
+  autoComplete,
+  options: defaultOptions,
+  onChange,
+  className,
+  renderValue,
+  renderOption,
+  renderGroupHeader,
+  getOptions,
+  fuse
+}, ref) => {
+  const [snapshot, valueProps, optionProps] = useSelect({
     options: defaultOptions,
     value: defaultValue,
-    multiple: multiple,
-    disabled: disabled,
-    fuse: fuse,
-    search: search,
-    onChange: onChange
-  }),
-      _useSelect2 = _slicedToArray(_useSelect, 3),
-      snapshot = _useSelect2[0],
-      valueProps = _useSelect2[1],
-      optionProps = _useSelect2[2];
+    multiple,
+    disabled,
+    fuse,
+    search,
+    onChange,
+    getOptions
+  });
+  const {
+    options
+  } = snapshot;
+  const flatOptions = useMemo(() => FlattenOptions(options), [options]);
+  const classNameFn = useMemo(() => typeof className === 'string' ? key => {
+    if (key === 'container') {
+      return 'select-search';
+    }
 
-  var options = snapshot.options;
-  var flatOptions = useMemo(function () {
-    return FlattenOptions(options);
-  }, [options]);
-  var classNameFn = useMemo(function () {
-    return typeof className === 'string' ? function (key) {
-      if (key === 'container') {
-        return 'select-search';
-      }
+    if (key.indexOf('is-') === 0) {
+      return key;
+    }
 
-      if (key.indexOf('is-') === 0) {
-        return key;
-      }
-
-      return "select-search__".concat(key);
-    } : className;
-  }, [className]);
-  var displayValue = snapshot.displayValue;
+    return `select-search__${key}`;
+  } : className, [className]);
+  let {
+    displayValue
+  } = snapshot;
 
   if (!placeholder && !displayValue && flatOptions.length) {
     displayValue = flatOptions[0].name;
   }
 
-  var wrapperClass = classNameFn('container');
+  let wrapperClass = classNameFn('container');
 
   if (multiple) {
-    wrapperClass += " ".concat(wrapperClass, "--multiple");
+    wrapperClass += ` ${wrapperClass}--multiple`;
   }
 
   if (search) {
-    wrapperClass += " ".concat(wrapperClass, "--search");
+    wrapperClass += ` ${wrapperClass}--search`;
   }
 
-  var value = displayValue;
+  if (snapshot.searching) {
+    wrapperClass += ` ${classNameFn('is-searching')}`;
+  }
+
+  let value = displayValue;
 
   if ((snapshot.focus || multiple) && search) {
     value = snapshot.search;
   }
 
-  var valueComp = renderValue ? React.createElement("div", {
+  const valueComp = renderValue ? /*#__PURE__*/React.createElement("div", {
     className: classNameFn('value')
   }, renderValue(_objectSpread({}, valueProps, {
     placeholder: search ? placeholder : null,
@@ -96,8 +89,8 @@ var SelectSearch = forwardRef(function (_ref, ref) {
     autoComplete: search ? autoComplete : null,
     value: search ? value : null
   }), _objectSpread({}, snapshot, {
-    displayValue: displayValue
-  }), classNameFn('input'))) : React.createElement(Value, {
+    displayValue
+  }), classNameFn('input'))) : /*#__PURE__*/React.createElement(Value, {
     snapshot: snapshot,
     disabled: disabled,
     search: search,
@@ -110,12 +103,12 @@ var SelectSearch = forwardRef(function (_ref, ref) {
     multiple: multiple,
     render: renderValue
   });
-  return React.createElement("div", {
+  return /*#__PURE__*/React.createElement("div", {
     ref: ref,
     className: wrapperClass
-  }, (!multiple || search) && valueComp, !disabled && (snapshot.focus || multiple) && React.createElement("div", {
+  }, (!multiple || search) && valueComp, !disabled && (snapshot.focus || multiple) && /*#__PURE__*/React.createElement("div", {
     className: classNameFn('select')
-  }, React.createElement(Options, {
+  }, /*#__PURE__*/React.createElement(Options, {
     options: snapshot.options,
     snapshot: snapshot,
     optionProps: optionProps,
@@ -133,20 +126,20 @@ SelectSearch.defaultProps = {
   autoFocus: false,
   autoComplete: 'on',
   value: '',
-  onChange: function onChange() {},
+  onChange: () => {},
   renderOption: null,
-  renderGroupHeader: function renderGroupHeader(name) {
-    return name;
-  },
+  renderGroupHeader: name => name,
   renderValue: null,
   fuse: {
     keys: ['name', 'groupName'],
     threshold: 0.3
-  }
+  },
+  getOptions: null
 };
 SelectSearch.propTypes = {
   options: PropTypes.arrayOf(optionType).isRequired,
-  value: valueType,
+  getOptions: PropTypes.func,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
   className: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   multiple: PropTypes.bool,
   search: PropTypes.bool,

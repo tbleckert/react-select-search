@@ -1,10 +1,10 @@
 import findGroupIndex from './findGroupIndex';
 export default function groupOptions(options) {
-  var nextOptions = [];
-  options.forEach(function (option, i) {
+  const nextOptions = [];
+  options.forEach((option, i) => {
     if ('groupId' in option) {
-      var nextOption = Object.assign({}, option);
-      var groupIndex = findGroupIndex(nextOptions, nextOption.groupId);
+      const nextOption = Object.assign({}, option);
+      const groupIndex = findGroupIndex(nextOptions, nextOption.groupId);
       nextOption.index = i;
 
       if (groupIndex !== null && groupIndex > -1) {

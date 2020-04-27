@@ -20,6 +20,7 @@ const SelectSearch = forwardRef(({
     renderValue,
     renderOption,
     renderGroupHeader,
+    getOptions,
     fuse,
 }, ref) => {
     const [snapshot, valueProps, optionProps] = useSelect({
@@ -30,6 +31,7 @@ const SelectSearch = forwardRef(({
         fuse,
         search,
         onChange,
+        getOptions,
     });
 
     const { options } = snapshot;
@@ -62,6 +64,10 @@ const SelectSearch = forwardRef(({
 
     if (search) {
         wrapperClass += ` ${wrapperClass}--search`;
+    }
+
+    if (snapshot.searching) {
+        wrapperClass += ` ${classNameFn('is-searching')}`;
     }
 
     let value = displayValue;
@@ -136,11 +142,16 @@ SelectSearch.defaultProps = {
         keys: ['name', 'groupName'],
         threshold: 0.3,
     },
+    getOptions: null,
 };
 
 SelectSearch.propTypes = {
     options: PropTypes.arrayOf(optionType).isRequired,
-    value: valueType,
+    getOptions: PropTypes.func,
+    value: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.arrayOf(PropTypes.string),
+    ]),
     className: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.func,

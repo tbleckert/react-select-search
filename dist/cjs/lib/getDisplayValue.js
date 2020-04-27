@@ -5,21 +5,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = getDisplayValue;
 
-var _getOption = _interopRequireDefault(require("./getOption"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function getDisplayValue(value, defaultOptions) {
-  var option = (0, _getOption.default)(value, defaultOptions);
-
-  if (option) {
-    if (Array.isArray(option)) {
-      return option.map(function (singleOption) {
-        return singleOption.name;
-      }).join(', ');
+function getDisplayValue(value) {
+  if (value && typeof value === 'object') {
+    if (Array.isArray(value)) {
+      return value.map(singleOption => singleOption.name).join(', ');
     }
 
-    return option.name;
+    return value.name;
   }
 
   return '';

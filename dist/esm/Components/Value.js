@@ -3,29 +3,28 @@ function _extends() { _extends = Object.assign || function (target) { for (var i
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 
-var Value = function Value(_ref) {
-  var search = _ref.search,
-      disabled = _ref.disabled,
-      valueProps = _ref.valueProps,
-      className = _ref.className,
-      displayValue = _ref.displayValue,
-      placeholder = _ref.placeholder,
-      autoFocus = _ref.autoFocus;
-  return React.createElement("div", {
-    className: className('value')
-  }, search && React.createElement("input", _extends({}, valueProps, {
-    value: displayValue,
-    autoFocus: autoFocus,
-    placeholder: placeholder,
-    disabled: disabled,
-    className: className('input')
-  })), !search && React.createElement("input", _extends({}, valueProps, {
-    disabled: disabled,
-    className: className('input'),
-    autoFocus: autoFocus,
-    value: displayValue
-  })));
-};
+const Value = ({
+  search,
+  disabled,
+  valueProps,
+  className,
+  displayValue,
+  placeholder,
+  autoFocus
+}) => /*#__PURE__*/React.createElement("div", {
+  className: className('value')
+}, search && /*#__PURE__*/React.createElement("input", _extends({}, valueProps, {
+  value: displayValue,
+  autoFocus: autoFocus,
+  placeholder: placeholder,
+  disabled: disabled,
+  className: className('input')
+})), !search && /*#__PURE__*/React.createElement("input", _extends({}, valueProps, {
+  disabled: disabled,
+  className: className('input'),
+  autoFocus: autoFocus,
+  value: displayValue
+})));
 
 Value.defaultProps = {
   disabled: false,

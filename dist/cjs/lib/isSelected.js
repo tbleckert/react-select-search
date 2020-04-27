@@ -6,5 +6,5 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = isSelected;
 
 function isSelected(itemValue, selectedValue) {
-  return Array.isArray(selectedValue) ? selectedValue.indexOf(itemValue) >= 0 : selectedValue === itemValue;
+  return Array.isArray(selectedValue) ? selectedValue.findIndex(item => item.value === itemValue.value) >= 0 : selectedValue === itemValue;
 }

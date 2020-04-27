@@ -3,8 +3,10 @@ export default function highlightReducer(highlighted, value) {
     return -1;
   }
 
-  var key = value.key,
-      options = value.options;
+  const {
+    key,
+    options
+  } = value;
 
   if (!options) {
     return highlighted;
@@ -14,7 +16,7 @@ export default function highlightReducer(highlighted, value) {
     return highlighted;
   }
 
-  var newHighlighted = -1;
+  let newHighlighted = -1;
 
   if (key === 'ArrowDown' && highlighted < options.length - 1) {
     newHighlighted = highlighted + 1;
@@ -26,12 +28,12 @@ export default function highlightReducer(highlighted, value) {
     newHighlighted = options.length - 1;
   }
 
-  var option = options[newHighlighted];
+  const option = options[newHighlighted];
 
   if (option && option.disabled) {
     return highlightReducer(newHighlighted, {
-      key: key,
-      options: options
+      key,
+      options
     });
   }
 

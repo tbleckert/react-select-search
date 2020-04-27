@@ -32,6 +32,7 @@
 * Headless mode
 * Basic HTML select functionality, including multiple
 * Search/filter options
+* Async options
 * Apply renderers to change markup and behavior
 * Keyboard support
 * Group options with group names, you can search group names
@@ -130,7 +131,7 @@ Below is all the available options you can pass to the component. Options withou
 | renderOption | function | null | Function that renders the options. See [custom renderers](#custom-renderers) for more. |
 | renderValue | function | null | Function that renders the value/search field. See [custom renderers](#custom-renderers) for more. |
 | renderGroupHeader | function | null | Function that renders the group header. See [custom renderers](#custom-renderers) for more. |
-| filterOptions | function | null | Filter the options list. See [filter options](#filter-options) for more. |
+| getOptions | function | null | Get options through a function call, can return a promise for async usage. See [get options](#get-options) for more. |
 
 ## The options object
 
@@ -180,3 +181,24 @@ The optionProps and the valueProps are needed for the component you render to wo
 Monkeypatch it if you need to but make sure to not remove important props.
 
 The optionSnapshot is an object that contains the object state: `{ selected: bool, highlighted: bool, disabled: bool }`.
+
+## Get options
+
+You can fetch options asynchronously with the `getOptions` property. You can either return options directly or through a `Promise`.
+
+```jsx
+function getOptions(query) {
+    return new Promise((resolve, reject) => {
+        fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${query}`)
+            .then(response => response.json())
+            .then(({ drinks }) => {
+                resolve(drinks.map(({ idDrink, strDrink }) => ({ value: idDrink, name: strDrink })))
+            })
+            .catch(reject);
+    });
+}
+```
+
+The function runs on each search query update, so you might want to throttle the fetches.
+If you return a promise, the class `is-searching` will be applied to the main element, giving you a chance
+to change the appearance, like adding a spinner. The property `searching` is also available in the snapshot that is sent to your render callbacks.

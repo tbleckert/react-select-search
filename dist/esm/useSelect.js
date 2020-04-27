@@ -1,12 +1,4 @@
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
-
-function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) { return; } var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-import { useReducer, useEffect, useCallback, useMemo, useState, useRef } from 'react';
+import { useReducer, useEffect, useMemo, useState, useRef } from 'react';
 import highlightReducer from './highlightReducer';
 import getDisplayValue from './lib/getDisplayValue';
 import FlattenOptions from './lib/flattenOptions';
@@ -14,62 +6,28 @@ import GroupOptions from './lib/groupOptions';
 import getNewValue from './lib/getNewValue';
 import getOption from './lib/getOption';
 import doSearch from './search';
-export default function useSelectSearch(_ref) {
-  var _ref$value = _ref.value,
-      defaultValue = _ref$value === void 0 ? null : _ref$value,
-      _ref$disabled = _ref.disabled,
-      disabled = _ref$disabled === void 0 ? false : _ref$disabled,
-      _ref$multiple = _ref.multiple,
-      multiple = _ref$multiple === void 0 ? false : _ref$multiple,
-      _ref$search = _ref.search,
-      canSearch = _ref$search === void 0 ? false : _ref$search,
-      _ref$fuse = _ref.fuse,
-      fuse = _ref$fuse === void 0 ? false : _ref$fuse,
-      defaultOptions = _ref.options,
-      _ref$onChange = _ref.onChange,
-      onChange = _ref$onChange === void 0 ? function () {} : _ref$onChange;
-  var ref = useRef(null);
+export default function useSelectSearch({
+  value: defaultValue = null,
+  disabled = false,
+  multiple = false,
+  search: canSearch = false,
+  fuse = false,
+  options: defaultOptions,
+  onChange = () => {},
+  getOptions = null
+}) {
+  const ref = useRef(null);
+  const [flatDefaultOptions, setFlatDefaultOptions] = useState(FlattenOptions(defaultOptions));
+  const [flat, setOptions] = useState([]);
+  const [value, setValue] = useState(getOption(defaultValue, flatDefaultOptions));
+  const [search, setSearch] = useState('');
+  const [focus, setFocus] = useState(false);
+  const [searching, setSearching] = useState(false);
+  const [highlighted, setHighlighted] = useReducer(highlightReducer, -1);
+  const options = useMemo(() => GroupOptions(flat), [flat]);
+  const displayValue = getDisplayValue(value);
 
-  var _useState = useState(FlattenOptions(defaultOptions)),
-      _useState2 = _slicedToArray(_useState, 2),
-      allOptions = _useState2[0],
-      setAllOptions = _useState2[1];
-
-  var _useState3 = useState([]),
-      _useState4 = _slicedToArray(_useState3, 2),
-      flat = _useState4[0],
-      setOptions = _useState4[1];
-
-  var _useState5 = useState(defaultValue),
-      _useState6 = _slicedToArray(_useState5, 2),
-      value = _useState6[0],
-      setValue = _useState6[1];
-
-  var _useState7 = useState(''),
-      _useState8 = _slicedToArray(_useState7, 2),
-      search = _useState8[0],
-      setSearch = _useState8[1];
-
-  var _useState9 = useState(false),
-      _useState10 = _slicedToArray(_useState9, 2),
-      focus = _useState10[0],
-      setFocus = _useState10[1];
-
-  var _useReducer = useReducer(highlightReducer, -1),
-      _useReducer2 = _slicedToArray(_useReducer, 2),
-      highlighted = _useReducer2[0],
-      setHighlighted = _useReducer2[1];
-
-  var options = useMemo(function () {
-    return GroupOptions(flat);
-  }, [flat]);
-  var selectedOption = useMemo(function () {
-    return getOption(value, allOptions);
-  }, [value, allOptions]);
-  var displayValue = useMemo(function () {
-    return getDisplayValue(value, allOptions);
-  }, [value, allOptions]);
-  var onBlur = useCallback(function () {
+  const onBlur = () => {
     setFocus(false);
     setHighlighted(false);
 
@@ -79,36 +37,36 @@ export default function useSelectSearch(_ref) {
 
     if (!multiple) {
       setSearch('');
-      setOptions(allOptions);
+      setOptions(flatDefaultOptions);
     }
-  }, [allOptions]);
-
-  var onFocus = function onFocus() {
-    return setFocus(true);
   };
 
-  var onSelect = function onSelect(val) {
-    var newValue = getNewValue(val, value, multiple);
+  const onFocus = () => setFocus(true);
+
+  const onSelect = val => {
+    const option = getOption(val, flat);
+    const newValue = getNewValue(option, value, multiple);
     setValue(newValue);
-    onChange(newValue, getOption(newValue, allOptions));
+
+    if (multiple) {
+      onChange(newValue.map(i => i.value), newValue);
+    } else {
+      onChange(option.value, option);
+    }
   };
 
-  var onMouseDown = function onMouseDown(e) {
-    return onSelect(e.currentTarget.value);
-  };
+  const onMouseDown = e => onSelect(e.currentTarget.value);
 
-  var onKeyDown = function onKeyDown(e) {
-    return setHighlighted({
-      key: e.key,
-      options: flat
-    });
-  };
+  const onKeyDown = e => setHighlighted({
+    key: e.key,
+    options: flat
+  });
 
-  var onKeyPress = function onKeyPress(_ref2) {
-    var key = _ref2.key;
-
+  const onKeyPress = ({
+    key
+  }) => {
     if (key === 'Enter') {
-      var option = flat[highlighted];
+      const option = flat[highlighted];
 
       if (option) {
         onSelect(option.value);
@@ -120,61 +78,76 @@ export default function useSelectSearch(_ref) {
     }
   };
 
-  var onKeyUp = function onKeyUp(_ref3) {
-    var key = _ref3.key;
-
+  const onKeyUp = ({
+    key
+  }) => {
     if (key === 'Escape') {
       onBlur();
     }
   };
 
-  var onSearch = useCallback(function (_ref4) {
-    var target = _ref4.target;
-    var inputVal = target.value;
-    var newOptions = allOptions;
+  const onSearch = ({
+    target
+  }) => {
+    const {
+      value: inputVal
+    } = target;
     setSearch(inputVal);
+    let searchableOption = flatDefaultOptions;
 
-    if (inputVal.length) {
-      newOptions = doSearch(inputVal, newOptions, fuse);
+    if (getOptions && inputVal.length) {
+      setSearching(true);
+      searchableOption = getOptions(inputVal);
     }
 
-    setOptions(newOptions);
-  }, [allOptions]);
-  var valueProps = {
+    Promise.resolve(searchableOption).then(foundOptions => {
+      if (inputVal.length) {
+        const newOptions = doSearch(inputVal, foundOptions, fuse);
+        setOptions(newOptions === false ? foundOptions : newOptions);
+      } else {
+        setOptions(foundOptions);
+      }
+    }).catch(() => setOptions(flatDefaultOptions)).finally(() => setSearching(false));
+  };
+
+  const valueProps = {
     tabIndex: '0',
     readOnly: !canSearch,
-    onBlur: onBlur,
-    onFocus: onFocus,
-    onKeyPress: onKeyPress,
-    onKeyDown: onKeyDown,
-    onKeyUp: onKeyUp,
-    ref: ref
+    onBlur,
+    onFocus,
+    onKeyPress,
+    onKeyDown,
+    onKeyUp,
+    ref
   };
 
   if (canSearch) {
     valueProps.onChange = onSearch;
   }
 
-  var optionProps = {
+  const optionProps = {
     tabIndex: '-1',
-    onMouseDown: onMouseDown
+    onMouseDown
   };
-  useEffect(function () {
-    setValue(defaultValue);
+  useEffect(() => {
+    if (defaultValue && flatDefaultOptions) {
+      const option = getOption(defaultValue, flatDefaultOptions);
+      setValue(option);
+    }
   }, [defaultValue]);
-  useEffect(function () {
-    var flatOptions = FlattenOptions(defaultOptions);
-    setAllOptions(flatOptions);
+  useEffect(() => {
+    const flatOptions = FlattenOptions(defaultOptions);
     setOptions(flatOptions);
+    setFlatDefaultOptions(flatOptions);
   }, [defaultOptions]);
   return [{
-    value: value,
-    selectedOption: selectedOption,
-    highlighted: highlighted,
-    options: options,
-    disabled: disabled,
-    displayValue: displayValue,
-    focus: focus,
-    search: search
+    value,
+    highlighted,
+    options,
+    disabled,
+    displayValue,
+    focus,
+    search,
+    searching
   }, valueProps, optionProps, setValue];
 }

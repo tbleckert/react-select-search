@@ -14,19 +14,19 @@ function flattenOptions(options) {
     return [];
   }
 
-  var nextOptions = [];
-  options.forEach(function (option, index) {
+  const nextOptions = [];
+  options.forEach((option, index) => {
     if ('type' in option && option.type === 'group') {
-      var id = (0, _getGroupId.default)(option);
-      option.items.forEach(function (groupOption) {
-        var nextGroupOption = Object.assign({}, groupOption);
+      const id = (0, _getGroupId.default)(option);
+      option.items.forEach(groupOption => {
+        const nextGroupOption = Object.assign({}, groupOption);
         nextGroupOption.groupId = id;
         nextGroupOption.groupName = option.name;
         nextOptions.push(nextGroupOption);
       });
     } else {
       nextOptions.push(Object.assign({}, option, {
-        index: index
+        index
       }));
     }
   });

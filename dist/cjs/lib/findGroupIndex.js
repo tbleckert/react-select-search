@@ -6,8 +6,8 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = findGroupIndex;
 
 function findGroupIndex(options, id) {
-  var foundIndex = null;
-  options.forEach(function (option, i) {
+  let foundIndex = null;
+  options.forEach((option, i) => {
     if ('groupId' in option && option.groupId === id) {
       foundIndex = i;
     }

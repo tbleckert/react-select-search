@@ -19,50 +19,47 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
-var Options = function Options(_ref) {
-  var options = _ref.options,
-      optionProps = _ref.optionProps,
-      snapshot = _ref.snapshot,
-      className = _ref.className,
-      renderGroupHeader = _ref.renderGroupHeader,
-      renderOption = _ref.renderOption;
-  return _react.default.createElement("ul", {
-    className: className('options')
-  }, options.map(function (option) {
-    if (option.type === 'group') {
-      return _react.default.createElement("li", {
-        role: "none",
-        className: className('row'),
-        key: option.groupId
-      }, _react.default.createElement("div", {
-        className: className('group')
-      }, _react.default.createElement("div", {
-        className: className('group-header')
-      }, renderGroupHeader(option.name)), _react.default.createElement(Options, {
-        options: option.items,
-        snapshot: snapshot,
-        optionProps: optionProps,
-        className: className,
-        renderOption: renderOption
-      })));
-    }
-
-    return _react.default.createElement(_Option.default, _extends({
-      key: option.value,
-      className: className,
+const Options = ({
+  options,
+  optionProps,
+  snapshot,
+  className,
+  renderGroupHeader,
+  renderOption
+}) => /*#__PURE__*/_react.default.createElement("ul", {
+  className: className('options')
+}, options.map(option => {
+  if (option.type === 'group') {
+    return /*#__PURE__*/_react.default.createElement("li", {
+      role: "none",
+      className: className('row'),
+      key: option.groupId
+    }, /*#__PURE__*/_react.default.createElement("div", {
+      className: className('group')
+    }, /*#__PURE__*/_react.default.createElement("div", {
+      className: className('group-header')
+    }, renderGroupHeader(option.name)), /*#__PURE__*/_react.default.createElement(Options, {
+      options: option.items,
+      snapshot: snapshot,
       optionProps: optionProps,
-      selected: (0, _isSelected.default)(option.value, snapshot.value),
-      highlighted: snapshot.highlighted === option.index,
+      className: className,
       renderOption: renderOption
-    }, option));
-  }));
-};
+    })));
+  }
+
+  return /*#__PURE__*/_react.default.createElement(_Option.default, _extends({
+    key: option.value,
+    className: className,
+    optionProps: optionProps,
+    selected: (0, _isSelected.default)(option, snapshot.value),
+    highlighted: snapshot.highlighted === option.index,
+    renderOption: renderOption
+  }, option));
+}));
 
 Options.defaultProps = {
   renderOption: null,
-  renderGroupHeader: function renderGroupHeader(name) {
-    return name;
-  }
+  renderGroupHeader: name => name
 };
 Options.propTypes = {
   options: _propTypes.default.arrayOf(_types.optionType).isRequired,

@@ -10,11 +10,11 @@ var _findGroupIndex = _interopRequireDefault(require("./findGroupIndex"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function groupOptions(options) {
-  var nextOptions = [];
-  options.forEach(function (option, i) {
+  const nextOptions = [];
+  options.forEach((option, i) => {
     if ('groupId' in option) {
-      var nextOption = Object.assign({}, option);
-      var groupIndex = (0, _findGroupIndex.default)(nextOptions, nextOption.groupId);
+      const nextOption = Object.assign({}, option);
+      const groupIndex = (0, _findGroupIndex.default)(nextOptions, nextOption.groupId);
       nextOption.index = i;
 
       if (groupIndex !== null && groupIndex > -1) {

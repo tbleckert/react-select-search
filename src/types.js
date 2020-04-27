@@ -15,8 +15,8 @@ export const optionType = PropTypes.oneOfType([
 ]);
 
 export const valueType = PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.arrayOf(PropTypes.string),
+    PropTypes.object,
+    PropTypes.arrayOf(PropTypes.object),
 ]);
 
 export const classNameType = PropTypes.oneOfType([

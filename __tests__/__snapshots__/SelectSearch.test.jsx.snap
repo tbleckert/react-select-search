@@ -402,8 +402,8 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
               },
             ],
             "search": "",
-            "selectedOption": null,
-            "value": "",
+            "searching": false,
+            "value": null,
           }
         }
       >
@@ -570,8 +570,8 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
                       },
                     ],
                     "search": "",
-                    "selectedOption": null,
-                    "value": "",
+                    "searching": false,
+                    "value": null,
                   }
                 }
               >
@@ -745,8 +745,8 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
                       },
                     ],
                     "search": "",
-                    "selectedOption": null,
-                    "value": "",
+                    "searching": false,
+                    "value": null,
                   }
                 }
               >
@@ -928,8 +928,8 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
                       },
                     ],
                     "search": "",
-                    "selectedOption": null,
-                    "value": "",
+                    "searching": false,
+                    "value": null,
                   }
                 }
               >
@@ -1149,8 +1149,8 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
                       },
                     ],
                     "search": "",
-                    "selectedOption": null,
-                    "value": "",
+                    "searching": false,
+                    "value": null,
                   }
                 }
               >
@@ -1572,8 +1572,8 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
               },
             ],
             "search": "",
-            "selectedOption": null,
-            "value": "",
+            "searching": false,
+            "value": null,
           }
         }
       >
@@ -1740,8 +1740,8 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
                       },
                     ],
                     "search": "",
-                    "selectedOption": null,
-                    "value": "",
+                    "searching": false,
+                    "value": null,
                   }
                 }
               >
@@ -1915,8 +1915,8 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
                       },
                     ],
                     "search": "",
-                    "selectedOption": null,
-                    "value": "",
+                    "searching": false,
+                    "value": null,
                   }
                 }
               >
@@ -2098,8 +2098,8 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
                       },
                     ],
                     "search": "",
-                    "selectedOption": null,
-                    "value": "",
+                    "searching": false,
+                    "value": null,
                   }
                 }
               >
@@ -2319,8 +2319,8 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
                       },
                     ],
                     "search": "",
-                    "selectedOption": null,
-                    "value": "",
+                    "searching": false,
+                    "value": null,
                   }
                 }
               >
@@ -2431,8 +2431,8 @@ exports[`Test SelectSearch component Focus displays options 1`] = `
             },
           ],
           "search": "",
-          "selectedOption": null,
-          "value": "",
+          "searching": false,
+          "value": null,
         }
       }
       valueProps={
@@ -2524,8 +2524,8 @@ exports[`Test SelectSearch component Focus displays options 2`] = `
             },
           ],
           "search": "",
-          "selectedOption": null,
-          "value": "",
+          "searching": false,
+          "value": null,
         }
       }
       valueProps={
@@ -2612,8 +2612,8 @@ exports[`Test SelectSearch component Focus displays options 2`] = `
               },
             ],
             "search": "",
-            "selectedOption": null,
-            "value": "",
+            "searching": false,
+            "value": null,
           }
         }
       >
@@ -3047,8 +3047,8 @@ exports[`Test SelectSearch component Renders groups 2`] = `
               },
             ],
             "search": "",
-            "selectedOption": null,
-            "value": "",
+            "searching": false,
+            "value": null,
           }
         }
       >
@@ -3215,8 +3215,8 @@ exports[`Test SelectSearch component Renders groups 2`] = `
                       },
                     ],
                     "search": "",
-                    "selectedOption": null,
-                    "value": "",
+                    "searching": false,
+                    "value": null,
                   }
                 }
               >
@@ -3390,8 +3390,8 @@ exports[`Test SelectSearch component Renders groups 2`] = `
                       },
                     ],
                     "search": "",
-                    "selectedOption": null,
-                    "value": "",
+                    "searching": false,
+                    "value": null,
                   }
                 }
               >
@@ -3573,8 +3573,8 @@ exports[`Test SelectSearch component Renders groups 2`] = `
                       },
                     ],
                     "search": "",
-                    "selectedOption": null,
-                    "value": "",
+                    "searching": false,
+                    "value": null,
                   }
                 }
               >
@@ -3794,8 +3794,8 @@ exports[`Test SelectSearch component Renders groups 2`] = `
                       },
                     ],
                     "search": "",
-                    "selectedOption": null,
-                    "value": "",
+                    "searching": false,
+                    "value": null,
                   }
                 }
               >
@@ -4111,8 +4111,8 @@ exports[`Test SelectSearch component Value change works without onChange handler
             },
           ],
           "search": "",
-          "selectedOption": null,
-          "value": "",
+          "searching": false,
+          "value": null,
         }
       }
       valueProps={
@@ -4204,12 +4204,12 @@ exports[`Test SelectSearch component Value change works without onChange handler
             },
           ],
           "search": "",
-          "selectedOption": Object {
+          "searching": false,
+          "value": Object {
             "index": 0,
             "name": "Foo",
             "value": "foo",
           },
-          "value": "foo",
         }
       }
       valueProps={
@@ -4296,12 +4296,12 @@ exports[`Test SelectSearch component Value change works without onChange handler
               },
             ],
             "search": "",
-            "selectedOption": Object {
+            "searching": false,
+            "value": Object {
               "index": 0,
               "name": "Foo",
               "value": "foo",
             },
-            "value": "foo",
           }
         }
       >

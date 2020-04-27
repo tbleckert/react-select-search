@@ -6,9 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = getOption;
 
 function findOption(value, options) {
-  var matches = options.filter(function (option) {
-    return option.value === value;
-  });
+  const matches = options.filter(option => option.value === value);
 
   if (matches.length) {
     return matches[0];
@@ -20,9 +18,7 @@ function findOption(value, options) {
 function getOption(value, defaultOptions) {
   if (value) {
     if (Array.isArray(value)) {
-      return value.map(function (singleValue) {
-        return findOption(singleValue, defaultOptions);
-      });
+      return value.map(singleValue => findOption(singleValue, defaultOptions));
     }
 
     return findOption(value, defaultOptions);

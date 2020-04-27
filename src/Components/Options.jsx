@@ -36,7 +36,7 @@ const Options = ({
                     key={option.value}
                     className={className}
                     optionProps={optionProps}
-                    selected={isSelected(option.value, snapshot.value)}
+                    selected={isSelected(option, snapshot.value)}
                     highlighted={snapshot.highlighted === option.index}
                     renderOption={renderOption}
                     {...option}

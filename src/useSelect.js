@@ -1,7 +1,6 @@
 import {
     useReducer,
     useEffect,
-    useCallback,
     useMemo,
     useState,
     useRef,
@@ -22,18 +21,19 @@ export default function useSelectSearch({
     fuse = false,
     options: defaultOptions,
     onChange = () => {},
+    getOptions = null,
 }) {
     const ref = useRef(null);
-    const [allOptions, setAllOptions] = useState(FlattenOptions(defaultOptions));
+    const [flatDefaultOptions, setFlatDefaultOptions] = useState(FlattenOptions(defaultOptions));
     const [flat, setOptions] = useState([]);
-    const [value, setValue] = useState(defaultValue);
+    const [value, setValue] = useState(getOption(defaultValue, flatDefaultOptions));
     const [search, setSearch] = useState('');
     const [focus, setFocus] = useState(false);
+    const [searching, setSearching] = useState(false);
     const [highlighted, setHighlighted] = useReducer(highlightReducer, -1);
     const options = useMemo(() => GroupOptions(flat), [flat]);
-    const selectedOption = useMemo(() => getOption(value, allOptions), [value, allOptions]);
-    const displayValue = useMemo(() => getDisplayValue(value, allOptions), [value, allOptions]);
-    const onBlur = useCallback(() => {
+    const displayValue = getDisplayValue(value);
+    const onBlur = () => {
         setFocus(false);
         setHighlighted(false);
 
@@ -43,16 +43,22 @@ export default function useSelectSearch({
 
         if (!multiple) {
             setSearch('');
-            setOptions(allOptions);
+            setOptions(flatDefaultOptions);
         }
-    }, [allOptions]);
+    };
 
     const onFocus = () => setFocus(true);
     const onSelect = (val) => {
-        const newValue = getNewValue(val, value, multiple);
+        const option = getOption(val, flat);
+        const newValue = getNewValue(option, value, multiple);
 
         setValue(newValue);
-        onChange(newValue, getOption(newValue, allOptions));
+
+        if (multiple) {
+            onChange(newValue.map(i => i.value), newValue);
+        } else {
+            onChange(option.value, option);
+        }
     };
 
     const onMouseDown = e => onSelect(e.currentTarget.value);
@@ -77,17 +83,31 @@ export default function useSelectSearch({
         }
     };
 
-    const onSearch = useCallback(({ target }) => {
+    const onSearch = ({ target }) => {
         const { value: inputVal } = target;
-        let newOptions = allOptions;
         setSearch(inputVal);
 
-        if (inputVal.length) {
-            newOptions = doSearch(inputVal, newOptions, fuse);
+        let searchableOption = flatDefaultOptions;
+
+        if (getOptions && inputVal.length) {
+            setSearching(true);
+
+            searchableOption = getOptions(inputVal);
         }
 
-        setOptions(newOptions);
-    }, [allOptions]);
+        Promise.resolve(searchableOption)
+            .then((foundOptions) => {
+                if (inputVal.length) {
+                    const newOptions = doSearch(inputVal, foundOptions, fuse);
+
+                    setOptions((newOptions === false) ? foundOptions : newOptions);
+                } else {
+                    setOptions(foundOptions);
+                }
+            })
+            .catch(() => setOptions(flatDefaultOptions))
+            .finally(() => setSearching(false));
+    };
 
     const valueProps = {
         tabIndex: '0',
@@ -107,26 +127,30 @@ export default function useSelectSearch({
     const optionProps = { tabIndex: '-1', onMouseDown };
 
     useEffect(() => {
-        setValue(defaultValue);
+        if (defaultValue && flatDefaultOptions) {
+            const option = getOption(defaultValue, flatDefaultOptions);
+
+            setValue(option);
+        }
     }, [defaultValue]);
 
     useEffect(() => {
         const flatOptions = FlattenOptions(defaultOptions);
 
-        setAllOptions(flatOptions);
         setOptions(flatOptions);
+        setFlatDefaultOptions(flatOptions);
     }, [defaultOptions]);
 
     return [
         {
             value,
-            selectedOption,
             highlighted,
             options,
             disabled,
             displayValue,
             focus,
             search,
+            searching,
         },
         valueProps,
         optionProps,

@@ -5,13 +5,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 Object.defineProperty(exports, "useSelect", {
   enumerable: true,
-  get: function get() {
+  get: function () {
     return _useSelect.default;
   }
 });
 Object.defineProperty(exports, "default", {
   enumerable: true,
-  get: function get() {
+  get: function () {
     return _SelectSearch.default;
   }
 });

@@ -6,50 +6,47 @@ import Option from './Option';
 import { optionType, valueType } from '../types';
 import isSelected from '../lib/isSelected';
 
-var Options = function Options(_ref) {
-  var options = _ref.options,
-      optionProps = _ref.optionProps,
-      snapshot = _ref.snapshot,
-      className = _ref.className,
-      renderGroupHeader = _ref.renderGroupHeader,
-      renderOption = _ref.renderOption;
-  return React.createElement("ul", {
-    className: className('options')
-  }, options.map(function (option) {
-    if (option.type === 'group') {
-      return React.createElement("li", {
-        role: "none",
-        className: className('row'),
-        key: option.groupId
-      }, React.createElement("div", {
-        className: className('group')
-      }, React.createElement("div", {
-        className: className('group-header')
-      }, renderGroupHeader(option.name)), React.createElement(Options, {
-        options: option.items,
-        snapshot: snapshot,
-        optionProps: optionProps,
-        className: className,
-        renderOption: renderOption
-      })));
-    }
-
-    return React.createElement(Option, _extends({
-      key: option.value,
-      className: className,
+const Options = ({
+  options,
+  optionProps,
+  snapshot,
+  className,
+  renderGroupHeader,
+  renderOption
+}) => /*#__PURE__*/React.createElement("ul", {
+  className: className('options')
+}, options.map(option => {
+  if (option.type === 'group') {
+    return /*#__PURE__*/React.createElement("li", {
+      role: "none",
+      className: className('row'),
+      key: option.groupId
+    }, /*#__PURE__*/React.createElement("div", {
+      className: className('group')
+    }, /*#__PURE__*/React.createElement("div", {
+      className: className('group-header')
+    }, renderGroupHeader(option.name)), /*#__PURE__*/React.createElement(Options, {
+      options: option.items,
+      snapshot: snapshot,
       optionProps: optionProps,
-      selected: isSelected(option.value, snapshot.value),
-      highlighted: snapshot.highlighted === option.index,
+      className: className,
       renderOption: renderOption
-    }, option));
-  }));
-};
+    })));
+  }
+
+  return /*#__PURE__*/React.createElement(Option, _extends({
+    key: option.value,
+    className: className,
+    optionProps: optionProps,
+    selected: isSelected(option, snapshot.value),
+    highlighted: snapshot.highlighted === option.index,
+    renderOption: renderOption
+  }, option));
+}));
 
 Options.defaultProps = {
   renderOption: null,
-  renderGroupHeader: function renderGroupHeader(name) {
-    return name;
-  }
+  renderGroupHeader: name => name
 };
 Options.propTypes = {
   options: PropTypes.arrayOf(optionType).isRequired,
