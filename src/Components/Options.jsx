@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import Option from './Option';
 import { optionType, valueType } from '../types';
@@ -67,4 +67,4 @@ Options.propTypes = {
     renderGroupHeader: PropTypes.func,
 };
 
-export default Options;
+export default memo(Options);

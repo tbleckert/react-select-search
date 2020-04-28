@@ -1,19 +1,15 @@
 "use strict";
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = highlightReducer;
+exports.__esModule = true;
+exports["default"] = highlightReducer;
 
 function highlightReducer(highlighted, value) {
   if (!value) {
     return -1;
   }
 
-  const {
-    key,
-    options
-  } = value;
+  var key = value.key,
+      options = value.options;
 
   if (!options) {
     return highlighted;
@@ -23,7 +19,7 @@ function highlightReducer(highlighted, value) {
     return highlighted;
   }
 
-  let newHighlighted = -1;
+  var newHighlighted = -1;
 
   if (key === 'ArrowDown' && highlighted < options.length - 1) {
     newHighlighted = highlighted + 1;
@@ -35,12 +31,12 @@ function highlightReducer(highlighted, value) {
     newHighlighted = options.length - 1;
   }
 
-  const option = options[newHighlighted];
+  var option = options[newHighlighted];
 
   if (option && option.disabled) {
     return highlightReducer(newHighlighted, {
-      key,
-      options
+      key: key,
+      options: options
     });
   }
 

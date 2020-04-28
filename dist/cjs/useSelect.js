@@ -1,9 +1,7 @@
 "use strict";
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = useSelectSearch;
+exports.__esModule = true;
+exports["default"] = useSelectSearch;
 
 var _react = require("react");
 
@@ -21,31 +19,62 @@ var _getOption = _interopRequireDefault(require("./lib/getOption"));
 
 var _search = _interopRequireDefault(require("./search"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-function useSelectSearch({
-  value: defaultValue = null,
-  disabled = false,
-  multiple = false,
-  search: canSearch = false,
-  fuse = false,
-  options: defaultOptions,
-  onChange = () => {},
-  getOptions = null,
-  allowEmpty = true
-}) {
-  const ref = (0, _react.useRef)(null);
-  const [flatDefaultOptions, setFlatDefaultOptions] = (0, _react.useState)((0, _flattenOptions.default)(defaultOptions));
-  const [flat, setOptions] = (0, _react.useState)([]);
-  const [value, setValue] = (0, _react.useState)((0, _getOption.default)(defaultValue, flatDefaultOptions));
-  const [search, setSearch] = (0, _react.useState)('');
-  const [focus, setFocus] = (0, _react.useState)(false);
-  const [searching, setSearching] = (0, _react.useState)(false);
-  const [highlighted, setHighlighted] = (0, _react.useReducer)(_highlightReducer.default, -1);
-  const options = (0, _react.useMemo)(() => (0, _groupOptions.default)(flat), [flat]);
-  const displayValue = (0, _getDisplayValue.default)(value);
+function useSelectSearch(_ref) {
+  var _ref$value = _ref.value,
+      defaultValue = _ref$value === void 0 ? null : _ref$value,
+      _ref$disabled = _ref.disabled,
+      disabled = _ref$disabled === void 0 ? false : _ref$disabled,
+      _ref$multiple = _ref.multiple,
+      multiple = _ref$multiple === void 0 ? false : _ref$multiple,
+      _ref$search = _ref.search,
+      canSearch = _ref$search === void 0 ? false : _ref$search,
+      _ref$fuse = _ref.fuse,
+      fuse = _ref$fuse === void 0 ? false : _ref$fuse,
+      defaultOptions = _ref.options,
+      _ref$onChange = _ref.onChange,
+      onChange = _ref$onChange === void 0 ? function () {} : _ref$onChange,
+      _ref$getOptions = _ref.getOptions,
+      getOptions = _ref$getOptions === void 0 ? null : _ref$getOptions,
+      _ref$allowEmpty = _ref.allowEmpty,
+      allowEmpty = _ref$allowEmpty === void 0 ? true : _ref$allowEmpty;
+  var ref = (0, _react.useRef)(null);
 
-  const onBlur = () => {
+  var _useState = (0, _react.useState)((0, _flattenOptions["default"])(defaultOptions)),
+      flatDefaultOptions = _useState[0],
+      setFlatDefaultOptions = _useState[1];
+
+  var _useState2 = (0, _react.useState)([]),
+      flat = _useState2[0],
+      setOptions = _useState2[1];
+
+  var _useState3 = (0, _react.useState)((0, _getOption["default"])(defaultValue, flatDefaultOptions)),
+      value = _useState3[0],
+      setValue = _useState3[1];
+
+  var _useState4 = (0, _react.useState)(''),
+      search = _useState4[0],
+      setSearch = _useState4[1];
+
+  var _useState5 = (0, _react.useState)(false),
+      focus = _useState5[0],
+      setFocus = _useState5[1];
+
+  var _useState6 = (0, _react.useState)(false),
+      searching = _useState6[0],
+      setSearching = _useState6[1];
+
+  var _useReducer = (0, _react.useReducer)(_highlightReducer["default"], -1),
+      highlighted = _useReducer[0],
+      setHighlighted = _useReducer[1];
+
+  var options = (0, _react.useMemo)(function () {
+    return (0, _groupOptions["default"])(flat);
+  }, [flat]);
+  var displayValue = (0, _getDisplayValue["default"])(value);
+
+  var onBlur = function onBlur() {
     setFocus(false);
     setHighlighted(false);
 
@@ -59,32 +88,40 @@ function useSelectSearch({
     }
   };
 
-  const onFocus = () => setFocus(true);
+  var onFocus = function onFocus() {
+    return setFocus(true);
+  };
 
-  const onSelect = val => {
-    const option = (0, _getOption.default)(val, flat);
-    const newValue = (0, _getNewValue.default)(option, value, multiple);
+  var onSelect = function onSelect(val) {
+    var option = (0, _getOption["default"])(val, flat);
+    var newValue = (0, _getNewValue["default"])(option, value, multiple);
     setValue(newValue);
 
     if (multiple) {
-      onChange(newValue.map(i => i.value), newValue);
+      onChange(newValue.map(function (i) {
+        return i.value;
+      }), newValue);
     } else {
       onChange(option.value, option);
     }
   };
 
-  const onMouseDown = e => onSelect(e.currentTarget.value);
+  var onMouseDown = function onMouseDown(e) {
+    return onSelect(e.currentTarget.value);
+  };
 
-  const onKeyDown = e => setHighlighted({
-    key: e.key,
-    options: flat
-  });
+  var onKeyDown = function onKeyDown(e) {
+    return setHighlighted({
+      key: e.key,
+      options: flat
+    });
+  };
 
-  const onKeyPress = ({
-    key
-  }) => {
+  var onKeyPress = function onKeyPress(_ref2) {
+    var key = _ref2.key;
+
     if (key === 'Enter') {
-      const option = flat[highlighted];
+      var option = flat[highlighted];
 
       if (option) {
         onSelect(option.value);
@@ -96,78 +133,79 @@ function useSelectSearch({
     }
   };
 
-  const onKeyUp = ({
-    key
-  }) => {
+  var onKeyUp = function onKeyUp(_ref3) {
+    var key = _ref3.key;
+
     if (key === 'Escape') {
       onBlur();
     }
   };
 
-  const onSearch = ({
-    target
-  }) => {
-    const {
-      value: inputVal
-    } = target;
+  var onSearch = function onSearch(_ref4) {
+    var target = _ref4.target;
+    var inputVal = target.value;
     setSearch(inputVal);
-    let searchableOption = flatDefaultOptions;
+    var searchableOption = flatDefaultOptions;
 
     if (getOptions && inputVal.length) {
       setSearching(true);
       searchableOption = getOptions(inputVal);
     }
 
-    Promise.resolve(searchableOption).then(foundOptions => {
+    Promise.resolve(searchableOption).then(function (foundOptions) {
       if (inputVal.length) {
-        const newOptions = (0, _search.default)(inputVal, foundOptions, fuse);
+        var newOptions = (0, _search["default"])(inputVal, foundOptions, fuse);
         setOptions(newOptions === false ? foundOptions : newOptions);
       } else {
         setOptions(foundOptions);
       }
-    }).catch(() => setOptions(flatDefaultOptions)).finally(() => setSearching(false));
+    })["catch"](function () {
+      return setOptions(flatDefaultOptions);
+    })["finally"](function () {
+      return setSearching(false);
+    });
   };
 
-  const valueProps = {
+  var valueProps = {
     tabIndex: '0',
     readOnly: !canSearch,
-    onBlur,
-    onFocus,
-    onKeyPress,
-    onKeyDown,
-    onKeyUp,
-    ref
+    onBlur: onBlur,
+    onFocus: onFocus,
+    onKeyPress: onKeyPress,
+    onKeyDown: onKeyDown,
+    onKeyUp: onKeyUp,
+    ref: ref
   };
 
   if (canSearch) {
     valueProps.onChange = onSearch;
   }
 
-  const optionProps = {
+  var optionProps = {
     tabIndex: '-1',
-    onMouseDown
+    onMouseDown: onMouseDown
   };
-  (0, _react.useEffect)(() => {
+  (0, _react.useEffect)(function () {
     if (defaultValue && flatDefaultOptions) {
-      const option = (0, _getOption.default)(defaultValue, flatDefaultOptions);
+      var option = (0, _getOption["default"])(defaultValue, flatDefaultOptions);
       setValue(option);
     } else if (!defaultValue && flatDefaultOptions && !allowEmpty) {
       setValue(flatDefaultOptions[0]);
     }
   }, [defaultValue]);
-  (0, _react.useEffect)(() => {
-    const flatOptions = (0, _flattenOptions.default)(defaultOptions);
+  (0, _react.useEffect)(function () {
+    var flatOptions = (0, _flattenOptions["default"])(defaultOptions);
     setOptions(flatOptions);
     setFlatDefaultOptions(flatOptions);
   }, [defaultOptions]);
   return [{
-    value,
-    highlighted,
-    options,
-    disabled,
-    displayValue,
-    focus,
-    search,
-    searching
+    value: value,
+    highlighted: highlighted,
+    options: options,
+    disabled: disabled,
+    displayValue: displayValue,
+    focus: focus,
+    search: search,
+    searching: searching
   }, valueProps, optionProps, setValue];
 }

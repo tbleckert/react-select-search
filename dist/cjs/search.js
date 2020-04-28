@@ -1,10 +1,8 @@
 "use strict";
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = search;
-let Fuse = null;
+exports.__esModule = true;
+exports["default"] = search;
+var Fuse = null;
 
 try {
   // eslint-disable-next-line global-require,import/no-extraneous-dependencies
@@ -18,10 +16,12 @@ try {
 }
 
 function fuzzySearch(value, options, fuseOptions) {
-  const fuse = new Fuse(options, fuseOptions);
-  return fuse.search(value).map((item, index) => Object.assign({}, item, {
-    index
-  }));
+  var fuse = new Fuse(options, fuseOptions);
+  return fuse.search(value).map(function (item, index) {
+    return Object.assign({}, item, {
+      index: index
+    });
+  });
 }
 
 function search(value, options, fuseOptions) {

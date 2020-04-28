@@ -1,12 +1,10 @@
 "use strict";
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = getNewValue;
+exports.__esModule = true;
+exports["default"] = getNewValue;
 
 function getNewValue(value, oldValue, multiple) {
-  let newValue = null;
+  var newValue = null;
 
   if (multiple) {
     if (oldValue && !Array.isArray(oldValue)) {
@@ -14,10 +12,12 @@ function getNewValue(value, oldValue, multiple) {
     } else if (!oldValue) {
       newValue = [];
     } else {
-      newValue = [...oldValue];
+      newValue = [].concat(oldValue);
     }
 
-    const valueIndex = newValue.findIndex(val => val.value === value.value);
+    var valueIndex = newValue.findIndex(function (val) {
+      return val.value === value.value;
+    });
 
     if (valueIndex >= 0) {
       newValue.splice(valueIndex, 1);

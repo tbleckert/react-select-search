@@ -4,9 +4,7 @@ module.exports = {
             '@babel/preset-env',
             {
                 modules: 'cjs',
-                targets: {
-                    browsers: ['>2%, not dead'],
-                },
+                loose: true,
             },
         ],
         '@babel/preset-react',

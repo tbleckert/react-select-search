@@ -1,27 +1,21 @@
 "use strict";
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = getOption;
-
-function findOption(value, options) {
-  const matches = options.filter(option => option.value === value);
-
-  if (matches.length) {
-    return matches[0];
-  }
-
-  return null;
-}
+exports.__esModule = true;
+exports["default"] = getOption;
 
 function getOption(value, defaultOptions) {
   if (value) {
     if (Array.isArray(value)) {
-      return value.map(singleValue => findOption(singleValue, defaultOptions));
+      return value.map(function (singleValue) {
+        return defaultOptions.find(function (option) {
+          return option.value === singleValue;
+        });
+      });
     }
 
-    return findOption(value, defaultOptions);
+    return defaultOptions.find(function (option) {
+      return option.value === value;
+    }) || null;
   }
 
   return null;

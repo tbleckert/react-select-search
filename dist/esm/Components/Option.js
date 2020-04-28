@@ -10,7 +10,7 @@ function _objectWithoutProperties(source, excluded) { if (source == null) return
 
 function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
 
-import React from 'react';
+import React, { useMemo, memo } from 'react';
 import PropTypes from 'prop-types';
 
 const Option = (_ref) => {
@@ -24,21 +24,23 @@ const Option = (_ref) => {
       option = _objectWithoutProperties(_ref, ["optionProps", "highlighted", "selected", "className", "renderOption"]);
 
   const optionClass = [className('option'), selected ? className('is-selected') : false, highlighted ? className('is-highlighted') : false].filter(cls => !!cls).join(' ');
+  const comp = useMemo(() => {
+    const domProps = _objectSpread({}, optionProps, {
+      value: option.value,
+      disabled: option.disabled
+    });
 
-  const domProps = _objectSpread({}, optionProps, {
-    value: option.value,
-    disabled: option.disabled
-  });
-
-  const comp = renderOption ? renderOption(domProps, option, {
-    selected,
-    highlighted
-  }, optionClass) : /*#__PURE__*/React.createElement("button", _extends({
-    className: optionClass
-  }, domProps), option.name);
+    return renderOption ? renderOption(domProps, option, {
+      selected,
+      highlighted
+    }, optionClass) : /*#__PURE__*/React.createElement("button", _extends({
+      className: optionClass
+    }, domProps), option.name);
+  }, [renderOption, option, selected, highlighted, optionClass]);
   return /*#__PURE__*/React.createElement("li", {
     className: className('row'),
     role: "menuitem",
+    "data-index": option.index,
     "data-value": option.value,
     key: option.value
   }, comp);
@@ -66,4 +68,4 @@ Option.propTypes = {
   className: PropTypes.func.isRequired,
   renderOption: PropTypes.func
 };
-export default Option;
+export default memo(Option);

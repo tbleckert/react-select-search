@@ -3,6 +3,7 @@
 exports[`Test Option component Can render custom option 1`] = `
 <li
   className="row"
+  data-index={null}
   data-value="foo"
   role="menuitem"
 >
@@ -13,6 +14,7 @@ exports[`Test Option component Can render custom option 1`] = `
 exports[`Test Option component Option can be highlighted 1`] = `
 <li
   className="row"
+  data-index={null}
   data-value="foo"
   role="menuitem"
 >
@@ -31,6 +33,7 @@ exports[`Test Option component Option can be highlighted 1`] = `
 exports[`Test Option component Option can be selected 1`] = `
 <li
   className="row"
+  data-index={null}
   data-value="foo"
   role="menuitem"
 >
@@ -49,6 +52,7 @@ exports[`Test Option component Option can be selected 1`] = `
 exports[`Test Option component Renders value element 1`] = `
 <li
   className="row"
+  data-index={null}
   data-value="foo"
   role="menuitem"
 >

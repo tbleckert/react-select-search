@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo, memo } from 'react';
 import PropTypes from 'prop-types';
 
 const Option = ({
@@ -15,25 +15,26 @@ const Option = ({
         (highlighted) ? className('is-highlighted') : false,
     ].filter(cls => !!cls).join(' ');
 
-    const domProps = {
-        ...optionProps,
-        value: option.value,
-        disabled: option.disabled,
-    };
+    const comp = useMemo(() => {
+        const domProps = {
+            ...optionProps,
+            value: option.value,
+            disabled: option.disabled,
+        };
 
-    const comp = (renderOption) ?
-        renderOption(domProps, option, { selected, highlighted }, optionClass)
-        : (
-            <button
-                className={optionClass}
-                {...domProps}
-            >
-                {option.name}
-            </button>
+        return (
+            (renderOption) ?
+                renderOption(domProps, option, { selected, highlighted }, optionClass)
+                : (
+                    <button className={optionClass} {...domProps}>
+                        {option.name}
+                    </button>
+                )
         );
+    }, [renderOption, option, selected, highlighted, optionClass]);
 
     return (
-        <li className={className('row')} role="menuitem" data-value={option.value} key={option.value}>
+        <li className={className('row')} role="menuitem" data-index={option.index} data-value={option.value} key={option.value}>
             {comp}
         </li>
     );
@@ -63,4 +64,4 @@ Option.propTypes = {
     renderOption: PropTypes.func,
 };
 
-export default Option;
+export default memo(Option);

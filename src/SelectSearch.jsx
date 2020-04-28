@@ -35,53 +35,45 @@ const SelectSearch = forwardRef(({
         allowEmpty: !!placeholder,
     });
 
-    const classNameFn = useMemo(() => (
-        (typeof className === 'string') ? (key) => {
-            if (key === 'container') {
-                return 'select-search';
-            }
+    const classNameFn = (typeof className === 'string') ? (key) => {
+        if (key.indexOf('container') === 0) {
+            return key.replace('container', 'select-search');
+        }
 
-            if (key.indexOf('is-') === 0) {
-                return key;
-            }
+        if (key.indexOf('is-') === 0) {
+            return key;
+        }
 
-            return `select-search__${key}`;
-        } : className
-    ), [className]);
+        return `select-search__${key}`;
+    } : className;
 
-    let wrapperClass = classNameFn('container');
+    const wrapperClass = [
+        classNameFn('container'),
+        (multiple) ? classNameFn('container--multiple') : false,
+        (search) ? classNameFn('container--search') : false,
+        (snapshot.searching) ? classNameFn('is-searching') : false,
+    ].filter(cls => !!cls).join(' ');
 
-    if (multiple) {
-        wrapperClass += ` ${wrapperClass}--multiple`;
-    }
-
-    if (search) {
-        wrapperClass += ` ${wrapperClass}--search`;
-    }
-
-    if (snapshot.searching) {
-        wrapperClass += ` ${classNameFn('is-searching')}`;
-    }
-
-    let value = snapshot.displayValue;
-
-    if ((snapshot.focus || multiple) && search) {
-        value = snapshot.search;
-    }
+    const value = ((snapshot.focus || multiple) && search)
+        ? snapshot.search : snapshot.displayValue;
 
     useEffect(() => {
-        if (snapshot.focus && selectRef.current && snapshot.value) {
-            const selected = selectRef.current.querySelector(`[data-value="${snapshot.value.value}"]`);
+        let selected = null;
 
-            if (selected) {
-                const rect = selectRef.current.getBoundingClientRect();
-                const selectedRect = selected.getBoundingClientRect();
-
-                selectRef.current.scrollTop =
-                    selected.offsetTop - (rect.height / 2) + (selectedRect.height / 2);
-            }
+        if (snapshot.focus && selectRef.current && snapshot.highlighted > -1) {
+            selected = selectRef.current.querySelector(`[data-index="${snapshot.highlighted}"]`);
+        } else if (snapshot.focus && selectRef.current && snapshot.value) {
+            selected = selectRef.current.querySelector(`[data-value="${snapshot.value.value}"]`);
         }
-    }, [snapshot.focus, selectRef.current, snapshot.value]);
+
+        if (selected) {
+            const rect = selectRef.current.getBoundingClientRect();
+            const selectedRect = selected.getBoundingClientRect();
+
+            selectRef.current.scrollTop =
+                selected.offsetTop - (rect.height / 2) + (selectedRect.height / 2);
+        }
+    }, [snapshot.focus, selectRef.current, snapshot.value, snapshot.highlighted]);
 
     const valueComp = (renderValue) ? (
         <div className={classNameFn('value')}>

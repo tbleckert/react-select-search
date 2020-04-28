@@ -418,7 +418,6 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
         >
           <Option
             className={[Function]}
-            disabled={false}
             highlighted={false}
             index={0}
             key="helvetica"
@@ -431,11 +430,11 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
             }
             renderOption={[Function]}
             selected={true}
-            type={null}
             value="helvetica"
           >
             <li
               className="select-search__row"
+              data-index={0}
               data-value="helvetica"
               key="helvetica"
               role="menuitem"
@@ -592,7 +591,6 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
                   <Option
                     className={[Function]}
                     data-stack="Roboto, sans-serif"
-                    disabled={false}
                     groupId="Sans serif"
                     groupName="Sans serif"
                     highlighted={false}
@@ -607,11 +605,11 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
                     }
                     renderOption={[Function]}
                     selected={false}
-                    type={null}
                     value="Roboto"
                   >
                     <li
                       className="select-search__row"
+                      data-index={1}
                       data-value="Roboto"
                       key="Roboto"
                       role="menuitem"
@@ -772,7 +770,6 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
                   <Option
                     className={[Function]}
                     data-stack="\\"Playfair Display\\", serif"
-                    disabled={false}
                     groupId="Serif"
                     groupName="Serif"
                     highlighted={false}
@@ -787,11 +784,11 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
                     }
                     renderOption={[Function]}
                     selected={false}
-                    type={null}
                     value="Playfair Display"
                   >
                     <li
                       className="select-search__row"
+                      data-index={2}
                       data-value="Playfair Display"
                       key="Playfair Display"
                       role="menuitem"
@@ -960,7 +957,6 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
                   <Option
                     className={[Function]}
                     data-stack="Monoton, cursive"
-                    disabled={false}
                     groupId="Cursive"
                     groupName="Cursive"
                     highlighted={false}
@@ -975,11 +971,11 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
                     }
                     renderOption={[Function]}
                     selected={false}
-                    type={null}
                     value="Monoton"
                   >
                     <li
                       className="select-search__row"
+                      data-index={3}
                       data-value="Monoton"
                       key="Monoton"
                       role="menuitem"
@@ -1007,7 +1003,6 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
                   <Option
                     className={[Function]}
                     data-stack="\\"Gloria Hallelujah\\", cursive"
-                    disabled={false}
                     groupId="Cursive"
                     groupName="Cursive"
                     highlighted={false}
@@ -1022,11 +1017,11 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
                     }
                     renderOption={[Function]}
                     selected={false}
-                    type={null}
                     value="Gloria Hallelujah"
                   >
                     <li
                       className="select-search__row"
+                      data-index={4}
                       data-value="Gloria Hallelujah"
                       key="Gloria Hallelujah"
                       role="menuitem"
@@ -1187,7 +1182,6 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
                   <Option
                     className={[Function]}
                     data-stack="VT323, monospace"
-                    disabled={false}
                     groupId="Monospace"
                     groupName="Monospace"
                     highlighted={false}
@@ -1202,11 +1196,11 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
                     }
                     renderOption={[Function]}
                     selected={false}
-                    type={null}
                     value="VT323"
                   >
                     <li
                       className="select-search__row"
+                      data-index={5}
                       data-value="VT323"
                       key="VT323"
                       role="menuitem"
@@ -1614,7 +1608,6 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
         >
           <Option
             className={[Function]}
-            disabled={false}
             highlighted={false}
             index={0}
             key="helvetica"
@@ -1627,11 +1620,11 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
             }
             renderOption={[Function]}
             selected={true}
-            type={null}
             value="helvetica"
           >
             <li
               className="select-search__row"
+              data-index={0}
               data-value="helvetica"
               key="helvetica"
               role="menuitem"
@@ -1788,7 +1781,6 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
                   <Option
                     className={[Function]}
                     data-stack="Roboto, sans-serif"
-                    disabled={false}
                     groupId="Sans serif"
                     groupName="Sans serif"
                     highlighted={false}
@@ -1803,11 +1795,11 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
                     }
                     renderOption={[Function]}
                     selected={false}
-                    type={null}
                     value="Roboto"
                   >
                     <li
                       className="select-search__row"
+                      data-index={1}
                       data-value="Roboto"
                       key="Roboto"
                       role="menuitem"
@@ -1968,7 +1960,6 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
                   <Option
                     className={[Function]}
                     data-stack="\\"Playfair Display\\", serif"
-                    disabled={false}
                     groupId="Serif"
                     groupName="Serif"
                     highlighted={false}
@@ -1983,11 +1974,11 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
                     }
                     renderOption={[Function]}
                     selected={false}
-                    type={null}
                     value="Playfair Display"
                   >
                     <li
                       className="select-search__row"
+                      data-index={2}
                       data-value="Playfair Display"
                       key="Playfair Display"
                       role="menuitem"
@@ -2156,7 +2147,6 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
                   <Option
                     className={[Function]}
                     data-stack="Monoton, cursive"
-                    disabled={false}
                     groupId="Cursive"
                     groupName="Cursive"
                     highlighted={false}
@@ -2171,11 +2161,11 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
                     }
                     renderOption={[Function]}
                     selected={false}
-                    type={null}
                     value="Monoton"
                   >
                     <li
                       className="select-search__row"
+                      data-index={3}
                       data-value="Monoton"
                       key="Monoton"
                       role="menuitem"
@@ -2203,7 +2193,6 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
                   <Option
                     className={[Function]}
                     data-stack="\\"Gloria Hallelujah\\", cursive"
-                    disabled={false}
                     groupId="Cursive"
                     groupName="Cursive"
                     highlighted={false}
@@ -2218,11 +2207,11 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
                     }
                     renderOption={[Function]}
                     selected={false}
-                    type={null}
                     value="Gloria Hallelujah"
                   >
                     <li
                       className="select-search__row"
+                      data-index={4}
                       data-value="Gloria Hallelujah"
                       key="Gloria Hallelujah"
                       role="menuitem"
@@ -2383,7 +2372,6 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
                   <Option
                     className={[Function]}
                     data-stack="VT323, monospace"
-                    disabled={false}
                     groupId="Monospace"
                     groupName="Monospace"
                     highlighted={false}
@@ -2398,11 +2386,11 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
                     }
                     renderOption={[Function]}
                     selected={false}
-                    type={null}
                     value="VT323"
                   >
                     <li
                       className="select-search__row"
+                      data-index={5}
                       data-value="VT323"
                       key="VT323"
                       role="menuitem"
@@ -2690,7 +2678,6 @@ exports[`Test SelectSearch component Focus displays options 2`] = `
         >
           <Option
             className={[Function]}
-            disabled={false}
             highlighted={false}
             index={0}
             key="foo"
@@ -2703,11 +2690,11 @@ exports[`Test SelectSearch component Focus displays options 2`] = `
             }
             renderOption={null}
             selected={true}
-            type={null}
             value="foo"
           >
             <li
               className="select-search__row"
+              data-index={0}
               data-value="foo"
               key="foo"
               role="menuitem"
@@ -2725,7 +2712,6 @@ exports[`Test SelectSearch component Focus displays options 2`] = `
           </Option>
           <Option
             className={[Function]}
-            disabled={false}
             highlighted={false}
             index={1}
             key="bar"
@@ -2738,11 +2724,11 @@ exports[`Test SelectSearch component Focus displays options 2`] = `
             }
             renderOption={null}
             selected={false}
-            type={null}
             value="bar"
           >
             <li
               className="select-search__row"
+              data-index={1}
               data-value="bar"
               key="bar"
               role="menuitem"
@@ -3131,7 +3117,6 @@ exports[`Test SelectSearch component Renders groups 2`] = `
         >
           <Option
             className={[Function]}
-            disabled={false}
             highlighted={false}
             index={0}
             key="helvetica"
@@ -3144,11 +3129,11 @@ exports[`Test SelectSearch component Renders groups 2`] = `
             }
             renderOption={[Function]}
             selected={true}
-            type={null}
             value="helvetica"
           >
             <li
               className="select-search__row"
+              data-index={0}
               data-value="helvetica"
               key="helvetica"
               role="menuitem"
@@ -3305,7 +3290,6 @@ exports[`Test SelectSearch component Renders groups 2`] = `
                   <Option
                     className={[Function]}
                     data-stack="Roboto, sans-serif"
-                    disabled={false}
                     groupId="Sans serif"
                     groupName="Sans serif"
                     highlighted={false}
@@ -3320,11 +3304,11 @@ exports[`Test SelectSearch component Renders groups 2`] = `
                     }
                     renderOption={[Function]}
                     selected={false}
-                    type={null}
                     value="Roboto"
                   >
                     <li
                       className="select-search__row"
+                      data-index={1}
                       data-value="Roboto"
                       key="Roboto"
                       role="menuitem"
@@ -3485,7 +3469,6 @@ exports[`Test SelectSearch component Renders groups 2`] = `
                   <Option
                     className={[Function]}
                     data-stack="\\"Playfair Display\\", serif"
-                    disabled={false}
                     groupId="Serif"
                     groupName="Serif"
                     highlighted={false}
@@ -3500,11 +3483,11 @@ exports[`Test SelectSearch component Renders groups 2`] = `
                     }
                     renderOption={[Function]}
                     selected={false}
-                    type={null}
                     value="Playfair Display"
                   >
                     <li
                       className="select-search__row"
+                      data-index={2}
                       data-value="Playfair Display"
                       key="Playfair Display"
                       role="menuitem"
@@ -3673,7 +3656,6 @@ exports[`Test SelectSearch component Renders groups 2`] = `
                   <Option
                     className={[Function]}
                     data-stack="Monoton, cursive"
-                    disabled={false}
                     groupId="Cursive"
                     groupName="Cursive"
                     highlighted={false}
@@ -3688,11 +3670,11 @@ exports[`Test SelectSearch component Renders groups 2`] = `
                     }
                     renderOption={[Function]}
                     selected={false}
-                    type={null}
                     value="Monoton"
                   >
                     <li
                       className="select-search__row"
+                      data-index={3}
                       data-value="Monoton"
                       key="Monoton"
                       role="menuitem"
@@ -3720,7 +3702,6 @@ exports[`Test SelectSearch component Renders groups 2`] = `
                   <Option
                     className={[Function]}
                     data-stack="\\"Gloria Hallelujah\\", cursive"
-                    disabled={false}
                     groupId="Cursive"
                     groupName="Cursive"
                     highlighted={false}
@@ -3735,11 +3716,11 @@ exports[`Test SelectSearch component Renders groups 2`] = `
                     }
                     renderOption={[Function]}
                     selected={false}
-                    type={null}
                     value="Gloria Hallelujah"
                   >
                     <li
                       className="select-search__row"
+                      data-index={4}
                       data-value="Gloria Hallelujah"
                       key="Gloria Hallelujah"
                       role="menuitem"
@@ -3900,7 +3881,6 @@ exports[`Test SelectSearch component Renders groups 2`] = `
                   <Option
                     className={[Function]}
                     data-stack="VT323, monospace"
-                    disabled={false}
                     groupId="Monospace"
                     groupName="Monospace"
                     highlighted={false}
@@ -3915,11 +3895,11 @@ exports[`Test SelectSearch component Renders groups 2`] = `
                     }
                     renderOption={[Function]}
                     selected={false}
-                    type={null}
                     value="VT323"
                   >
                     <li
                       className="select-search__row"
+                      data-index={5}
                       data-value="VT323"
                       key="VT323"
                       role="menuitem"
@@ -4017,6 +3997,7 @@ exports[`Test SelectSearch component Renders with multiple 1`] = `
     >
       <li
         className="select-search__row"
+        data-index={0}
         data-value="foo"
         role="menuitem"
       >
@@ -4032,6 +4013,7 @@ exports[`Test SelectSearch component Renders with multiple 1`] = `
       </li>
       <li
         className="select-search__row"
+        data-index={1}
         data-value="bar"
         role="menuitem"
       >
@@ -4078,7 +4060,7 @@ exports[`Test SelectSearch component Renders with search 1`] = `
 
 exports[`Test SelectSearch component Renders with search and multiple 1`] = `
 <div
-  className="select-search select-search--multiple select-search select-search--multiple--search"
+  className="select-search select-search--multiple select-search--search"
 >
   <div
     className="select-search__value"
@@ -4107,6 +4089,7 @@ exports[`Test SelectSearch component Renders with search and multiple 1`] = `
     >
       <li
         className="select-search__row"
+        data-index={0}
         data-value="foo"
         role="menuitem"
       >
@@ -4122,6 +4105,7 @@ exports[`Test SelectSearch component Renders with search and multiple 1`] = `
       </li>
       <li
         className="select-search__row"
+        data-index={1}
         data-value="bar"
         role="menuitem"
       >
@@ -4418,7 +4402,6 @@ exports[`Test SelectSearch component Value change works without onChange handler
         >
           <Option
             className={[Function]}
-            disabled={false}
             highlighted={false}
             index={0}
             key="foo"
@@ -4431,11 +4414,11 @@ exports[`Test SelectSearch component Value change works without onChange handler
             }
             renderOption={null}
             selected={true}
-            type={null}
             value="foo"
           >
             <li
               className="select-search__row"
+              data-index={0}
               data-value="foo"
               key="foo"
               role="menuitem"
@@ -4453,7 +4436,6 @@ exports[`Test SelectSearch component Value change works without onChange handler
           </Option>
           <Option
             className={[Function]}
-            disabled={false}
             highlighted={false}
             index={1}
             key="bar"
@@ -4466,11 +4448,11 @@ exports[`Test SelectSearch component Value change works without onChange handler
             }
             renderOption={null}
             selected={false}
-            type={null}
             value="bar"
           >
             <li
               className="select-search__row"
+              data-index={1}
               data-value="bar"
               key="bar"
               role="menuitem"

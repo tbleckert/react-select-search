@@ -1,20 +1,16 @@
 "use strict";
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = groupOptions;
-
-var _findGroupIndex = _interopRequireDefault(require("./findGroupIndex"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+exports.__esModule = true;
+exports["default"] = groupOptions;
 
 function groupOptions(options) {
-  const nextOptions = [];
-  options.forEach((option, i) => {
+  var nextOptions = [];
+  options.forEach(function (option, i) {
     if ('groupId' in option) {
-      const nextOption = Object.assign({}, option);
-      const groupIndex = (0, _findGroupIndex.default)(nextOptions, nextOption.groupId);
+      var nextOption = Object.assign({}, option);
+      var groupIndex = nextOptions.findIndex(function (el) {
+        return 'groupId' in el && el.groupId === nextOption.groupId;
+      });
       nextOption.index = i;
 
       if (groupIndex !== null && groupIndex > -1) {
