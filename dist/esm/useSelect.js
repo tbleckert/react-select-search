@@ -14,7 +14,8 @@ export default function useSelectSearch({
   fuse = false,
   options: defaultOptions,
   onChange = () => {},
-  getOptions = null
+  getOptions = null,
+  allowEmpty = true
 }) {
   const ref = useRef(null);
   const [flatDefaultOptions, setFlatDefaultOptions] = useState(FlattenOptions(defaultOptions));
@@ -133,6 +134,8 @@ export default function useSelectSearch({
     if (defaultValue && flatDefaultOptions) {
       const option = getOption(defaultValue, flatDefaultOptions);
       setValue(option);
+    } else if (!defaultValue && flatDefaultOptions && !allowEmpty) {
+      setValue(flatDefaultOptions[0]);
     }
   }, [defaultValue]);
   useEffect(() => {

@@ -21,6 +21,7 @@ const Value = ({
                 className={className('input')}
                 autoFocus={autoFocus}
                 value={displayValue}
+                placeholder={placeholder}
             />
         )}
     </div>

@@ -37,7 +37,8 @@ const Value = ({
   disabled: disabled,
   className: className('input'),
   autoFocus: autoFocus,
-  value: displayValue
+  value: displayValue,
+  placeholder: placeholder
 })));
 
 Value.defaultProps = {

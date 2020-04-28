@@ -5,15 +5,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _react = _interopRequireWildcard(require("react"));
+var _react = _interopRequireDefault(require("react"));
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
@@ -37,16 +33,7 @@ const Option = (_ref) => {
   } = _ref,
       option = _objectWithoutProperties(_ref, ["optionProps", "highlighted", "selected", "className", "renderOption"]);
 
-  const optionRef = (0, _react.useRef)(null);
   const optionClass = [className('option'), selected ? className('is-selected') : false, highlighted ? className('is-highlighted') : false].filter(cls => !!cls).join(' ');
-  (0, _react.useEffect)(() => {
-    if (optionRef.current && (selected || highlighted)) {
-      optionRef.current.scrollIntoView({
-        behavior: 'auto',
-        block: 'center'
-      });
-    }
-  }, [optionRef, selected, highlighted]);
 
   const domProps = _objectSpread({}, optionProps, {
     value: option.value,
@@ -60,9 +47,9 @@ const Option = (_ref) => {
     className: optionClass
   }, domProps), option.name);
   return /*#__PURE__*/_react.default.createElement("li", {
-    ref: optionRef,
     className: className('row'),
     role: "menuitem",
+    "data-value": option.value,
     key: option.value
   }, comp);
 };

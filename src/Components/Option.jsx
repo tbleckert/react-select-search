@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 const Option = ({
@@ -9,18 +9,11 @@ const Option = ({
     renderOption,
     ...option
 }) => {
-    const optionRef = useRef(null);
     const optionClass = [
         className('option'),
         (selected) ? className('is-selected') : false,
         (highlighted) ? className('is-highlighted') : false,
     ].filter(cls => !!cls).join(' ');
-
-    useEffect(() => {
-        if (optionRef.current && (selected || highlighted)) {
-            optionRef.current.scrollIntoView({ behavior: 'auto', block: 'center' });
-        }
-    }, [optionRef, selected, highlighted]);
 
     const domProps = {
         ...optionProps,
@@ -40,7 +33,7 @@ const Option = ({
         );
 
     return (
-        <li ref={optionRef} className={className('row')} role="menuitem" key={option.value}>
+        <li className={className('row')} role="menuitem" data-value={option.value} key={option.value}>
             {comp}
         </li>
     );

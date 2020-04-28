@@ -46,7 +46,7 @@ class App extends React.PureComponent {
 
     state = {
         disabled: false,
-        font: 'Playfair Display',
+        font: '',
         country: 'SE',
         friends: [],
     };

@@ -1,10 +1,9 @@
-import React, { forwardRef, useMemo, memo } from 'react';
+import React, { forwardRef, useMemo, memo, createRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import useSelect from './useSelect';
 import Value from './Components/Value';
 import Options from './Components/Options';
-import FlattenOptions from './lib/flattenOptions';
-import { optionType, valueType } from './types';
+import { optionType } from './types';
 
 const SelectSearch = forwardRef(({
     value: defaultValue,
@@ -23,6 +22,7 @@ const SelectSearch = forwardRef(({
     getOptions,
     fuse,
 }, ref) => {
+    const selectRef = createRef();
     const [snapshot, valueProps, optionProps] = useSelect({
         options: defaultOptions,
         value: defaultValue,
@@ -32,10 +32,9 @@ const SelectSearch = forwardRef(({
         search,
         onChange,
         getOptions,
+        allowEmpty: !!placeholder,
     });
 
-    const { options } = snapshot;
-    const flatOptions = useMemo(() => FlattenOptions(options), [options]);
     const classNameFn = useMemo(() => (
         (typeof className === 'string') ? (key) => {
             if (key === 'container') {
@@ -49,12 +48,6 @@ const SelectSearch = forwardRef(({
             return `select-search__${key}`;
         } : className
     ), [className]);
-
-    let { displayValue } = snapshot;
-
-    if (!placeholder && !displayValue && flatOptions.length) {
-        displayValue = flatOptions[0].name;
-    }
 
     let wrapperClass = classNameFn('container');
 
@@ -70,11 +63,25 @@ const SelectSearch = forwardRef(({
         wrapperClass += ` ${classNameFn('is-searching')}`;
     }
 
-    let value = displayValue;
+    let value = snapshot.displayValue;
 
     if ((snapshot.focus || multiple) && search) {
         value = snapshot.search;
     }
+
+    useEffect(() => {
+        if (snapshot.focus && selectRef.current && snapshot.value) {
+            const selected = selectRef.current.querySelector(`[data-value="${snapshot.value.value}"]`);
+
+            if (selected) {
+                const rect = selectRef.current.getBoundingClientRect();
+                const selectedRect = selected.getBoundingClientRect();
+
+                selectRef.current.scrollTop =
+                    selected.offsetTop - (rect.height / 2) + (selectedRect.height / 2);
+            }
+        }
+    }, [snapshot.focus, selectRef.current, snapshot.value]);
 
     const valueComp = (renderValue) ? (
         <div className={classNameFn('value')}>
@@ -86,7 +93,7 @@ const SelectSearch = forwardRef(({
                     autoComplete: (search) ? autoComplete : null,
                     value: (search) ? value : null,
                 },
-                { ...snapshot, displayValue },
+                snapshot,
                 classNameFn('input'),
             )}
         </div>
@@ -110,7 +117,7 @@ const SelectSearch = forwardRef(({
         <div ref={ref} className={wrapperClass}>
             {(!multiple || search) && valueComp}
             {!disabled && (snapshot.focus || multiple) && (
-                <div className={classNameFn('select')}>
+                <div className={classNameFn('select')} ref={selectRef}>
                     <Options
                         options={snapshot.options}
                         snapshot={snapshot}
