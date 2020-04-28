@@ -6,8 +6,8 @@
     <a href="https://www.npmjs.com/package/react-select-search">
         <img src="https://travis-ci.org/tbleckert/react-select-search.svg?branch=master" style="max-width:100%;" />
     </a>
-    <a href='https://coveralls.io/github/tbleckert/react-select-search?branch=next'>
-        <img src='https://coveralls.io/repos/github/tbleckert/react-select-search/badge.svg?branch=next' alt='Coverage Status' />
+    <a href='https://coveralls.io/github/tbleckert/react-select-search'>
+        <img src='https://coveralls.io/repos/github/tbleckert/react-select-search/badge.svg' alt='Coverage Status' />
     </a>
     <a href="https://www.npmjs.com/package/react-select-search">
         <img src="https://img.shields.io/badge/license-MIT-blue.svg" style="max-width:100%;" />
