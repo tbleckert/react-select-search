@@ -21,6 +21,7 @@ exports[`Test Options component Renders correctly with groups 1`] = `
       >
         <li
           className="row"
+          data-value="foo"
           role="menuitem"
         >
           <button
@@ -35,6 +36,7 @@ exports[`Test Options component Renders correctly with groups 1`] = `
         </li>
         <li
           className="row"
+          data-value="bar"
           role="menuitem"
         >
           <button
@@ -59,6 +61,7 @@ exports[`Test Options component Renders correctly without groups 1`] = `
 >
   <li
     className="row"
+    data-value="foo"
     role="menuitem"
   >
     <button
@@ -73,6 +76,7 @@ exports[`Test Options component Renders correctly without groups 1`] = `
   </li>
   <li
     className="row"
+    data-value="bar"
     role="menuitem"
   >
     <button
@@ -109,6 +113,7 @@ exports[`Test Options component Renders custom group renderer 1`] = `
       >
         <li
           className="row"
+          data-value="foo"
           role="menuitem"
         >
           <button
@@ -123,6 +128,7 @@ exports[`Test Options component Renders custom group renderer 1`] = `
         </li>
         <li
           className="row"
+          data-value="bar"
           role="menuitem"
         >
           <button

@@ -29,6 +29,7 @@ exports[`Test Value component Renders value element 1`] = `
     onBlur={[Function]}
     onChange={[Function]}
     onFocus={[Function]}
+    placeholder={null}
     tabIndex={0}
     value="Foo"
   />

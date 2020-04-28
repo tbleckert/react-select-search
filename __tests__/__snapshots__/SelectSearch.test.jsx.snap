@@ -16,6 +16,7 @@ exports[`Test SelectSearch component Class name as fn 1`] = `
       onKeyDown={[Function]}
       onKeyPress={[Function]}
       onKeyUp={[Function]}
+      placeholder={null}
       readOnly={true}
       tabIndex="0"
       value="Helvetica"
@@ -40,6 +41,7 @@ exports[`Test SelectSearch component Class name as string 1`] = `
       onKeyDown={[Function]}
       onKeyPress={[Function]}
       onKeyUp={[Function]}
+      placeholder={null}
       readOnly={true}
       tabIndex="0"
       value=""
@@ -323,7 +325,7 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
         snapshot={
           Object {
             "disabled": false,
-            "displayValue": "",
+            "displayValue": "Helvetica",
             "focus": true,
             "highlighted": -1,
             "options": Array [
@@ -403,7 +405,11 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
             ],
             "search": "",
             "searching": false,
-            "value": null,
+            "value": Object {
+              "index": 0,
+              "name": "Helvetica",
+              "value": "helvetica",
+            },
           }
         }
       >
@@ -424,17 +430,18 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
               }
             }
             renderOption={[Function]}
-            selected={false}
+            selected={true}
             type={null}
             value="helvetica"
           >
             <li
               className="select-search__row"
+              data-value="helvetica"
               key="helvetica"
               role="menuitem"
             >
               <button
-                className="select-search__option"
+                className="select-search__option is-selected"
                 disabled={false}
                 onMouseDown={[Function]}
                 tabIndex="-1"
@@ -491,7 +498,7 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
                 snapshot={
                   Object {
                     "disabled": false,
-                    "displayValue": "",
+                    "displayValue": "Helvetica",
                     "focus": true,
                     "highlighted": -1,
                     "options": Array [
@@ -571,7 +578,11 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
                     ],
                     "search": "",
                     "searching": false,
-                    "value": null,
+                    "value": Object {
+                      "index": 0,
+                      "name": "Helvetica",
+                      "value": "helvetica",
+                    },
                   }
                 }
               >
@@ -601,6 +612,7 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
                   >
                     <li
                       className="select-search__row"
+                      data-value="Roboto"
                       key="Roboto"
                       role="menuitem"
                     >
@@ -666,7 +678,7 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
                 snapshot={
                   Object {
                     "disabled": false,
-                    "displayValue": "",
+                    "displayValue": "Helvetica",
                     "focus": true,
                     "highlighted": -1,
                     "options": Array [
@@ -746,7 +758,11 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
                     ],
                     "search": "",
                     "searching": false,
-                    "value": null,
+                    "value": Object {
+                      "index": 0,
+                      "name": "Helvetica",
+                      "value": "helvetica",
+                    },
                   }
                 }
               >
@@ -776,6 +792,7 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
                   >
                     <li
                       className="select-search__row"
+                      data-value="Playfair Display"
                       key="Playfair Display"
                       role="menuitem"
                     >
@@ -849,7 +866,7 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
                 snapshot={
                   Object {
                     "disabled": false,
-                    "displayValue": "",
+                    "displayValue": "Helvetica",
                     "focus": true,
                     "highlighted": -1,
                     "options": Array [
@@ -929,7 +946,11 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
                     ],
                     "search": "",
                     "searching": false,
-                    "value": null,
+                    "value": Object {
+                      "index": 0,
+                      "name": "Helvetica",
+                      "value": "helvetica",
+                    },
                   }
                 }
               >
@@ -959,6 +980,7 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
                   >
                     <li
                       className="select-search__row"
+                      data-value="Monoton"
                       key="Monoton"
                       role="menuitem"
                     >
@@ -1005,6 +1027,7 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
                   >
                     <li
                       className="select-search__row"
+                      data-value="Gloria Hallelujah"
                       key="Gloria Hallelujah"
                       role="menuitem"
                     >
@@ -1070,7 +1093,7 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
                 snapshot={
                   Object {
                     "disabled": false,
-                    "displayValue": "",
+                    "displayValue": "Helvetica",
                     "focus": true,
                     "highlighted": -1,
                     "options": Array [
@@ -1150,7 +1173,11 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
                     ],
                     "search": "",
                     "searching": false,
-                    "value": null,
+                    "value": Object {
+                      "index": 0,
+                      "name": "Helvetica",
+                      "value": "helvetica",
+                    },
                   }
                 }
               >
@@ -1180,6 +1207,7 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
                   >
                     <li
                       className="select-search__row"
+                      data-value="VT323"
                       key="VT323"
                       role="menuitem"
                     >
@@ -1493,7 +1521,7 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
         snapshot={
           Object {
             "disabled": false,
-            "displayValue": "",
+            "displayValue": "Helvetica",
             "focus": true,
             "highlighted": -1,
             "options": Array [
@@ -1573,7 +1601,11 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
             ],
             "search": "",
             "searching": false,
-            "value": null,
+            "value": Object {
+              "index": 0,
+              "name": "Helvetica",
+              "value": "helvetica",
+            },
           }
         }
       >
@@ -1594,17 +1626,18 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
               }
             }
             renderOption={[Function]}
-            selected={false}
+            selected={true}
             type={null}
             value="helvetica"
           >
             <li
               className="select-search__row"
+              data-value="helvetica"
               key="helvetica"
               role="menuitem"
             >
               <button
-                className="select-search__option"
+                className="select-search__option is-selected"
                 disabled={false}
                 onMouseDown={[Function]}
                 tabIndex="-1"
@@ -1661,7 +1694,7 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
                 snapshot={
                   Object {
                     "disabled": false,
-                    "displayValue": "",
+                    "displayValue": "Helvetica",
                     "focus": true,
                     "highlighted": -1,
                     "options": Array [
@@ -1741,7 +1774,11 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
                     ],
                     "search": "",
                     "searching": false,
-                    "value": null,
+                    "value": Object {
+                      "index": 0,
+                      "name": "Helvetica",
+                      "value": "helvetica",
+                    },
                   }
                 }
               >
@@ -1771,6 +1808,7 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
                   >
                     <li
                       className="select-search__row"
+                      data-value="Roboto"
                       key="Roboto"
                       role="menuitem"
                     >
@@ -1836,7 +1874,7 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
                 snapshot={
                   Object {
                     "disabled": false,
-                    "displayValue": "",
+                    "displayValue": "Helvetica",
                     "focus": true,
                     "highlighted": -1,
                     "options": Array [
@@ -1916,7 +1954,11 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
                     ],
                     "search": "",
                     "searching": false,
-                    "value": null,
+                    "value": Object {
+                      "index": 0,
+                      "name": "Helvetica",
+                      "value": "helvetica",
+                    },
                   }
                 }
               >
@@ -1946,6 +1988,7 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
                   >
                     <li
                       className="select-search__row"
+                      data-value="Playfair Display"
                       key="Playfair Display"
                       role="menuitem"
                     >
@@ -2019,7 +2062,7 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
                 snapshot={
                   Object {
                     "disabled": false,
-                    "displayValue": "",
+                    "displayValue": "Helvetica",
                     "focus": true,
                     "highlighted": -1,
                     "options": Array [
@@ -2099,7 +2142,11 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
                     ],
                     "search": "",
                     "searching": false,
-                    "value": null,
+                    "value": Object {
+                      "index": 0,
+                      "name": "Helvetica",
+                      "value": "helvetica",
+                    },
                   }
                 }
               >
@@ -2129,6 +2176,7 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
                   >
                     <li
                       className="select-search__row"
+                      data-value="Monoton"
                       key="Monoton"
                       role="menuitem"
                     >
@@ -2175,6 +2223,7 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
                   >
                     <li
                       className="select-search__row"
+                      data-value="Gloria Hallelujah"
                       key="Gloria Hallelujah"
                       role="menuitem"
                     >
@@ -2240,7 +2289,7 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
                 snapshot={
                   Object {
                     "disabled": false,
-                    "displayValue": "",
+                    "displayValue": "Helvetica",
                     "focus": true,
                     "highlighted": -1,
                     "options": Array [
@@ -2320,7 +2369,11 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
                     ],
                     "search": "",
                     "searching": false,
-                    "value": null,
+                    "value": Object {
+                      "index": 0,
+                      "name": "Helvetica",
+                      "value": "helvetica",
+                    },
                   }
                 }
               >
@@ -2350,6 +2403,7 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
                   >
                     <li
                       className="select-search__row"
+                      data-value="VT323"
                       key="VT323"
                       role="menuitem"
                     >
@@ -2415,7 +2469,7 @@ exports[`Test SelectSearch component Focus displays options 1`] = `
       snapshot={
         Object {
           "disabled": false,
-          "displayValue": "",
+          "displayValue": "Foo",
           "focus": false,
           "highlighted": -1,
           "options": Array [
@@ -2432,7 +2486,11 @@ exports[`Test SelectSearch component Focus displays options 1`] = `
           ],
           "search": "",
           "searching": false,
-          "value": null,
+          "value": Object {
+            "index": 0,
+            "name": "Foo",
+            "value": "foo",
+          },
         }
       }
       valueProps={
@@ -2467,6 +2525,7 @@ exports[`Test SelectSearch component Focus displays options 1`] = `
           onKeyDown={[Function]}
           onKeyPress={[Function]}
           onKeyUp={[Function]}
+          placeholder={null}
           readOnly={true}
           tabIndex="0"
           value="Foo"
@@ -2508,7 +2567,7 @@ exports[`Test SelectSearch component Focus displays options 2`] = `
       snapshot={
         Object {
           "disabled": false,
-          "displayValue": "",
+          "displayValue": "Foo",
           "focus": true,
           "highlighted": -1,
           "options": Array [
@@ -2525,7 +2584,11 @@ exports[`Test SelectSearch component Focus displays options 2`] = `
           ],
           "search": "",
           "searching": false,
-          "value": null,
+          "value": Object {
+            "index": 0,
+            "name": "Foo",
+            "value": "foo",
+          },
         }
       }
       valueProps={
@@ -2560,6 +2623,7 @@ exports[`Test SelectSearch component Focus displays options 2`] = `
           onKeyDown={[Function]}
           onKeyPress={[Function]}
           onKeyUp={[Function]}
+          placeholder={null}
           readOnly={true}
           tabIndex="0"
           value="Foo"
@@ -2596,7 +2660,7 @@ exports[`Test SelectSearch component Focus displays options 2`] = `
         snapshot={
           Object {
             "disabled": false,
-            "displayValue": "",
+            "displayValue": "Foo",
             "focus": true,
             "highlighted": -1,
             "options": Array [
@@ -2613,7 +2677,11 @@ exports[`Test SelectSearch component Focus displays options 2`] = `
             ],
             "search": "",
             "searching": false,
-            "value": null,
+            "value": Object {
+              "index": 0,
+              "name": "Foo",
+              "value": "foo",
+            },
           }
         }
       >
@@ -2634,17 +2702,18 @@ exports[`Test SelectSearch component Focus displays options 2`] = `
               }
             }
             renderOption={null}
-            selected={false}
+            selected={true}
             type={null}
             value="foo"
           >
             <li
               className="select-search__row"
+              data-value="foo"
               key="foo"
               role="menuitem"
             >
               <button
-                className="select-search__option"
+                className="select-search__option is-selected"
                 disabled={false}
                 onMouseDown={[Function]}
                 tabIndex="-1"
@@ -2674,6 +2743,7 @@ exports[`Test SelectSearch component Focus displays options 2`] = `
           >
             <li
               className="select-search__row"
+              data-value="bar"
               key="bar"
               role="menuitem"
             >
@@ -2968,7 +3038,7 @@ exports[`Test SelectSearch component Renders groups 2`] = `
         snapshot={
           Object {
             "disabled": false,
-            "displayValue": "",
+            "displayValue": "Helvetica",
             "focus": true,
             "highlighted": -1,
             "options": Array [
@@ -3048,7 +3118,11 @@ exports[`Test SelectSearch component Renders groups 2`] = `
             ],
             "search": "",
             "searching": false,
-            "value": null,
+            "value": Object {
+              "index": 0,
+              "name": "Helvetica",
+              "value": "helvetica",
+            },
           }
         }
       >
@@ -3069,17 +3143,18 @@ exports[`Test SelectSearch component Renders groups 2`] = `
               }
             }
             renderOption={[Function]}
-            selected={false}
+            selected={true}
             type={null}
             value="helvetica"
           >
             <li
               className="select-search__row"
+              data-value="helvetica"
               key="helvetica"
               role="menuitem"
             >
               <button
-                className="select-search__option"
+                className="select-search__option is-selected"
                 disabled={false}
                 onMouseDown={[Function]}
                 tabIndex="-1"
@@ -3136,7 +3211,7 @@ exports[`Test SelectSearch component Renders groups 2`] = `
                 snapshot={
                   Object {
                     "disabled": false,
-                    "displayValue": "",
+                    "displayValue": "Helvetica",
                     "focus": true,
                     "highlighted": -1,
                     "options": Array [
@@ -3216,7 +3291,11 @@ exports[`Test SelectSearch component Renders groups 2`] = `
                     ],
                     "search": "",
                     "searching": false,
-                    "value": null,
+                    "value": Object {
+                      "index": 0,
+                      "name": "Helvetica",
+                      "value": "helvetica",
+                    },
                   }
                 }
               >
@@ -3246,6 +3325,7 @@ exports[`Test SelectSearch component Renders groups 2`] = `
                   >
                     <li
                       className="select-search__row"
+                      data-value="Roboto"
                       key="Roboto"
                       role="menuitem"
                     >
@@ -3311,7 +3391,7 @@ exports[`Test SelectSearch component Renders groups 2`] = `
                 snapshot={
                   Object {
                     "disabled": false,
-                    "displayValue": "",
+                    "displayValue": "Helvetica",
                     "focus": true,
                     "highlighted": -1,
                     "options": Array [
@@ -3391,7 +3471,11 @@ exports[`Test SelectSearch component Renders groups 2`] = `
                     ],
                     "search": "",
                     "searching": false,
-                    "value": null,
+                    "value": Object {
+                      "index": 0,
+                      "name": "Helvetica",
+                      "value": "helvetica",
+                    },
                   }
                 }
               >
@@ -3421,6 +3505,7 @@ exports[`Test SelectSearch component Renders groups 2`] = `
                   >
                     <li
                       className="select-search__row"
+                      data-value="Playfair Display"
                       key="Playfair Display"
                       role="menuitem"
                     >
@@ -3494,7 +3579,7 @@ exports[`Test SelectSearch component Renders groups 2`] = `
                 snapshot={
                   Object {
                     "disabled": false,
-                    "displayValue": "",
+                    "displayValue": "Helvetica",
                     "focus": true,
                     "highlighted": -1,
                     "options": Array [
@@ -3574,7 +3659,11 @@ exports[`Test SelectSearch component Renders groups 2`] = `
                     ],
                     "search": "",
                     "searching": false,
-                    "value": null,
+                    "value": Object {
+                      "index": 0,
+                      "name": "Helvetica",
+                      "value": "helvetica",
+                    },
                   }
                 }
               >
@@ -3604,6 +3693,7 @@ exports[`Test SelectSearch component Renders groups 2`] = `
                   >
                     <li
                       className="select-search__row"
+                      data-value="Monoton"
                       key="Monoton"
                       role="menuitem"
                     >
@@ -3650,6 +3740,7 @@ exports[`Test SelectSearch component Renders groups 2`] = `
                   >
                     <li
                       className="select-search__row"
+                      data-value="Gloria Hallelujah"
                       key="Gloria Hallelujah"
                       role="menuitem"
                     >
@@ -3715,7 +3806,7 @@ exports[`Test SelectSearch component Renders groups 2`] = `
                 snapshot={
                   Object {
                     "disabled": false,
-                    "displayValue": "",
+                    "displayValue": "Helvetica",
                     "focus": true,
                     "highlighted": -1,
                     "options": Array [
@@ -3795,7 +3886,11 @@ exports[`Test SelectSearch component Renders groups 2`] = `
                     ],
                     "search": "",
                     "searching": false,
-                    "value": null,
+                    "value": Object {
+                      "index": 0,
+                      "name": "Helvetica",
+                      "value": "helvetica",
+                    },
                   }
                 }
               >
@@ -3825,6 +3920,7 @@ exports[`Test SelectSearch component Renders groups 2`] = `
                   >
                     <li
                       className="select-search__row"
+                      data-value="VT323"
                       key="VT323"
                       role="menuitem"
                     >
@@ -3875,6 +3971,7 @@ exports[`Test SelectSearch component Renders with default props 1`] = `
       onKeyDown={[Function]}
       onKeyPress={[Function]}
       onKeyUp={[Function]}
+      placeholder={null}
       readOnly={true}
       tabIndex="0"
       value=""
@@ -3899,6 +3996,7 @@ exports[`Test SelectSearch component Renders with disabled 1`] = `
       onKeyDown={[Function]}
       onKeyPress={[Function]}
       onKeyUp={[Function]}
+      placeholder={null}
       readOnly={true}
       tabIndex="0"
       value=""
@@ -3919,10 +4017,11 @@ exports[`Test SelectSearch component Renders with multiple 1`] = `
     >
       <li
         className="select-search__row"
+        data-value="foo"
         role="menuitem"
       >
         <button
-          className="select-search__option"
+          className="select-search__option is-selected"
           disabled={false}
           onMouseDown={[Function]}
           tabIndex="-1"
@@ -3933,6 +4032,7 @@ exports[`Test SelectSearch component Renders with multiple 1`] = `
       </li>
       <li
         className="select-search__row"
+        data-value="bar"
         role="menuitem"
       >
         <button
@@ -4007,10 +4107,11 @@ exports[`Test SelectSearch component Renders with search and multiple 1`] = `
     >
       <li
         className="select-search__row"
+        data-value="foo"
         role="menuitem"
       >
         <button
-          className="select-search__option"
+          className="select-search__option is-selected"
           disabled={false}
           onMouseDown={[Function]}
           tabIndex="-1"
@@ -4021,6 +4122,7 @@ exports[`Test SelectSearch component Renders with search and multiple 1`] = `
       </li>
       <li
         className="select-search__row"
+        data-value="bar"
         role="menuitem"
       >
         <button
@@ -4095,7 +4197,7 @@ exports[`Test SelectSearch component Value change works without onChange handler
       snapshot={
         Object {
           "disabled": false,
-          "displayValue": "",
+          "displayValue": "Foo",
           "focus": false,
           "highlighted": -1,
           "options": Array [
@@ -4112,7 +4214,11 @@ exports[`Test SelectSearch component Value change works without onChange handler
           ],
           "search": "",
           "searching": false,
-          "value": null,
+          "value": Object {
+            "index": 0,
+            "name": "Foo",
+            "value": "foo",
+          },
         }
       }
       valueProps={
@@ -4147,6 +4253,7 @@ exports[`Test SelectSearch component Value change works without onChange handler
           onKeyDown={[Function]}
           onKeyPress={[Function]}
           onKeyUp={[Function]}
+          placeholder={null}
           readOnly={true}
           tabIndex="0"
           value="Foo"
@@ -4244,6 +4351,7 @@ exports[`Test SelectSearch component Value change works without onChange handler
           onKeyDown={[Function]}
           onKeyPress={[Function]}
           onKeyUp={[Function]}
+          placeholder={null}
           readOnly={true}
           tabIndex="0"
           value="Foo"
@@ -4328,6 +4436,7 @@ exports[`Test SelectSearch component Value change works without onChange handler
           >
             <li
               className="select-search__row"
+              data-value="foo"
               key="foo"
               role="menuitem"
             >
@@ -4362,6 +4471,7 @@ exports[`Test SelectSearch component Value change works without onChange handler
           >
             <li
               className="select-search__row"
+              data-value="bar"
               key="bar"
               role="menuitem"
             >
