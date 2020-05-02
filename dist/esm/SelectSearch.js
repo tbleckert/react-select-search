@@ -4,7 +4,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-import React, { forwardRef, useMemo, memo, createRef, useEffect } from 'react';
+import React, { forwardRef, memo, createRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import useSelect from './useSelect';
 import Value from './Components/Value';
@@ -44,13 +44,13 @@ const SelectSearch = forwardRef(({
       return key.replace('container', 'select-search');
     }
 
-    if (key.indexOf('is-') === 0) {
+    if (key.indexOf('is-') === 0 || key.indexOf('has-') === 0) {
       return key;
     }
 
     return "select-search__" + key;
   } : className;
-  const wrapperClass = [classNameFn('container'), multiple ? classNameFn('container--multiple') : false, search ? classNameFn('container--search') : false, snapshot.searching ? classNameFn('is-searching') : false].filter(cls => !!cls).join(' ');
+  const wrapperClass = [classNameFn('container'), multiple ? classNameFn('container--multiple') : false, search ? classNameFn('container--search') : false, snapshot.searching ? classNameFn('is-loading') : false, snapshot.focus ? classNameFn('has-focus') : false].filter(cls => !!cls).join(' ');
   const value = (snapshot.focus || multiple) && search ? snapshot.search : snapshot.displayValue;
   useEffect(() => {
     let selected = null;
@@ -66,7 +66,7 @@ const SelectSearch = forwardRef(({
       const selectedRect = selected.getBoundingClientRect();
       selectRef.current.scrollTop = selected.offsetTop - rect.height / 2 + selectedRect.height / 2;
     }
-  }, [snapshot.focus, selectRef.current, snapshot.value, snapshot.highlighted]);
+  }, [snapshot.focus, snapshot.value, snapshot.highlighted, selectRef]);
   const valueComp = renderValue ? /*#__PURE__*/React.createElement("div", {
     className: classNameFn('value')
   }, renderValue(_objectSpread({}, valueProps, {

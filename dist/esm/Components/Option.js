@@ -36,7 +36,7 @@ const Option = (_ref) => {
     }, optionClass) : /*#__PURE__*/React.createElement("button", _extends({
       className: optionClass
     }, domProps), option.name);
-  }, [renderOption, option, selected, highlighted, optionClass]);
+  }, [renderOption, option, selected, highlighted, optionClass, optionProps]);
   return /*#__PURE__*/React.createElement("li", {
     className: className('row'),
     role: "menuitem",

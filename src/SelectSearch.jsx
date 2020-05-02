@@ -1,4 +1,4 @@
-import React, { forwardRef, useMemo, memo, createRef, useEffect } from 'react';
+import React, { forwardRef, memo, createRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import useSelect from './useSelect';
 import Value from './Components/Value';
@@ -40,7 +40,7 @@ const SelectSearch = forwardRef(({
             return key.replace('container', 'select-search');
         }
 
-        if (key.indexOf('is-') === 0) {
+        if (key.indexOf('is-') === 0 || key.indexOf('has-') === 0) {
             return key;
         }
 
@@ -51,7 +51,8 @@ const SelectSearch = forwardRef(({
         classNameFn('container'),
         (multiple) ? classNameFn('container--multiple') : false,
         (search) ? classNameFn('container--search') : false,
-        (snapshot.searching) ? classNameFn('is-searching') : false,
+        (snapshot.searching) ? classNameFn('is-loading') : false,
+        (snapshot.focus) ? classNameFn('has-focus') : false,
     ].filter(cls => !!cls).join(' ');
 
     const value = ((snapshot.focus || multiple) && search)
@@ -73,7 +74,7 @@ const SelectSearch = forwardRef(({
             selectRef.current.scrollTop =
                 selected.offsetTop - (rect.height / 2) + (selectedRect.height / 2);
         }
-    }, [snapshot.focus, selectRef.current, snapshot.value, snapshot.highlighted]);
+    }, [snapshot.focus, snapshot.value, snapshot.highlighted, selectRef]);
 
     const valueComp = (renderValue) ? (
         <div className={classNameFn('value')}>

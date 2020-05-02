@@ -22,4 +22,3 @@ export default function groupOptions(options) {
   });
   return nextOptions;
 }
-;

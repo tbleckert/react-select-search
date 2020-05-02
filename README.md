@@ -161,6 +161,7 @@ If you want to fully control the class names you can pass a function that takes 
 * is-selected
 * is-highlighted
 * is-loading
+* has-focus
 
 ## Custom renderers
 

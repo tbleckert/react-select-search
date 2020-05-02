@@ -186,27 +186,18 @@ function useSelectSearch(_ref) {
     onMouseDown: onMouseDown
   };
   (0, _react.useEffect)(function () {
-    var option = null;
-
-    if (defaultValue && flatDefaultOptions) {
-      option = (0, _getOption["default"])(defaultValue, flatDefaultOptions);
-    }
-
-    if (!option && flatDefaultOptions && !allowEmpty) {
-      option = flatDefaultOptions[0];
-    }
-
-    setValue(option);
-  }, [defaultValue]);
+    setValue((0, _getOption["default"])(defaultValue, flatDefaultOptions));
+  }, [defaultValue, flatDefaultOptions]);
   (0, _react.useEffect)(function () {
     var flatOptions = (0, _flattenOptions["default"])(defaultOptions);
     setOptions(flatOptions);
     setFlatDefaultOptions(flatOptions);
-
-    if (!value && flatOptions && !allowEmpty) {
-      setValue(flatOptions[0]);
-    }
   }, [defaultOptions]);
+  (0, _react.useEffect)(function () {
+    if (!value && flatDefaultOptions && !allowEmpty) {
+      setValue(flatDefaultOptions[0]);
+    }
+  }, [flatDefaultOptions, value, allowEmpty]);
   return [{
     value: value,
     highlighted: highlighted,

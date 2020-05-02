@@ -65,13 +65,13 @@ var SelectSearch = (0, _react.forwardRef)(function (_ref, ref) {
       return key.replace('container', 'select-search');
     }
 
-    if (key.indexOf('is-') === 0) {
+    if (key.indexOf('is-') === 0 || key.indexOf('has-') === 0) {
       return key;
     }
 
     return "select-search__" + key;
   } : className;
-  var wrapperClass = [classNameFn('container'), multiple ? classNameFn('container--multiple') : false, search ? classNameFn('container--search') : false, snapshot.searching ? classNameFn('is-searching') : false].filter(function (cls) {
+  var wrapperClass = [classNameFn('container'), multiple ? classNameFn('container--multiple') : false, search ? classNameFn('container--search') : false, snapshot.searching ? classNameFn('is-loading') : false, snapshot.focus ? classNameFn('has-focus') : false].filter(function (cls) {
     return !!cls;
   }).join(' ');
   var value = (snapshot.focus || multiple) && search ? snapshot.search : snapshot.displayValue;
@@ -89,7 +89,7 @@ var SelectSearch = (0, _react.forwardRef)(function (_ref, ref) {
       var selectedRect = selected.getBoundingClientRect();
       selectRef.current.scrollTop = selected.offsetTop - rect.height / 2 + selectedRect.height / 2;
     }
-  }, [snapshot.focus, selectRef.current, snapshot.value, snapshot.highlighted]);
+  }, [snapshot.focus, snapshot.value, snapshot.highlighted, selectRef]);
   var valueComp = renderValue ? /*#__PURE__*/_react["default"].createElement("div", {
     className: classNameFn('value')
   }, renderValue(_objectSpread({}, valueProps, {

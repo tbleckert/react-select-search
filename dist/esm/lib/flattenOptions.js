@@ -22,4 +22,3 @@ export default function flattenOptions(options) {
   });
   return nextOptions;
 }
-;

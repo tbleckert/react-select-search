@@ -29,5 +29,3 @@ function groupOptions(options) {
   });
   return nextOptions;
 }
-
-;

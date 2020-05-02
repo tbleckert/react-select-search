@@ -31,7 +31,7 @@ const Option = ({
                     </button>
                 )
         );
-    }, [renderOption, option, selected, highlighted, optionClass]);
+    }, [renderOption, option, selected, highlighted, optionClass, optionProps]);
 
     return (
         <li className={className('row')} role="menuitem" data-index={option.index} data-value={escape(option.value)} key={option.value}>

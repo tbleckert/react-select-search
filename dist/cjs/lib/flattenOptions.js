@@ -30,5 +30,3 @@ function flattenOptions(options) {
   });
   return nextOptions;
 }
-
-;
