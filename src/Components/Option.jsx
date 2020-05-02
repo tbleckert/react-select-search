@@ -34,7 +34,7 @@ const Option = ({
     }, [renderOption, option, selected, highlighted, optionClass]);
 
     return (
-        <li className={className('row')} role="menuitem" data-index={option.index} data-value={option.value} key={option.value}>
+        <li className={className('row')} role="menuitem" data-index={option.index} data-value={escape(option.value)} key={option.value}>
             {comp}
         </li>
     );

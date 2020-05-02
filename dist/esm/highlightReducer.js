@@ -8,11 +8,7 @@ export default function highlightReducer(highlighted, value) {
     options
   } = value;
 
-  if (!options) {
-    return highlighted;
-  }
-
-  if (key !== 'ArrowDown' && key !== 'ArrowUp') {
+  if (!options || key !== 'ArrowDown' && key !== 'ArrowUp') {
     return highlighted;
   }
 

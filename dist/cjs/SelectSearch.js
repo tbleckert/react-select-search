@@ -81,7 +81,7 @@ var SelectSearch = (0, _react.forwardRef)(function (_ref, ref) {
     if (snapshot.focus && selectRef.current && snapshot.highlighted > -1) {
       selected = selectRef.current.querySelector("[data-index=\"" + snapshot.highlighted + "\"]");
     } else if (snapshot.focus && selectRef.current && snapshot.value) {
-      selected = selectRef.current.querySelector("[data-value=\"" + snapshot.value.value + "\"]");
+      selected = selectRef.current.querySelector("[data-value=\"" + escape(snapshot.value.value) + "\"]");
     }
 
     if (selected) {

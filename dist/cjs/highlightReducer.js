@@ -11,11 +11,7 @@ function highlightReducer(highlighted, value) {
   var key = value.key,
       options = value.options;
 
-  if (!options) {
-    return highlighted;
-  }
-
-  if (key !== 'ArrowDown' && key !== 'ArrowUp') {
+  if (!options || key !== 'ArrowDown' && key !== 'ArrowUp') {
     return highlighted;
   }
 

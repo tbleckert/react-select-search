@@ -128,13 +128,17 @@ export default function useSelectSearch({
     const optionProps = { tabIndex: '-1', onMouseDown };
 
     useEffect(() => {
-        if (defaultValue && flatDefaultOptions) {
-            const option = getOption(defaultValue, flatDefaultOptions);
+        let option = null;
 
-            setValue(option);
-        } else if (!defaultValue && flatDefaultOptions && !allowEmpty) {
-            setValue(flatDefaultOptions[0]);
+        if (defaultValue && flatDefaultOptions) {
+            option = getOption(defaultValue, flatDefaultOptions);
         }
+
+        if (!option && flatDefaultOptions && !allowEmpty) {
+            ([option] = flatDefaultOptions);
+        }
+
+        setValue(option);
     }, [defaultValue]);
 
     useEffect(() => {
@@ -142,6 +146,10 @@ export default function useSelectSearch({
 
         setOptions(flatOptions);
         setFlatDefaultOptions(flatOptions);
+
+        if (!value && flatOptions && !allowEmpty) {
+            setValue(flatOptions[0]);
+        }
     }, [defaultOptions]);
 
     return [

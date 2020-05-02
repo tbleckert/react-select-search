@@ -131,17 +131,26 @@ export default function useSelectSearch({
     onMouseDown
   };
   useEffect(() => {
+    let option = null;
+
     if (defaultValue && flatDefaultOptions) {
-      const option = getOption(defaultValue, flatDefaultOptions);
-      setValue(option);
-    } else if (!defaultValue && flatDefaultOptions && !allowEmpty) {
-      setValue(flatDefaultOptions[0]);
+      option = getOption(defaultValue, flatDefaultOptions);
     }
+
+    if (!option && flatDefaultOptions && !allowEmpty) {
+      [option] = flatDefaultOptions;
+    }
+
+    setValue(option);
   }, [defaultValue]);
   useEffect(() => {
     const flatOptions = FlattenOptions(defaultOptions);
     setOptions(flatOptions);
     setFlatDefaultOptions(flatOptions);
+
+    if (!value && flatOptions && !allowEmpty) {
+      setValue(flatOptions[0]);
+    }
   }, [defaultOptions]);
   return [{
     value,

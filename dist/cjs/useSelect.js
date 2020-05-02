@@ -186,17 +186,26 @@ function useSelectSearch(_ref) {
     onMouseDown: onMouseDown
   };
   (0, _react.useEffect)(function () {
+    var option = null;
+
     if (defaultValue && flatDefaultOptions) {
-      var option = (0, _getOption["default"])(defaultValue, flatDefaultOptions);
-      setValue(option);
-    } else if (!defaultValue && flatDefaultOptions && !allowEmpty) {
-      setValue(flatDefaultOptions[0]);
+      option = (0, _getOption["default"])(defaultValue, flatDefaultOptions);
     }
+
+    if (!option && flatDefaultOptions && !allowEmpty) {
+      option = flatDefaultOptions[0];
+    }
+
+    setValue(option);
   }, [defaultValue]);
   (0, _react.useEffect)(function () {
     var flatOptions = (0, _flattenOptions["default"])(defaultOptions);
     setOptions(flatOptions);
     setFlatDefaultOptions(flatOptions);
+
+    if (!value && flatOptions && !allowEmpty) {
+      setValue(flatOptions[0]);
+    }
   }, [defaultOptions]);
   return [{
     value: value,

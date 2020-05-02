@@ -266,7 +266,7 @@ export const fontStacks = [
         name: 'Cursive',
         items: [
             { name: 'Monoton', value: 'Monoton', stack: 'Monoton, cursive' },
-            { name: 'Gloria Hallelujah', value: 'Gloria Hallelujah', stack: '"Gloria Hallelujah", cursive' },
+            { name: 'Gloria Hallelujah', value: '"Gloria Hallelujah", cursive', stack: '"Gloria Hallelujah", cursive' },
         ],
     },
     {

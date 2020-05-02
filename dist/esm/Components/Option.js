@@ -41,7 +41,7 @@ const Option = (_ref) => {
     className: className('row'),
     role: "menuitem",
     "data-index": option.index,
-    "data-value": option.value,
+    "data-value": escape(option.value),
     key: option.value
   }, comp);
 };
