@@ -46,10 +46,17 @@ class App extends React.PureComponent {
 
     state = {
         disabled: false,
-        font: '',
+        font: 'Monoton',
         country: 'SE',
         friends: [],
+        fontOptions: [],
     };
+
+    componentDidMount() {
+        setTimeout(() => {
+            this.setState({ fontOptions: fontStacks });
+        }, 250);
+    }
 
     clear = () => {
         this.setState({
@@ -81,7 +88,7 @@ class App extends React.PureComponent {
                 </div>
                 <SelectSearch
                     ref={this.ref}
-                    options={fontStacks}
+                    options={this.state.fontOptions}
                     value={this.state.font}
                     onChange={this.updateFont}
                     renderValue={renderFontValue}

@@ -4094,7 +4094,7 @@ exports[`Test SelectSearch component Renders with search and multiple 1`] = `
         role="menuitem"
       >
         <button
-          className="select-search__option"
+          className="select-search__option is-selected"
           disabled={false}
           onMouseDown={[Function]}
           tabIndex="-1"

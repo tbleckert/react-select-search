@@ -28,6 +28,20 @@ export default function useSelectSearch({
   const options = useMemo(() => GroupOptions(flat), [flat]);
   const displayValue = getDisplayValue(value);
 
+  const updateValue = (newValue = undefined, optionsList = flatDefaultOptions) => {
+    if (newValue === undefined && value) {
+      return;
+    }
+
+    let option = getOption(newValue || defaultValue, optionsList);
+
+    if (!option && !allowEmpty) {
+      [option] = optionsList;
+    }
+
+    setValue(option);
+  };
+
   const onBlur = () => {
     setFocus(false);
     setHighlighted(false);
@@ -130,19 +144,13 @@ export default function useSelectSearch({
     tabIndex: '-1',
     onMouseDown
   };
-  useEffect(() => {
-    setValue(getOption(defaultValue, flatDefaultOptions));
-  }, [defaultValue, flatDefaultOptions]);
+  useEffect(() => updateValue(defaultValue), [defaultValue]);
   useEffect(() => {
     const flatOptions = FlattenOptions(defaultOptions);
     setOptions(flatOptions);
     setFlatDefaultOptions(flatOptions);
+    updateValue(undefined, flatOptions);
   }, [defaultOptions]);
-  useEffect(() => {
-    if (!value && flatDefaultOptions && !allowEmpty) {
-      setValue(flatDefaultOptions[0]);
-    }
-  }, [flatDefaultOptions, value, allowEmpty]);
   return [{
     value,
     highlighted,

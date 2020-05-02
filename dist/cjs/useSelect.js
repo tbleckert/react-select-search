@@ -74,6 +74,29 @@ function useSelectSearch(_ref) {
   }, [flat]);
   var displayValue = (0, _getDisplayValue["default"])(value);
 
+  var updateValue = function updateValue(newValue, optionsList) {
+    if (newValue === void 0) {
+      newValue = undefined;
+    }
+
+    if (optionsList === void 0) {
+      optionsList = flatDefaultOptions;
+    }
+
+    if (newValue === undefined && value) {
+      return;
+    }
+
+    var option = (0, _getOption["default"])(newValue || defaultValue, optionsList);
+
+    if (!option && !allowEmpty) {
+      var _optionsList = optionsList;
+      option = _optionsList[0];
+    }
+
+    setValue(option);
+  };
+
   var onBlur = function onBlur() {
     setFocus(false);
     setHighlighted(false);
@@ -186,18 +209,14 @@ function useSelectSearch(_ref) {
     onMouseDown: onMouseDown
   };
   (0, _react.useEffect)(function () {
-    setValue((0, _getOption["default"])(defaultValue, flatDefaultOptions));
-  }, [defaultValue, flatDefaultOptions]);
+    return updateValue(defaultValue);
+  }, [defaultValue]);
   (0, _react.useEffect)(function () {
     var flatOptions = (0, _flattenOptions["default"])(defaultOptions);
     setOptions(flatOptions);
     setFlatDefaultOptions(flatOptions);
+    updateValue(undefined, flatOptions);
   }, [defaultOptions]);
-  (0, _react.useEffect)(function () {
-    if (!value && flatDefaultOptions && !allowEmpty) {
-      setValue(flatDefaultOptions[0]);
-    }
-  }, [flatDefaultOptions, value, allowEmpty]);
   return [{
     value: value,
     highlighted: highlighted,
