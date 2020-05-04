@@ -23,6 +23,7 @@ export default function useSelectSearch({
     onChange = () => {},
     getOptions = null,
     allowEmpty = true,
+    closeOnSelect = true,
 }) {
     const ref = useRef(null);
     const [flatDefaultOptions, setFlatDefaultOptions] = useState(FlattenOptions(defaultOptions));
@@ -76,7 +77,13 @@ export default function useSelectSearch({
         }
     };
 
-    const onMouseDown = e => onSelect(e.currentTarget.value);
+    const onMouseDown = (e) => {
+        if (!closeOnSelect) {
+            e.preventDefault();
+        }
+
+        onSelect(e.currentTarget.value);
+    };
     const onKeyDown = e => setHighlighted({ key: e.key, options: flat });
     const onKeyPress = ({ key }) => {
         if (key === 'Enter') {

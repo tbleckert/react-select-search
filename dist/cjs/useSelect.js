@@ -38,7 +38,9 @@ function useSelectSearch(_ref) {
       _ref$getOptions = _ref.getOptions,
       getOptions = _ref$getOptions === void 0 ? null : _ref$getOptions,
       _ref$allowEmpty = _ref.allowEmpty,
-      allowEmpty = _ref$allowEmpty === void 0 ? true : _ref$allowEmpty;
+      allowEmpty = _ref$allowEmpty === void 0 ? true : _ref$allowEmpty,
+      _ref$closeOnSelect = _ref.closeOnSelect,
+      closeOnSelect = _ref$closeOnSelect === void 0 ? true : _ref$closeOnSelect;
   var ref = (0, _react.useRef)(null);
 
   var _useState = (0, _react.useState)((0, _flattenOptions["default"])(defaultOptions)),
@@ -130,7 +132,11 @@ function useSelectSearch(_ref) {
   };
 
   var onMouseDown = function onMouseDown(e) {
-    return onSelect(e.currentTarget.value);
+    if (!closeOnSelect) {
+      e.preventDefault();
+    }
+
+    onSelect(e.currentTarget.value);
   };
 
   var onKeyDown = function onKeyDown(e) {

@@ -15,6 +15,8 @@ const SelectSearch = forwardRef(({
     autoComplete,
     options: defaultOptions,
     onChange,
+    printOptions,
+    closeOnSelect,
     className,
     renderValue,
     renderOption,
@@ -32,6 +34,7 @@ const SelectSearch = forwardRef(({
         search,
         onChange,
         getOptions,
+        closeOnSelect,
         allowEmpty: !!placeholder,
     });
 
@@ -76,6 +79,23 @@ const SelectSearch = forwardRef(({
         }
     }, [snapshot.focus, snapshot.value, snapshot.highlighted, selectRef]);
 
+    let shouldRenderOptions = true;
+
+    switch (printOptions) {
+    case 'never':
+        shouldRenderOptions = false;
+        break;
+    case 'always':
+        shouldRenderOptions = true;
+        break;
+    case 'on-focus':
+        shouldRenderOptions = snapshot.focus;
+        break;
+    default:
+        shouldRenderOptions = !disabled && (snapshot.focus || multiple);
+        break;
+    }
+
     const valueComp = (renderValue) ? (
         <div className={classNameFn('value')}>
             {renderValue(
@@ -109,7 +129,7 @@ const SelectSearch = forwardRef(({
     return (
         <div ref={ref} className={wrapperClass}>
             {(!multiple || search) && valueComp}
-            {!disabled && (snapshot.focus || multiple) && (
+            {shouldRenderOptions && (
                 <div className={classNameFn('select')} ref={selectRef}>
                     <Options
                         options={snapshot.options}
@@ -135,6 +155,8 @@ SelectSearch.defaultProps = {
     autoComplete: 'on',
     value: '',
     onChange: () => {},
+    printOptions: 'auto',
+    closeOnSelect: true,
     renderOption: null,
     renderGroupHeader: name => name,
     renderValue: null,
@@ -163,6 +185,8 @@ SelectSearch.propTypes = {
     autoComplete: PropTypes.oneOf(['on', 'off']),
     autoFocus: PropTypes.bool,
     onChange: PropTypes.func,
+    printOptions: PropTypes.oneOf(['auto', 'always', 'never', 'on-focus']),
+    closeOnSelect: PropTypes.bool,
     renderOption: PropTypes.func,
     renderGroupHeader: PropTypes.func,
     renderValue: PropTypes.func,

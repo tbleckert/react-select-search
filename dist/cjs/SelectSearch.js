@@ -37,6 +37,8 @@ var SelectSearch = (0, _react.forwardRef)(function (_ref, ref) {
       autoComplete = _ref.autoComplete,
       defaultOptions = _ref.options,
       onChange = _ref.onChange,
+      printOptions = _ref.printOptions,
+      closeOnSelect = _ref.closeOnSelect,
       className = _ref.className,
       renderValue = _ref.renderValue,
       renderOption = _ref.renderOption,
@@ -54,6 +56,7 @@ var SelectSearch = (0, _react.forwardRef)(function (_ref, ref) {
     search: search,
     onChange: onChange,
     getOptions: getOptions,
+    closeOnSelect: closeOnSelect,
     allowEmpty: !!placeholder
   }),
       snapshot = _useSelect[0],
@@ -90,6 +93,26 @@ var SelectSearch = (0, _react.forwardRef)(function (_ref, ref) {
       selectRef.current.scrollTop = selected.offsetTop - rect.height / 2 + selectedRect.height / 2;
     }
   }, [snapshot.focus, snapshot.value, snapshot.highlighted, selectRef]);
+  var shouldRenderOptions = true;
+
+  switch (printOptions) {
+    case 'never':
+      shouldRenderOptions = false;
+      break;
+
+    case 'always':
+      shouldRenderOptions = true;
+      break;
+
+    case 'on-focus':
+      shouldRenderOptions = snapshot.focus;
+      break;
+
+    default:
+      shouldRenderOptions = !disabled && (snapshot.focus || multiple);
+      break;
+  }
+
   var valueComp = renderValue ? /*#__PURE__*/_react["default"].createElement("div", {
     className: classNameFn('value')
   }, renderValue(_objectSpread({}, valueProps, {
@@ -113,7 +136,7 @@ var SelectSearch = (0, _react.forwardRef)(function (_ref, ref) {
   return /*#__PURE__*/_react["default"].createElement("div", {
     ref: ref,
     className: wrapperClass
-  }, (!multiple || search) && valueComp, !disabled && (snapshot.focus || multiple) && /*#__PURE__*/_react["default"].createElement("div", {
+  }, (!multiple || search) && valueComp, shouldRenderOptions && /*#__PURE__*/_react["default"].createElement("div", {
     className: classNameFn('select'),
     ref: selectRef
   }, /*#__PURE__*/_react["default"].createElement(_Options["default"], {
@@ -135,6 +158,8 @@ SelectSearch.defaultProps = {
   autoComplete: 'on',
   value: '',
   onChange: function onChange() {},
+  printOptions: 'auto',
+  closeOnSelect: true,
   renderOption: null,
   renderGroupHeader: function renderGroupHeader(name) {
     return name;
@@ -158,6 +183,8 @@ SelectSearch.propTypes = {
   autoComplete: _propTypes["default"].oneOf(['on', 'off']),
   autoFocus: _propTypes["default"].bool,
   onChange: _propTypes["default"].func,
+  printOptions: _propTypes["default"].oneOf(['auto', 'always', 'never', 'on-focus']),
+  closeOnSelect: _propTypes["default"].bool,
   renderOption: _propTypes["default"].func,
   renderGroupHeader: _propTypes["default"].func,
   renderValue: _propTypes["default"].func,
