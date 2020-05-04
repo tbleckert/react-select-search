@@ -15,5 +15,9 @@ module.exports = {
     plugins: [
         '@babel/proposal-class-properties',
         '@babel/proposal-object-rest-spread',
+        ['transform-react-remove-prop-types', {
+            mode: 'wrap',
+            ignoreFilenames: ['node_modules'],
+        }],
     ],
 };

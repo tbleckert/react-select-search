@@ -3,10 +3,6 @@
 exports.__esModule = true;
 exports["default"] = flattenOptions;
 
-var _getGroupId = _interopRequireDefault(require("./getGroupId"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
 function flattenOptions(options) {
   if (!Array.isArray(options)) {
     return [];
@@ -15,7 +11,7 @@ function flattenOptions(options) {
   var nextOptions = [];
   options.forEach(function (option, index) {
     if ('type' in option && option.type === 'group') {
-      var id = (0, _getGroupId["default"])(option);
+      var id = option.name.replace(/\s+/g, '-').toLowerCase() + "-" + index;
       option.items.forEach(function (groupOption) {
         var nextGroupOption = Object.assign({}, groupOption);
         nextGroupOption.groupId = id;

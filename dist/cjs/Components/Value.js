@@ -47,7 +47,7 @@ Value.defaultProps = {
   autoComplete: 'on',
   placeholder: null
 };
-Value.propTypes = {
+Value.propTypes = process.env.NODE_ENV !== "production" ? {
   className: _propTypes["default"].func.isRequired,
   displayValue: _propTypes["default"].string.isRequired,
   valueProps: _propTypes["default"].shape({
@@ -61,7 +61,7 @@ Value.propTypes = {
   autoComplete: _propTypes["default"].string,
   placeholder: _propTypes["default"].string,
   autoFocus: _propTypes["default"].bool
-};
+} : {};
 
 var _default = (0, _react.memo)(Value);
 

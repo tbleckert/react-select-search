@@ -146,7 +146,7 @@ SelectSearch.defaultProps = {
   },
   getOptions: null
 };
-SelectSearch.propTypes = {
+SelectSearch.propTypes = process.env.NODE_ENV !== "production" ? {
   options: PropTypes.arrayOf(optionType).isRequired,
   getOptions: PropTypes.func,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
@@ -167,5 +167,5 @@ SelectSearch.propTypes = {
     keys: PropTypes.arrayOf(PropTypes.string),
     threshold: PropTypes.number
   })])
-};
+} : {};
 export default memo(SelectSearch);

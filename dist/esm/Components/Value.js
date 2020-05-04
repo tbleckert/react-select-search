@@ -34,7 +34,7 @@ Value.defaultProps = {
   autoComplete: 'on',
   placeholder: null
 };
-Value.propTypes = {
+Value.propTypes = process.env.NODE_ENV !== "production" ? {
   className: PropTypes.func.isRequired,
   displayValue: PropTypes.string.isRequired,
   valueProps: PropTypes.shape({
@@ -48,5 +48,5 @@ Value.propTypes = {
   autoComplete: PropTypes.string,
   placeholder: PropTypes.string,
   autoFocus: PropTypes.bool
-};
+} : {};
 export default memo(Value);

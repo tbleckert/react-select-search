@@ -48,7 +48,7 @@ Options.defaultProps = {
   renderOption: null,
   renderGroupHeader: name => name
 };
-Options.propTypes = {
+Options.propTypes = process.env.NODE_ENV !== "production" ? {
   options: PropTypes.arrayOf(optionType).isRequired,
   snapshot: PropTypes.shape({
     value: valueType,
@@ -62,5 +62,5 @@ Options.propTypes = {
   className: PropTypes.func.isRequired,
   renderOption: PropTypes.func,
   renderGroupHeader: PropTypes.func
-};
+} : {};
 export default memo(Options);

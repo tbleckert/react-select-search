@@ -12,6 +12,7 @@ exports[`Test SelectSearch component Class name as fn 1`] = `
       className="class-base__input"
       disabled={false}
       onBlur={[Function]}
+      onChange={null}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyPress={[Function]}
@@ -37,6 +38,7 @@ exports[`Test SelectSearch component Class name as string 1`] = `
       className="select-search__input"
       disabled={false}
       onBlur={[Function]}
+      onChange={null}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyPress={[Function]}
@@ -124,6 +126,7 @@ exports[`Test SelectSearch component Custom renderers work 1`] = `
         autoFocus={null}
         className="select-search__input"
         onBlur={[Function]}
+        onChange={null}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyPress={[Function]}
@@ -217,6 +220,7 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
         autoFocus={null}
         className="select-search__input"
         onBlur={[Function]}
+        onChange={null}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyPress={[Function]}
@@ -251,11 +255,11 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
               "value": "helvetica",
             },
             Object {
-              "groupId": "Sans serif",
+              "groupId": "sans-serif-1",
               "items": Array [
                 Object {
                   "data-stack": "Roboto, sans-serif",
-                  "groupId": "Sans serif",
+                  "groupId": "sans-serif-1",
                   "groupName": "Sans serif",
                   "index": 1,
                   "name": "Roboto",
@@ -266,11 +270,11 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
               "type": "group",
             },
             Object {
-              "groupId": "Serif",
+              "groupId": "serif-2",
               "items": Array [
                 Object {
                   "data-stack": "\\"Playfair Display\\", serif",
-                  "groupId": "Serif",
+                  "groupId": "serif-2",
                   "groupName": "Serif",
                   "index": 2,
                   "name": "Playfair Display",
@@ -281,11 +285,11 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
               "type": "group",
             },
             Object {
-              "groupId": "Cursive",
+              "groupId": "cursive-3",
               "items": Array [
                 Object {
                   "data-stack": "Monoton, cursive",
-                  "groupId": "Cursive",
+                  "groupId": "cursive-3",
                   "groupName": "Cursive",
                   "index": 3,
                   "name": "Monoton",
@@ -293,7 +297,7 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
                 },
                 Object {
                   "data-stack": "\\"Gloria Hallelujah\\", cursive",
-                  "groupId": "Cursive",
+                  "groupId": "cursive-3",
                   "groupName": "Cursive",
                   "index": 4,
                   "name": "Gloria Hallelujah",
@@ -304,11 +308,11 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
               "type": "group",
             },
             Object {
-              "groupId": "Monospace",
+              "groupId": "monospace-4",
               "items": Array [
                 Object {
                   "data-stack": "VT323, monospace",
-                  "groupId": "Monospace",
+                  "groupId": "monospace-4",
                   "groupName": "Monospace",
                   "index": 5,
                   "name": "VT323",
@@ -335,11 +339,11 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
                 "value": "helvetica",
               },
               Object {
-                "groupId": "Sans serif",
+                "groupId": "sans-serif-1",
                 "items": Array [
                   Object {
                     "data-stack": "Roboto, sans-serif",
-                    "groupId": "Sans serif",
+                    "groupId": "sans-serif-1",
                     "groupName": "Sans serif",
                     "index": 1,
                     "name": "Roboto",
@@ -350,11 +354,11 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
                 "type": "group",
               },
               Object {
-                "groupId": "Serif",
+                "groupId": "serif-2",
                 "items": Array [
                   Object {
                     "data-stack": "\\"Playfair Display\\", serif",
-                    "groupId": "Serif",
+                    "groupId": "serif-2",
                     "groupName": "Serif",
                     "index": 2,
                     "name": "Playfair Display",
@@ -365,11 +369,11 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
                 "type": "group",
               },
               Object {
-                "groupId": "Cursive",
+                "groupId": "cursive-3",
                 "items": Array [
                   Object {
                     "data-stack": "Monoton, cursive",
-                    "groupId": "Cursive",
+                    "groupId": "cursive-3",
                     "groupName": "Cursive",
                     "index": 3,
                     "name": "Monoton",
@@ -377,7 +381,7 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
                   },
                   Object {
                     "data-stack": "\\"Gloria Hallelujah\\", cursive",
-                    "groupId": "Cursive",
+                    "groupId": "cursive-3",
                     "groupName": "Cursive",
                     "index": 4,
                     "name": "Gloria Hallelujah",
@@ -388,11 +392,11 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
                 "type": "group",
               },
               Object {
-                "groupId": "Monospace",
+                "groupId": "monospace-4",
                 "items": Array [
                   Object {
                     "data-stack": "VT323, monospace",
-                    "groupId": "Monospace",
+                    "groupId": "monospace-4",
                     "groupName": "Monospace",
                     "index": 5,
                     "name": "VT323",
@@ -461,7 +465,7 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
           </Option>
           <li
             className="select-search__row"
-            key="Sans serif"
+            key="sans-serif-1"
             role="none"
           >
             <div
@@ -484,7 +488,7 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
                   Array [
                     Object {
                       "data-stack": "Roboto, sans-serif",
-                      "groupId": "Sans serif",
+                      "groupId": "sans-serif-1",
                       "groupName": "Sans serif",
                       "index": 1,
                       "name": "Roboto",
@@ -507,11 +511,11 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
                         "value": "helvetica",
                       },
                       Object {
-                        "groupId": "Sans serif",
+                        "groupId": "sans-serif-1",
                         "items": Array [
                           Object {
                             "data-stack": "Roboto, sans-serif",
-                            "groupId": "Sans serif",
+                            "groupId": "sans-serif-1",
                             "groupName": "Sans serif",
                             "index": 1,
                             "name": "Roboto",
@@ -522,11 +526,11 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
                         "type": "group",
                       },
                       Object {
-                        "groupId": "Serif",
+                        "groupId": "serif-2",
                         "items": Array [
                           Object {
                             "data-stack": "\\"Playfair Display\\", serif",
-                            "groupId": "Serif",
+                            "groupId": "serif-2",
                             "groupName": "Serif",
                             "index": 2,
                             "name": "Playfair Display",
@@ -537,11 +541,11 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
                         "type": "group",
                       },
                       Object {
-                        "groupId": "Cursive",
+                        "groupId": "cursive-3",
                         "items": Array [
                           Object {
                             "data-stack": "Monoton, cursive",
-                            "groupId": "Cursive",
+                            "groupId": "cursive-3",
                             "groupName": "Cursive",
                             "index": 3,
                             "name": "Monoton",
@@ -549,7 +553,7 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
                           },
                           Object {
                             "data-stack": "\\"Gloria Hallelujah\\", cursive",
-                            "groupId": "Cursive",
+                            "groupId": "cursive-3",
                             "groupName": "Cursive",
                             "index": 4,
                             "name": "Gloria Hallelujah",
@@ -560,11 +564,11 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
                         "type": "group",
                       },
                       Object {
-                        "groupId": "Monospace",
+                        "groupId": "monospace-4",
                         "items": Array [
                           Object {
                             "data-stack": "VT323, monospace",
-                            "groupId": "Monospace",
+                            "groupId": "monospace-4",
                             "groupName": "Monospace",
                             "index": 5,
                             "name": "VT323",
@@ -591,7 +595,7 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
                   <Option
                     className={[Function]}
                     data-stack="Roboto, sans-serif"
-                    groupId="Sans serif"
+                    groupId="sans-serif-1"
                     groupName="Sans serif"
                     highlighted={false}
                     index={1}
@@ -640,7 +644,7 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
           </li>
           <li
             className="select-search__row"
-            key="Serif"
+            key="serif-2"
             role="none"
           >
             <div
@@ -663,7 +667,7 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
                   Array [
                     Object {
                       "data-stack": "\\"Playfair Display\\", serif",
-                      "groupId": "Serif",
+                      "groupId": "serif-2",
                       "groupName": "Serif",
                       "index": 2,
                       "name": "Playfair Display",
@@ -686,11 +690,11 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
                         "value": "helvetica",
                       },
                       Object {
-                        "groupId": "Sans serif",
+                        "groupId": "sans-serif-1",
                         "items": Array [
                           Object {
                             "data-stack": "Roboto, sans-serif",
-                            "groupId": "Sans serif",
+                            "groupId": "sans-serif-1",
                             "groupName": "Sans serif",
                             "index": 1,
                             "name": "Roboto",
@@ -701,11 +705,11 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
                         "type": "group",
                       },
                       Object {
-                        "groupId": "Serif",
+                        "groupId": "serif-2",
                         "items": Array [
                           Object {
                             "data-stack": "\\"Playfair Display\\", serif",
-                            "groupId": "Serif",
+                            "groupId": "serif-2",
                             "groupName": "Serif",
                             "index": 2,
                             "name": "Playfair Display",
@@ -716,11 +720,11 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
                         "type": "group",
                       },
                       Object {
-                        "groupId": "Cursive",
+                        "groupId": "cursive-3",
                         "items": Array [
                           Object {
                             "data-stack": "Monoton, cursive",
-                            "groupId": "Cursive",
+                            "groupId": "cursive-3",
                             "groupName": "Cursive",
                             "index": 3,
                             "name": "Monoton",
@@ -728,7 +732,7 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
                           },
                           Object {
                             "data-stack": "\\"Gloria Hallelujah\\", cursive",
-                            "groupId": "Cursive",
+                            "groupId": "cursive-3",
                             "groupName": "Cursive",
                             "index": 4,
                             "name": "Gloria Hallelujah",
@@ -739,11 +743,11 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
                         "type": "group",
                       },
                       Object {
-                        "groupId": "Monospace",
+                        "groupId": "monospace-4",
                         "items": Array [
                           Object {
                             "data-stack": "VT323, monospace",
-                            "groupId": "Monospace",
+                            "groupId": "monospace-4",
                             "groupName": "Monospace",
                             "index": 5,
                             "name": "VT323",
@@ -770,7 +774,7 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
                   <Option
                     className={[Function]}
                     data-stack="\\"Playfair Display\\", serif"
-                    groupId="Serif"
+                    groupId="serif-2"
                     groupName="Serif"
                     highlighted={false}
                     index={2}
@@ -819,7 +823,7 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
           </li>
           <li
             className="select-search__row"
-            key="Cursive"
+            key="cursive-3"
             role="none"
           >
             <div
@@ -842,7 +846,7 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
                   Array [
                     Object {
                       "data-stack": "Monoton, cursive",
-                      "groupId": "Cursive",
+                      "groupId": "cursive-3",
                       "groupName": "Cursive",
                       "index": 3,
                       "name": "Monoton",
@@ -850,7 +854,7 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
                     },
                     Object {
                       "data-stack": "\\"Gloria Hallelujah\\", cursive",
-                      "groupId": "Cursive",
+                      "groupId": "cursive-3",
                       "groupName": "Cursive",
                       "index": 4,
                       "name": "Gloria Hallelujah",
@@ -873,11 +877,11 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
                         "value": "helvetica",
                       },
                       Object {
-                        "groupId": "Sans serif",
+                        "groupId": "sans-serif-1",
                         "items": Array [
                           Object {
                             "data-stack": "Roboto, sans-serif",
-                            "groupId": "Sans serif",
+                            "groupId": "sans-serif-1",
                             "groupName": "Sans serif",
                             "index": 1,
                             "name": "Roboto",
@@ -888,11 +892,11 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
                         "type": "group",
                       },
                       Object {
-                        "groupId": "Serif",
+                        "groupId": "serif-2",
                         "items": Array [
                           Object {
                             "data-stack": "\\"Playfair Display\\", serif",
-                            "groupId": "Serif",
+                            "groupId": "serif-2",
                             "groupName": "Serif",
                             "index": 2,
                             "name": "Playfair Display",
@@ -903,11 +907,11 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
                         "type": "group",
                       },
                       Object {
-                        "groupId": "Cursive",
+                        "groupId": "cursive-3",
                         "items": Array [
                           Object {
                             "data-stack": "Monoton, cursive",
-                            "groupId": "Cursive",
+                            "groupId": "cursive-3",
                             "groupName": "Cursive",
                             "index": 3,
                             "name": "Monoton",
@@ -915,7 +919,7 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
                           },
                           Object {
                             "data-stack": "\\"Gloria Hallelujah\\", cursive",
-                            "groupId": "Cursive",
+                            "groupId": "cursive-3",
                             "groupName": "Cursive",
                             "index": 4,
                             "name": "Gloria Hallelujah",
@@ -926,11 +930,11 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
                         "type": "group",
                       },
                       Object {
-                        "groupId": "Monospace",
+                        "groupId": "monospace-4",
                         "items": Array [
                           Object {
                             "data-stack": "VT323, monospace",
-                            "groupId": "Monospace",
+                            "groupId": "monospace-4",
                             "groupName": "Monospace",
                             "index": 5,
                             "name": "VT323",
@@ -957,7 +961,7 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
                   <Option
                     className={[Function]}
                     data-stack="Monoton, cursive"
-                    groupId="Cursive"
+                    groupId="cursive-3"
                     groupName="Cursive"
                     highlighted={false}
                     index={3}
@@ -1003,7 +1007,7 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
                   <Option
                     className={[Function]}
                     data-stack="\\"Gloria Hallelujah\\", cursive"
-                    groupId="Cursive"
+                    groupId="cursive-3"
                     groupName="Cursive"
                     highlighted={false}
                     index={4}
@@ -1052,7 +1056,7 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
           </li>
           <li
             className="select-search__row"
-            key="Monospace"
+            key="monospace-4"
             role="none"
           >
             <div
@@ -1075,7 +1079,7 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
                   Array [
                     Object {
                       "data-stack": "VT323, monospace",
-                      "groupId": "Monospace",
+                      "groupId": "monospace-4",
                       "groupName": "Monospace",
                       "index": 5,
                       "name": "VT323",
@@ -1098,11 +1102,11 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
                         "value": "helvetica",
                       },
                       Object {
-                        "groupId": "Sans serif",
+                        "groupId": "sans-serif-1",
                         "items": Array [
                           Object {
                             "data-stack": "Roboto, sans-serif",
-                            "groupId": "Sans serif",
+                            "groupId": "sans-serif-1",
                             "groupName": "Sans serif",
                             "index": 1,
                             "name": "Roboto",
@@ -1113,11 +1117,11 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
                         "type": "group",
                       },
                       Object {
-                        "groupId": "Serif",
+                        "groupId": "serif-2",
                         "items": Array [
                           Object {
                             "data-stack": "\\"Playfair Display\\", serif",
-                            "groupId": "Serif",
+                            "groupId": "serif-2",
                             "groupName": "Serif",
                             "index": 2,
                             "name": "Playfair Display",
@@ -1128,11 +1132,11 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
                         "type": "group",
                       },
                       Object {
-                        "groupId": "Cursive",
+                        "groupId": "cursive-3",
                         "items": Array [
                           Object {
                             "data-stack": "Monoton, cursive",
-                            "groupId": "Cursive",
+                            "groupId": "cursive-3",
                             "groupName": "Cursive",
                             "index": 3,
                             "name": "Monoton",
@@ -1140,7 +1144,7 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
                           },
                           Object {
                             "data-stack": "\\"Gloria Hallelujah\\", cursive",
-                            "groupId": "Cursive",
+                            "groupId": "cursive-3",
                             "groupName": "Cursive",
                             "index": 4,
                             "name": "Gloria Hallelujah",
@@ -1151,11 +1155,11 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
                         "type": "group",
                       },
                       Object {
-                        "groupId": "Monospace",
+                        "groupId": "monospace-4",
                         "items": Array [
                           Object {
                             "data-stack": "VT323, monospace",
-                            "groupId": "Monospace",
+                            "groupId": "monospace-4",
                             "groupName": "Monospace",
                             "index": 5,
                             "name": "VT323",
@@ -1182,7 +1186,7 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
                   <Option
                     className={[Function]}
                     data-stack="VT323, monospace"
-                    groupId="Monospace"
+                    groupId="monospace-4"
                     groupName="Monospace"
                     highlighted={false}
                     index={5}
@@ -1441,11 +1445,11 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
               "value": "helvetica",
             },
             Object {
-              "groupId": "Sans serif",
+              "groupId": "sans-serif-1",
               "items": Array [
                 Object {
                   "data-stack": "Roboto, sans-serif",
-                  "groupId": "Sans serif",
+                  "groupId": "sans-serif-1",
                   "groupName": "Sans serif",
                   "index": 1,
                   "name": "Roboto",
@@ -1456,11 +1460,11 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
               "type": "group",
             },
             Object {
-              "groupId": "Serif",
+              "groupId": "serif-2",
               "items": Array [
                 Object {
                   "data-stack": "\\"Playfair Display\\", serif",
-                  "groupId": "Serif",
+                  "groupId": "serif-2",
                   "groupName": "Serif",
                   "index": 2,
                   "name": "Playfair Display",
@@ -1471,11 +1475,11 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
               "type": "group",
             },
             Object {
-              "groupId": "Cursive",
+              "groupId": "cursive-3",
               "items": Array [
                 Object {
                   "data-stack": "Monoton, cursive",
-                  "groupId": "Cursive",
+                  "groupId": "cursive-3",
                   "groupName": "Cursive",
                   "index": 3,
                   "name": "Monoton",
@@ -1483,7 +1487,7 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
                 },
                 Object {
                   "data-stack": "\\"Gloria Hallelujah\\", cursive",
-                  "groupId": "Cursive",
+                  "groupId": "cursive-3",
                   "groupName": "Cursive",
                   "index": 4,
                   "name": "Gloria Hallelujah",
@@ -1494,11 +1498,11 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
               "type": "group",
             },
             Object {
-              "groupId": "Monospace",
+              "groupId": "monospace-4",
               "items": Array [
                 Object {
                   "data-stack": "VT323, monospace",
-                  "groupId": "Monospace",
+                  "groupId": "monospace-4",
                   "groupName": "Monospace",
                   "index": 5,
                   "name": "VT323",
@@ -1525,11 +1529,11 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
                 "value": "helvetica",
               },
               Object {
-                "groupId": "Sans serif",
+                "groupId": "sans-serif-1",
                 "items": Array [
                   Object {
                     "data-stack": "Roboto, sans-serif",
-                    "groupId": "Sans serif",
+                    "groupId": "sans-serif-1",
                     "groupName": "Sans serif",
                     "index": 1,
                     "name": "Roboto",
@@ -1540,11 +1544,11 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
                 "type": "group",
               },
               Object {
-                "groupId": "Serif",
+                "groupId": "serif-2",
                 "items": Array [
                   Object {
                     "data-stack": "\\"Playfair Display\\", serif",
-                    "groupId": "Serif",
+                    "groupId": "serif-2",
                     "groupName": "Serif",
                     "index": 2,
                     "name": "Playfair Display",
@@ -1555,11 +1559,11 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
                 "type": "group",
               },
               Object {
-                "groupId": "Cursive",
+                "groupId": "cursive-3",
                 "items": Array [
                   Object {
                     "data-stack": "Monoton, cursive",
-                    "groupId": "Cursive",
+                    "groupId": "cursive-3",
                     "groupName": "Cursive",
                     "index": 3,
                     "name": "Monoton",
@@ -1567,7 +1571,7 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
                   },
                   Object {
                     "data-stack": "\\"Gloria Hallelujah\\", cursive",
-                    "groupId": "Cursive",
+                    "groupId": "cursive-3",
                     "groupName": "Cursive",
                     "index": 4,
                     "name": "Gloria Hallelujah",
@@ -1578,11 +1582,11 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
                 "type": "group",
               },
               Object {
-                "groupId": "Monospace",
+                "groupId": "monospace-4",
                 "items": Array [
                   Object {
                     "data-stack": "VT323, monospace",
-                    "groupId": "Monospace",
+                    "groupId": "monospace-4",
                     "groupName": "Monospace",
                     "index": 5,
                     "name": "VT323",
@@ -1651,7 +1655,7 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
           </Option>
           <li
             className="select-search__row"
-            key="Sans serif"
+            key="sans-serif-1"
             role="none"
           >
             <div
@@ -1674,7 +1678,7 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
                   Array [
                     Object {
                       "data-stack": "Roboto, sans-serif",
-                      "groupId": "Sans serif",
+                      "groupId": "sans-serif-1",
                       "groupName": "Sans serif",
                       "index": 1,
                       "name": "Roboto",
@@ -1697,11 +1701,11 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
                         "value": "helvetica",
                       },
                       Object {
-                        "groupId": "Sans serif",
+                        "groupId": "sans-serif-1",
                         "items": Array [
                           Object {
                             "data-stack": "Roboto, sans-serif",
-                            "groupId": "Sans serif",
+                            "groupId": "sans-serif-1",
                             "groupName": "Sans serif",
                             "index": 1,
                             "name": "Roboto",
@@ -1712,11 +1716,11 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
                         "type": "group",
                       },
                       Object {
-                        "groupId": "Serif",
+                        "groupId": "serif-2",
                         "items": Array [
                           Object {
                             "data-stack": "\\"Playfair Display\\", serif",
-                            "groupId": "Serif",
+                            "groupId": "serif-2",
                             "groupName": "Serif",
                             "index": 2,
                             "name": "Playfair Display",
@@ -1727,11 +1731,11 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
                         "type": "group",
                       },
                       Object {
-                        "groupId": "Cursive",
+                        "groupId": "cursive-3",
                         "items": Array [
                           Object {
                             "data-stack": "Monoton, cursive",
-                            "groupId": "Cursive",
+                            "groupId": "cursive-3",
                             "groupName": "Cursive",
                             "index": 3,
                             "name": "Monoton",
@@ -1739,7 +1743,7 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
                           },
                           Object {
                             "data-stack": "\\"Gloria Hallelujah\\", cursive",
-                            "groupId": "Cursive",
+                            "groupId": "cursive-3",
                             "groupName": "Cursive",
                             "index": 4,
                             "name": "Gloria Hallelujah",
@@ -1750,11 +1754,11 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
                         "type": "group",
                       },
                       Object {
-                        "groupId": "Monospace",
+                        "groupId": "monospace-4",
                         "items": Array [
                           Object {
                             "data-stack": "VT323, monospace",
-                            "groupId": "Monospace",
+                            "groupId": "monospace-4",
                             "groupName": "Monospace",
                             "index": 5,
                             "name": "VT323",
@@ -1781,7 +1785,7 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
                   <Option
                     className={[Function]}
                     data-stack="Roboto, sans-serif"
-                    groupId="Sans serif"
+                    groupId="sans-serif-1"
                     groupName="Sans serif"
                     highlighted={false}
                     index={1}
@@ -1830,7 +1834,7 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
           </li>
           <li
             className="select-search__row"
-            key="Serif"
+            key="serif-2"
             role="none"
           >
             <div
@@ -1853,7 +1857,7 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
                   Array [
                     Object {
                       "data-stack": "\\"Playfair Display\\", serif",
-                      "groupId": "Serif",
+                      "groupId": "serif-2",
                       "groupName": "Serif",
                       "index": 2,
                       "name": "Playfair Display",
@@ -1876,11 +1880,11 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
                         "value": "helvetica",
                       },
                       Object {
-                        "groupId": "Sans serif",
+                        "groupId": "sans-serif-1",
                         "items": Array [
                           Object {
                             "data-stack": "Roboto, sans-serif",
-                            "groupId": "Sans serif",
+                            "groupId": "sans-serif-1",
                             "groupName": "Sans serif",
                             "index": 1,
                             "name": "Roboto",
@@ -1891,11 +1895,11 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
                         "type": "group",
                       },
                       Object {
-                        "groupId": "Serif",
+                        "groupId": "serif-2",
                         "items": Array [
                           Object {
                             "data-stack": "\\"Playfair Display\\", serif",
-                            "groupId": "Serif",
+                            "groupId": "serif-2",
                             "groupName": "Serif",
                             "index": 2,
                             "name": "Playfair Display",
@@ -1906,11 +1910,11 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
                         "type": "group",
                       },
                       Object {
-                        "groupId": "Cursive",
+                        "groupId": "cursive-3",
                         "items": Array [
                           Object {
                             "data-stack": "Monoton, cursive",
-                            "groupId": "Cursive",
+                            "groupId": "cursive-3",
                             "groupName": "Cursive",
                             "index": 3,
                             "name": "Monoton",
@@ -1918,7 +1922,7 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
                           },
                           Object {
                             "data-stack": "\\"Gloria Hallelujah\\", cursive",
-                            "groupId": "Cursive",
+                            "groupId": "cursive-3",
                             "groupName": "Cursive",
                             "index": 4,
                             "name": "Gloria Hallelujah",
@@ -1929,11 +1933,11 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
                         "type": "group",
                       },
                       Object {
-                        "groupId": "Monospace",
+                        "groupId": "monospace-4",
                         "items": Array [
                           Object {
                             "data-stack": "VT323, monospace",
-                            "groupId": "Monospace",
+                            "groupId": "monospace-4",
                             "groupName": "Monospace",
                             "index": 5,
                             "name": "VT323",
@@ -1960,7 +1964,7 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
                   <Option
                     className={[Function]}
                     data-stack="\\"Playfair Display\\", serif"
-                    groupId="Serif"
+                    groupId="serif-2"
                     groupName="Serif"
                     highlighted={false}
                     index={2}
@@ -2009,7 +2013,7 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
           </li>
           <li
             className="select-search__row"
-            key="Cursive"
+            key="cursive-3"
             role="none"
           >
             <div
@@ -2032,7 +2036,7 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
                   Array [
                     Object {
                       "data-stack": "Monoton, cursive",
-                      "groupId": "Cursive",
+                      "groupId": "cursive-3",
                       "groupName": "Cursive",
                       "index": 3,
                       "name": "Monoton",
@@ -2040,7 +2044,7 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
                     },
                     Object {
                       "data-stack": "\\"Gloria Hallelujah\\", cursive",
-                      "groupId": "Cursive",
+                      "groupId": "cursive-3",
                       "groupName": "Cursive",
                       "index": 4,
                       "name": "Gloria Hallelujah",
@@ -2063,11 +2067,11 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
                         "value": "helvetica",
                       },
                       Object {
-                        "groupId": "Sans serif",
+                        "groupId": "sans-serif-1",
                         "items": Array [
                           Object {
                             "data-stack": "Roboto, sans-serif",
-                            "groupId": "Sans serif",
+                            "groupId": "sans-serif-1",
                             "groupName": "Sans serif",
                             "index": 1,
                             "name": "Roboto",
@@ -2078,11 +2082,11 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
                         "type": "group",
                       },
                       Object {
-                        "groupId": "Serif",
+                        "groupId": "serif-2",
                         "items": Array [
                           Object {
                             "data-stack": "\\"Playfair Display\\", serif",
-                            "groupId": "Serif",
+                            "groupId": "serif-2",
                             "groupName": "Serif",
                             "index": 2,
                             "name": "Playfair Display",
@@ -2093,11 +2097,11 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
                         "type": "group",
                       },
                       Object {
-                        "groupId": "Cursive",
+                        "groupId": "cursive-3",
                         "items": Array [
                           Object {
                             "data-stack": "Monoton, cursive",
-                            "groupId": "Cursive",
+                            "groupId": "cursive-3",
                             "groupName": "Cursive",
                             "index": 3,
                             "name": "Monoton",
@@ -2105,7 +2109,7 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
                           },
                           Object {
                             "data-stack": "\\"Gloria Hallelujah\\", cursive",
-                            "groupId": "Cursive",
+                            "groupId": "cursive-3",
                             "groupName": "Cursive",
                             "index": 4,
                             "name": "Gloria Hallelujah",
@@ -2116,11 +2120,11 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
                         "type": "group",
                       },
                       Object {
-                        "groupId": "Monospace",
+                        "groupId": "monospace-4",
                         "items": Array [
                           Object {
                             "data-stack": "VT323, monospace",
-                            "groupId": "Monospace",
+                            "groupId": "monospace-4",
                             "groupName": "Monospace",
                             "index": 5,
                             "name": "VT323",
@@ -2147,7 +2151,7 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
                   <Option
                     className={[Function]}
                     data-stack="Monoton, cursive"
-                    groupId="Cursive"
+                    groupId="cursive-3"
                     groupName="Cursive"
                     highlighted={false}
                     index={3}
@@ -2193,7 +2197,7 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
                   <Option
                     className={[Function]}
                     data-stack="\\"Gloria Hallelujah\\", cursive"
-                    groupId="Cursive"
+                    groupId="cursive-3"
                     groupName="Cursive"
                     highlighted={false}
                     index={4}
@@ -2242,7 +2246,7 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
           </li>
           <li
             className="select-search__row"
-            key="Monospace"
+            key="monospace-4"
             role="none"
           >
             <div
@@ -2265,7 +2269,7 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
                   Array [
                     Object {
                       "data-stack": "VT323, monospace",
-                      "groupId": "Monospace",
+                      "groupId": "monospace-4",
                       "groupName": "Monospace",
                       "index": 5,
                       "name": "VT323",
@@ -2288,11 +2292,11 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
                         "value": "helvetica",
                       },
                       Object {
-                        "groupId": "Sans serif",
+                        "groupId": "sans-serif-1",
                         "items": Array [
                           Object {
                             "data-stack": "Roboto, sans-serif",
-                            "groupId": "Sans serif",
+                            "groupId": "sans-serif-1",
                             "groupName": "Sans serif",
                             "index": 1,
                             "name": "Roboto",
@@ -2303,11 +2307,11 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
                         "type": "group",
                       },
                       Object {
-                        "groupId": "Serif",
+                        "groupId": "serif-2",
                         "items": Array [
                           Object {
                             "data-stack": "\\"Playfair Display\\", serif",
-                            "groupId": "Serif",
+                            "groupId": "serif-2",
                             "groupName": "Serif",
                             "index": 2,
                             "name": "Playfair Display",
@@ -2318,11 +2322,11 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
                         "type": "group",
                       },
                       Object {
-                        "groupId": "Cursive",
+                        "groupId": "cursive-3",
                         "items": Array [
                           Object {
                             "data-stack": "Monoton, cursive",
-                            "groupId": "Cursive",
+                            "groupId": "cursive-3",
                             "groupName": "Cursive",
                             "index": 3,
                             "name": "Monoton",
@@ -2330,7 +2334,7 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
                           },
                           Object {
                             "data-stack": "\\"Gloria Hallelujah\\", cursive",
-                            "groupId": "Cursive",
+                            "groupId": "cursive-3",
                             "groupName": "Cursive",
                             "index": 4,
                             "name": "Gloria Hallelujah",
@@ -2341,11 +2345,11 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
                         "type": "group",
                       },
                       Object {
-                        "groupId": "Monospace",
+                        "groupId": "monospace-4",
                         "items": Array [
                           Object {
                             "data-stack": "VT323, monospace",
-                            "groupId": "Monospace",
+                            "groupId": "monospace-4",
                             "groupName": "Monospace",
                             "index": 5,
                             "name": "VT323",
@@ -2372,7 +2376,7 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
                   <Option
                     className={[Function]}
                     data-stack="VT323, monospace"
-                    groupId="Monospace"
+                    groupId="monospace-4"
                     groupName="Monospace"
                     highlighted={false}
                     index={5}
@@ -2484,6 +2488,7 @@ exports[`Test SelectSearch component Focus displays options 1`] = `
       valueProps={
         Object {
           "onBlur": [Function],
+          "onChange": null,
           "onFocus": [Function],
           "onKeyDown": [Function],
           "onKeyPress": [Function],
@@ -2509,6 +2514,7 @@ exports[`Test SelectSearch component Focus displays options 1`] = `
           className="select-search__input"
           disabled={false}
           onBlur={[Function]}
+          onChange={null}
           onFocus={[Function]}
           onKeyDown={[Function]}
           onKeyPress={[Function]}
@@ -2582,6 +2588,7 @@ exports[`Test SelectSearch component Focus displays options 2`] = `
       valueProps={
         Object {
           "onBlur": [Function],
+          "onChange": null,
           "onFocus": [Function],
           "onKeyDown": [Function],
           "onKeyPress": [Function],
@@ -2607,6 +2614,7 @@ exports[`Test SelectSearch component Focus displays options 2`] = `
           className="select-search__input"
           disabled={false}
           onBlur={[Function]}
+          onChange={null}
           onFocus={[Function]}
           onKeyDown={[Function]}
           onKeyPress={[Function]}
@@ -2824,6 +2832,7 @@ exports[`Test SelectSearch component Renders groups 1`] = `
         autoFocus={null}
         className="select-search__input"
         onBlur={[Function]}
+        onChange={null}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyPress={[Function]}
@@ -2916,6 +2925,7 @@ exports[`Test SelectSearch component Renders groups 2`] = `
         autoFocus={null}
         className="select-search__input"
         onBlur={[Function]}
+        onChange={null}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyPress={[Function]}
@@ -2950,11 +2960,11 @@ exports[`Test SelectSearch component Renders groups 2`] = `
               "value": "helvetica",
             },
             Object {
-              "groupId": "Sans serif",
+              "groupId": "sans-serif-1",
               "items": Array [
                 Object {
                   "data-stack": "Roboto, sans-serif",
-                  "groupId": "Sans serif",
+                  "groupId": "sans-serif-1",
                   "groupName": "Sans serif",
                   "index": 1,
                   "name": "Roboto",
@@ -2965,11 +2975,11 @@ exports[`Test SelectSearch component Renders groups 2`] = `
               "type": "group",
             },
             Object {
-              "groupId": "Serif",
+              "groupId": "serif-2",
               "items": Array [
                 Object {
                   "data-stack": "\\"Playfair Display\\", serif",
-                  "groupId": "Serif",
+                  "groupId": "serif-2",
                   "groupName": "Serif",
                   "index": 2,
                   "name": "Playfair Display",
@@ -2980,11 +2990,11 @@ exports[`Test SelectSearch component Renders groups 2`] = `
               "type": "group",
             },
             Object {
-              "groupId": "Cursive",
+              "groupId": "cursive-3",
               "items": Array [
                 Object {
                   "data-stack": "Monoton, cursive",
-                  "groupId": "Cursive",
+                  "groupId": "cursive-3",
                   "groupName": "Cursive",
                   "index": 3,
                   "name": "Monoton",
@@ -2992,7 +3002,7 @@ exports[`Test SelectSearch component Renders groups 2`] = `
                 },
                 Object {
                   "data-stack": "\\"Gloria Hallelujah\\", cursive",
-                  "groupId": "Cursive",
+                  "groupId": "cursive-3",
                   "groupName": "Cursive",
                   "index": 4,
                   "name": "Gloria Hallelujah",
@@ -3003,11 +3013,11 @@ exports[`Test SelectSearch component Renders groups 2`] = `
               "type": "group",
             },
             Object {
-              "groupId": "Monospace",
+              "groupId": "monospace-4",
               "items": Array [
                 Object {
                   "data-stack": "VT323, monospace",
-                  "groupId": "Monospace",
+                  "groupId": "monospace-4",
                   "groupName": "Monospace",
                   "index": 5,
                   "name": "VT323",
@@ -3034,11 +3044,11 @@ exports[`Test SelectSearch component Renders groups 2`] = `
                 "value": "helvetica",
               },
               Object {
-                "groupId": "Sans serif",
+                "groupId": "sans-serif-1",
                 "items": Array [
                   Object {
                     "data-stack": "Roboto, sans-serif",
-                    "groupId": "Sans serif",
+                    "groupId": "sans-serif-1",
                     "groupName": "Sans serif",
                     "index": 1,
                     "name": "Roboto",
@@ -3049,11 +3059,11 @@ exports[`Test SelectSearch component Renders groups 2`] = `
                 "type": "group",
               },
               Object {
-                "groupId": "Serif",
+                "groupId": "serif-2",
                 "items": Array [
                   Object {
                     "data-stack": "\\"Playfair Display\\", serif",
-                    "groupId": "Serif",
+                    "groupId": "serif-2",
                     "groupName": "Serif",
                     "index": 2,
                     "name": "Playfair Display",
@@ -3064,11 +3074,11 @@ exports[`Test SelectSearch component Renders groups 2`] = `
                 "type": "group",
               },
               Object {
-                "groupId": "Cursive",
+                "groupId": "cursive-3",
                 "items": Array [
                   Object {
                     "data-stack": "Monoton, cursive",
-                    "groupId": "Cursive",
+                    "groupId": "cursive-3",
                     "groupName": "Cursive",
                     "index": 3,
                     "name": "Monoton",
@@ -3076,7 +3086,7 @@ exports[`Test SelectSearch component Renders groups 2`] = `
                   },
                   Object {
                     "data-stack": "\\"Gloria Hallelujah\\", cursive",
-                    "groupId": "Cursive",
+                    "groupId": "cursive-3",
                     "groupName": "Cursive",
                     "index": 4,
                     "name": "Gloria Hallelujah",
@@ -3087,11 +3097,11 @@ exports[`Test SelectSearch component Renders groups 2`] = `
                 "type": "group",
               },
               Object {
-                "groupId": "Monospace",
+                "groupId": "monospace-4",
                 "items": Array [
                   Object {
                     "data-stack": "VT323, monospace",
-                    "groupId": "Monospace",
+                    "groupId": "monospace-4",
                     "groupName": "Monospace",
                     "index": 5,
                     "name": "VT323",
@@ -3160,7 +3170,7 @@ exports[`Test SelectSearch component Renders groups 2`] = `
           </Option>
           <li
             className="select-search__row"
-            key="Sans serif"
+            key="sans-serif-1"
             role="none"
           >
             <div
@@ -3183,7 +3193,7 @@ exports[`Test SelectSearch component Renders groups 2`] = `
                   Array [
                     Object {
                       "data-stack": "Roboto, sans-serif",
-                      "groupId": "Sans serif",
+                      "groupId": "sans-serif-1",
                       "groupName": "Sans serif",
                       "index": 1,
                       "name": "Roboto",
@@ -3206,11 +3216,11 @@ exports[`Test SelectSearch component Renders groups 2`] = `
                         "value": "helvetica",
                       },
                       Object {
-                        "groupId": "Sans serif",
+                        "groupId": "sans-serif-1",
                         "items": Array [
                           Object {
                             "data-stack": "Roboto, sans-serif",
-                            "groupId": "Sans serif",
+                            "groupId": "sans-serif-1",
                             "groupName": "Sans serif",
                             "index": 1,
                             "name": "Roboto",
@@ -3221,11 +3231,11 @@ exports[`Test SelectSearch component Renders groups 2`] = `
                         "type": "group",
                       },
                       Object {
-                        "groupId": "Serif",
+                        "groupId": "serif-2",
                         "items": Array [
                           Object {
                             "data-stack": "\\"Playfair Display\\", serif",
-                            "groupId": "Serif",
+                            "groupId": "serif-2",
                             "groupName": "Serif",
                             "index": 2,
                             "name": "Playfair Display",
@@ -3236,11 +3246,11 @@ exports[`Test SelectSearch component Renders groups 2`] = `
                         "type": "group",
                       },
                       Object {
-                        "groupId": "Cursive",
+                        "groupId": "cursive-3",
                         "items": Array [
                           Object {
                             "data-stack": "Monoton, cursive",
-                            "groupId": "Cursive",
+                            "groupId": "cursive-3",
                             "groupName": "Cursive",
                             "index": 3,
                             "name": "Monoton",
@@ -3248,7 +3258,7 @@ exports[`Test SelectSearch component Renders groups 2`] = `
                           },
                           Object {
                             "data-stack": "\\"Gloria Hallelujah\\", cursive",
-                            "groupId": "Cursive",
+                            "groupId": "cursive-3",
                             "groupName": "Cursive",
                             "index": 4,
                             "name": "Gloria Hallelujah",
@@ -3259,11 +3269,11 @@ exports[`Test SelectSearch component Renders groups 2`] = `
                         "type": "group",
                       },
                       Object {
-                        "groupId": "Monospace",
+                        "groupId": "monospace-4",
                         "items": Array [
                           Object {
                             "data-stack": "VT323, monospace",
-                            "groupId": "Monospace",
+                            "groupId": "monospace-4",
                             "groupName": "Monospace",
                             "index": 5,
                             "name": "VT323",
@@ -3290,7 +3300,7 @@ exports[`Test SelectSearch component Renders groups 2`] = `
                   <Option
                     className={[Function]}
                     data-stack="Roboto, sans-serif"
-                    groupId="Sans serif"
+                    groupId="sans-serif-1"
                     groupName="Sans serif"
                     highlighted={false}
                     index={1}
@@ -3339,7 +3349,7 @@ exports[`Test SelectSearch component Renders groups 2`] = `
           </li>
           <li
             className="select-search__row"
-            key="Serif"
+            key="serif-2"
             role="none"
           >
             <div
@@ -3362,7 +3372,7 @@ exports[`Test SelectSearch component Renders groups 2`] = `
                   Array [
                     Object {
                       "data-stack": "\\"Playfair Display\\", serif",
-                      "groupId": "Serif",
+                      "groupId": "serif-2",
                       "groupName": "Serif",
                       "index": 2,
                       "name": "Playfair Display",
@@ -3385,11 +3395,11 @@ exports[`Test SelectSearch component Renders groups 2`] = `
                         "value": "helvetica",
                       },
                       Object {
-                        "groupId": "Sans serif",
+                        "groupId": "sans-serif-1",
                         "items": Array [
                           Object {
                             "data-stack": "Roboto, sans-serif",
-                            "groupId": "Sans serif",
+                            "groupId": "sans-serif-1",
                             "groupName": "Sans serif",
                             "index": 1,
                             "name": "Roboto",
@@ -3400,11 +3410,11 @@ exports[`Test SelectSearch component Renders groups 2`] = `
                         "type": "group",
                       },
                       Object {
-                        "groupId": "Serif",
+                        "groupId": "serif-2",
                         "items": Array [
                           Object {
                             "data-stack": "\\"Playfair Display\\", serif",
-                            "groupId": "Serif",
+                            "groupId": "serif-2",
                             "groupName": "Serif",
                             "index": 2,
                             "name": "Playfair Display",
@@ -3415,11 +3425,11 @@ exports[`Test SelectSearch component Renders groups 2`] = `
                         "type": "group",
                       },
                       Object {
-                        "groupId": "Cursive",
+                        "groupId": "cursive-3",
                         "items": Array [
                           Object {
                             "data-stack": "Monoton, cursive",
-                            "groupId": "Cursive",
+                            "groupId": "cursive-3",
                             "groupName": "Cursive",
                             "index": 3,
                             "name": "Monoton",
@@ -3427,7 +3437,7 @@ exports[`Test SelectSearch component Renders groups 2`] = `
                           },
                           Object {
                             "data-stack": "\\"Gloria Hallelujah\\", cursive",
-                            "groupId": "Cursive",
+                            "groupId": "cursive-3",
                             "groupName": "Cursive",
                             "index": 4,
                             "name": "Gloria Hallelujah",
@@ -3438,11 +3448,11 @@ exports[`Test SelectSearch component Renders groups 2`] = `
                         "type": "group",
                       },
                       Object {
-                        "groupId": "Monospace",
+                        "groupId": "monospace-4",
                         "items": Array [
                           Object {
                             "data-stack": "VT323, monospace",
-                            "groupId": "Monospace",
+                            "groupId": "monospace-4",
                             "groupName": "Monospace",
                             "index": 5,
                             "name": "VT323",
@@ -3469,7 +3479,7 @@ exports[`Test SelectSearch component Renders groups 2`] = `
                   <Option
                     className={[Function]}
                     data-stack="\\"Playfair Display\\", serif"
-                    groupId="Serif"
+                    groupId="serif-2"
                     groupName="Serif"
                     highlighted={false}
                     index={2}
@@ -3518,7 +3528,7 @@ exports[`Test SelectSearch component Renders groups 2`] = `
           </li>
           <li
             className="select-search__row"
-            key="Cursive"
+            key="cursive-3"
             role="none"
           >
             <div
@@ -3541,7 +3551,7 @@ exports[`Test SelectSearch component Renders groups 2`] = `
                   Array [
                     Object {
                       "data-stack": "Monoton, cursive",
-                      "groupId": "Cursive",
+                      "groupId": "cursive-3",
                       "groupName": "Cursive",
                       "index": 3,
                       "name": "Monoton",
@@ -3549,7 +3559,7 @@ exports[`Test SelectSearch component Renders groups 2`] = `
                     },
                     Object {
                       "data-stack": "\\"Gloria Hallelujah\\", cursive",
-                      "groupId": "Cursive",
+                      "groupId": "cursive-3",
                       "groupName": "Cursive",
                       "index": 4,
                       "name": "Gloria Hallelujah",
@@ -3572,11 +3582,11 @@ exports[`Test SelectSearch component Renders groups 2`] = `
                         "value": "helvetica",
                       },
                       Object {
-                        "groupId": "Sans serif",
+                        "groupId": "sans-serif-1",
                         "items": Array [
                           Object {
                             "data-stack": "Roboto, sans-serif",
-                            "groupId": "Sans serif",
+                            "groupId": "sans-serif-1",
                             "groupName": "Sans serif",
                             "index": 1,
                             "name": "Roboto",
@@ -3587,11 +3597,11 @@ exports[`Test SelectSearch component Renders groups 2`] = `
                         "type": "group",
                       },
                       Object {
-                        "groupId": "Serif",
+                        "groupId": "serif-2",
                         "items": Array [
                           Object {
                             "data-stack": "\\"Playfair Display\\", serif",
-                            "groupId": "Serif",
+                            "groupId": "serif-2",
                             "groupName": "Serif",
                             "index": 2,
                             "name": "Playfair Display",
@@ -3602,11 +3612,11 @@ exports[`Test SelectSearch component Renders groups 2`] = `
                         "type": "group",
                       },
                       Object {
-                        "groupId": "Cursive",
+                        "groupId": "cursive-3",
                         "items": Array [
                           Object {
                             "data-stack": "Monoton, cursive",
-                            "groupId": "Cursive",
+                            "groupId": "cursive-3",
                             "groupName": "Cursive",
                             "index": 3,
                             "name": "Monoton",
@@ -3614,7 +3624,7 @@ exports[`Test SelectSearch component Renders groups 2`] = `
                           },
                           Object {
                             "data-stack": "\\"Gloria Hallelujah\\", cursive",
-                            "groupId": "Cursive",
+                            "groupId": "cursive-3",
                             "groupName": "Cursive",
                             "index": 4,
                             "name": "Gloria Hallelujah",
@@ -3625,11 +3635,11 @@ exports[`Test SelectSearch component Renders groups 2`] = `
                         "type": "group",
                       },
                       Object {
-                        "groupId": "Monospace",
+                        "groupId": "monospace-4",
                         "items": Array [
                           Object {
                             "data-stack": "VT323, monospace",
-                            "groupId": "Monospace",
+                            "groupId": "monospace-4",
                             "groupName": "Monospace",
                             "index": 5,
                             "name": "VT323",
@@ -3656,7 +3666,7 @@ exports[`Test SelectSearch component Renders groups 2`] = `
                   <Option
                     className={[Function]}
                     data-stack="Monoton, cursive"
-                    groupId="Cursive"
+                    groupId="cursive-3"
                     groupName="Cursive"
                     highlighted={false}
                     index={3}
@@ -3702,7 +3712,7 @@ exports[`Test SelectSearch component Renders groups 2`] = `
                   <Option
                     className={[Function]}
                     data-stack="\\"Gloria Hallelujah\\", cursive"
-                    groupId="Cursive"
+                    groupId="cursive-3"
                     groupName="Cursive"
                     highlighted={false}
                     index={4}
@@ -3751,7 +3761,7 @@ exports[`Test SelectSearch component Renders groups 2`] = `
           </li>
           <li
             className="select-search__row"
-            key="Monospace"
+            key="monospace-4"
             role="none"
           >
             <div
@@ -3774,7 +3784,7 @@ exports[`Test SelectSearch component Renders groups 2`] = `
                   Array [
                     Object {
                       "data-stack": "VT323, monospace",
-                      "groupId": "Monospace",
+                      "groupId": "monospace-4",
                       "groupName": "Monospace",
                       "index": 5,
                       "name": "VT323",
@@ -3797,11 +3807,11 @@ exports[`Test SelectSearch component Renders groups 2`] = `
                         "value": "helvetica",
                       },
                       Object {
-                        "groupId": "Sans serif",
+                        "groupId": "sans-serif-1",
                         "items": Array [
                           Object {
                             "data-stack": "Roboto, sans-serif",
-                            "groupId": "Sans serif",
+                            "groupId": "sans-serif-1",
                             "groupName": "Sans serif",
                             "index": 1,
                             "name": "Roboto",
@@ -3812,11 +3822,11 @@ exports[`Test SelectSearch component Renders groups 2`] = `
                         "type": "group",
                       },
                       Object {
-                        "groupId": "Serif",
+                        "groupId": "serif-2",
                         "items": Array [
                           Object {
                             "data-stack": "\\"Playfair Display\\", serif",
-                            "groupId": "Serif",
+                            "groupId": "serif-2",
                             "groupName": "Serif",
                             "index": 2,
                             "name": "Playfair Display",
@@ -3827,11 +3837,11 @@ exports[`Test SelectSearch component Renders groups 2`] = `
                         "type": "group",
                       },
                       Object {
-                        "groupId": "Cursive",
+                        "groupId": "cursive-3",
                         "items": Array [
                           Object {
                             "data-stack": "Monoton, cursive",
-                            "groupId": "Cursive",
+                            "groupId": "cursive-3",
                             "groupName": "Cursive",
                             "index": 3,
                             "name": "Monoton",
@@ -3839,7 +3849,7 @@ exports[`Test SelectSearch component Renders groups 2`] = `
                           },
                           Object {
                             "data-stack": "\\"Gloria Hallelujah\\", cursive",
-                            "groupId": "Cursive",
+                            "groupId": "cursive-3",
                             "groupName": "Cursive",
                             "index": 4,
                             "name": "Gloria Hallelujah",
@@ -3850,11 +3860,11 @@ exports[`Test SelectSearch component Renders groups 2`] = `
                         "type": "group",
                       },
                       Object {
-                        "groupId": "Monospace",
+                        "groupId": "monospace-4",
                         "items": Array [
                           Object {
                             "data-stack": "VT323, monospace",
-                            "groupId": "Monospace",
+                            "groupId": "monospace-4",
                             "groupName": "Monospace",
                             "index": 5,
                             "name": "VT323",
@@ -3881,7 +3891,7 @@ exports[`Test SelectSearch component Renders groups 2`] = `
                   <Option
                     className={[Function]}
                     data-stack="VT323, monospace"
-                    groupId="Monospace"
+                    groupId="monospace-4"
                     groupName="Monospace"
                     highlighted={false}
                     index={5}
@@ -3947,6 +3957,7 @@ exports[`Test SelectSearch component Renders with default props 1`] = `
       className="select-search__input"
       disabled={false}
       onBlur={[Function]}
+      onChange={null}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyPress={[Function]}
@@ -3972,6 +3983,7 @@ exports[`Test SelectSearch component Renders with disabled 1`] = `
       className="select-search__input"
       disabled={true}
       onBlur={[Function]}
+      onChange={null}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyPress={[Function]}
@@ -4208,6 +4220,7 @@ exports[`Test SelectSearch component Value change works without onChange handler
       valueProps={
         Object {
           "onBlur": [Function],
+          "onChange": null,
           "onFocus": [Function],
           "onKeyDown": [Function],
           "onKeyPress": [Function],
@@ -4233,6 +4246,7 @@ exports[`Test SelectSearch component Value change works without onChange handler
           className="select-search__input"
           disabled={false}
           onBlur={[Function]}
+          onChange={null}
           onFocus={[Function]}
           onKeyDown={[Function]}
           onKeyPress={[Function]}
@@ -4306,6 +4320,7 @@ exports[`Test SelectSearch component Value change works without onChange handler
       valueProps={
         Object {
           "onBlur": [Function],
+          "onChange": null,
           "onFocus": [Function],
           "onKeyDown": [Function],
           "onKeyPress": [Function],
@@ -4331,6 +4346,7 @@ exports[`Test SelectSearch component Value change works without onChange handler
           className="select-search__input"
           disabled={false}
           onBlur={[Function]}
+          onChange={null}
           onFocus={[Function]}
           onKeyDown={[Function]}
           onKeyPress={[Function]}

@@ -51,21 +51,25 @@ function useSelectSearch(_ref) {
       flat = _useState2[0],
       setOptions = _useState2[1];
 
-  var _useState3 = (0, _react.useState)((0, _getOption["default"])(defaultValue, flatDefaultOptions)),
+  var _useState3 = (0, _react.useState)(defaultValue),
       value = _useState3[0],
       setValue = _useState3[1];
 
-  var _useState4 = (0, _react.useState)(''),
-      search = _useState4[0],
-      setSearch = _useState4[1];
+  var _useState4 = (0, _react.useState)((0, _getOption["default"])(value, flatDefaultOptions)),
+      option = _useState4[0],
+      setOption = _useState4[1];
 
-  var _useState5 = (0, _react.useState)(false),
-      focus = _useState5[0],
-      setFocus = _useState5[1];
+  var _useState5 = (0, _react.useState)(''),
+      search = _useState5[0],
+      setSearch = _useState5[1];
 
   var _useState6 = (0, _react.useState)(false),
-      searching = _useState6[0],
-      setSearching = _useState6[1];
+      focus = _useState6[0],
+      setFocus = _useState6[1];
+
+  var _useState7 = (0, _react.useState)(false),
+      searching = _useState7[0],
+      setSearching = _useState7[1];
 
   var _useReducer = (0, _react.useReducer)(_highlightReducer["default"], -1),
       highlighted = _useReducer[0],
@@ -74,30 +78,9 @@ function useSelectSearch(_ref) {
   var options = (0, _react.useMemo)(function () {
     return (0, _groupOptions["default"])(flat);
   }, [flat]);
-  var displayValue = (0, _getDisplayValue["default"])(value);
-
-  var updateValue = function updateValue(newValue, optionsList) {
-    if (newValue === void 0) {
-      newValue = undefined;
-    }
-
-    if (optionsList === void 0) {
-      optionsList = flatDefaultOptions;
-    }
-
-    if (newValue === undefined && value) {
-      return;
-    }
-
-    var option = (0, _getOption["default"])(newValue || defaultValue, optionsList);
-
-    if (!option && !allowEmpty) {
-      var _optionsList = optionsList;
-      option = _optionsList[0];
-    }
-
-    setValue(option);
-  };
+  var displayValue = (0, _react.useMemo)(function () {
+    return (0, _getDisplayValue["default"])(option);
+  }, [option]);
 
   var onBlur = function onBlur() {
     setFocus(false);
@@ -118,17 +101,12 @@ function useSelectSearch(_ref) {
   };
 
   var onSelect = function onSelect(val) {
-    var option = (0, _getOption["default"])(val, flat);
-    var newValue = (0, _getNewValue["default"])(option, value, multiple);
-    setValue(newValue);
-
-    if (multiple) {
-      onChange(newValue.map(function (i) {
-        return i.value;
-      }), newValue);
-    } else {
-      onChange(option.value, option);
-    }
+    var newOption = (0, _getOption["default"])(val, flat);
+    var newValue = (0, _getNewValue["default"])(newOption, option, multiple);
+    setOption(newValue);
+    onChange(multiple ? newValue.map(function (i) {
+      return i.value;
+    }) : newValue.value, newValue);
   };
 
   var onMouseDown = function onMouseDown(e) {
@@ -150,10 +128,10 @@ function useSelectSearch(_ref) {
     var key = _ref2.key;
 
     if (key === 'Enter') {
-      var option = flat[highlighted];
+      var newOption = flat[highlighted];
 
-      if (option) {
-        onSelect(option.value);
+      if (newOption) {
+        onSelect(newOption.value);
 
         if (!multiple) {
           onBlur();
@@ -198,6 +176,7 @@ function useSelectSearch(_ref) {
   var valueProps = {
     tabIndex: '0',
     readOnly: !canSearch,
+    onChange: canSearch ? onSearch : null,
     onBlur: onBlur,
     onFocus: onFocus,
     onKeyPress: onKeyPress,
@@ -205,26 +184,29 @@ function useSelectSearch(_ref) {
     onKeyUp: onKeyUp,
     ref: ref
   };
-
-  if (canSearch) {
-    valueProps.onChange = onSearch;
-  }
-
   var optionProps = {
     tabIndex: '-1',
     onMouseDown: onMouseDown
   };
   (0, _react.useEffect)(function () {
-    return updateValue(defaultValue);
+    return setValue(defaultValue);
   }, [defaultValue]);
   (0, _react.useEffect)(function () {
     var flatOptions = (0, _flattenOptions["default"])(defaultOptions);
     setOptions(flatOptions);
     setFlatDefaultOptions(flatOptions);
-    updateValue(undefined, flatOptions);
   }, [defaultOptions]);
+  (0, _react.useEffect)(function () {
+    var newOption = (0, _getOption["default"])(value, flatDefaultOptions);
+
+    if (!newOption && !allowEmpty) {
+      newOption = flatDefaultOptions[0];
+    }
+
+    setOption(newOption);
+  }, [value, flatDefaultOptions, allowEmpty]);
   return [{
-    value: value,
+    value: option,
     highlighted: highlighted,
     options: options,
     disabled: disabled,

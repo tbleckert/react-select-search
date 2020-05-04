@@ -63,7 +63,7 @@ Option.defaultProps = {
   value: null,
   renderOption: null
 };
-Option.propTypes = {
+Option.propTypes = process.env.NODE_ENV !== "production" ? {
   name: _propTypes["default"].string.isRequired,
   value: _propTypes["default"].string,
   type: _propTypes["default"].string,
@@ -77,7 +77,7 @@ Option.propTypes = {
   }).isRequired,
   className: _propTypes["default"].func.isRequired,
   renderOption: _propTypes["default"].func
-};
+} : {};
 
 var _default = (0, _react.memo)(Option);
 

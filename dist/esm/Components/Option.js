@@ -53,7 +53,7 @@ Option.defaultProps = {
   value: null,
   renderOption: null
 };
-Option.propTypes = {
+Option.propTypes = process.env.NODE_ENV !== "production" ? {
   name: PropTypes.string.isRequired,
   value: PropTypes.string,
   type: PropTypes.string,
@@ -67,5 +67,5 @@ Option.propTypes = {
   }).isRequired,
   className: PropTypes.func.isRequired,
   renderOption: PropTypes.func
-};
+} : {};
 export default memo(Option);

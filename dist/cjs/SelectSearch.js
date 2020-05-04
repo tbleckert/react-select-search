@@ -171,7 +171,7 @@ SelectSearch.defaultProps = {
   },
   getOptions: null
 };
-SelectSearch.propTypes = {
+SelectSearch.propTypes = process.env.NODE_ENV !== "production" ? {
   options: _propTypes["default"].arrayOf(_types.optionType).isRequired,
   getOptions: _propTypes["default"].func,
   value: _propTypes["default"].oneOfType([_propTypes["default"].string, _propTypes["default"].arrayOf(_propTypes["default"].string)]),
@@ -192,7 +192,7 @@ SelectSearch.propTypes = {
     keys: _propTypes["default"].arrayOf(_propTypes["default"].string),
     threshold: _propTypes["default"].number
   })])
-};
+} : {};
 
 var _default = (0, _react.memo)(SelectSearch);
 

@@ -28,27 +28,14 @@ export default function useSelectSearch({
     const ref = useRef(null);
     const [flatDefaultOptions, setFlatDefaultOptions] = useState(FlattenOptions(defaultOptions));
     const [flat, setOptions] = useState([]);
-    const [value, setValue] = useState(getOption(defaultValue, flatDefaultOptions));
+    const [value, setValue] = useState(defaultValue);
+    const [option, setOption] = useState(getOption(value, flatDefaultOptions));
     const [search, setSearch] = useState('');
     const [focus, setFocus] = useState(false);
     const [searching, setSearching] = useState(false);
     const [highlighted, setHighlighted] = useReducer(highlightReducer, -1);
     const options = useMemo(() => GroupOptions(flat), [flat]);
-    const displayValue = getDisplayValue(value);
-    const updateValue = (newValue = undefined, optionsList = flatDefaultOptions) => {
-        if (newValue === undefined && value) {
-            return;
-        }
-
-        let option = getOption(newValue || defaultValue, optionsList);
-
-        if (!option && !allowEmpty) {
-            ([option] = optionsList);
-        }
-
-        setValue(option);
-    };
-
+    const displayValue = useMemo(() => getDisplayValue(option), [option]);
     const onBlur = () => {
         setFocus(false);
         setHighlighted(false);
@@ -65,16 +52,15 @@ export default function useSelectSearch({
 
     const onFocus = () => setFocus(true);
     const onSelect = (val) => {
-        const option = getOption(val, flat);
-        const newValue = getNewValue(option, value, multiple);
+        const newOption = getOption(val, flat);
+        const newValue = getNewValue(newOption, option, multiple);
 
-        setValue(newValue);
+        setOption(newValue);
 
-        if (multiple) {
-            onChange(newValue.map(i => i.value), newValue);
-        } else {
-            onChange(option.value, option);
-        }
+        onChange(
+            (multiple) ? newValue.map(i => i.value) : newValue.value,
+            newValue,
+        );
     };
 
     const onMouseDown = (e) => {
@@ -87,10 +73,10 @@ export default function useSelectSearch({
     const onKeyDown = e => setHighlighted({ key: e.key, options: flat });
     const onKeyPress = ({ key }) => {
         if (key === 'Enter') {
-            const option = flat[highlighted];
+            const newOption = flat[highlighted];
 
-            if (option) {
-                onSelect(option.value);
+            if (newOption) {
+                onSelect(newOption.value);
 
                 if (!multiple) {
                     onBlur();
@@ -134,6 +120,7 @@ export default function useSelectSearch({
     const valueProps = {
         tabIndex: '0',
         readOnly: !canSearch,
+        onChange: (canSearch) ? onSearch : null,
         onBlur,
         onFocus,
         onKeyPress,
@@ -142,26 +129,30 @@ export default function useSelectSearch({
         ref,
     };
 
-    if (canSearch) {
-        valueProps.onChange = onSearch;
-    }
-
     const optionProps = { tabIndex: '-1', onMouseDown };
 
-    useEffect(() => updateValue(defaultValue), [defaultValue]);
+    useEffect(() => setValue(defaultValue), [defaultValue]);
 
     useEffect(() => {
         const flatOptions = FlattenOptions(defaultOptions);
 
         setOptions(flatOptions);
         setFlatDefaultOptions(flatOptions);
-
-        updateValue(undefined, flatOptions);
     }, [defaultOptions]);
+
+    useEffect(() => {
+        let newOption = getOption(value, flatDefaultOptions);
+
+        if (!newOption && !allowEmpty) {
+            ([newOption] = flatDefaultOptions);
+        }
+
+        setOption(newOption);
+    }, [value, flatDefaultOptions, allowEmpty]);
 
     return [
         {
-            value,
+            value: option,
             highlighted,
             options,
             disabled,

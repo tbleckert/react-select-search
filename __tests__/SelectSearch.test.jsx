@@ -29,10 +29,6 @@ function renderFontValue(valueProps, snapshot, className) {
     );
 }
 
-jest.mock('../src/lib/getGroupId', () => {
-    return jest.fn((group) => group.name);
-});
-
 describe('Test SelectSearch component', () => {
     test('Renders with default props', () => {
         const tree = renderer.create((

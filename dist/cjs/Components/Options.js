@@ -66,7 +66,7 @@ Options.defaultProps = {
     return name;
   }
 };
-Options.propTypes = {
+Options.propTypes = process.env.NODE_ENV !== "production" ? {
   options: _propTypes["default"].arrayOf(_types.optionType).isRequired,
   snapshot: _propTypes["default"].shape({
     value: _types.valueType,
@@ -80,7 +80,7 @@ Options.propTypes = {
   className: _propTypes["default"].func.isRequired,
   renderOption: _propTypes["default"].func,
   renderGroupHeader: _propTypes["default"].func
-};
+} : {};
 
 var _default = (0, _react.memo)(Options);
 

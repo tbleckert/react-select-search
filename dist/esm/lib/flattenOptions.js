@@ -1,4 +1,3 @@
-import getGroupId from './getGroupId';
 export default function flattenOptions(options) {
   if (!Array.isArray(options)) {
     return [];
@@ -7,7 +6,7 @@ export default function flattenOptions(options) {
   const nextOptions = [];
   options.forEach((option, index) => {
     if ('type' in option && option.type === 'group') {
-      const id = getGroupId(option);
+      const id = option.name.replace(/\s+/g, '-').toLowerCase() + "-" + index;
       option.items.forEach(groupOption => {
         const nextGroupOption = Object.assign({}, groupOption);
         nextGroupOption.groupId = id;
