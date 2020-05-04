@@ -129,6 +129,7 @@ Below is all the available options you can pass to the component. Options withou
 | className | string, function | select-search-box | Set a base class string or pass a function for complete control. Se [custom classNames](#custom-classnames) for more. |
 | onChange | function | null | Function to receive and handle value changes. |
 | printOptions | string | auto | Can be: auto, always, never, on-focus. This property controls when the options list should be rendered. |
+| closeOnSelect | boolean | true | The selectbox will blur by default when selecting an option. Set this to false to prevent this behavior. |
 | renderOption | function | null | Function that renders the options. See [custom renderers](#custom-renderers) for more. |
 | renderValue | function | null | Function that renders the value/search field. See [custom renderers](#custom-renderers) for more. |
 | renderGroupHeader | function | null | Function that renders the group header. See [custom renderers](#custom-renderers) for more. |
