@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { render } from 'react-dom';
-import { fontStacks, countries, friends } from './data';
+import { fontStacks, countries, friends as friendsOptions } from './data';
 import '../style.css';
 import SelectSearch from '../src';
 
@@ -37,103 +37,79 @@ function renderFontOption(props, { stack, name }, snapshot, className) {
     );
 }
 
-class App extends React.PureComponent {
-    constructor(props) {
-        super(props);
-
-        this.ref = React.createRef();
-    }
-
-    state = {
-        disabled: false,
-        font: 'Monoton',
-        country: 'SE',
-        friends: [],
-        fontOptions: [],
+const App = () => {
+    const [fontOptions, setFontOptions] = useState([]);
+    const [font, setFont] = useState('Monoton');
+    const [country, setCountry] = useState('SE');
+    const [friends, setFriends] = useState([]);
+    const [drink, setDrink] = useState('');
+    const [disabled, setDisabled] = useState(false);
+    const text = (disabled) ? 'Enable' : 'Disable';
+    const clear = () => {
+        setFont('');
+        setCountry('');
+        setFriends([]);
+        setDrink('');
     };
 
-    componentDidMount() {
-        setTimeout(() => {
-            this.setState({ fontOptions: fontStacks });
-        }, 250);
-    }
+    useEffect(() => {
+        setTimeout(() => setFontOptions(fontStacks), 250);
+    }, []);
 
-    clear = () => {
-        this.setState({
-            font: '',
-            country: '',
-            friends: [],
-        });
-    };
-
-    disable = () => {
-        this.setState({
-            disabled: !this.state.disabled,
-        });
-    };
-
-    updateFont = (value) => this.setState({ font: value });
-    updateCountry = (value) => this.setState({ country: value });
-    updateFriends = (value) => this.setState({ friends: value });
-
-    render() {
-        const text = (this.state.disabled) ? 'Enable' : 'Disable';
-        console.log(this.state);
-
-        return (
-            <div>
-                <div className="test-btns">
-                    <button type="button" className="clear" onClick={this.clear}>Clear values</button>
-                    <button type="button" className="clear" onClick={this.disable}>{text}</button>
-                </div>
-                <SelectSearch
-                    ref={this.ref}
-                    options={this.state.fontOptions}
-                    value={this.state.font}
-                    onChange={this.updateFont}
-                    renderValue={renderFontValue}
-                    renderOption={renderFontOption}
-                    disabled={this.state.disabled}
-                />
-                <SelectSearch
-                    value={this.state.country}
-                    options={countries}
-                    onChange={this.updateCountry}
-                    placeholder="Your country"
-                    search
-                    disabled={this.state.disabled}
-                />
-                <SelectSearch
-                    multiple
-                    className="select-search-box select-search-box--friends select-search-box--multiple"
-                    value={this.state.friends}
-                    onChange={this.updateFriends}
-                    options={friends}
-                    placeholder="Search friends"
-                    renderOption={renderFriend}
-                    disabled={this.state.disabled}
-                    search
-                />
-                <SelectSearch
-                    options={[]}
-                    getOptions={(query) => {
-                        return new Promise((resolve, reject) => {
-                            fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${query}`)
-                                .then(response => response.json())
-                                .then(({ drinks }) => {
-                                    resolve(drinks.map(({ idDrink, strDrink }) => ({ value: idDrink, name: strDrink })))
-                                })
-                                .catch(reject);
-                        });
-                    }}
-                    placeholder="Your favorite drink"
-                    search
-                    disabled={this.state.disabled}
-                />
+    return (
+        <div>
+            <div className="test-btns">
+                <button type="button" className="clear" onClick={clear}>Clear values</button>
+                <button type="button" className="clear" onClick={() => setDisabled(!disabled)}>{text}</button>
             </div>
-        );
-    }
-}
+            <SelectSearch
+                options={fontOptions}
+                value={font}
+                onChange={setFont}
+                renderValue={renderFontValue}
+                renderOption={renderFontOption}
+                disabled={disabled}
+            />
+            <SelectSearch
+                value={country}
+                options={countries}
+                onChange={setCountry}
+                placeholder="Your country"
+                search
+                disabled={disabled}
+            />
+            <SelectSearch
+                multiple
+                className="select-search-box select-search-box--friends"
+                value={friends}
+                onChange={setFriends}
+                options={friendsOptions}
+                placeholder="Search friends"
+                renderOption={renderFriend}
+                disabled={disabled}
+                search
+            />
+            <SelectSearch
+                options={[]}
+                getOptions={(query) => {
+                    return new Promise((resolve, reject) => {
+                        fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${query}`)
+                            .then(response => response.json())
+                            .then(({ drinks }) => {
+                                resolve(drinks.map(({ idDrink, strDrink }) => ({ value: idDrink, name: strDrink })))
+                            })
+                            .catch(reject);
+                    });
+                }}
+                placeholder="Your favorite drink"
+                onChange={setDrink}
+                value={drink}
+                search
+                disabled={disabled}
+            />
+        </div>
+    );
+};
 
 render(
     <App />,

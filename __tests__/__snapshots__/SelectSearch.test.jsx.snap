@@ -46,7 +46,7 @@ exports[`Test SelectSearch component Class name as string 1`] = `
       placeholder={null}
       readOnly={true}
       tabIndex="0"
-      value=""
+      value="Helvetica"
     />
   </div>
 </div>
@@ -3965,7 +3965,7 @@ exports[`Test SelectSearch component Renders with default props 1`] = `
       placeholder={null}
       readOnly={true}
       tabIndex="0"
-      value=""
+      value="Foo"
     />
   </div>
 </div>
@@ -3991,7 +3991,7 @@ exports[`Test SelectSearch component Renders with disabled 1`] = `
       placeholder={null}
       readOnly={true}
       tabIndex="0"
-      value=""
+      value="Foo"
     />
   </div>
 </div>

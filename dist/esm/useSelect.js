@@ -1,7 +1,7 @@
 import { useReducer, useEffect, useMemo, useState, useRef } from 'react';
 import highlightReducer from './highlightReducer';
 import getDisplayValue from './lib/getDisplayValue';
-import FlattenOptions from './lib/flattenOptions';
+import flattenOptions from './lib/flattenOptions';
 import GroupOptions from './lib/groupOptions';
 import getNewValue from './lib/getNewValue';
 import getOption from './lib/getOption';
@@ -19,10 +19,19 @@ export default function useSelectSearch({
   closeOnSelect = true
 }) {
   const ref = useRef(null);
-  const [flatDefaultOptions, setFlatDefaultOptions] = useState(FlattenOptions(defaultOptions));
+  const flatDefaultOptions = useMemo(() => flattenOptions(defaultOptions), [defaultOptions]);
   const [flat, setOptions] = useState([]);
+  const [addedOptions, setAddedOptions] = useState([]);
   const [value, setValue] = useState(defaultValue);
-  const [option, setOption] = useState(getOption(value, flatDefaultOptions));
+  const option = useMemo(() => {
+    let newOption = getOption(value, [...flatDefaultOptions, ...addedOptions]);
+
+    if (!newOption && !allowEmpty) {
+      [newOption] = flatDefaultOptions;
+    }
+
+    return newOption;
+  }, [value, flatDefaultOptions, addedOptions, allowEmpty]);
   const [search, setSearch] = useState('');
   const [focus, setFocus] = useState(false);
   const [searching, setSearching] = useState(false);
@@ -48,9 +57,11 @@ export default function useSelectSearch({
 
   const onSelect = val => {
     const newOption = getOption(val, flat);
-    const newValue = getNewValue(newOption, option, multiple);
-    setOption(newValue);
-    onChange(multiple ? newValue.map(i => i.value) : newValue.value, newValue);
+    const newOptions = getNewValue(newOption, option, multiple);
+    const values = multiple ? newOptions.map(i => i.value) : newOptions.value;
+    setAddedOptions(multiple ? newOptions : [newOptions]);
+    setValue(values);
+    onChange(values, newOptions);
   };
 
   const onMouseDown = e => {
@@ -129,21 +140,12 @@ export default function useSelectSearch({
     tabIndex: '-1',
     onMouseDown
   };
-  useEffect(() => setValue(defaultValue), [defaultValue]);
   useEffect(() => {
-    const flatOptions = FlattenOptions(defaultOptions);
-    setOptions(flatOptions);
-    setFlatDefaultOptions(flatOptions);
-  }, [defaultOptions]);
+    setValue(defaultValue);
+  }, [defaultValue]);
   useEffect(() => {
-    let newOption = getOption(value, flatDefaultOptions);
-
-    if (!newOption && !allowEmpty) {
-      [newOption] = flatDefaultOptions;
-    }
-
-    setOption(newOption);
-  }, [value, flatDefaultOptions, allowEmpty]);
+    setOptions(flatDefaultOptions);
+  }, [flatDefaultOptions]);
   return [{
     value: option,
     highlighted,

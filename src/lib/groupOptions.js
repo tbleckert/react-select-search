@@ -8,7 +8,7 @@ export default function groupOptions(options) {
 
             nextOption.index = i;
 
-            if (groupIndex !== null && groupIndex > -1) {
+            if (groupIndex > -1) {
                 nextOptions[groupIndex].items.push(nextOption);
             } else {
                 nextOptions.push({

@@ -42,34 +42,43 @@ function useSelectSearch(_ref) {
       _ref$closeOnSelect = _ref.closeOnSelect,
       closeOnSelect = _ref$closeOnSelect === void 0 ? true : _ref$closeOnSelect;
   var ref = (0, _react.useRef)(null);
+  var flatDefaultOptions = (0, _react.useMemo)(function () {
+    return (0, _flattenOptions["default"])(defaultOptions);
+  }, [defaultOptions]);
 
-  var _useState = (0, _react.useState)((0, _flattenOptions["default"])(defaultOptions)),
-      flatDefaultOptions = _useState[0],
-      setFlatDefaultOptions = _useState[1];
+  var _useState = (0, _react.useState)([]),
+      flat = _useState[0],
+      setOptions = _useState[1];
 
   var _useState2 = (0, _react.useState)([]),
-      flat = _useState2[0],
-      setOptions = _useState2[1];
+      addedOptions = _useState2[0],
+      setAddedOptions = _useState2[1];
 
   var _useState3 = (0, _react.useState)(defaultValue),
       value = _useState3[0],
       setValue = _useState3[1];
 
-  var _useState4 = (0, _react.useState)((0, _getOption["default"])(value, flatDefaultOptions)),
-      option = _useState4[0],
-      setOption = _useState4[1];
+  var option = (0, _react.useMemo)(function () {
+    var newOption = (0, _getOption["default"])(value, [].concat(flatDefaultOptions, addedOptions));
 
-  var _useState5 = (0, _react.useState)(''),
-      search = _useState5[0],
-      setSearch = _useState5[1];
+    if (!newOption && !allowEmpty) {
+      newOption = flatDefaultOptions[0];
+    }
+
+    return newOption;
+  }, [value, flatDefaultOptions, addedOptions, allowEmpty]);
+
+  var _useState4 = (0, _react.useState)(''),
+      search = _useState4[0],
+      setSearch = _useState4[1];
+
+  var _useState5 = (0, _react.useState)(false),
+      focus = _useState5[0],
+      setFocus = _useState5[1];
 
   var _useState6 = (0, _react.useState)(false),
-      focus = _useState6[0],
-      setFocus = _useState6[1];
-
-  var _useState7 = (0, _react.useState)(false),
-      searching = _useState7[0],
-      setSearching = _useState7[1];
+      searching = _useState6[0],
+      setSearching = _useState6[1];
 
   var _useReducer = (0, _react.useReducer)(_highlightReducer["default"], -1),
       highlighted = _useReducer[0],
@@ -102,11 +111,13 @@ function useSelectSearch(_ref) {
 
   var onSelect = function onSelect(val) {
     var newOption = (0, _getOption["default"])(val, flat);
-    var newValue = (0, _getNewValue["default"])(newOption, option, multiple);
-    setOption(newValue);
-    onChange(multiple ? newValue.map(function (i) {
+    var newOptions = (0, _getNewValue["default"])(newOption, option, multiple);
+    var values = multiple ? newOptions.map(function (i) {
       return i.value;
-    }) : newValue.value, newValue);
+    }) : newOptions.value;
+    setAddedOptions(multiple ? newOptions : [newOptions]);
+    setValue(values);
+    onChange(values, newOptions);
   };
 
   var onMouseDown = function onMouseDown(e) {
@@ -189,22 +200,11 @@ function useSelectSearch(_ref) {
     onMouseDown: onMouseDown
   };
   (0, _react.useEffect)(function () {
-    return setValue(defaultValue);
+    setValue(defaultValue);
   }, [defaultValue]);
   (0, _react.useEffect)(function () {
-    var flatOptions = (0, _flattenOptions["default"])(defaultOptions);
-    setOptions(flatOptions);
-    setFlatDefaultOptions(flatOptions);
-  }, [defaultOptions]);
-  (0, _react.useEffect)(function () {
-    var newOption = (0, _getOption["default"])(value, flatDefaultOptions);
-
-    if (!newOption && !allowEmpty) {
-      newOption = flatDefaultOptions[0];
-    }
-
-    setOption(newOption);
-  }, [value, flatDefaultOptions, allowEmpty]);
+    setOptions(flatDefaultOptions);
+  }, [flatDefaultOptions]);
   return [{
     value: option,
     highlighted: highlighted,

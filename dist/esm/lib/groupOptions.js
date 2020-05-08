@@ -6,7 +6,7 @@ export default function groupOptions(options) {
       const groupIndex = nextOptions.findIndex(el => 'groupId' in el && el.groupId === nextOption.groupId);
       nextOption.index = i;
 
-      if (groupIndex !== null && groupIndex > -1) {
+      if (groupIndex > -1) {
         nextOptions[groupIndex].items.push(nextOption);
       } else {
         nextOptions.push({
