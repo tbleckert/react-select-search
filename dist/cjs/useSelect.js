@@ -61,12 +61,12 @@ function useSelectSearch(_ref) {
   var option = (0, _react.useMemo)(function () {
     var newOption = (0, _getOption["default"])(value, [].concat(flatDefaultOptions, addedOptions));
 
-    if (!newOption && !allowEmpty) {
+    if (!newOption && !allowEmpty && !multiple) {
       newOption = flatDefaultOptions[0];
     }
 
     return newOption;
-  }, [value, flatDefaultOptions, addedOptions, allowEmpty]);
+  }, [value, flatDefaultOptions, addedOptions, allowEmpty, multiple]);
 
   var _useState4 = (0, _react.useState)(''),
       search = _useState4[0],
@@ -99,10 +99,8 @@ function useSelectSearch(_ref) {
       ref.current.blur();
     }
 
-    if (!multiple) {
-      setSearch('');
-      setOptions(flatDefaultOptions);
-    }
+    setSearch('');
+    setOptions(flatDefaultOptions);
   };
 
   var onFocus = function onFocus() {

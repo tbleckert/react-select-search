@@ -122,8 +122,8 @@ exports[`Test SelectSearch component Custom renderers work 1`] = `
       className="select-search__value"
     >
       <input
-        autoComplete={null}
-        autoFocus={null}
+        autoComplete="on"
+        autoFocus={false}
         className="select-search__input"
         onBlur={[Function]}
         onChange={null}
@@ -216,8 +216,8 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
       className="select-search__value"
     >
       <input
-        autoComplete={null}
-        autoFocus={null}
+        autoComplete="on"
+        autoFocus={false}
         className="select-search__input"
         onBlur={[Function]}
         onChange={null}
@@ -2454,37 +2454,8 @@ exports[`Test SelectSearch component Focus displays options 1`] = `
       className={[Function]}
       disabled={false}
       displayValue="Foo"
-      multiple={false}
       placeholder={null}
-      render={null}
       search={false}
-      snapshot={
-        Object {
-          "disabled": false,
-          "displayValue": "Foo",
-          "focus": false,
-          "highlighted": -1,
-          "options": Array [
-            Object {
-              "index": 0,
-              "name": "Foo",
-              "value": "foo",
-            },
-            Object {
-              "index": 1,
-              "name": "Bar",
-              "value": "bar",
-            },
-          ],
-          "search": "",
-          "searching": false,
-          "value": Object {
-            "index": 0,
-            "name": "Foo",
-            "value": "foo",
-          },
-        }
-      }
       valueProps={
         Object {
           "onBlur": [Function],
@@ -2554,37 +2525,8 @@ exports[`Test SelectSearch component Focus displays options 2`] = `
       className={[Function]}
       disabled={false}
       displayValue="Foo"
-      multiple={false}
       placeholder={null}
-      render={null}
       search={false}
-      snapshot={
-        Object {
-          "disabled": false,
-          "displayValue": "Foo",
-          "focus": true,
-          "highlighted": -1,
-          "options": Array [
-            Object {
-              "index": 0,
-              "name": "Foo",
-              "value": "foo",
-            },
-            Object {
-              "index": 1,
-              "name": "Bar",
-              "value": "bar",
-            },
-          ],
-          "search": "",
-          "searching": false,
-          "value": Object {
-            "index": 0,
-            "name": "Foo",
-            "value": "foo",
-          },
-        }
-      }
       valueProps={
         Object {
           "onBlur": [Function],
@@ -2828,8 +2770,8 @@ exports[`Test SelectSearch component Renders groups 1`] = `
       className="select-search__value"
     >
       <input
-        autoComplete={null}
-        autoFocus={null}
+        autoComplete="on"
+        autoFocus={false}
         className="select-search__input"
         onBlur={[Function]}
         onChange={null}
@@ -2921,8 +2863,8 @@ exports[`Test SelectSearch component Renders groups 2`] = `
       className="select-search__value"
     >
       <input
-        autoComplete={null}
-        autoFocus={null}
+        autoComplete="on"
+        autoFocus={false}
         className="select-search__input"
         onBlur={[Function]}
         onChange={null}
@@ -4014,7 +3956,7 @@ exports[`Test SelectSearch component Renders with multiple 1`] = `
         role="menuitem"
       >
         <button
-          className="select-search__option is-selected"
+          className="select-search__option"
           disabled={false}
           onMouseDown={[Function]}
           tabIndex="-1"
@@ -4106,7 +4048,7 @@ exports[`Test SelectSearch component Renders with search and multiple 1`] = `
         role="menuitem"
       >
         <button
-          className="select-search__option is-selected"
+          className="select-search__option"
           disabled={false}
           onMouseDown={[Function]}
           tabIndex="-1"
@@ -4186,37 +4128,8 @@ exports[`Test SelectSearch component Value change works without onChange handler
       className={[Function]}
       disabled={false}
       displayValue="Foo"
-      multiple={false}
       placeholder={null}
-      render={null}
       search={false}
-      snapshot={
-        Object {
-          "disabled": false,
-          "displayValue": "Foo",
-          "focus": false,
-          "highlighted": -1,
-          "options": Array [
-            Object {
-              "index": 0,
-              "name": "Foo",
-              "value": "foo",
-            },
-            Object {
-              "index": 1,
-              "name": "Bar",
-              "value": "bar",
-            },
-          ],
-          "search": "",
-          "searching": false,
-          "value": Object {
-            "index": 0,
-            "name": "Foo",
-            "value": "foo",
-          },
-        }
-      }
       valueProps={
         Object {
           "onBlur": [Function],
@@ -4286,37 +4199,8 @@ exports[`Test SelectSearch component Value change works without onChange handler
       className={[Function]}
       disabled={false}
       displayValue="Foo"
-      multiple={false}
       placeholder={null}
-      render={null}
       search={false}
-      snapshot={
-        Object {
-          "disabled": false,
-          "displayValue": "Foo",
-          "focus": true,
-          "highlighted": -1,
-          "options": Array [
-            Object {
-              "index": 0,
-              "name": "Foo",
-              "value": "foo",
-            },
-            Object {
-              "index": 1,
-              "name": "Bar",
-              "value": "bar",
-            },
-          ],
-          "search": "",
-          "searching": false,
-          "value": Object {
-            "index": 0,
-            "name": "Foo",
-            "value": "foo",
-          },
-        }
-      }
       valueProps={
         Object {
           "onBlur": [Function],

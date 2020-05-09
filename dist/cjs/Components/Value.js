@@ -45,11 +45,12 @@ Value.defaultProps = {
   search: false,
   autoFocus: false,
   autoComplete: 'on',
-  placeholder: null
+  placeholder: null,
+  displayValue: null
 };
 Value.propTypes = process.env.NODE_ENV !== "production" ? {
   className: _propTypes["default"].func.isRequired,
-  displayValue: _propTypes["default"].string.isRequired,
+  displayValue: _propTypes["default"].string,
   valueProps: _propTypes["default"].shape({
     onBlur: _propTypes["default"].func.isRequired,
     onFocus: _propTypes["default"].func.isRequired,

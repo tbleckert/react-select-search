@@ -54,15 +54,21 @@ const SelectSearch = forwardRef(({
     return "select-search__" + key;
   } : className;
   const wrapperClass = [classNameFn('container'), multiple ? classNameFn('container--multiple') : false, search ? classNameFn('container--search') : false, snapshot.searching ? classNameFn('is-loading') : false, snapshot.focus ? classNameFn('has-focus') : false].filter(cls => !!cls).join(' ');
-  const value = (snapshot.focus || multiple) && search ? snapshot.search : snapshot.displayValue;
+  const value = snapshot.focus && search ? snapshot.search : snapshot.displayValue;
   useEffect(() => {
-    let selected = null;
-
-    if (snapshot.focus && selectRef.current && snapshot.highlighted > -1) {
-      selected = selectRef.current.querySelector("[data-index=\"" + snapshot.highlighted + "\"]");
-    } else if (snapshot.focus && selectRef.current && snapshot.value) {
-      selected = selectRef.current.querySelector("[data-value=\"" + escape(snapshot.value.value) + "\"]");
+    if (!selectRef.current || !snapshot.focus) {
+      return;
     }
+
+    let query = null;
+
+    if (snapshot.highlighted > -1) {
+      query = "[data-index=\"" + snapshot.highlighted + "\"]";
+    } else if (snapshot.value) {
+      query = "[data-value=\"" + escape(snapshot.value.value) + "\"]";
+    }
+
+    const selected = selectRef.current.querySelector(query);
 
     if (selected) {
       const rect = selectRef.current.getBoundingClientRect();
@@ -93,12 +99,11 @@ const SelectSearch = forwardRef(({
   const valueComp = renderValue ? /*#__PURE__*/React.createElement("div", {
     className: classNameFn('value')
   }, renderValue(_objectSpread({}, valueProps, {
-    placeholder: search ? placeholder : null,
-    autoFocus: search ? autoFocus : null,
-    autoComplete: search ? autoComplete : null,
-    value: search ? value : null
+    placeholder,
+    autoFocus,
+    autoComplete,
+    value
   }), snapshot, classNameFn('input'))) : /*#__PURE__*/React.createElement(Value, {
-    snapshot: snapshot,
     disabled: disabled,
     search: search,
     autoFocus: autoFocus,
@@ -106,14 +111,12 @@ const SelectSearch = forwardRef(({
     className: classNameFn,
     valueProps: valueProps,
     autoComplete: autoComplete,
-    placeholder: placeholder,
-    multiple: multiple,
-    render: renderValue
+    placeholder: placeholder
   });
   return /*#__PURE__*/React.createElement("div", {
     ref: ref,
     className: wrapperClass
-  }, (!multiple || search) && valueComp, shouldRenderOptions && /*#__PURE__*/React.createElement("div", {
+  }, (!multiple || placeholder || search) && valueComp, shouldRenderOptions && /*#__PURE__*/React.createElement("div", {
     className: classNameFn('select'),
     ref: selectRef
   }, /*#__PURE__*/React.createElement(Options, {

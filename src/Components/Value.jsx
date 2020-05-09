@@ -33,11 +33,12 @@ Value.defaultProps = {
     autoFocus: false,
     autoComplete: 'on',
     placeholder: null,
+    displayValue: null,
 };
 
 Value.propTypes = {
     className: PropTypes.func.isRequired,
-    displayValue: PropTypes.string.isRequired,
+    displayValue: PropTypes.string,
     valueProps: PropTypes.shape({
         onBlur: PropTypes.func.isRequired,
         onFocus: PropTypes.func.isRequired,

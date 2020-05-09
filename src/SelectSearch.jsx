@@ -58,17 +58,23 @@ const SelectSearch = forwardRef(({
         (snapshot.focus) ? classNameFn('has-focus') : false,
     ].filter(cls => !!cls).join(' ');
 
-    const value = ((snapshot.focus || multiple) && search)
+    const value = (snapshot.focus && search)
         ? snapshot.search : snapshot.displayValue;
 
     useEffect(() => {
-        let selected = null;
-
-        if (snapshot.focus && selectRef.current && snapshot.highlighted > -1) {
-            selected = selectRef.current.querySelector(`[data-index="${snapshot.highlighted}"]`);
-        } else if (snapshot.focus && selectRef.current && snapshot.value) {
-            selected = selectRef.current.querySelector(`[data-value="${escape(snapshot.value.value)}"]`);
+        if (!selectRef.current || !snapshot.focus) {
+            return;
         }
+
+        let query = null;
+
+        if (snapshot.highlighted > -1) {
+            query = `[data-index="${snapshot.highlighted}"]`;
+        } else if (snapshot.value) {
+            query = `[data-value="${escape(snapshot.value.value)}"]`;
+        }
+
+        const selected = selectRef.current.querySelector(query);
 
         if (selected) {
             const rect = selectRef.current.getBoundingClientRect();
@@ -101,10 +107,10 @@ const SelectSearch = forwardRef(({
             {renderValue(
                 {
                     ...valueProps,
-                    placeholder: (search) ? placeholder : null,
-                    autoFocus: (search) ? autoFocus : null,
-                    autoComplete: (search) ? autoComplete : null,
-                    value: (search) ? value : null,
+                    placeholder,
+                    autoFocus,
+                    autoComplete,
+                    value,
                 },
                 snapshot,
                 classNameFn('input'),
@@ -112,7 +118,6 @@ const SelectSearch = forwardRef(({
         </div>
     ) : (
         <Value
-            snapshot={snapshot}
             disabled={disabled}
             search={search}
             autoFocus={autoFocus}
@@ -121,14 +126,12 @@ const SelectSearch = forwardRef(({
             valueProps={valueProps}
             autoComplete={autoComplete}
             placeholder={placeholder}
-            multiple={multiple}
-            render={renderValue}
         />
     );
 
     return (
         <div ref={ref} className={wrapperClass}>
-            {(!multiple || search) && valueComp}
+            {((!multiple || placeholder) || search) && valueComp}
             {shouldRenderOptions && (
                 <div className={classNameFn('select')} ref={selectRef}>
                     <Options

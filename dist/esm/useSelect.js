@@ -26,12 +26,12 @@ export default function useSelectSearch({
   const option = useMemo(() => {
     let newOption = getOption(value, [...flatDefaultOptions, ...addedOptions]);
 
-    if (!newOption && !allowEmpty) {
+    if (!newOption && !allowEmpty && !multiple) {
       [newOption] = flatDefaultOptions;
     }
 
     return newOption;
-  }, [value, flatDefaultOptions, addedOptions, allowEmpty]);
+  }, [value, flatDefaultOptions, addedOptions, allowEmpty, multiple]);
   const [search, setSearch] = useState('');
   const [focus, setFocus] = useState(false);
   const [searching, setSearching] = useState(false);
@@ -47,10 +47,8 @@ export default function useSelectSearch({
       ref.current.blur();
     }
 
-    if (!multiple) {
-      setSearch('');
-      setOptions(flatDefaultOptions);
-    }
+    setSearch('');
+    setOptions(flatDefaultOptions);
   };
 
   const onFocus = () => setFocus(true);
