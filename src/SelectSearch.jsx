@@ -185,7 +185,7 @@ SelectSearch.propTypes = {
     search: PropTypes.bool,
     disabled: PropTypes.bool,
     placeholder: PropTypes.string,
-    autoComplete: PropTypes.oneOf(['on', 'off']),
+    autoComplete: PropTypes.string,
     autoFocus: PropTypes.bool,
     onChange: PropTypes.func,
     printOptions: PropTypes.oneOf(['auto', 'always', 'never', 'on-focus']),
