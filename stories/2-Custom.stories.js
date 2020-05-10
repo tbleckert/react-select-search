@@ -1,6 +1,7 @@
 import React from 'react';
 import SelectSearch from '../src';
 import '../style.css';
+import classes from '../style.module.css';
 import { countries, fontStacks, friends } from './data';
 
 export default {
@@ -56,5 +57,17 @@ export const AvatarExample = () => (
         multiple
         search
         placeholder="Search friends"
+    />
+);
+
+export const CSSModules = () => (
+    <SelectSearch
+        className={(key) => classes[key]}
+        multiple
+        options={[
+            { value: 'hamburger', name: 'Hamburger' },
+            { value: 'fries', name: 'Fries' },
+            { value: 'milkshake', name: 'Milkshake' },
+        ]}
     />
 );

@@ -47,7 +47,7 @@ export default function useSelectSearch({
     const displayValue = useMemo(() => getDisplayValue(option), [option]);
     const onBlur = () => {
         setFocus(false);
-        setHighlighted(false);
+        setHighlighted(-1);
 
         if (ref.current) {
             ref.current.blur();
@@ -73,7 +73,7 @@ export default function useSelectSearch({
     };
 
     const onMouseDown = (e) => {
-        if (!closeOnSelect) {
+        if (!closeOnSelect || multiple) {
             e.preventDefault();
         }
 

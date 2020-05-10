@@ -1,0 +1,38 @@
+.container {
+    border-radius: 10px;
+    background: #ffff;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.05);
+    border: 2px solid transparent;
+    overflow: hidden;
+    transition: .3s border-color;
+}
+
+.container:hover {
+    border-color: #6779E1;
+}
+
+.options {
+    list-style: none;
+}
+
+.row {
+    display: block;
+}
+
+.option {
+    display: block;
+    width: 100%;
+    padding: 16px;
+    border: none;
+    background: none;
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 18px;
+    text-align: left;
+    cursor: pointer;
+    transition: .3s background;
+}
+
+.option.is-selected {
+    background: rgb(103, 121, 225);
+    color: #fff;
+}

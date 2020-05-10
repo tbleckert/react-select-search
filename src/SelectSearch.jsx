@@ -70,7 +70,7 @@ const SelectSearch = forwardRef(({
 
         if (snapshot.highlighted > -1) {
             query = `[data-index="${snapshot.highlighted}"]`;
-        } else if (snapshot.value) {
+        } else if (snapshot.value && !multiple) {
             query = `[data-value="${escape(snapshot.value.value)}"]`;
         }
 

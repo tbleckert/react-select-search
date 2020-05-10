@@ -68,3 +68,16 @@ export const Group = () => (
         multiple
     />
 );
+
+export const OnFocus = () => (
+    <SelectSearch
+        options={[
+            { value: 'hamburger', name: 'Hamburger' },
+            { value: 'fries', name: 'Fries' },
+            { value: 'milkshake', name: 'Milkshake' },
+        ]}
+        multiple
+        printOptions="on-focus"
+        placeholder="Select your items"
+    />
+);
