@@ -56,7 +56,7 @@ const SelectSearch = forwardRef(({
   const wrapperClass = [classNameFn('container'), multiple ? classNameFn('container--multiple') : false, search ? classNameFn('container--search') : false, snapshot.searching ? classNameFn('is-loading') : false, snapshot.focus ? classNameFn('has-focus') : false].filter(cls => !!cls).join(' ');
   const value = snapshot.focus && search ? snapshot.search : snapshot.displayValue;
   useEffect(() => {
-    if (!selectRef.current || !snapshot.focus) {
+    if (!selectRef.current) {
       return;
     }
 
@@ -64,7 +64,7 @@ const SelectSearch = forwardRef(({
 
     if (snapshot.highlighted > -1) {
       query = "[data-index=\"" + snapshot.highlighted + "\"]";
-    } else if (snapshot.value) {
+    } else if (snapshot.value && !multiple) {
       query = "[data-value=\"" + escape(snapshot.value.value) + "\"]";
     }
 
@@ -98,7 +98,7 @@ const SelectSearch = forwardRef(({
 
   const valueComp = renderValue ? /*#__PURE__*/React.createElement("div", {
     className: classNameFn('value')
-  }, renderValue(_objectSpread({}, valueProps, {
+  }, renderValue(_objectSpread(_objectSpread({}, valueProps), {}, {
     placeholder,
     autoFocus,
     autoComplete,

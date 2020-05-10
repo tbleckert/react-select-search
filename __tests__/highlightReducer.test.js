@@ -12,12 +12,6 @@ describe('Unit test for highlightReducer function', () => {
         expect(state).toEqual(-1);
     });
 
-    test('Unrecognized key should return input', () => {
-        const state = highlightReducer(0, { key: 'ArrowLeft', options });
-
-        expect(state).toEqual(0);
-    });
-
     test('Missing options should return input', () => {
         const state = highlightReducer(0, { key: 'ArrowLeft', options: null });
 

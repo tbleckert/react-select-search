@@ -30,6 +30,7 @@
     text-align: left;
     cursor: pointer;
     transition: .3s background;
+    outline: none;
 }
 
 .option.is-selected {

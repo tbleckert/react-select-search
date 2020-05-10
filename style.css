@@ -19,6 +19,7 @@
  */
 .select-search__value {
     position: relative;
+    z-index: 1;
 }
 
 .select-search__value::after {
@@ -151,6 +152,11 @@
 /**
  * Modifiers
  */
+.select-search--multiple {
+    border-radius: 3px;
+    overflow: hidden;
+}
+
 .select-search:not(.is-loading):not(.select-search--multiple) .select-search__value::after {
     transform: rotate(45deg);
     border-right: 1px solid #000;
@@ -174,6 +180,7 @@
     border-color: #2FCC8B;
 }
 
+
 .select-search:not(.select-search--multiple) .select-search__select {
     position: absolute;
     z-index: 2;
@@ -186,8 +193,9 @@
 }
 
 .select-search--multiple .select-search__select {
-    max-height: 180px;
+    position: relative;
     overflow: auto;
+    max-height: 260px;
     border-top: 1px solid #eee;
     border-radius: 0 0 3px 3px;
 }

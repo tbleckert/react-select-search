@@ -25,7 +25,7 @@ const Option = (_ref) => {
 
   const optionClass = [className('option'), selected ? className('is-selected') : false, highlighted ? className('is-highlighted') : false].filter(cls => !!cls).join(' ');
   const comp = useMemo(() => {
-    const domProps = _objectSpread({}, optionProps, {
+    const domProps = _objectSpread(_objectSpread({}, optionProps), {}, {
       value: option.value,
       disabled: option.disabled
     });

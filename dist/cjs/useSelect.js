@@ -103,6 +103,10 @@ function useSelectSearch(_ref) {
     setOptions(flatDefaultOptions);
   };
 
+  var onClick = function onClick() {
+    return setFocus(!focus);
+  };
+
   var onFocus = function onFocus() {
     return setFocus(true);
   };
@@ -127,10 +131,13 @@ function useSelectSearch(_ref) {
   };
 
   var onKeyDown = function onKeyDown(e) {
-    return setHighlighted({
-      key: e.key,
-      options: flat
-    });
+    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+      e.preventDefault();
+      setHighlighted({
+        key: e.key,
+        options: flat
+      });
+    }
   };
 
   var onKeyPress = function onKeyPress(_ref2) {
@@ -186,6 +193,7 @@ function useSelectSearch(_ref) {
     tabIndex: '0',
     readOnly: !canSearch,
     onChange: canSearch ? onSearch : null,
+    onMouseDown: onClick,
     onBlur: onBlur,
     onFocus: onFocus,
     onKeyPress: onKeyPress,
@@ -195,7 +203,10 @@ function useSelectSearch(_ref) {
   };
   var optionProps = {
     tabIndex: '-1',
-    onMouseDown: onMouseDown
+    onMouseDown: onMouseDown,
+    onKeyDown: onKeyDown,
+    onKeyPress: onKeyPress,
+    onBlur: onBlur
   };
   (0, _react.useEffect)(function () {
     setValue(defaultValue);

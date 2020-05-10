@@ -51,6 +51,8 @@ export default function useSelectSearch({
     setOptions(flatDefaultOptions);
   };
 
+  const onClick = () => setFocus(!focus);
+
   const onFocus = () => setFocus(true);
 
   const onSelect = val => {
@@ -70,10 +72,15 @@ export default function useSelectSearch({
     onSelect(e.currentTarget.value);
   };
 
-  const onKeyDown = e => setHighlighted({
-    key: e.key,
-    options: flat
-  });
+  const onKeyDown = e => {
+    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+      e.preventDefault();
+      setHighlighted({
+        key: e.key,
+        options: flat
+      });
+    }
+  };
 
   const onKeyPress = ({
     key
@@ -127,6 +134,7 @@ export default function useSelectSearch({
     tabIndex: '0',
     readOnly: !canSearch,
     onChange: canSearch ? onSearch : null,
+    onMouseDown: onClick,
     onBlur,
     onFocus,
     onKeyPress,
@@ -136,7 +144,10 @@ export default function useSelectSearch({
   };
   const optionProps = {
     tabIndex: '-1',
-    onMouseDown
+    onMouseDown,
+    onKeyDown,
+    onKeyPress,
+    onBlur
   };
   useEffect(() => {
     setValue(defaultValue);

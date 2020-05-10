@@ -35,7 +35,7 @@ var Option = function Option(_ref) {
     return !!cls;
   }).join(' ');
   var comp = (0, _react.useMemo)(function () {
-    var domProps = _objectSpread({}, optionProps, {
+    var domProps = _objectSpread(_objectSpread({}, optionProps), {}, {
       value: option.value,
       disabled: option.disabled
     });

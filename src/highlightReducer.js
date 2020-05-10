@@ -5,7 +5,7 @@ export default function highlightReducer(highlighted, value) {
 
     const { key, options } = value;
 
-    if (!options || (key !== 'ArrowDown' && key !== 'ArrowUp')) {
+    if (!options) {
         return highlighted;
     }
 

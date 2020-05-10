@@ -28,7 +28,7 @@ function flattenOptions(options) {
       return;
     }
 
-    nextOptions.push(_objectSpread({}, option, {
+    nextOptions.push(_objectSpread(_objectSpread({}, option), {}, {
       index: index
     }));
   });

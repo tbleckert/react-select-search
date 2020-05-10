@@ -47,7 +47,7 @@ export default function useSelectSearch({
     const displayValue = useMemo(() => getDisplayValue(option), [option]);
     const onBlur = () => {
         setFocus(false);
-        setHighlighted(-1);
+        setHighlighted(false);
 
         if (ref.current) {
             ref.current.blur();
@@ -57,6 +57,7 @@ export default function useSelectSearch({
         setOptions(flatDefaultOptions);
     };
 
+    const onClick = () => setFocus(!focus);
     const onFocus = () => setFocus(true);
     const onSelect = (val) => {
         const newOption = getOption(val, flat);
@@ -73,13 +74,23 @@ export default function useSelectSearch({
     };
 
     const onMouseDown = (e) => {
-        if (!closeOnSelect || multiple) {
+        if (!closeOnSelect) {
             e.preventDefault();
         }
 
         onSelect(e.currentTarget.value);
     };
-    const onKeyDown = e => setHighlighted({ key: e.key, options: flat });
+    const onKeyDown = (e) => {
+        if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+            e.preventDefault();
+
+            setHighlighted({
+                key: e.key,
+                options: flat,
+            });
+        }
+    };
+
     const onKeyPress = ({ key }) => {
         if (key === 'Enter') {
             const newOption = flat[highlighted];
@@ -130,6 +141,7 @@ export default function useSelectSearch({
         tabIndex: '0',
         readOnly: !canSearch,
         onChange: (canSearch) ? onSearch : null,
+        onMouseDown: onClick,
         onBlur,
         onFocus,
         onKeyPress,
@@ -138,7 +150,13 @@ export default function useSelectSearch({
         ref,
     };
 
-    const optionProps = { tabIndex: '-1', onMouseDown };
+    const optionProps = {
+        tabIndex: '-1',
+        onMouseDown,
+        onKeyDown,
+        onKeyPress,
+        onBlur,
+    };
 
     useEffect(() => {
         setValue(defaultValue);

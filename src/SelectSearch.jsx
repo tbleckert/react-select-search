@@ -62,7 +62,7 @@ const SelectSearch = forwardRef(({
         ? snapshot.search : snapshot.displayValue;
 
     useEffect(() => {
-        if (!selectRef.current || !snapshot.focus) {
+        if (!selectRef.current) {
             return;
         }
 

@@ -79,7 +79,7 @@ var SelectSearch = (0, _react.forwardRef)(function (_ref, ref) {
   }).join(' ');
   var value = snapshot.focus && search ? snapshot.search : snapshot.displayValue;
   (0, _react.useEffect)(function () {
-    if (!selectRef.current || !snapshot.focus) {
+    if (!selectRef.current) {
       return;
     }
 
@@ -87,7 +87,7 @@ var SelectSearch = (0, _react.forwardRef)(function (_ref, ref) {
 
     if (snapshot.highlighted > -1) {
       query = "[data-index=\"" + snapshot.highlighted + "\"]";
-    } else if (snapshot.value) {
+    } else if (snapshot.value && !multiple) {
       query = "[data-value=\"" + escape(snapshot.value.value) + "\"]";
     }
 
@@ -121,7 +121,7 @@ var SelectSearch = (0, _react.forwardRef)(function (_ref, ref) {
 
   var valueComp = renderValue ? /*#__PURE__*/_react["default"].createElement("div", {
     className: classNameFn('value')
-  }, renderValue(_objectSpread({}, valueProps, {
+  }, renderValue(_objectSpread(_objectSpread({}, valueProps), {}, {
     placeholder: placeholder,
     autoFocus: autoFocus,
     autoComplete: autoComplete,
