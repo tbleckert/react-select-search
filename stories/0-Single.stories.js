@@ -47,6 +47,17 @@ export const AlwaysOpen = () => (
     />
 );
 
+export const StayOnSelect = () => (
+    <SelectSearch
+        closeOnSelect={false}
+        options={[
+            { value: 's', name: 'Small' },
+            { value: 'm', name: 'Medium' },
+            { value: 'l', name: 'Large' },
+        ]}
+    />
+);
+
 export const Group = () => (
     <SelectSearch
         options={[

@@ -9,6 +9,7 @@ export default {
 
 export const Default = () => (
     <SelectSearch
+        className="select-search select-search--multiple"
         options={[
             { value: 'hamburger', name: 'Hamburger' },
             { value: 'fries', name: 'Fries' },
@@ -20,6 +21,7 @@ export const Default = () => (
 
 export const WithPlaceholder = () => (
     <SelectSearch
+        className="select-search select-search--multiple"
         options={[
             { value: 'hamburger', name: 'Hamburger' },
             { value: 'fries', name: 'Fries' },

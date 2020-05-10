@@ -52,6 +52,7 @@ export const FontExample = () => (
 
 export const AvatarExample = () => (
     <SelectSearch
+        className="select-search select-search--multiple"
         options={friends}
         renderOption={renderFriend}
         multiple

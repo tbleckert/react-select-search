@@ -65,16 +65,16 @@ var SelectSearch = (0, _react.forwardRef)(function (_ref, ref) {
 
   var classNameFn = typeof className === 'string' ? function (key) {
     if (key.indexOf('container') === 0) {
-      return key.replace('container', 'select-search');
+      return key.replace('container', className);
     }
 
     if (key.indexOf('is-') === 0 || key.indexOf('has-') === 0) {
       return key;
     }
 
-    return "select-search__" + key;
+    return className.split(' ')[0] + "__" + key;
   } : className;
-  var wrapperClass = [classNameFn('container'), multiple ? classNameFn('container--multiple') : false, search ? classNameFn('container--search') : false, snapshot.searching ? classNameFn('is-loading') : false, snapshot.focus ? classNameFn('has-focus') : false].filter(function (cls) {
+  var wrapperClass = [classNameFn('container'), snapshot.searching ? classNameFn('is-loading') : false, snapshot.focus ? classNameFn('has-focus') : false].filter(function (cls) {
     return !!cls;
   }).join(' ');
   var value = snapshot.focus && search ? snapshot.search : snapshot.displayValue;
@@ -183,7 +183,7 @@ SelectSearch.propTypes = process.env.NODE_ENV !== "production" ? {
   search: _propTypes["default"].bool,
   disabled: _propTypes["default"].bool,
   placeholder: _propTypes["default"].string,
-  autoComplete: _propTypes["default"].oneOf(['on', 'off']),
+  autoComplete: _propTypes["default"].string,
   autoFocus: _propTypes["default"].bool,
   onChange: _propTypes["default"].func,
   printOptions: _propTypes["default"].oneOf(['auto', 'always', 'never', 'on-focus']),

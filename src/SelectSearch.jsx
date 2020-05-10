@@ -40,20 +40,18 @@ const SelectSearch = forwardRef(({
 
     const classNameFn = (typeof className === 'string') ? (key) => {
         if (key.indexOf('container') === 0) {
-            return key.replace('container', 'select-search');
+            return key.replace('container', className);
         }
 
         if (key.indexOf('is-') === 0 || key.indexOf('has-') === 0) {
             return key;
         }
 
-        return `select-search__${key}`;
+        return `${className.split(' ')[0]}__${key}`;
     } : className;
 
     const wrapperClass = [
         classNameFn('container'),
-        (multiple) ? classNameFn('container--multiple') : false,
-        (search) ? classNameFn('container--search') : false,
         (snapshot.searching) ? classNameFn('is-loading') : false,
         (snapshot.focus) ? classNameFn('has-focus') : false,
     ].filter(cls => !!cls).join(' ');

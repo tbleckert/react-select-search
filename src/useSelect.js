@@ -74,8 +74,12 @@ export default function useSelectSearch({
     };
 
     const onMouseDown = (e) => {
-        if (!closeOnSelect) {
+        if (!closeOnSelect || multiple) {
             e.preventDefault();
+
+            if (multiple) {
+                e.target.focus();
+            }
         }
 
         onSelect(e.currentTarget.value);
@@ -98,7 +102,7 @@ export default function useSelectSearch({
             if (newOption) {
                 onSelect(newOption.value);
 
-                if (!multiple) {
+                if (!multiple && closeOnSelect) {
                     onBlur();
                 }
             }

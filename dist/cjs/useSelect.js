@@ -123,8 +123,12 @@ function useSelectSearch(_ref) {
   };
 
   var onMouseDown = function onMouseDown(e) {
-    if (!closeOnSelect) {
+    if (!closeOnSelect || multiple) {
       e.preventDefault();
+
+      if (multiple) {
+        e.target.focus();
+      }
     }
 
     onSelect(e.currentTarget.value);
@@ -149,7 +153,7 @@ function useSelectSearch(_ref) {
       if (newOption) {
         onSelect(newOption.value);
 
-        if (!multiple) {
+        if (!multiple && closeOnSelect) {
           onBlur();
         }
       }
