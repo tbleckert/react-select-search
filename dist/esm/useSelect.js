@@ -1,4 +1,10 @@
-import { useReducer, useEffect, useMemo, useState, useRef } from 'react';
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+import { useEffect, useMemo, useState, useRef } from 'react';
 import highlightReducer from './highlightReducer';
 import getDisplayValue from './lib/getDisplayValue';
 import flattenOptions from './lib/flattenOptions';
@@ -20,9 +26,24 @@ export default function useSelectSearch({
 }) {
   const ref = useRef(null);
   const flatDefaultOptions = useMemo(() => flattenOptions(defaultOptions), [defaultOptions]);
-  const [flat, setOptions] = useState([]);
-  const [addedOptions, setAddedOptions] = useState([]);
-  const [value, setValue] = useState(defaultValue);
+  const [state, setState] = useState({
+    flat: [],
+    addedOptions: [],
+    value: defaultValue,
+    search: '',
+    focus: false,
+    searching: false,
+    highlighted: -1
+  });
+  const {
+    flat,
+    addedOptions,
+    value,
+    search,
+    focus,
+    searching,
+    highlighted
+  } = state;
   const option = useMemo(() => {
     let newOption = getOption(value, [...flatDefaultOptions, ...addedOptions]);
 
@@ -32,35 +53,38 @@ export default function useSelectSearch({
 
     return newOption;
   }, [value, flatDefaultOptions, addedOptions, allowEmpty, multiple]);
-  const [search, setSearch] = useState('');
-  const [focus, setFocus] = useState(false);
-  const [searching, setSearching] = useState(false);
-  const [highlighted, setHighlighted] = useReducer(highlightReducer, -1);
   const options = useMemo(() => GroupOptions(flat), [flat]);
   const displayValue = useMemo(() => getDisplayValue(option), [option]);
 
   const onBlur = () => {
-    setFocus(false);
-    setHighlighted(false);
+    setState(oldState => _objectSpread(_objectSpread({}, oldState), {}, {
+      focus: false,
+      search: '',
+      flat: flatDefaultOptions,
+      highlighted: -1
+    }));
 
     if (ref.current) {
       ref.current.blur();
     }
-
-    setSearch('');
-    setOptions(flatDefaultOptions);
   };
 
-  const onClick = () => setFocus(!focus);
+  const onClick = () => setState(_objectSpread(_objectSpread({}, state), {}, {
+    focus: !focus
+  }));
 
-  const onFocus = () => setFocus(true);
+  const onFocus = () => setState(_objectSpread(_objectSpread({}, state), {}, {
+    focus: true
+  }));
 
   const onSelect = val => {
     const newOption = getOption(val, flat);
     const newOptions = getNewValue(newOption, option, multiple);
     const values = multiple ? newOptions.map(i => i.value) : newOptions.value;
-    setAddedOptions(multiple ? newOptions : [newOptions]);
-    setValue(values);
+    setState(oldState => _objectSpread(_objectSpread({}, oldState), {}, {
+      addedOptions: multiple ? newOptions : [newOptions],
+      value: values
+    }));
     onChange(values, newOptions);
   };
 
@@ -77,12 +101,18 @@ export default function useSelectSearch({
   };
 
   const onKeyDown = e => {
-    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+    const {
+      key
+    } = e;
+
+    if (key === 'ArrowDown' || key === 'ArrowUp') {
       e.preventDefault();
-      setHighlighted({
-        key: e.key,
-        options: flat
-      });
+      setState(oldState => _objectSpread(_objectSpread({}, oldState), {}, {
+        highlighted: highlightReducer(oldState.highlighted, {
+          key,
+          options: flat
+        })
+      }));
     }
   };
 
@@ -116,22 +146,32 @@ export default function useSelectSearch({
     const {
       value: inputVal
     } = target;
-    setSearch(inputVal);
+    const newState = {
+      search: inputVal
+    };
     let searchableOption = flatDefaultOptions;
 
     if (getOptions && inputVal.length) {
-      setSearching(true);
+      newState.searching = true;
       searchableOption = getOptions(inputVal);
     }
 
+    setState(oldState => _objectSpread(_objectSpread({}, oldState), newState));
     Promise.resolve(searchableOption).then(foundOptions => {
+      let newOptions = foundOptions;
+
       if (inputVal.length) {
-        const newOptions = doSearch(inputVal, foundOptions, fuse);
-        setOptions(newOptions === false ? foundOptions : newOptions);
-      } else {
-        setOptions(foundOptions);
+        newOptions = doSearch(inputVal, foundOptions, fuse);
       }
-    }).catch(() => setOptions(flatDefaultOptions)).finally(() => setSearching(false));
+
+      setState(oldState => _objectSpread(_objectSpread({}, oldState), {}, {
+        flat: newOptions === false ? foundOptions : newOptions,
+        searching: false
+      }));
+    }).catch(() => setState(oldState => _objectSpread(_objectSpread({}, oldState), {}, {
+      flat: flatDefaultOptions,
+      searching: false
+    })));
   };
 
   const valueProps = {
@@ -154,10 +194,14 @@ export default function useSelectSearch({
     onBlur
   };
   useEffect(() => {
-    setValue(defaultValue);
+    setState(oldState => _objectSpread(_objectSpread({}, oldState), {}, {
+      value: defaultValue
+    }));
   }, [defaultValue]);
   useEffect(() => {
-    setOptions(flatDefaultOptions);
+    setState(oldState => _objectSpread(_objectSpread({}, oldState), {}, {
+      flat: flatDefaultOptions
+    }));
   }, [flatDefaultOptions]);
   return [{
     value: option,
@@ -168,5 +212,7 @@ export default function useSelectSearch({
     focus,
     search,
     searching
-  }, valueProps, optionProps, setValue];
+  }, valueProps, optionProps, newValue => setState(oldState => _objectSpread(_objectSpread({}, oldState), {}, {
+    value: newValue
+  }))];
 }

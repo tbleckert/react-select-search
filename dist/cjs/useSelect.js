@@ -21,6 +21,12 @@ var _search = _interopRequireDefault(require("./search"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function useSelectSearch(_ref) {
   var _ref$value = _ref.value,
       defaultValue = _ref$value === void 0 ? null : _ref$value,
@@ -46,18 +52,25 @@ function useSelectSearch(_ref) {
     return (0, _flattenOptions["default"])(defaultOptions);
   }, [defaultOptions]);
 
-  var _useState = (0, _react.useState)([]),
-      flat = _useState[0],
-      setOptions = _useState[1];
+  var _useState = (0, _react.useState)({
+    flat: [],
+    addedOptions: [],
+    value: defaultValue,
+    search: '',
+    focus: false,
+    searching: false,
+    highlighted: -1
+  }),
+      state = _useState[0],
+      setState = _useState[1];
 
-  var _useState2 = (0, _react.useState)([]),
-      addedOptions = _useState2[0],
-      setAddedOptions = _useState2[1];
-
-  var _useState3 = (0, _react.useState)(defaultValue),
-      value = _useState3[0],
-      setValue = _useState3[1];
-
+  var flat = state.flat,
+      addedOptions = state.addedOptions,
+      value = state.value,
+      search = state.search,
+      focus = state.focus,
+      searching = state.searching,
+      highlighted = state.highlighted;
   var option = (0, _react.useMemo)(function () {
     var newOption = (0, _getOption["default"])(value, [].concat(flatDefaultOptions, addedOptions));
 
@@ -67,23 +80,6 @@ function useSelectSearch(_ref) {
 
     return newOption;
   }, [value, flatDefaultOptions, addedOptions, allowEmpty, multiple]);
-
-  var _useState4 = (0, _react.useState)(''),
-      search = _useState4[0],
-      setSearch = _useState4[1];
-
-  var _useState5 = (0, _react.useState)(false),
-      focus = _useState5[0],
-      setFocus = _useState5[1];
-
-  var _useState6 = (0, _react.useState)(false),
-      searching = _useState6[0],
-      setSearching = _useState6[1];
-
-  var _useReducer = (0, _react.useReducer)(_highlightReducer["default"], -1),
-      highlighted = _useReducer[0],
-      setHighlighted = _useReducer[1];
-
   var options = (0, _react.useMemo)(function () {
     return (0, _groupOptions["default"])(flat);
   }, [flat]);
@@ -92,23 +88,30 @@ function useSelectSearch(_ref) {
   }, [option]);
 
   var onBlur = function onBlur() {
-    setFocus(false);
-    setHighlighted(false);
+    setState(function (oldState) {
+      return _objectSpread(_objectSpread({}, oldState), {}, {
+        focus: false,
+        search: '',
+        flat: flatDefaultOptions,
+        highlighted: -1
+      });
+    });
 
     if (ref.current) {
       ref.current.blur();
     }
-
-    setSearch('');
-    setOptions(flatDefaultOptions);
   };
 
   var onClick = function onClick() {
-    return setFocus(!focus);
+    return setState(_objectSpread(_objectSpread({}, state), {}, {
+      focus: !focus
+    }));
   };
 
   var onFocus = function onFocus() {
-    return setFocus(true);
+    return setState(_objectSpread(_objectSpread({}, state), {}, {
+      focus: true
+    }));
   };
 
   var onSelect = function onSelect(val) {
@@ -117,8 +120,12 @@ function useSelectSearch(_ref) {
     var values = multiple ? newOptions.map(function (i) {
       return i.value;
     }) : newOptions.value;
-    setAddedOptions(multiple ? newOptions : [newOptions]);
-    setValue(values);
+    setState(function (oldState) {
+      return _objectSpread(_objectSpread({}, oldState), {}, {
+        addedOptions: multiple ? newOptions : [newOptions],
+        value: values
+      });
+    });
     onChange(values, newOptions);
   };
 
@@ -135,11 +142,17 @@ function useSelectSearch(_ref) {
   };
 
   var onKeyDown = function onKeyDown(e) {
-    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+    var key = e.key;
+
+    if (key === 'ArrowDown' || key === 'ArrowUp') {
       e.preventDefault();
-      setHighlighted({
-        key: e.key,
-        options: flat
+      setState(function (oldState) {
+        return _objectSpread(_objectSpread({}, oldState), {}, {
+          highlighted: (0, _highlightReducer["default"])(oldState.highlighted, {
+            key: key,
+            options: flat
+          })
+        });
       });
     }
   };
@@ -171,25 +184,39 @@ function useSelectSearch(_ref) {
   var onSearch = function onSearch(_ref4) {
     var target = _ref4.target;
     var inputVal = target.value;
-    setSearch(inputVal);
+    var newState = {
+      search: inputVal
+    };
     var searchableOption = flatDefaultOptions;
 
     if (getOptions && inputVal.length) {
-      setSearching(true);
+      newState.searching = true;
       searchableOption = getOptions(inputVal);
     }
 
+    setState(function (oldState) {
+      return _objectSpread(_objectSpread({}, oldState), newState);
+    });
     Promise.resolve(searchableOption).then(function (foundOptions) {
+      var newOptions = foundOptions;
+
       if (inputVal.length) {
-        var newOptions = (0, _search["default"])(inputVal, foundOptions, fuse);
-        setOptions(newOptions === false ? foundOptions : newOptions);
-      } else {
-        setOptions(foundOptions);
+        newOptions = (0, _search["default"])(inputVal, foundOptions, fuse);
       }
+
+      setState(function (oldState) {
+        return _objectSpread(_objectSpread({}, oldState), {}, {
+          flat: newOptions === false ? foundOptions : newOptions,
+          searching: false
+        });
+      });
     })["catch"](function () {
-      return setOptions(flatDefaultOptions);
-    })["finally"](function () {
-      return setSearching(false);
+      return setState(function (oldState) {
+        return _objectSpread(_objectSpread({}, oldState), {}, {
+          flat: flatDefaultOptions,
+          searching: false
+        });
+      });
     });
   };
 
@@ -213,10 +240,18 @@ function useSelectSearch(_ref) {
     onBlur: onBlur
   };
   (0, _react.useEffect)(function () {
-    setValue(defaultValue);
+    setState(function (oldState) {
+      return _objectSpread(_objectSpread({}, oldState), {}, {
+        value: defaultValue
+      });
+    });
   }, [defaultValue]);
   (0, _react.useEffect)(function () {
-    setOptions(flatDefaultOptions);
+    setState(function (oldState) {
+      return _objectSpread(_objectSpread({}, oldState), {}, {
+        flat: flatDefaultOptions
+      });
+    });
   }, [flatDefaultOptions]);
   return [{
     value: option,
@@ -227,5 +262,11 @@ function useSelectSearch(_ref) {
     focus: focus,
     search: search,
     searching: searching
-  }, valueProps, optionProps, setValue];
+  }, valueProps, optionProps, function (newValue) {
+    return setState(function (oldState) {
+      return _objectSpread(_objectSpread({}, oldState), {}, {
+        value: newValue
+      });
+    });
+  }];
 }

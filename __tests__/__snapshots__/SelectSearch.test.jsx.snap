@@ -29,14 +29,14 @@ exports[`Test SelectSearch component Class name as fn 1`] = `
 
 exports[`Test SelectSearch component Class name as string 1`] = `
 <div
-  className="select-search"
+  className="custom-select"
 >
   <div
-    className="select-search__value"
+    className="custom-select__value"
   >
     <input
       autoFocus={false}
-      className="select-search__input"
+      className="custom-select__input"
       disabled={false}
       onBlur={[Function]}
       onChange={null}
@@ -1360,7 +1360,7 @@ exports[`Test SelectSearch component Custom renderers work with search 1`] = `
   search={true}
 >
   <div
-    className="select-search select-search--search"
+    className="select-search"
   >
     <div
       className="select-search__value"
@@ -1456,7 +1456,7 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
   search={true}
 >
   <div
-    className="select-search select-search--search has-focus"
+    className="select-search has-focus"
   >
     <div
       className="select-search__value"
@@ -4123,7 +4123,7 @@ exports[`Test SelectSearch component Renders with disabled 1`] = `
 
 exports[`Test SelectSearch component Renders with multiple 1`] = `
 <div
-  className="select-search select-search--multiple"
+  className="select-search"
 >
   <div
     className="select-search__select"
@@ -4176,7 +4176,7 @@ exports[`Test SelectSearch component Renders with multiple 1`] = `
 
 exports[`Test SelectSearch component Renders with search 1`] = `
 <div
-  className="select-search select-search--search"
+  className="select-search"
 >
   <div
     className="select-search__value"
@@ -4203,7 +4203,7 @@ exports[`Test SelectSearch component Renders with search 1`] = `
 
 exports[`Test SelectSearch component Renders with search and multiple 1`] = `
 <div
-  className="select-search select-search--multiple select-search--search"
+  className="select-search"
 >
   <div
     className="select-search__value"
@@ -4276,7 +4276,7 @@ exports[`Test SelectSearch component Renders with search and multiple 1`] = `
 
 exports[`Test SelectSearch component Renders with search and placeholder 1`] = `
 <div
-  className="select-search select-search--search"
+  className="select-search"
 >
   <div
     className="select-search__value"

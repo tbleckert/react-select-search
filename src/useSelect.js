@@ -1,5 +1,4 @@
 import {
-    useReducer,
     useEffect,
     useMemo,
     useState,
@@ -27,9 +26,26 @@ export default function useSelectSearch({
 }) {
     const ref = useRef(null);
     const flatDefaultOptions = useMemo(() => flattenOptions(defaultOptions), [defaultOptions]);
-    const [flat, setOptions] = useState([]);
-    const [addedOptions, setAddedOptions] = useState([]);
-    const [value, setValue] = useState(defaultValue);
+    const [state, setState] = useState({
+        flat: [],
+        addedOptions: [],
+        value: defaultValue,
+        search: '',
+        focus: false,
+        searching: false,
+        highlighted: -1,
+    });
+
+    const {
+        flat,
+        addedOptions,
+        value,
+        search,
+        focus,
+        searching,
+        highlighted,
+    } = state;
+
     const option = useMemo(() => {
         let newOption = getOption(value, [...flatDefaultOptions, ...addedOptions]);
 
@@ -39,33 +55,34 @@ export default function useSelectSearch({
 
         return newOption;
     }, [value, flatDefaultOptions, addedOptions, allowEmpty, multiple]);
-    const [search, setSearch] = useState('');
-    const [focus, setFocus] = useState(false);
-    const [searching, setSearching] = useState(false);
-    const [highlighted, setHighlighted] = useReducer(highlightReducer, -1);
     const options = useMemo(() => GroupOptions(flat), [flat]);
     const displayValue = useMemo(() => getDisplayValue(option), [option]);
     const onBlur = () => {
-        setFocus(false);
-        setHighlighted(false);
+        setState(oldState => ({
+            ...oldState,
+            focus: false,
+            search: '',
+            flat: flatDefaultOptions,
+            highlighted: -1,
+        }));
 
         if (ref.current) {
             ref.current.blur();
         }
-
-        setSearch('');
-        setOptions(flatDefaultOptions);
     };
 
-    const onClick = () => setFocus(!focus);
-    const onFocus = () => setFocus(true);
+    const onClick = () => setState({ ...state, focus: !focus });
+    const onFocus = () => setState({ ...state, focus: true });
     const onSelect = (val) => {
         const newOption = getOption(val, flat);
         const newOptions = getNewValue(newOption, option, multiple);
         const values = (multiple) ? newOptions.map(i => i.value) : newOptions.value;
 
-        setAddedOptions((multiple) ? newOptions : [newOptions]);
-        setValue(values);
+        setState((oldState) => ({
+            ...oldState,
+            addedOptions: (multiple) ? newOptions : [newOptions],
+            value: values,
+        }));
 
         onChange(
             values,
@@ -85,13 +102,18 @@ export default function useSelectSearch({
         onSelect(e.currentTarget.value);
     };
     const onKeyDown = (e) => {
-        if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        const { key } = e;
+
+        if (key === 'ArrowDown' || key === 'ArrowUp') {
             e.preventDefault();
 
-            setHighlighted({
-                key: e.key,
-                options: flat,
-            });
+            setState(oldState => ({
+                ...oldState,
+                highlighted: highlightReducer(oldState.highlighted, {
+                    key,
+                    options: flat,
+                }),
+            }));
         }
     };
 
@@ -117,28 +139,37 @@ export default function useSelectSearch({
 
     const onSearch = ({ target }) => {
         const { value: inputVal } = target;
-        setSearch(inputVal);
+        const newState = { search: inputVal };
 
         let searchableOption = flatDefaultOptions;
 
         if (getOptions && inputVal.length) {
-            setSearching(true);
+            newState.searching = true;
 
             searchableOption = getOptions(inputVal);
         }
 
+        setState((oldState) => ({ ...oldState, ...newState }));
+
         Promise.resolve(searchableOption)
             .then((foundOptions) => {
-                if (inputVal.length) {
-                    const newOptions = doSearch(inputVal, foundOptions, fuse);
+                let newOptions = foundOptions;
 
-                    setOptions((newOptions === false) ? foundOptions : newOptions);
-                } else {
-                    setOptions(foundOptions);
+                if (inputVal.length) {
+                    newOptions = doSearch(inputVal, foundOptions, fuse);
                 }
+
+                setState((oldState) => ({
+                    ...oldState,
+                    flat: (newOptions === false) ? foundOptions : newOptions,
+                    searching: false
+                }));
             })
-            .catch(() => setOptions(flatDefaultOptions))
-            .finally(() => setSearching(false));
+            .catch(() => setState(oldState => ({
+                ...oldState,
+                flat: flatDefaultOptions,
+                searching: false,
+            })));
     };
 
     const valueProps = {
@@ -163,11 +194,11 @@ export default function useSelectSearch({
     };
 
     useEffect(() => {
-        setValue(defaultValue);
+        setState((oldState) => ({ ...oldState, value: defaultValue }));
     }, [defaultValue]);
 
     useEffect(() => {
-        setOptions(flatDefaultOptions);
+        setState((oldState) => ({ ...oldState, flat: flatDefaultOptions }));
     }, [flatDefaultOptions]);
 
     return [
@@ -183,6 +214,6 @@ export default function useSelectSearch({
         },
         valueProps,
         optionProps,
-        setValue,
+        newValue => setState(oldState => ({ ...oldState, value: newValue })),
     ];
 }
