@@ -75,7 +75,7 @@ const SelectSearch = forwardRef(({
       const selectedRect = selected.getBoundingClientRect();
       selectRef.current.scrollTop = selected.offsetTop - rect.height / 2 + selectedRect.height / 2;
     }
-  }, [snapshot.focus, snapshot.value, snapshot.highlighted, selectRef]);
+  }, [snapshot.focus, snapshot.value, snapshot.highlighted, selectRef, multiple]);
   let shouldRenderOptions = true;
 
   switch (printOptions) {

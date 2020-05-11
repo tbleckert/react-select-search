@@ -102,16 +102,20 @@ function useSelectSearch(_ref) {
     }
   };
 
+  var setFocus = function setFocus(newFocus) {
+    return setState(function (oldState) {
+      return _objectSpread(_objectSpread({}, oldState), {}, {
+        focus: newFocus
+      });
+    });
+  };
+
   var onClick = function onClick() {
-    return setState(_objectSpread(_objectSpread({}, state), {}, {
-      focus: !focus
-    }));
+    return setFocus(!focus);
   };
 
   var onFocus = function onFocus() {
-    return setState(_objectSpread(_objectSpread({}, state), {}, {
-      focus: true
-    }));
+    return setFocus(true);
   };
 
   var onSelect = function onSelect(val) {

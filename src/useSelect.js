@@ -71,14 +71,15 @@ export default function useSelectSearch({
         }
     };
 
-    const onClick = () => setState({ ...state, focus: !focus });
-    const onFocus = () => setState({ ...state, focus: true });
+    const setFocus = newFocus => setState(oldState => ({ ...oldState, focus: newFocus }));
+    const onClick = () => setFocus(!focus);
+    const onFocus = () => setFocus(true);
     const onSelect = (val) => {
         const newOption = getOption(val, flat);
         const newOptions = getNewValue(newOption, option, multiple);
         const values = (multiple) ? newOptions.map(i => i.value) : newOptions.value;
 
-        setState((oldState) => ({
+        setState(oldState => ({
             ...oldState,
             addedOptions: (multiple) ? newOptions : [newOptions],
             value: values,
@@ -149,7 +150,7 @@ export default function useSelectSearch({
             searchableOption = getOptions(inputVal);
         }
 
-        setState((oldState) => ({ ...oldState, ...newState }));
+        setState(oldState => ({ ...oldState, ...newState }));
 
         Promise.resolve(searchableOption)
             .then((foundOptions) => {
@@ -159,10 +160,10 @@ export default function useSelectSearch({
                     newOptions = doSearch(inputVal, foundOptions, fuse);
                 }
 
-                setState((oldState) => ({
+                setState(oldState => ({
                     ...oldState,
                     flat: (newOptions === false) ? foundOptions : newOptions,
-                    searching: false
+                    searching: false,
                 }));
             })
             .catch(() => setState(oldState => ({
@@ -194,11 +195,11 @@ export default function useSelectSearch({
     };
 
     useEffect(() => {
-        setState((oldState) => ({ ...oldState, value: defaultValue }));
+        setState(oldState => ({ ...oldState, value: defaultValue }));
     }, [defaultValue]);
 
     useEffect(() => {
-        setState((oldState) => ({ ...oldState, flat: flatDefaultOptions }));
+        setState(oldState => ({ ...oldState, flat: flatDefaultOptions }));
     }, [flatDefaultOptions]);
 
     return [

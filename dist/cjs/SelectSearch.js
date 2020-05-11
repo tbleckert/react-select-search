@@ -98,7 +98,7 @@ var SelectSearch = (0, _react.forwardRef)(function (_ref, ref) {
       var selectedRect = selected.getBoundingClientRect();
       selectRef.current.scrollTop = selected.offsetTop - rect.height / 2 + selectedRect.height / 2;
     }
-  }, [snapshot.focus, snapshot.value, snapshot.highlighted, selectRef]);
+  }, [snapshot.focus, snapshot.value, snapshot.highlighted, selectRef, multiple]);
   var shouldRenderOptions = true;
 
   switch (printOptions) {

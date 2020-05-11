@@ -69,13 +69,13 @@ export default function useSelectSearch({
     }
   };
 
-  const onClick = () => setState(_objectSpread(_objectSpread({}, state), {}, {
-    focus: !focus
+  const setFocus = newFocus => setState(oldState => _objectSpread(_objectSpread({}, oldState), {}, {
+    focus: newFocus
   }));
 
-  const onFocus = () => setState(_objectSpread(_objectSpread({}, state), {}, {
-    focus: true
-  }));
+  const onClick = () => setFocus(!focus);
+
+  const onFocus = () => setFocus(true);
 
   const onSelect = val => {
     const newOption = getOption(val, flat);
