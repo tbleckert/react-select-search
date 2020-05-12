@@ -1,15 +1,17 @@
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-import React, { forwardRef, memo, createRef, useEffect } from 'react';
+import React, { forwardRef, memo, createRef, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import useSelect from './useSelect';
-import Value from './Components/Value';
-import Options from './Components/Options';
 import { optionType } from './types';
+import Option from './Components/Option';
+import isSelected from './lib/isSelected';
 const SelectSearch = forwardRef(({
   value: defaultValue,
   disabled,
@@ -42,7 +44,20 @@ const SelectSearch = forwardRef(({
     closeOnSelect,
     allowEmpty: !!placeholder
   });
-  const classNameFn = typeof className === 'string' ? key => {
+  const {
+    focus,
+    highlighted,
+    value,
+    options,
+    searching,
+    displayValue,
+    search: searchValue
+  } = snapshot;
+  const cls = useCallback(key => {
+    if (typeof className === 'function') {
+      return className(key);
+    }
+
     if (key.indexOf('container') === 0) {
       return key.replace('container', className);
     }
@@ -52,30 +67,34 @@ const SelectSearch = forwardRef(({
     }
 
     return className.split(' ')[0] + "__" + key;
-  } : className;
-  const wrapperClass = [classNameFn('container'), snapshot.searching ? classNameFn('is-loading') : false, snapshot.focus ? classNameFn('has-focus') : false].filter(cls => !!cls).join(' ');
-  const value = snapshot.focus && search ? snapshot.search : snapshot.displayValue;
+  }, [className]);
+  const wrapperClass = [cls('container'), disabled ? cls('is-disabled') : false, searching ? cls('is-loading') : false, focus ? cls('has-focus') : false].filter(single => !!single).join(' ');
+  const inputValue = focus && search ? searchValue : displayValue;
   useEffect(() => {
-    if (!selectRef.current) {
+    const {
+      current
+    } = selectRef;
+
+    if (!current) {
       return;
     }
 
     let query = null;
 
-    if (snapshot.highlighted > -1) {
-      query = "[data-index=\"" + snapshot.highlighted + "\"]";
-    } else if (snapshot.value && !multiple) {
-      query = "[data-value=\"" + escape(snapshot.value.value) + "\"]";
+    if (highlighted > -1) {
+      query = "[data-index=\"" + highlighted + "\"]";
+    } else if (value && !multiple) {
+      query = "[data-value=\"" + escape(value.value) + "\"]";
     }
 
-    const selected = selectRef.current.querySelector(query);
+    const selected = current.querySelector(query);
 
     if (selected) {
-      const rect = selectRef.current.getBoundingClientRect();
+      const rect = current.getBoundingClientRect();
       const selectedRect = selected.getBoundingClientRect();
-      selectRef.current.scrollTop = selected.offsetTop - rect.height / 2 + selectedRect.height / 2;
+      current.scrollTop = selected.offsetTop - rect.height / 2 + selectedRect.height / 2;
     }
-  }, [snapshot.focus, snapshot.value, snapshot.highlighted, selectRef, multiple]);
+  }, [focus, value, highlighted, selectRef, multiple]);
   let shouldRenderOptions = true;
 
   switch (printOptions) {
@@ -88,45 +107,60 @@ const SelectSearch = forwardRef(({
       break;
 
     case 'on-focus':
-      shouldRenderOptions = snapshot.focus;
+      shouldRenderOptions = focus;
       break;
 
     default:
-      shouldRenderOptions = !disabled && (snapshot.focus || multiple);
+      shouldRenderOptions = !disabled && (focus || multiple);
       break;
   }
 
-  const valueComp = renderValue ? /*#__PURE__*/React.createElement("div", {
-    className: classNameFn('value')
+  return /*#__PURE__*/React.createElement("div", {
+    ref: ref,
+    className: wrapperClass
+  }, (!multiple || placeholder || search) && /*#__PURE__*/React.createElement("div", {
+    className: cls('value')
   }, renderValue(_objectSpread(_objectSpread({}, valueProps), {}, {
     placeholder,
     autoFocus,
     autoComplete,
-    value
-  }), snapshot, classNameFn('input'))) : /*#__PURE__*/React.createElement(Value, {
-    disabled: disabled,
-    search: search,
-    autoFocus: autoFocus,
-    displayValue: value,
-    className: classNameFn,
-    valueProps: valueProps,
-    autoComplete: autoComplete,
-    placeholder: placeholder
-  });
-  return /*#__PURE__*/React.createElement("div", {
-    ref: ref,
-    className: wrapperClass
-  }, (!multiple || placeholder || search) && valueComp, shouldRenderOptions && /*#__PURE__*/React.createElement("div", {
-    className: classNameFn('select'),
+    value: inputValue
+  }), snapshot, cls('input'))), shouldRenderOptions && /*#__PURE__*/React.createElement("div", {
+    className: cls('select'),
     ref: selectRef
-  }, /*#__PURE__*/React.createElement(Options, {
-    options: snapshot.options,
-    snapshot: snapshot,
-    optionProps: optionProps,
-    className: classNameFn,
-    renderOption: renderOption,
-    renderGroupHeader: renderGroupHeader
-  })));
+  }, /*#__PURE__*/React.createElement("ul", {
+    className: cls('options')
+  }, options.map(option => {
+    if (option.type === 'group') {
+      return /*#__PURE__*/React.createElement("li", {
+        role: "none",
+        className: cls('row'),
+        key: option.groupId
+      }, /*#__PURE__*/React.createElement("div", {
+        className: cls('group')
+      }, /*#__PURE__*/React.createElement("div", {
+        className: cls('group-header')
+      }, renderGroupHeader(option.name)), /*#__PURE__*/React.createElement("ul", {
+        className: cls('options')
+      }, option.items.map(o => /*#__PURE__*/React.createElement(Option, _extends({
+        key: o.value,
+        cls: cls,
+        optionProps: optionProps,
+        selected: isSelected(o, value),
+        highlighted: highlighted === o.index,
+        renderOption: renderOption
+      }, o))))));
+    }
+
+    return /*#__PURE__*/React.createElement(Option, _extends({
+      key: option.value,
+      cls: cls,
+      optionProps: optionProps,
+      selected: isSelected(option, value),
+      highlighted: highlighted === option.index,
+      renderOption: renderOption
+    }, option));
+  }))));
 });
 SelectSearch.defaultProps = {
   className: 'select-search',
@@ -140,9 +174,13 @@ SelectSearch.defaultProps = {
   onChange: () => {},
   printOptions: 'auto',
   closeOnSelect: true,
-  renderOption: null,
+  renderOption: (domProps, option, snapshot, className) => /*#__PURE__*/React.createElement("button", _extends({
+    className: className
+  }, domProps), option.name),
   renderGroupHeader: name => name,
-  renderValue: null,
+  renderValue: (valueProps, snapshot, className) => /*#__PURE__*/React.createElement("input", _extends({}, valueProps, {
+    className: className
+  })),
   fuse: {
     keys: ['name', 'groupName'],
     threshold: 0.3

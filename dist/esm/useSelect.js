@@ -4,7 +4,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-import { useEffect, useMemo, useState, useRef } from 'react';
+import { useEffect, useMemo, useState, useRef, useCallback } from 'react';
 import highlightReducer from './highlightReducer';
 import getDisplayValue from './lib/getDisplayValue';
 import flattenOptions from './lib/flattenOptions';
@@ -55,8 +55,7 @@ export default function useSelectSearch({
   }, [value, flatDefaultOptions, addedOptions, allowEmpty, multiple]);
   const options = useMemo(() => GroupOptions(flat), [flat]);
   const displayValue = useMemo(() => getDisplayValue(option), [option]);
-
-  const onBlur = () => {
+  const onBlur = useCallback(() => {
     setState(oldState => _objectSpread(_objectSpread({}, oldState), {}, {
       focus: false,
       search: '',
@@ -67,7 +66,7 @@ export default function useSelectSearch({
     if (ref.current) {
       ref.current.blur();
     }
-  };
+  }, [flatDefaultOptions, ref]);
 
   const setFocus = newFocus => setState(oldState => _objectSpread(_objectSpread({}, oldState), {}, {
     focus: newFocus
@@ -77,18 +76,19 @@ export default function useSelectSearch({
 
   const onFocus = () => setFocus(true);
 
-  const onSelect = val => {
-    const newOption = getOption(val, flat);
-    const newOptions = getNewValue(newOption, option, multiple);
-    const values = multiple ? newOptions.map(i => i.value) : newOptions.value;
-    setState(oldState => _objectSpread(_objectSpread({}, oldState), {}, {
-      addedOptions: multiple ? newOptions : [newOptions],
-      value: values
-    }));
-    onChange(values, newOptions);
-  };
-
-  const onMouseDown = e => {
+  const onSelect = useCallback(val => {
+    setState(oldState => {
+      const item = val || oldState.flat[oldState.highlighted].value;
+      const values = getNewValue(item, oldState.value, multiple);
+      const newOptions = getOption(values, oldState.flat);
+      onChange(values, newOptions);
+      return _objectSpread(_objectSpread({}, oldState), {}, {
+        addedOptions: multiple ? newOptions : [newOptions],
+        value: values
+      });
+    });
+  }, [multiple, onChange]);
+  const onMouseDown = useCallback(e => {
     if (!closeOnSelect || multiple) {
       e.preventDefault();
 
@@ -98,9 +98,8 @@ export default function useSelectSearch({
     }
 
     onSelect(e.currentTarget.value);
-  };
-
-  const onKeyDown = e => {
+  }, [onSelect, closeOnSelect, multiple]);
+  const onKeyDown = useCallback(e => {
     const {
       key
     } = e;
@@ -110,35 +109,29 @@ export default function useSelectSearch({
       setState(oldState => _objectSpread(_objectSpread({}, oldState), {}, {
         highlighted: highlightReducer(oldState.highlighted, {
           key,
-          options: flat
+          options: oldState.flat
         })
       }));
     }
-  };
-
-  const onKeyPress = ({
+  }, []);
+  const onKeyPress = useCallback(({
     key
   }) => {
     if (key === 'Enter') {
-      const newOption = flat[highlighted];
+      onSelect();
 
-      if (newOption) {
-        onSelect(newOption.value);
-
-        if (!multiple && closeOnSelect) {
-          onBlur();
-        }
+      if (!multiple && closeOnSelect) {
+        onBlur();
       }
     }
-  };
-
-  const onKeyUp = ({
+  }, [onSelect, multiple, closeOnSelect, onBlur]);
+  const onKeyUp = useCallback(({
     key
   }) => {
     if (key === 'Escape') {
       onBlur();
     }
-  };
+  }, [onBlur]);
 
   const onSearch = ({
     target
@@ -178,6 +171,7 @@ export default function useSelectSearch({
     tabIndex: '0',
     readOnly: !canSearch,
     onChange: canSearch ? onSearch : null,
+    disabled,
     onMouseDown: onClick,
     onBlur,
     onFocus,
@@ -186,13 +180,13 @@ export default function useSelectSearch({
     onKeyUp,
     ref
   };
-  const optionProps = {
+  const optionProps = useMemo(() => ({
     tabIndex: '-1',
     onMouseDown,
     onKeyDown,
     onKeyPress,
     onBlur
-  };
+  }), [onMouseDown, onKeyDown, onKeyPress, onBlur]);
   useEffect(() => {
     setState(oldState => _objectSpread(_objectSpread({}, oldState), {}, {
       value: defaultValue

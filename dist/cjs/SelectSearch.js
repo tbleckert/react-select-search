@@ -9,17 +9,19 @@ var _propTypes = _interopRequireDefault(require("prop-types"));
 
 var _useSelect2 = _interopRequireDefault(require("./useSelect"));
 
-var _Value = _interopRequireDefault(require("./Components/Value"));
-
-var _Options = _interopRequireDefault(require("./Components/Options"));
-
 var _types = require("./types");
+
+var _Option = _interopRequireDefault(require("./Components/Option"));
+
+var _isSelected = _interopRequireDefault(require("./lib/isSelected"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { "default": obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj["default"] = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
@@ -63,7 +65,18 @@ var SelectSearch = (0, _react.forwardRef)(function (_ref, ref) {
       valueProps = _useSelect[1],
       optionProps = _useSelect[2];
 
-  var classNameFn = typeof className === 'string' ? function (key) {
+  var focus = snapshot.focus,
+      highlighted = snapshot.highlighted,
+      value = snapshot.value,
+      options = snapshot.options,
+      searching = snapshot.searching,
+      displayValue = snapshot.displayValue,
+      searchValue = snapshot.search;
+  var cls = (0, _react.useCallback)(function (key) {
+    if (typeof className === 'function') {
+      return className(key);
+    }
+
     if (key.indexOf('container') === 0) {
       return key.replace('container', className);
     }
@@ -73,32 +86,34 @@ var SelectSearch = (0, _react.forwardRef)(function (_ref, ref) {
     }
 
     return className.split(' ')[0] + "__" + key;
-  } : className;
-  var wrapperClass = [classNameFn('container'), snapshot.searching ? classNameFn('is-loading') : false, snapshot.focus ? classNameFn('has-focus') : false].filter(function (cls) {
-    return !!cls;
+  }, [className]);
+  var wrapperClass = [cls('container'), disabled ? cls('is-disabled') : false, searching ? cls('is-loading') : false, focus ? cls('has-focus') : false].filter(function (single) {
+    return !!single;
   }).join(' ');
-  var value = snapshot.focus && search ? snapshot.search : snapshot.displayValue;
+  var inputValue = focus && search ? searchValue : displayValue;
   (0, _react.useEffect)(function () {
-    if (!selectRef.current) {
+    var current = selectRef.current;
+
+    if (!current) {
       return;
     }
 
     var query = null;
 
-    if (snapshot.highlighted > -1) {
-      query = "[data-index=\"" + snapshot.highlighted + "\"]";
-    } else if (snapshot.value && !multiple) {
-      query = "[data-value=\"" + escape(snapshot.value.value) + "\"]";
+    if (highlighted > -1) {
+      query = "[data-index=\"" + highlighted + "\"]";
+    } else if (value && !multiple) {
+      query = "[data-value=\"" + escape(value.value) + "\"]";
     }
 
-    var selected = selectRef.current.querySelector(query);
+    var selected = current.querySelector(query);
 
     if (selected) {
-      var rect = selectRef.current.getBoundingClientRect();
+      var rect = current.getBoundingClientRect();
       var selectedRect = selected.getBoundingClientRect();
-      selectRef.current.scrollTop = selected.offsetTop - rect.height / 2 + selectedRect.height / 2;
+      current.scrollTop = selected.offsetTop - rect.height / 2 + selectedRect.height / 2;
     }
-  }, [snapshot.focus, snapshot.value, snapshot.highlighted, selectRef, multiple]);
+  }, [focus, value, highlighted, selectRef, multiple]);
   var shouldRenderOptions = true;
 
   switch (printOptions) {
@@ -111,45 +126,62 @@ var SelectSearch = (0, _react.forwardRef)(function (_ref, ref) {
       break;
 
     case 'on-focus':
-      shouldRenderOptions = snapshot.focus;
+      shouldRenderOptions = focus;
       break;
 
     default:
-      shouldRenderOptions = !disabled && (snapshot.focus || multiple);
+      shouldRenderOptions = !disabled && (focus || multiple);
       break;
   }
 
-  var valueComp = renderValue ? /*#__PURE__*/_react["default"].createElement("div", {
-    className: classNameFn('value')
+  return /*#__PURE__*/_react["default"].createElement("div", {
+    ref: ref,
+    className: wrapperClass
+  }, (!multiple || placeholder || search) && /*#__PURE__*/_react["default"].createElement("div", {
+    className: cls('value')
   }, renderValue(_objectSpread(_objectSpread({}, valueProps), {}, {
     placeholder: placeholder,
     autoFocus: autoFocus,
     autoComplete: autoComplete,
-    value: value
-  }), snapshot, classNameFn('input'))) : /*#__PURE__*/_react["default"].createElement(_Value["default"], {
-    disabled: disabled,
-    search: search,
-    autoFocus: autoFocus,
-    displayValue: value,
-    className: classNameFn,
-    valueProps: valueProps,
-    autoComplete: autoComplete,
-    placeholder: placeholder
-  });
-  return /*#__PURE__*/_react["default"].createElement("div", {
-    ref: ref,
-    className: wrapperClass
-  }, (!multiple || placeholder || search) && valueComp, shouldRenderOptions && /*#__PURE__*/_react["default"].createElement("div", {
-    className: classNameFn('select'),
+    value: inputValue
+  }), snapshot, cls('input'))), shouldRenderOptions && /*#__PURE__*/_react["default"].createElement("div", {
+    className: cls('select'),
     ref: selectRef
-  }, /*#__PURE__*/_react["default"].createElement(_Options["default"], {
-    options: snapshot.options,
-    snapshot: snapshot,
-    optionProps: optionProps,
-    className: classNameFn,
-    renderOption: renderOption,
-    renderGroupHeader: renderGroupHeader
-  })));
+  }, /*#__PURE__*/_react["default"].createElement("ul", {
+    className: cls('options')
+  }, options.map(function (option) {
+    if (option.type === 'group') {
+      return /*#__PURE__*/_react["default"].createElement("li", {
+        role: "none",
+        className: cls('row'),
+        key: option.groupId
+      }, /*#__PURE__*/_react["default"].createElement("div", {
+        className: cls('group')
+      }, /*#__PURE__*/_react["default"].createElement("div", {
+        className: cls('group-header')
+      }, renderGroupHeader(option.name)), /*#__PURE__*/_react["default"].createElement("ul", {
+        className: cls('options')
+      }, option.items.map(function (o) {
+        return /*#__PURE__*/_react["default"].createElement(_Option["default"], _extends({
+          key: o.value,
+          cls: cls,
+          optionProps: optionProps,
+          selected: (0, _isSelected["default"])(o, value),
+          highlighted: highlighted === o.index,
+          renderOption: renderOption
+        }, o));
+      }))));
+    }
+
+    return /*#__PURE__*/_react["default"].createElement(_Option["default"], _extends({
+      key: option.value,
+      cls: cls,
+      optionProps: optionProps,
+      selected: (0, _isSelected["default"])(option, value),
+      highlighted: highlighted === option.index,
+      renderOption: renderOption
+    }, option));
+  }))));
 });
 SelectSearch.defaultProps = {
   className: 'select-search',
@@ -163,11 +195,19 @@ SelectSearch.defaultProps = {
   onChange: function onChange() {},
   printOptions: 'auto',
   closeOnSelect: true,
-  renderOption: null,
+  renderOption: function renderOption(domProps, option, snapshot, className) {
+    return /*#__PURE__*/_react["default"].createElement("button", _extends({
+      className: className
+    }, domProps), option.name);
+  },
   renderGroupHeader: function renderGroupHeader(name) {
     return name;
   },
-  renderValue: null,
+  renderValue: function renderValue(valueProps, snapshot, className) {
+    return /*#__PURE__*/_react["default"].createElement("input", _extends({}, valueProps, {
+      className: className
+    }));
+  },
   fuse: {
     keys: ['name', 'groupName'],
     threshold: 0.3

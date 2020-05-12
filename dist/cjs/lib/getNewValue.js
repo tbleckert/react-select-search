@@ -19,7 +19,7 @@ function getNewValue(value, oldValue, multiple) {
   }
 
   var valueIndex = newValue.findIndex(function (val) {
-    return val.value === value.value;
+    return val === value;
   });
 
   if (valueIndex >= 0) {

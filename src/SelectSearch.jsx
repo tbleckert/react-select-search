@@ -1,9 +1,15 @@
-import React, { forwardRef, memo, createRef, useEffect } from 'react';
+import React, {
+    forwardRef,
+    memo,
+    createRef,
+    useEffect,
+    useCallback,
+} from 'react';
 import PropTypes from 'prop-types';
 import useSelect from './useSelect';
-import Value from './Components/Value';
-import Options from './Components/Options';
 import { optionType } from './types';
+import Option from './Components/Option';
+import isSelected from './lib/isSelected';
 
 const SelectSearch = forwardRef(({
     value: defaultValue,
@@ -38,7 +44,21 @@ const SelectSearch = forwardRef(({
         allowEmpty: !!placeholder,
     });
 
-    const classNameFn = (typeof className === 'string') ? (key) => {
+    const {
+        focus,
+        highlighted,
+        value,
+        options,
+        searching,
+        displayValue,
+        search: searchValue,
+    } = snapshot;
+
+    const cls = useCallback((key) => {
+        if (typeof className === 'function') {
+            return className(key);
+        }
+
         if (key.indexOf('container') === 0) {
             return key.replace('container', className);
         }
@@ -48,40 +68,42 @@ const SelectSearch = forwardRef(({
         }
 
         return `${className.split(' ')[0]}__${key}`;
-    } : className;
+    }, [className]);
 
     const wrapperClass = [
-        classNameFn('container'),
-        (snapshot.searching) ? classNameFn('is-loading') : false,
-        (snapshot.focus) ? classNameFn('has-focus') : false,
-    ].filter(cls => !!cls).join(' ');
+        cls('container'),
+        (disabled) ? cls('is-disabled') : false,
+        (searching) ? cls('is-loading') : false,
+        (focus) ? cls('has-focus') : false,
+    ].filter(single => !!single).join(' ');
 
-    const value = (snapshot.focus && search)
-        ? snapshot.search : snapshot.displayValue;
+    const inputValue = (focus && search) ? searchValue : displayValue;
 
     useEffect(() => {
-        if (!selectRef.current) {
+        const { current } = selectRef;
+
+        if (!current) {
             return;
         }
 
         let query = null;
 
-        if (snapshot.highlighted > -1) {
-            query = `[data-index="${snapshot.highlighted}"]`;
-        } else if (snapshot.value && !multiple) {
-            query = `[data-value="${escape(snapshot.value.value)}"]`;
+        if (highlighted > -1) {
+            query = `[data-index="${highlighted}"]`;
+        } else if (value && !multiple) {
+            query = `[data-value="${escape(value.value)}"]`;
         }
 
-        const selected = selectRef.current.querySelector(query);
+        const selected = current.querySelector(query);
 
         if (selected) {
-            const rect = selectRef.current.getBoundingClientRect();
+            const rect = current.getBoundingClientRect();
             const selectedRect = selected.getBoundingClientRect();
 
-            selectRef.current.scrollTop =
+            current.scrollTop =
                 selected.offsetTop - (rect.height / 2) + (selectedRect.height / 2);
         }
-    }, [snapshot.focus, snapshot.value, snapshot.highlighted, selectRef, multiple]);
+    }, [focus, value, highlighted, selectRef, multiple]);
 
     let shouldRenderOptions = true;
 
@@ -93,53 +115,70 @@ const SelectSearch = forwardRef(({
         shouldRenderOptions = true;
         break;
     case 'on-focus':
-        shouldRenderOptions = snapshot.focus;
+        shouldRenderOptions = focus;
         break;
     default:
-        shouldRenderOptions = !disabled && (snapshot.focus || multiple);
+        shouldRenderOptions = !disabled && (focus || multiple);
         break;
     }
 
-    const valueComp = (renderValue) ? (
-        <div className={classNameFn('value')}>
-            {renderValue(
-                {
-                    ...valueProps,
-                    placeholder,
-                    autoFocus,
-                    autoComplete,
-                    value,
-                },
-                snapshot,
-                classNameFn('input'),
-            )}
-        </div>
-    ) : (
-        <Value
-            disabled={disabled}
-            search={search}
-            autoFocus={autoFocus}
-            displayValue={value}
-            className={classNameFn}
-            valueProps={valueProps}
-            autoComplete={autoComplete}
-            placeholder={placeholder}
-        />
-    );
-
     return (
         <div ref={ref} className={wrapperClass}>
-            {((!multiple || placeholder) || search) && valueComp}
+            {((!multiple || placeholder) || search) && (
+                <div className={cls('value')}>
+                    {renderValue(
+                        {
+                            ...valueProps,
+                            placeholder,
+                            autoFocus,
+                            autoComplete,
+                            value: inputValue,
+                        },
+                        snapshot,
+                        cls('input'),
+                    )}
+                </div>
+            )}
             {shouldRenderOptions && (
-                <div className={classNameFn('select')} ref={selectRef}>
-                    <Options
-                        options={snapshot.options}
-                        snapshot={snapshot}
-                        optionProps={optionProps}
-                        className={classNameFn}
-                        renderOption={renderOption}
-                        renderGroupHeader={renderGroupHeader}
-                    />
+                <div className={cls('select')} ref={selectRef}>
+                    <ul className={cls('options')}>
+                        {options.map((option) => {
+                            if (option.type === 'group') {
+                                return (
+                                    <li role="none" className={cls('row')} key={option.groupId}>
+                                        <div className={cls('group')}>
+                                            <div className={cls('group-header')}>{renderGroupHeader(option.name)}</div>
+                                            <ul className={cls('options')}>
+                                                {option.items.map(o => (
+                                                    <Option
+                                                        key={o.value}
+                                                        cls={cls}
+                                                        optionProps={optionProps}
+                                                        selected={isSelected(o, value)}
+                                                        highlighted={highlighted === o.index}
+                                                        renderOption={renderOption}
+                                                        {...o}
+                                                    />
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    </li>
+                                );
+                            }
+
+                            return (
+                                <Option
+                                    key={option.value}
+                                    cls={cls}
+                                    optionProps={optionProps}
+                                    selected={isSelected(option, value)}
+                                    highlighted={highlighted === option.index}
+                                    renderOption={renderOption}
+                                    {...option}
+                                />
+                            );
+                        })}
+                    </ul>
                 </div>
             )}
         </div>
@@ -158,9 +197,18 @@ SelectSearch.defaultProps = {
     onChange: () => {},
     printOptions: 'auto',
     closeOnSelect: true,
-    renderOption: null,
+    renderOption: (domProps, option, snapshot, className) => (
+        <button className={className} {...domProps}>
+            {option.name}
+        </button>
+    ),
     renderGroupHeader: name => name,
-    renderValue: null,
+    renderValue: (valueProps, snapshot, className) => (
+        <input
+            {...valueProps}
+            className={className}
+        />
+    ),
     fuse: {
         keys: ['name', 'groupName'],
         threshold: 0.3,

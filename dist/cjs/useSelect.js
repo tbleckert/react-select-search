@@ -86,8 +86,7 @@ function useSelectSearch(_ref) {
   var displayValue = (0, _react.useMemo)(function () {
     return (0, _getDisplayValue["default"])(option);
   }, [option]);
-
-  var onBlur = function onBlur() {
+  var onBlur = (0, _react.useCallback)(function () {
     setState(function (oldState) {
       return _objectSpread(_objectSpread({}, oldState), {}, {
         focus: false,
@@ -100,7 +99,7 @@ function useSelectSearch(_ref) {
     if (ref.current) {
       ref.current.blur();
     }
-  };
+  }, [flatDefaultOptions, ref]);
 
   var setFocus = function setFocus(newFocus) {
     return setState(function (oldState) {
@@ -118,22 +117,19 @@ function useSelectSearch(_ref) {
     return setFocus(true);
   };
 
-  var onSelect = function onSelect(val) {
-    var newOption = (0, _getOption["default"])(val, flat);
-    var newOptions = (0, _getNewValue["default"])(newOption, option, multiple);
-    var values = multiple ? newOptions.map(function (i) {
-      return i.value;
-    }) : newOptions.value;
+  var onSelect = (0, _react.useCallback)(function (val) {
     setState(function (oldState) {
+      var item = val || oldState.flat[oldState.highlighted].value;
+      var values = (0, _getNewValue["default"])(item, oldState.value, multiple);
+      var newOptions = (0, _getOption["default"])(values, oldState.flat);
+      onChange(values, newOptions);
       return _objectSpread(_objectSpread({}, oldState), {}, {
         addedOptions: multiple ? newOptions : [newOptions],
         value: values
       });
     });
-    onChange(values, newOptions);
-  };
-
-  var onMouseDown = function onMouseDown(e) {
+  }, [multiple, onChange]);
+  var onMouseDown = (0, _react.useCallback)(function (e) {
     if (!closeOnSelect || multiple) {
       e.preventDefault();
 
@@ -143,9 +139,8 @@ function useSelectSearch(_ref) {
     }
 
     onSelect(e.currentTarget.value);
-  };
-
-  var onKeyDown = function onKeyDown(e) {
+  }, [onSelect, closeOnSelect, multiple]);
+  var onKeyDown = (0, _react.useCallback)(function (e) {
     var key = e.key;
 
     if (key === 'ArrowDown' || key === 'ArrowUp') {
@@ -154,36 +149,30 @@ function useSelectSearch(_ref) {
         return _objectSpread(_objectSpread({}, oldState), {}, {
           highlighted: (0, _highlightReducer["default"])(oldState.highlighted, {
             key: key,
-            options: flat
+            options: oldState.flat
           })
         });
       });
     }
-  };
-
-  var onKeyPress = function onKeyPress(_ref2) {
+  }, []);
+  var onKeyPress = (0, _react.useCallback)(function (_ref2) {
     var key = _ref2.key;
 
     if (key === 'Enter') {
-      var newOption = flat[highlighted];
+      onSelect();
 
-      if (newOption) {
-        onSelect(newOption.value);
-
-        if (!multiple && closeOnSelect) {
-          onBlur();
-        }
+      if (!multiple && closeOnSelect) {
+        onBlur();
       }
     }
-  };
-
-  var onKeyUp = function onKeyUp(_ref3) {
+  }, [onSelect, multiple, closeOnSelect, onBlur]);
+  var onKeyUp = (0, _react.useCallback)(function (_ref3) {
     var key = _ref3.key;
 
     if (key === 'Escape') {
       onBlur();
     }
-  };
+  }, [onBlur]);
 
   var onSearch = function onSearch(_ref4) {
     var target = _ref4.target;
@@ -228,6 +217,7 @@ function useSelectSearch(_ref) {
     tabIndex: '0',
     readOnly: !canSearch,
     onChange: canSearch ? onSearch : null,
+    disabled: disabled,
     onMouseDown: onClick,
     onBlur: onBlur,
     onFocus: onFocus,
@@ -236,13 +226,15 @@ function useSelectSearch(_ref) {
     onKeyUp: onKeyUp,
     ref: ref
   };
-  var optionProps = {
-    tabIndex: '-1',
-    onMouseDown: onMouseDown,
-    onKeyDown: onKeyDown,
-    onKeyPress: onKeyPress,
-    onBlur: onBlur
-  };
+  var optionProps = (0, _react.useMemo)(function () {
+    return {
+      tabIndex: '-1',
+      onMouseDown: onMouseDown,
+      onKeyDown: onKeyDown,
+      onKeyPress: onKeyPress,
+      onBlur: onBlur
+    };
+  }, [onMouseDown, onKeyDown, onKeyPress, onBlur]);
   (0, _react.useEffect)(function () {
     setState(function (oldState) {
       return _objectSpread(_objectSpread({}, oldState), {}, {

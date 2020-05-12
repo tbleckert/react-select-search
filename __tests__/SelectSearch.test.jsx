@@ -3,7 +3,6 @@ import renderer from 'react-test-renderer';
 import Enzyme, { mount, shallow } from 'enzyme';
 import toJson from 'enzyme-to-json';
 import SelectSearch from '../src/SelectSearch';
-import Options from '../src/Components/Options';
 
 import './helpers/setup-enzyme';
 import './helpers/setup-browser-env';
@@ -104,12 +103,12 @@ describe('Test SelectSearch component', () => {
             ]} />
         ));
 
-        expect(wrapper.find(Options).length).toBe(0);
+        expect(wrapper.find(Option).length).toBe(0);
         expect(toJson(wrapper)).toMatchSnapshot();
 
         wrapper.find('.select-search__input').simulate('focus');
 
-        expect(wrapper.find(Options).length).toBe(1);
+        expect(wrapper.find(Option).length).toBe(2);
         expect(toJson(wrapper)).toMatchSnapshot();
     });
 

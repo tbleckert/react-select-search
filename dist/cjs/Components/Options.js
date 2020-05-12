@@ -60,12 +60,6 @@ var Options = function Options(_ref) {
   }));
 };
 
-Options.defaultProps = {
-  renderOption: null,
-  renderGroupHeader: function renderGroupHeader(name) {
-    return name;
-  }
-};
 Options.propTypes = process.env.NODE_ENV !== "production" ? {
   options: _propTypes["default"].arrayOf(_types.optionType).isRequired,
   snapshot: _propTypes["default"].shape({
@@ -78,8 +72,8 @@ Options.propTypes = process.env.NODE_ENV !== "production" ? {
     onMouseDown: _propTypes["default"].func.isRequired
   }).isRequired,
   className: _propTypes["default"].func.isRequired,
-  renderOption: _propTypes["default"].func,
-  renderGroupHeader: _propTypes["default"].func
+  renderOption: _propTypes["default"].func.isRequired,
+  renderGroupHeader: _propTypes["default"].func.isRequired
 } : {};
 
 var _default = (0, _react.memo)(Options);

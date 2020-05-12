@@ -28,6 +28,7 @@ export const WithPlaceholder = () => (
             { value: 'milkshake', name: 'Milkshake' },
         ]}
         multiple
+        search
         placeholder="Select your items"
     />
 );

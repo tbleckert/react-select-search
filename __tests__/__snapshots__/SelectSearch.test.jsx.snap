@@ -8,6 +8,7 @@ exports[`Test SelectSearch component Class name as fn 1`] = `
     className="class-base__value"
   >
     <input
+      autoComplete="on"
       autoFocus={false}
       className="class-base__input"
       disabled={false}
@@ -35,6 +36,7 @@ exports[`Test SelectSearch component Class name as string 1`] = `
     className="custom-select__value"
   >
     <input
+      autoComplete="on"
       autoFocus={false}
       className="custom-select__input"
       disabled={false}
@@ -127,6 +129,7 @@ exports[`Test SelectSearch component Custom renderers work 1`] = `
         autoComplete="on"
         autoFocus={false}
         className="select-search__input"
+        disabled={false}
         onBlur={[Function]}
         onChange={null}
         onFocus={[Function]}
@@ -222,6 +225,7 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
         autoComplete="on"
         autoFocus={false}
         className="select-search__input"
+        disabled={false}
         onBlur={[Function]}
         onChange={null}
         onFocus={[Function]}
@@ -243,254 +247,83 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
     <div
       className="select-search__select"
     >
-      <Options
-        className={[Function]}
-        optionProps={
-          Object {
-            "onBlur": [Function],
-            "onKeyDown": [Function],
-            "onKeyPress": [Function],
-            "onMouseDown": [Function],
-            "tabIndex": "-1",
-          }
-        }
-        options={
-          Array [
-            Object {
-              "index": 0,
-              "name": "Helvetica",
-              "value": "helvetica",
-            },
-            Object {
-              "groupId": "sans-serif-1",
-              "items": Array [
-                Object {
-                  "data-stack": "Roboto, sans-serif",
-                  "groupId": "sans-serif-1",
-                  "groupName": "Sans serif",
-                  "index": 1,
-                  "name": "Roboto",
-                  "value": "Roboto",
-                },
-              ],
-              "name": "Sans serif",
-              "type": "group",
-            },
-            Object {
-              "groupId": "serif-2",
-              "items": Array [
-                Object {
-                  "data-stack": "\\"Playfair Display\\", serif",
-                  "groupId": "serif-2",
-                  "groupName": "Serif",
-                  "index": 2,
-                  "name": "Playfair Display",
-                  "value": "Playfair Display",
-                },
-              ],
-              "name": "Serif",
-              "type": "group",
-            },
-            Object {
-              "groupId": "cursive-3",
-              "items": Array [
-                Object {
-                  "data-stack": "Monoton, cursive",
-                  "groupId": "cursive-3",
-                  "groupName": "Cursive",
-                  "index": 3,
-                  "name": "Monoton",
-                  "value": "Monoton",
-                },
-                Object {
-                  "data-stack": "\\"Gloria Hallelujah\\", cursive",
-                  "groupId": "cursive-3",
-                  "groupName": "Cursive",
-                  "index": 4,
-                  "name": "Gloria Hallelujah",
-                  "value": "Gloria Hallelujah",
-                },
-              ],
-              "name": "Cursive",
-              "type": "group",
-            },
-            Object {
-              "groupId": "monospace-4",
-              "items": Array [
-                Object {
-                  "data-stack": "VT323, monospace",
-                  "groupId": "monospace-4",
-                  "groupName": "Monospace",
-                  "index": 5,
-                  "name": "VT323",
-                  "value": "VT323",
-                },
-              ],
-              "name": "Monospace",
-              "type": "group",
-            },
-          ]
-        }
-        renderGroupHeader={[Function]}
-        renderOption={[Function]}
-        snapshot={
-          Object {
-            "disabled": false,
-            "displayValue": "Helvetica",
-            "focus": true,
-            "highlighted": -1,
-            "options": Array [
-              Object {
-                "index": 0,
-                "name": "Helvetica",
-                "value": "helvetica",
-              },
-              Object {
-                "groupId": "sans-serif-1",
-                "items": Array [
-                  Object {
-                    "data-stack": "Roboto, sans-serif",
-                    "groupId": "sans-serif-1",
-                    "groupName": "Sans serif",
-                    "index": 1,
-                    "name": "Roboto",
-                    "value": "Roboto",
-                  },
-                ],
-                "name": "Sans serif",
-                "type": "group",
-              },
-              Object {
-                "groupId": "serif-2",
-                "items": Array [
-                  Object {
-                    "data-stack": "\\"Playfair Display\\", serif",
-                    "groupId": "serif-2",
-                    "groupName": "Serif",
-                    "index": 2,
-                    "name": "Playfair Display",
-                    "value": "Playfair Display",
-                  },
-                ],
-                "name": "Serif",
-                "type": "group",
-              },
-              Object {
-                "groupId": "cursive-3",
-                "items": Array [
-                  Object {
-                    "data-stack": "Monoton, cursive",
-                    "groupId": "cursive-3",
-                    "groupName": "Cursive",
-                    "index": 3,
-                    "name": "Monoton",
-                    "value": "Monoton",
-                  },
-                  Object {
-                    "data-stack": "\\"Gloria Hallelujah\\", cursive",
-                    "groupId": "cursive-3",
-                    "groupName": "Cursive",
-                    "index": 4,
-                    "name": "Gloria Hallelujah",
-                    "value": "Gloria Hallelujah",
-                  },
-                ],
-                "name": "Cursive",
-                "type": "group",
-              },
-              Object {
-                "groupId": "monospace-4",
-                "items": Array [
-                  Object {
-                    "data-stack": "VT323, monospace",
-                    "groupId": "monospace-4",
-                    "groupName": "Monospace",
-                    "index": 5,
-                    "name": "VT323",
-                    "value": "VT323",
-                  },
-                ],
-                "name": "Monospace",
-                "type": "group",
-              },
-            ],
-            "search": "",
-            "searching": false,
-            "value": Object {
-              "index": 0,
-              "name": "Helvetica",
-              "value": "helvetica",
-            },
-          }
-        }
+      <ul
+        className="select-search__options"
       >
-        <ul
-          className="select-search__options"
-        >
-          <Option
-            className={[Function]}
-            highlighted={false}
-            index={0}
-            key="helvetica"
-            name="Helvetica"
-            optionProps={
-              Object {
-                "onBlur": [Function],
-                "onKeyDown": [Function],
-                "onKeyPress": [Function],
-                "onMouseDown": [Function],
-                "tabIndex": "-1",
-              }
+        <Option
+          cls={[Function]}
+          highlighted={false}
+          index={0}
+          key="helvetica"
+          name="Helvetica"
+          optionProps={
+            Object {
+              "onBlur": [Function],
+              "onKeyDown": [Function],
+              "onKeyPress": [Function],
+              "onMouseDown": [Function],
+              "tabIndex": "-1",
             }
-            renderOption={[Function]}
-            selected={true}
-            value="helvetica"
-          >
-            <li
-              className="select-search__row"
-              data-index={0}
-              data-value="helvetica"
-              key="helvetica"
-              role="menuitem"
-            >
-              <button
-                className="select-search__option is-selected"
-                disabled={false}
-                onBlur={[Function]}
-                onKeyDown={[Function]}
-                onKeyPress={[Function]}
-                onMouseDown={[Function]}
-                tabIndex="-1"
-                type="button"
-                value="helvetica"
-              >
-                <span
-                  style={
-                    Object {
-                      "fontFamily": undefined,
-                    }
-                  }
-                >
-                  Helvetica
-                </span>
-              </button>
-            </li>
-          </Option>
+          }
+          renderOption={[Function]}
+          selected={true}
+          value="helvetica"
+        >
           <li
             className="select-search__row"
-            key="sans-serif-1"
-            role="none"
+            data-index={0}
+            data-value="helvetica"
+            key="helvetica"
+            role="menuitem"
+          >
+            <button
+              className="select-search__option is-selected"
+              disabled={false}
+              onBlur={[Function]}
+              onKeyDown={[Function]}
+              onKeyPress={[Function]}
+              onMouseDown={[Function]}
+              tabIndex="-1"
+              type="button"
+              value="helvetica"
+            >
+              <span
+                style={
+                  Object {
+                    "fontFamily": undefined,
+                  }
+                }
+              >
+                Helvetica
+              </span>
+            </button>
+          </li>
+        </Option>
+        <li
+          className="select-search__row"
+          key="sans-serif-1"
+          role="none"
+        >
+          <div
+            className="select-search__group"
           >
             <div
-              className="select-search__group"
+              className="select-search__group-header"
             >
-              <div
-                className="select-search__group-header"
-              >
-                Type: Sans serif
-              </div>
-              <Options
-                className={[Function]}
+              Type: Sans serif
+            </div>
+            <ul
+              className="select-search__options"
+            >
+              <Option
+                cls={[Function]}
+                data-stack="Roboto, sans-serif"
+                groupId="sans-serif-1"
+                groupName="Sans serif"
+                highlighted={false}
+                index={1}
+                key="Roboto"
+                name="Roboto"
                 optionProps={
                   Object {
                     "onBlur": [Function],
@@ -500,185 +333,68 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
                     "tabIndex": "-1",
                   }
                 }
-                options={
-                  Array [
-                    Object {
-                      "data-stack": "Roboto, sans-serif",
-                      "groupId": "sans-serif-1",
-                      "groupName": "Sans serif",
-                      "index": 1,
-                      "name": "Roboto",
-                      "value": "Roboto",
-                    },
-                  ]
-                }
-                renderGroupHeader={[Function]}
                 renderOption={[Function]}
-                snapshot={
-                  Object {
-                    "disabled": false,
-                    "displayValue": "Helvetica",
-                    "focus": true,
-                    "highlighted": -1,
-                    "options": Array [
-                      Object {
-                        "index": 0,
-                        "name": "Helvetica",
-                        "value": "helvetica",
-                      },
-                      Object {
-                        "groupId": "sans-serif-1",
-                        "items": Array [
-                          Object {
-                            "data-stack": "Roboto, sans-serif",
-                            "groupId": "sans-serif-1",
-                            "groupName": "Sans serif",
-                            "index": 1,
-                            "name": "Roboto",
-                            "value": "Roboto",
-                          },
-                        ],
-                        "name": "Sans serif",
-                        "type": "group",
-                      },
-                      Object {
-                        "groupId": "serif-2",
-                        "items": Array [
-                          Object {
-                            "data-stack": "\\"Playfair Display\\", serif",
-                            "groupId": "serif-2",
-                            "groupName": "Serif",
-                            "index": 2,
-                            "name": "Playfair Display",
-                            "value": "Playfair Display",
-                          },
-                        ],
-                        "name": "Serif",
-                        "type": "group",
-                      },
-                      Object {
-                        "groupId": "cursive-3",
-                        "items": Array [
-                          Object {
-                            "data-stack": "Monoton, cursive",
-                            "groupId": "cursive-3",
-                            "groupName": "Cursive",
-                            "index": 3,
-                            "name": "Monoton",
-                            "value": "Monoton",
-                          },
-                          Object {
-                            "data-stack": "\\"Gloria Hallelujah\\", cursive",
-                            "groupId": "cursive-3",
-                            "groupName": "Cursive",
-                            "index": 4,
-                            "name": "Gloria Hallelujah",
-                            "value": "Gloria Hallelujah",
-                          },
-                        ],
-                        "name": "Cursive",
-                        "type": "group",
-                      },
-                      Object {
-                        "groupId": "monospace-4",
-                        "items": Array [
-                          Object {
-                            "data-stack": "VT323, monospace",
-                            "groupId": "monospace-4",
-                            "groupName": "Monospace",
-                            "index": 5,
-                            "name": "VT323",
-                            "value": "VT323",
-                          },
-                        ],
-                        "name": "Monospace",
-                        "type": "group",
-                      },
-                    ],
-                    "search": "",
-                    "searching": false,
-                    "value": Object {
-                      "index": 0,
-                      "name": "Helvetica",
-                      "value": "helvetica",
-                    },
-                  }
-                }
+                selected={false}
+                value="Roboto"
               >
-                <ul
-                  className="select-search__options"
+                <li
+                  className="select-search__row"
+                  data-index={1}
+                  data-value="Roboto"
+                  key="Roboto"
+                  role="menuitem"
                 >
-                  <Option
-                    className={[Function]}
-                    data-stack="Roboto, sans-serif"
-                    groupId="sans-serif-1"
-                    groupName="Sans serif"
-                    highlighted={false}
-                    index={1}
-                    key="Roboto"
-                    name="Roboto"
-                    optionProps={
-                      Object {
-                        "onBlur": [Function],
-                        "onKeyDown": [Function],
-                        "onKeyPress": [Function],
-                        "onMouseDown": [Function],
-                        "tabIndex": "-1",
-                      }
-                    }
-                    renderOption={[Function]}
-                    selected={false}
+                  <button
+                    className="select-search__option"
+                    disabled={false}
+                    onBlur={[Function]}
+                    onKeyDown={[Function]}
+                    onKeyPress={[Function]}
+                    onMouseDown={[Function]}
+                    tabIndex="-1"
+                    type="button"
                     value="Roboto"
                   >
-                    <li
-                      className="select-search__row"
-                      data-index={1}
-                      data-value="Roboto"
-                      key="Roboto"
-                      role="menuitem"
+                    <span
+                      style={
+                        Object {
+                          "fontFamily": undefined,
+                        }
+                      }
                     >
-                      <button
-                        className="select-search__option"
-                        disabled={false}
-                        onBlur={[Function]}
-                        onKeyDown={[Function]}
-                        onKeyPress={[Function]}
-                        onMouseDown={[Function]}
-                        tabIndex="-1"
-                        type="button"
-                        value="Roboto"
-                      >
-                        <span
-                          style={
-                            Object {
-                              "fontFamily": undefined,
-                            }
-                          }
-                        >
-                          Roboto
-                        </span>
-                      </button>
-                    </li>
-                  </Option>
-                </ul>
-              </Options>
-            </div>
-          </li>
-          <li
-            className="select-search__row"
-            key="serif-2"
-            role="none"
+                      Roboto
+                    </span>
+                  </button>
+                </li>
+              </Option>
+            </ul>
+          </div>
+        </li>
+        <li
+          className="select-search__row"
+          key="serif-2"
+          role="none"
+        >
+          <div
+            className="select-search__group"
           >
             <div
-              className="select-search__group"
+              className="select-search__group-header"
             >
-              <div
-                className="select-search__group-header"
-              >
-                Type: Serif
-              </div>
-              <Options
-                className={[Function]}
+              Type: Serif
+            </div>
+            <ul
+              className="select-search__options"
+            >
+              <Option
+                cls={[Function]}
+                data-stack="\\"Playfair Display\\", serif"
+                groupId="serif-2"
+                groupName="Serif"
+                highlighted={false}
+                index={2}
+                key="Playfair Display"
+                name="Playfair Display"
                 optionProps={
                   Object {
                     "onBlur": [Function],
@@ -688,185 +404,68 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
                     "tabIndex": "-1",
                   }
                 }
-                options={
-                  Array [
-                    Object {
-                      "data-stack": "\\"Playfair Display\\", serif",
-                      "groupId": "serif-2",
-                      "groupName": "Serif",
-                      "index": 2,
-                      "name": "Playfair Display",
-                      "value": "Playfair Display",
-                    },
-                  ]
-                }
-                renderGroupHeader={[Function]}
                 renderOption={[Function]}
-                snapshot={
-                  Object {
-                    "disabled": false,
-                    "displayValue": "Helvetica",
-                    "focus": true,
-                    "highlighted": -1,
-                    "options": Array [
-                      Object {
-                        "index": 0,
-                        "name": "Helvetica",
-                        "value": "helvetica",
-                      },
-                      Object {
-                        "groupId": "sans-serif-1",
-                        "items": Array [
-                          Object {
-                            "data-stack": "Roboto, sans-serif",
-                            "groupId": "sans-serif-1",
-                            "groupName": "Sans serif",
-                            "index": 1,
-                            "name": "Roboto",
-                            "value": "Roboto",
-                          },
-                        ],
-                        "name": "Sans serif",
-                        "type": "group",
-                      },
-                      Object {
-                        "groupId": "serif-2",
-                        "items": Array [
-                          Object {
-                            "data-stack": "\\"Playfair Display\\", serif",
-                            "groupId": "serif-2",
-                            "groupName": "Serif",
-                            "index": 2,
-                            "name": "Playfair Display",
-                            "value": "Playfair Display",
-                          },
-                        ],
-                        "name": "Serif",
-                        "type": "group",
-                      },
-                      Object {
-                        "groupId": "cursive-3",
-                        "items": Array [
-                          Object {
-                            "data-stack": "Monoton, cursive",
-                            "groupId": "cursive-3",
-                            "groupName": "Cursive",
-                            "index": 3,
-                            "name": "Monoton",
-                            "value": "Monoton",
-                          },
-                          Object {
-                            "data-stack": "\\"Gloria Hallelujah\\", cursive",
-                            "groupId": "cursive-3",
-                            "groupName": "Cursive",
-                            "index": 4,
-                            "name": "Gloria Hallelujah",
-                            "value": "Gloria Hallelujah",
-                          },
-                        ],
-                        "name": "Cursive",
-                        "type": "group",
-                      },
-                      Object {
-                        "groupId": "monospace-4",
-                        "items": Array [
-                          Object {
-                            "data-stack": "VT323, monospace",
-                            "groupId": "monospace-4",
-                            "groupName": "Monospace",
-                            "index": 5,
-                            "name": "VT323",
-                            "value": "VT323",
-                          },
-                        ],
-                        "name": "Monospace",
-                        "type": "group",
-                      },
-                    ],
-                    "search": "",
-                    "searching": false,
-                    "value": Object {
-                      "index": 0,
-                      "name": "Helvetica",
-                      "value": "helvetica",
-                    },
-                  }
-                }
+                selected={false}
+                value="Playfair Display"
               >
-                <ul
-                  className="select-search__options"
+                <li
+                  className="select-search__row"
+                  data-index={2}
+                  data-value="Playfair%20Display"
+                  key="Playfair Display"
+                  role="menuitem"
                 >
-                  <Option
-                    className={[Function]}
-                    data-stack="\\"Playfair Display\\", serif"
-                    groupId="serif-2"
-                    groupName="Serif"
-                    highlighted={false}
-                    index={2}
-                    key="Playfair Display"
-                    name="Playfair Display"
-                    optionProps={
-                      Object {
-                        "onBlur": [Function],
-                        "onKeyDown": [Function],
-                        "onKeyPress": [Function],
-                        "onMouseDown": [Function],
-                        "tabIndex": "-1",
-                      }
-                    }
-                    renderOption={[Function]}
-                    selected={false}
+                  <button
+                    className="select-search__option"
+                    disabled={false}
+                    onBlur={[Function]}
+                    onKeyDown={[Function]}
+                    onKeyPress={[Function]}
+                    onMouseDown={[Function]}
+                    tabIndex="-1"
+                    type="button"
                     value="Playfair Display"
                   >
-                    <li
-                      className="select-search__row"
-                      data-index={2}
-                      data-value="Playfair%20Display"
-                      key="Playfair Display"
-                      role="menuitem"
+                    <span
+                      style={
+                        Object {
+                          "fontFamily": undefined,
+                        }
+                      }
                     >
-                      <button
-                        className="select-search__option"
-                        disabled={false}
-                        onBlur={[Function]}
-                        onKeyDown={[Function]}
-                        onKeyPress={[Function]}
-                        onMouseDown={[Function]}
-                        tabIndex="-1"
-                        type="button"
-                        value="Playfair Display"
-                      >
-                        <span
-                          style={
-                            Object {
-                              "fontFamily": undefined,
-                            }
-                          }
-                        >
-                          Playfair Display
-                        </span>
-                      </button>
-                    </li>
-                  </Option>
-                </ul>
-              </Options>
-            </div>
-          </li>
-          <li
-            className="select-search__row"
-            key="cursive-3"
-            role="none"
+                      Playfair Display
+                    </span>
+                  </button>
+                </li>
+              </Option>
+            </ul>
+          </div>
+        </li>
+        <li
+          className="select-search__row"
+          key="cursive-3"
+          role="none"
+        >
+          <div
+            className="select-search__group"
           >
             <div
-              className="select-search__group"
+              className="select-search__group-header"
             >
-              <div
-                className="select-search__group-header"
-              >
-                Type: Cursive
-              </div>
-              <Options
-                className={[Function]}
+              Type: Cursive
+            </div>
+            <ul
+              className="select-search__options"
+            >
+              <Option
+                cls={[Function]}
+                data-stack="Monoton, cursive"
+                groupId="cursive-3"
+                groupName="Cursive"
+                highlighted={false}
+                index={3}
+                key="Monoton"
+                name="Monoton"
                 optionProps={
                   Object {
                     "onBlur": [Function],
@@ -876,245 +475,49 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
                     "tabIndex": "-1",
                   }
                 }
-                options={
-                  Array [
-                    Object {
-                      "data-stack": "Monoton, cursive",
-                      "groupId": "cursive-3",
-                      "groupName": "Cursive",
-                      "index": 3,
-                      "name": "Monoton",
-                      "value": "Monoton",
-                    },
-                    Object {
-                      "data-stack": "\\"Gloria Hallelujah\\", cursive",
-                      "groupId": "cursive-3",
-                      "groupName": "Cursive",
-                      "index": 4,
-                      "name": "Gloria Hallelujah",
-                      "value": "Gloria Hallelujah",
-                    },
-                  ]
-                }
-                renderGroupHeader={[Function]}
                 renderOption={[Function]}
-                snapshot={
-                  Object {
-                    "disabled": false,
-                    "displayValue": "Helvetica",
-                    "focus": true,
-                    "highlighted": -1,
-                    "options": Array [
-                      Object {
-                        "index": 0,
-                        "name": "Helvetica",
-                        "value": "helvetica",
-                      },
-                      Object {
-                        "groupId": "sans-serif-1",
-                        "items": Array [
-                          Object {
-                            "data-stack": "Roboto, sans-serif",
-                            "groupId": "sans-serif-1",
-                            "groupName": "Sans serif",
-                            "index": 1,
-                            "name": "Roboto",
-                            "value": "Roboto",
-                          },
-                        ],
-                        "name": "Sans serif",
-                        "type": "group",
-                      },
-                      Object {
-                        "groupId": "serif-2",
-                        "items": Array [
-                          Object {
-                            "data-stack": "\\"Playfair Display\\", serif",
-                            "groupId": "serif-2",
-                            "groupName": "Serif",
-                            "index": 2,
-                            "name": "Playfair Display",
-                            "value": "Playfair Display",
-                          },
-                        ],
-                        "name": "Serif",
-                        "type": "group",
-                      },
-                      Object {
-                        "groupId": "cursive-3",
-                        "items": Array [
-                          Object {
-                            "data-stack": "Monoton, cursive",
-                            "groupId": "cursive-3",
-                            "groupName": "Cursive",
-                            "index": 3,
-                            "name": "Monoton",
-                            "value": "Monoton",
-                          },
-                          Object {
-                            "data-stack": "\\"Gloria Hallelujah\\", cursive",
-                            "groupId": "cursive-3",
-                            "groupName": "Cursive",
-                            "index": 4,
-                            "name": "Gloria Hallelujah",
-                            "value": "Gloria Hallelujah",
-                          },
-                        ],
-                        "name": "Cursive",
-                        "type": "group",
-                      },
-                      Object {
-                        "groupId": "monospace-4",
-                        "items": Array [
-                          Object {
-                            "data-stack": "VT323, monospace",
-                            "groupId": "monospace-4",
-                            "groupName": "Monospace",
-                            "index": 5,
-                            "name": "VT323",
-                            "value": "VT323",
-                          },
-                        ],
-                        "name": "Monospace",
-                        "type": "group",
-                      },
-                    ],
-                    "search": "",
-                    "searching": false,
-                    "value": Object {
-                      "index": 0,
-                      "name": "Helvetica",
-                      "value": "helvetica",
-                    },
-                  }
-                }
+                selected={false}
+                value="Monoton"
               >
-                <ul
-                  className="select-search__options"
+                <li
+                  className="select-search__row"
+                  data-index={3}
+                  data-value="Monoton"
+                  key="Monoton"
+                  role="menuitem"
                 >
-                  <Option
-                    className={[Function]}
-                    data-stack="Monoton, cursive"
-                    groupId="cursive-3"
-                    groupName="Cursive"
-                    highlighted={false}
-                    index={3}
-                    key="Monoton"
-                    name="Monoton"
-                    optionProps={
-                      Object {
-                        "onBlur": [Function],
-                        "onKeyDown": [Function],
-                        "onKeyPress": [Function],
-                        "onMouseDown": [Function],
-                        "tabIndex": "-1",
-                      }
-                    }
-                    renderOption={[Function]}
-                    selected={false}
+                  <button
+                    className="select-search__option"
+                    disabled={false}
+                    onBlur={[Function]}
+                    onKeyDown={[Function]}
+                    onKeyPress={[Function]}
+                    onMouseDown={[Function]}
+                    tabIndex="-1"
+                    type="button"
                     value="Monoton"
                   >
-                    <li
-                      className="select-search__row"
-                      data-index={3}
-                      data-value="Monoton"
-                      key="Monoton"
-                      role="menuitem"
-                    >
-                      <button
-                        className="select-search__option"
-                        disabled={false}
-                        onBlur={[Function]}
-                        onKeyDown={[Function]}
-                        onKeyPress={[Function]}
-                        onMouseDown={[Function]}
-                        tabIndex="-1"
-                        type="button"
-                        value="Monoton"
-                      >
-                        <span
-                          style={
-                            Object {
-                              "fontFamily": undefined,
-                            }
-                          }
-                        >
-                          Monoton
-                        </span>
-                      </button>
-                    </li>
-                  </Option>
-                  <Option
-                    className={[Function]}
-                    data-stack="\\"Gloria Hallelujah\\", cursive"
-                    groupId="cursive-3"
-                    groupName="Cursive"
-                    highlighted={false}
-                    index={4}
-                    key="Gloria Hallelujah"
-                    name="Gloria Hallelujah"
-                    optionProps={
-                      Object {
-                        "onBlur": [Function],
-                        "onKeyDown": [Function],
-                        "onKeyPress": [Function],
-                        "onMouseDown": [Function],
-                        "tabIndex": "-1",
+                    <span
+                      style={
+                        Object {
+                          "fontFamily": undefined,
+                        }
                       }
-                    }
-                    renderOption={[Function]}
-                    selected={false}
-                    value="Gloria Hallelujah"
-                  >
-                    <li
-                      className="select-search__row"
-                      data-index={4}
-                      data-value="Gloria%20Hallelujah"
-                      key="Gloria Hallelujah"
-                      role="menuitem"
                     >
-                      <button
-                        className="select-search__option"
-                        disabled={false}
-                        onBlur={[Function]}
-                        onKeyDown={[Function]}
-                        onKeyPress={[Function]}
-                        onMouseDown={[Function]}
-                        tabIndex="-1"
-                        type="button"
-                        value="Gloria Hallelujah"
-                      >
-                        <span
-                          style={
-                            Object {
-                              "fontFamily": undefined,
-                            }
-                          }
-                        >
-                          Gloria Hallelujah
-                        </span>
-                      </button>
-                    </li>
-                  </Option>
-                </ul>
-              </Options>
-            </div>
-          </li>
-          <li
-            className="select-search__row"
-            key="monospace-4"
-            role="none"
-          >
-            <div
-              className="select-search__group"
-            >
-              <div
-                className="select-search__group-header"
-              >
-                Type: Monospace
-              </div>
-              <Options
-                className={[Function]}
+                      Monoton
+                    </span>
+                  </button>
+                </li>
+              </Option>
+              <Option
+                cls={[Function]}
+                data-stack="\\"Gloria Hallelujah\\", cursive"
+                groupId="cursive-3"
+                groupName="Cursive"
+                highlighted={false}
+                index={4}
+                key="Gloria Hallelujah"
+                name="Gloria Hallelujah"
                 optionProps={
                   Object {
                     "onBlur": [Function],
@@ -1124,172 +527,115 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
                     "tabIndex": "-1",
                   }
                 }
-                options={
-                  Array [
-                    Object {
-                      "data-stack": "VT323, monospace",
-                      "groupId": "monospace-4",
-                      "groupName": "Monospace",
-                      "index": 5,
-                      "name": "VT323",
-                      "value": "VT323",
-                    },
-                  ]
-                }
-                renderGroupHeader={[Function]}
                 renderOption={[Function]}
-                snapshot={
+                selected={false}
+                value="Gloria Hallelujah"
+              >
+                <li
+                  className="select-search__row"
+                  data-index={4}
+                  data-value="Gloria%20Hallelujah"
+                  key="Gloria Hallelujah"
+                  role="menuitem"
+                >
+                  <button
+                    className="select-search__option"
+                    disabled={false}
+                    onBlur={[Function]}
+                    onKeyDown={[Function]}
+                    onKeyPress={[Function]}
+                    onMouseDown={[Function]}
+                    tabIndex="-1"
+                    type="button"
+                    value="Gloria Hallelujah"
+                  >
+                    <span
+                      style={
+                        Object {
+                          "fontFamily": undefined,
+                        }
+                      }
+                    >
+                      Gloria Hallelujah
+                    </span>
+                  </button>
+                </li>
+              </Option>
+            </ul>
+          </div>
+        </li>
+        <li
+          className="select-search__row"
+          key="monospace-4"
+          role="none"
+        >
+          <div
+            className="select-search__group"
+          >
+            <div
+              className="select-search__group-header"
+            >
+              Type: Monospace
+            </div>
+            <ul
+              className="select-search__options"
+            >
+              <Option
+                cls={[Function]}
+                data-stack="VT323, monospace"
+                groupId="monospace-4"
+                groupName="Monospace"
+                highlighted={false}
+                index={5}
+                key="VT323"
+                name="VT323"
+                optionProps={
                   Object {
-                    "disabled": false,
-                    "displayValue": "Helvetica",
-                    "focus": true,
-                    "highlighted": -1,
-                    "options": Array [
-                      Object {
-                        "index": 0,
-                        "name": "Helvetica",
-                        "value": "helvetica",
-                      },
-                      Object {
-                        "groupId": "sans-serif-1",
-                        "items": Array [
-                          Object {
-                            "data-stack": "Roboto, sans-serif",
-                            "groupId": "sans-serif-1",
-                            "groupName": "Sans serif",
-                            "index": 1,
-                            "name": "Roboto",
-                            "value": "Roboto",
-                          },
-                        ],
-                        "name": "Sans serif",
-                        "type": "group",
-                      },
-                      Object {
-                        "groupId": "serif-2",
-                        "items": Array [
-                          Object {
-                            "data-stack": "\\"Playfair Display\\", serif",
-                            "groupId": "serif-2",
-                            "groupName": "Serif",
-                            "index": 2,
-                            "name": "Playfair Display",
-                            "value": "Playfair Display",
-                          },
-                        ],
-                        "name": "Serif",
-                        "type": "group",
-                      },
-                      Object {
-                        "groupId": "cursive-3",
-                        "items": Array [
-                          Object {
-                            "data-stack": "Monoton, cursive",
-                            "groupId": "cursive-3",
-                            "groupName": "Cursive",
-                            "index": 3,
-                            "name": "Monoton",
-                            "value": "Monoton",
-                          },
-                          Object {
-                            "data-stack": "\\"Gloria Hallelujah\\", cursive",
-                            "groupId": "cursive-3",
-                            "groupName": "Cursive",
-                            "index": 4,
-                            "name": "Gloria Hallelujah",
-                            "value": "Gloria Hallelujah",
-                          },
-                        ],
-                        "name": "Cursive",
-                        "type": "group",
-                      },
-                      Object {
-                        "groupId": "monospace-4",
-                        "items": Array [
-                          Object {
-                            "data-stack": "VT323, monospace",
-                            "groupId": "monospace-4",
-                            "groupName": "Monospace",
-                            "index": 5,
-                            "name": "VT323",
-                            "value": "VT323",
-                          },
-                        ],
-                        "name": "Monospace",
-                        "type": "group",
-                      },
-                    ],
-                    "search": "",
-                    "searching": false,
-                    "value": Object {
-                      "index": 0,
-                      "name": "Helvetica",
-                      "value": "helvetica",
-                    },
+                    "onBlur": [Function],
+                    "onKeyDown": [Function],
+                    "onKeyPress": [Function],
+                    "onMouseDown": [Function],
+                    "tabIndex": "-1",
                   }
                 }
+                renderOption={[Function]}
+                selected={false}
+                value="VT323"
               >
-                <ul
-                  className="select-search__options"
+                <li
+                  className="select-search__row"
+                  data-index={5}
+                  data-value="VT323"
+                  key="VT323"
+                  role="menuitem"
                 >
-                  <Option
-                    className={[Function]}
-                    data-stack="VT323, monospace"
-                    groupId="monospace-4"
-                    groupName="Monospace"
-                    highlighted={false}
-                    index={5}
-                    key="VT323"
-                    name="VT323"
-                    optionProps={
-                      Object {
-                        "onBlur": [Function],
-                        "onKeyDown": [Function],
-                        "onKeyPress": [Function],
-                        "onMouseDown": [Function],
-                        "tabIndex": "-1",
-                      }
-                    }
-                    renderOption={[Function]}
-                    selected={false}
+                  <button
+                    className="select-search__option"
+                    disabled={false}
+                    onBlur={[Function]}
+                    onKeyDown={[Function]}
+                    onKeyPress={[Function]}
+                    onMouseDown={[Function]}
+                    tabIndex="-1"
+                    type="button"
                     value="VT323"
                   >
-                    <li
-                      className="select-search__row"
-                      data-index={5}
-                      data-value="VT323"
-                      key="VT323"
-                      role="menuitem"
+                    <span
+                      style={
+                        Object {
+                          "fontFamily": undefined,
+                        }
+                      }
                     >
-                      <button
-                        className="select-search__option"
-                        disabled={false}
-                        onBlur={[Function]}
-                        onKeyDown={[Function]}
-                        onKeyPress={[Function]}
-                        onMouseDown={[Function]}
-                        tabIndex="-1"
-                        type="button"
-                        value="VT323"
-                      >
-                        <span
-                          style={
-                            Object {
-                              "fontFamily": undefined,
-                            }
-                          }
-                        >
-                          VT323
-                        </span>
-                      </button>
-                    </li>
-                  </Option>
-                </ul>
-              </Options>
-            </div>
-          </li>
-        </ul>
-      </Options>
+                      VT323
+                    </span>
+                  </button>
+                </li>
+              </Option>
+            </ul>
+          </div>
+        </li>
+      </ul>
     </div>
   </div>
 </ForwardRef>
@@ -1369,6 +715,7 @@ exports[`Test SelectSearch component Custom renderers work with search 1`] = `
         autoComplete="on"
         autoFocus={false}
         className="select-search__input"
+        disabled={false}
         onBlur={[Function]}
         onChange={[Function]}
         onFocus={[Function]}
@@ -1465,6 +812,7 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
         autoComplete="on"
         autoFocus={false}
         className="select-search__input"
+        disabled={false}
         onBlur={[Function]}
         onChange={[Function]}
         onFocus={[Function]}
@@ -1486,254 +834,83 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
     <div
       className="select-search__select"
     >
-      <Options
-        className={[Function]}
-        optionProps={
-          Object {
-            "onBlur": [Function],
-            "onKeyDown": [Function],
-            "onKeyPress": [Function],
-            "onMouseDown": [Function],
-            "tabIndex": "-1",
-          }
-        }
-        options={
-          Array [
-            Object {
-              "index": 0,
-              "name": "Helvetica",
-              "value": "helvetica",
-            },
-            Object {
-              "groupId": "sans-serif-1",
-              "items": Array [
-                Object {
-                  "data-stack": "Roboto, sans-serif",
-                  "groupId": "sans-serif-1",
-                  "groupName": "Sans serif",
-                  "index": 1,
-                  "name": "Roboto",
-                  "value": "Roboto",
-                },
-              ],
-              "name": "Sans serif",
-              "type": "group",
-            },
-            Object {
-              "groupId": "serif-2",
-              "items": Array [
-                Object {
-                  "data-stack": "\\"Playfair Display\\", serif",
-                  "groupId": "serif-2",
-                  "groupName": "Serif",
-                  "index": 2,
-                  "name": "Playfair Display",
-                  "value": "Playfair Display",
-                },
-              ],
-              "name": "Serif",
-              "type": "group",
-            },
-            Object {
-              "groupId": "cursive-3",
-              "items": Array [
-                Object {
-                  "data-stack": "Monoton, cursive",
-                  "groupId": "cursive-3",
-                  "groupName": "Cursive",
-                  "index": 3,
-                  "name": "Monoton",
-                  "value": "Monoton",
-                },
-                Object {
-                  "data-stack": "\\"Gloria Hallelujah\\", cursive",
-                  "groupId": "cursive-3",
-                  "groupName": "Cursive",
-                  "index": 4,
-                  "name": "Gloria Hallelujah",
-                  "value": "Gloria Hallelujah",
-                },
-              ],
-              "name": "Cursive",
-              "type": "group",
-            },
-            Object {
-              "groupId": "monospace-4",
-              "items": Array [
-                Object {
-                  "data-stack": "VT323, monospace",
-                  "groupId": "monospace-4",
-                  "groupName": "Monospace",
-                  "index": 5,
-                  "name": "VT323",
-                  "value": "VT323",
-                },
-              ],
-              "name": "Monospace",
-              "type": "group",
-            },
-          ]
-        }
-        renderGroupHeader={[Function]}
-        renderOption={[Function]}
-        snapshot={
-          Object {
-            "disabled": false,
-            "displayValue": "Helvetica",
-            "focus": true,
-            "highlighted": -1,
-            "options": Array [
-              Object {
-                "index": 0,
-                "name": "Helvetica",
-                "value": "helvetica",
-              },
-              Object {
-                "groupId": "sans-serif-1",
-                "items": Array [
-                  Object {
-                    "data-stack": "Roboto, sans-serif",
-                    "groupId": "sans-serif-1",
-                    "groupName": "Sans serif",
-                    "index": 1,
-                    "name": "Roboto",
-                    "value": "Roboto",
-                  },
-                ],
-                "name": "Sans serif",
-                "type": "group",
-              },
-              Object {
-                "groupId": "serif-2",
-                "items": Array [
-                  Object {
-                    "data-stack": "\\"Playfair Display\\", serif",
-                    "groupId": "serif-2",
-                    "groupName": "Serif",
-                    "index": 2,
-                    "name": "Playfair Display",
-                    "value": "Playfair Display",
-                  },
-                ],
-                "name": "Serif",
-                "type": "group",
-              },
-              Object {
-                "groupId": "cursive-3",
-                "items": Array [
-                  Object {
-                    "data-stack": "Monoton, cursive",
-                    "groupId": "cursive-3",
-                    "groupName": "Cursive",
-                    "index": 3,
-                    "name": "Monoton",
-                    "value": "Monoton",
-                  },
-                  Object {
-                    "data-stack": "\\"Gloria Hallelujah\\", cursive",
-                    "groupId": "cursive-3",
-                    "groupName": "Cursive",
-                    "index": 4,
-                    "name": "Gloria Hallelujah",
-                    "value": "Gloria Hallelujah",
-                  },
-                ],
-                "name": "Cursive",
-                "type": "group",
-              },
-              Object {
-                "groupId": "monospace-4",
-                "items": Array [
-                  Object {
-                    "data-stack": "VT323, monospace",
-                    "groupId": "monospace-4",
-                    "groupName": "Monospace",
-                    "index": 5,
-                    "name": "VT323",
-                    "value": "VT323",
-                  },
-                ],
-                "name": "Monospace",
-                "type": "group",
-              },
-            ],
-            "search": "",
-            "searching": false,
-            "value": Object {
-              "index": 0,
-              "name": "Helvetica",
-              "value": "helvetica",
-            },
-          }
-        }
+      <ul
+        className="select-search__options"
       >
-        <ul
-          className="select-search__options"
-        >
-          <Option
-            className={[Function]}
-            highlighted={false}
-            index={0}
-            key="helvetica"
-            name="Helvetica"
-            optionProps={
-              Object {
-                "onBlur": [Function],
-                "onKeyDown": [Function],
-                "onKeyPress": [Function],
-                "onMouseDown": [Function],
-                "tabIndex": "-1",
-              }
+        <Option
+          cls={[Function]}
+          highlighted={false}
+          index={0}
+          key="helvetica"
+          name="Helvetica"
+          optionProps={
+            Object {
+              "onBlur": [Function],
+              "onKeyDown": [Function],
+              "onKeyPress": [Function],
+              "onMouseDown": [Function],
+              "tabIndex": "-1",
             }
-            renderOption={[Function]}
-            selected={true}
-            value="helvetica"
-          >
-            <li
-              className="select-search__row"
-              data-index={0}
-              data-value="helvetica"
-              key="helvetica"
-              role="menuitem"
-            >
-              <button
-                className="select-search__option is-selected"
-                disabled={false}
-                onBlur={[Function]}
-                onKeyDown={[Function]}
-                onKeyPress={[Function]}
-                onMouseDown={[Function]}
-                tabIndex="-1"
-                type="button"
-                value="helvetica"
-              >
-                <span
-                  style={
-                    Object {
-                      "fontFamily": undefined,
-                    }
-                  }
-                >
-                  Helvetica
-                </span>
-              </button>
-            </li>
-          </Option>
+          }
+          renderOption={[Function]}
+          selected={true}
+          value="helvetica"
+        >
           <li
             className="select-search__row"
-            key="sans-serif-1"
-            role="none"
+            data-index={0}
+            data-value="helvetica"
+            key="helvetica"
+            role="menuitem"
+          >
+            <button
+              className="select-search__option is-selected"
+              disabled={false}
+              onBlur={[Function]}
+              onKeyDown={[Function]}
+              onKeyPress={[Function]}
+              onMouseDown={[Function]}
+              tabIndex="-1"
+              type="button"
+              value="helvetica"
+            >
+              <span
+                style={
+                  Object {
+                    "fontFamily": undefined,
+                  }
+                }
+              >
+                Helvetica
+              </span>
+            </button>
+          </li>
+        </Option>
+        <li
+          className="select-search__row"
+          key="sans-serif-1"
+          role="none"
+        >
+          <div
+            className="select-search__group"
           >
             <div
-              className="select-search__group"
+              className="select-search__group-header"
             >
-              <div
-                className="select-search__group-header"
-              >
-                Type: Sans serif
-              </div>
-              <Options
-                className={[Function]}
+              Type: Sans serif
+            </div>
+            <ul
+              className="select-search__options"
+            >
+              <Option
+                cls={[Function]}
+                data-stack="Roboto, sans-serif"
+                groupId="sans-serif-1"
+                groupName="Sans serif"
+                highlighted={false}
+                index={1}
+                key="Roboto"
+                name="Roboto"
                 optionProps={
                   Object {
                     "onBlur": [Function],
@@ -1743,185 +920,68 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
                     "tabIndex": "-1",
                   }
                 }
-                options={
-                  Array [
-                    Object {
-                      "data-stack": "Roboto, sans-serif",
-                      "groupId": "sans-serif-1",
-                      "groupName": "Sans serif",
-                      "index": 1,
-                      "name": "Roboto",
-                      "value": "Roboto",
-                    },
-                  ]
-                }
-                renderGroupHeader={[Function]}
                 renderOption={[Function]}
-                snapshot={
-                  Object {
-                    "disabled": false,
-                    "displayValue": "Helvetica",
-                    "focus": true,
-                    "highlighted": -1,
-                    "options": Array [
-                      Object {
-                        "index": 0,
-                        "name": "Helvetica",
-                        "value": "helvetica",
-                      },
-                      Object {
-                        "groupId": "sans-serif-1",
-                        "items": Array [
-                          Object {
-                            "data-stack": "Roboto, sans-serif",
-                            "groupId": "sans-serif-1",
-                            "groupName": "Sans serif",
-                            "index": 1,
-                            "name": "Roboto",
-                            "value": "Roboto",
-                          },
-                        ],
-                        "name": "Sans serif",
-                        "type": "group",
-                      },
-                      Object {
-                        "groupId": "serif-2",
-                        "items": Array [
-                          Object {
-                            "data-stack": "\\"Playfair Display\\", serif",
-                            "groupId": "serif-2",
-                            "groupName": "Serif",
-                            "index": 2,
-                            "name": "Playfair Display",
-                            "value": "Playfair Display",
-                          },
-                        ],
-                        "name": "Serif",
-                        "type": "group",
-                      },
-                      Object {
-                        "groupId": "cursive-3",
-                        "items": Array [
-                          Object {
-                            "data-stack": "Monoton, cursive",
-                            "groupId": "cursive-3",
-                            "groupName": "Cursive",
-                            "index": 3,
-                            "name": "Monoton",
-                            "value": "Monoton",
-                          },
-                          Object {
-                            "data-stack": "\\"Gloria Hallelujah\\", cursive",
-                            "groupId": "cursive-3",
-                            "groupName": "Cursive",
-                            "index": 4,
-                            "name": "Gloria Hallelujah",
-                            "value": "Gloria Hallelujah",
-                          },
-                        ],
-                        "name": "Cursive",
-                        "type": "group",
-                      },
-                      Object {
-                        "groupId": "monospace-4",
-                        "items": Array [
-                          Object {
-                            "data-stack": "VT323, monospace",
-                            "groupId": "monospace-4",
-                            "groupName": "Monospace",
-                            "index": 5,
-                            "name": "VT323",
-                            "value": "VT323",
-                          },
-                        ],
-                        "name": "Monospace",
-                        "type": "group",
-                      },
-                    ],
-                    "search": "",
-                    "searching": false,
-                    "value": Object {
-                      "index": 0,
-                      "name": "Helvetica",
-                      "value": "helvetica",
-                    },
-                  }
-                }
+                selected={false}
+                value="Roboto"
               >
-                <ul
-                  className="select-search__options"
+                <li
+                  className="select-search__row"
+                  data-index={1}
+                  data-value="Roboto"
+                  key="Roboto"
+                  role="menuitem"
                 >
-                  <Option
-                    className={[Function]}
-                    data-stack="Roboto, sans-serif"
-                    groupId="sans-serif-1"
-                    groupName="Sans serif"
-                    highlighted={false}
-                    index={1}
-                    key="Roboto"
-                    name="Roboto"
-                    optionProps={
-                      Object {
-                        "onBlur": [Function],
-                        "onKeyDown": [Function],
-                        "onKeyPress": [Function],
-                        "onMouseDown": [Function],
-                        "tabIndex": "-1",
-                      }
-                    }
-                    renderOption={[Function]}
-                    selected={false}
+                  <button
+                    className="select-search__option"
+                    disabled={false}
+                    onBlur={[Function]}
+                    onKeyDown={[Function]}
+                    onKeyPress={[Function]}
+                    onMouseDown={[Function]}
+                    tabIndex="-1"
+                    type="button"
                     value="Roboto"
                   >
-                    <li
-                      className="select-search__row"
-                      data-index={1}
-                      data-value="Roboto"
-                      key="Roboto"
-                      role="menuitem"
+                    <span
+                      style={
+                        Object {
+                          "fontFamily": undefined,
+                        }
+                      }
                     >
-                      <button
-                        className="select-search__option"
-                        disabled={false}
-                        onBlur={[Function]}
-                        onKeyDown={[Function]}
-                        onKeyPress={[Function]}
-                        onMouseDown={[Function]}
-                        tabIndex="-1"
-                        type="button"
-                        value="Roboto"
-                      >
-                        <span
-                          style={
-                            Object {
-                              "fontFamily": undefined,
-                            }
-                          }
-                        >
-                          Roboto
-                        </span>
-                      </button>
-                    </li>
-                  </Option>
-                </ul>
-              </Options>
-            </div>
-          </li>
-          <li
-            className="select-search__row"
-            key="serif-2"
-            role="none"
+                      Roboto
+                    </span>
+                  </button>
+                </li>
+              </Option>
+            </ul>
+          </div>
+        </li>
+        <li
+          className="select-search__row"
+          key="serif-2"
+          role="none"
+        >
+          <div
+            className="select-search__group"
           >
             <div
-              className="select-search__group"
+              className="select-search__group-header"
             >
-              <div
-                className="select-search__group-header"
-              >
-                Type: Serif
-              </div>
-              <Options
-                className={[Function]}
+              Type: Serif
+            </div>
+            <ul
+              className="select-search__options"
+            >
+              <Option
+                cls={[Function]}
+                data-stack="\\"Playfair Display\\", serif"
+                groupId="serif-2"
+                groupName="Serif"
+                highlighted={false}
+                index={2}
+                key="Playfair Display"
+                name="Playfair Display"
                 optionProps={
                   Object {
                     "onBlur": [Function],
@@ -1931,185 +991,68 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
                     "tabIndex": "-1",
                   }
                 }
-                options={
-                  Array [
-                    Object {
-                      "data-stack": "\\"Playfair Display\\", serif",
-                      "groupId": "serif-2",
-                      "groupName": "Serif",
-                      "index": 2,
-                      "name": "Playfair Display",
-                      "value": "Playfair Display",
-                    },
-                  ]
-                }
-                renderGroupHeader={[Function]}
                 renderOption={[Function]}
-                snapshot={
-                  Object {
-                    "disabled": false,
-                    "displayValue": "Helvetica",
-                    "focus": true,
-                    "highlighted": -1,
-                    "options": Array [
-                      Object {
-                        "index": 0,
-                        "name": "Helvetica",
-                        "value": "helvetica",
-                      },
-                      Object {
-                        "groupId": "sans-serif-1",
-                        "items": Array [
-                          Object {
-                            "data-stack": "Roboto, sans-serif",
-                            "groupId": "sans-serif-1",
-                            "groupName": "Sans serif",
-                            "index": 1,
-                            "name": "Roboto",
-                            "value": "Roboto",
-                          },
-                        ],
-                        "name": "Sans serif",
-                        "type": "group",
-                      },
-                      Object {
-                        "groupId": "serif-2",
-                        "items": Array [
-                          Object {
-                            "data-stack": "\\"Playfair Display\\", serif",
-                            "groupId": "serif-2",
-                            "groupName": "Serif",
-                            "index": 2,
-                            "name": "Playfair Display",
-                            "value": "Playfair Display",
-                          },
-                        ],
-                        "name": "Serif",
-                        "type": "group",
-                      },
-                      Object {
-                        "groupId": "cursive-3",
-                        "items": Array [
-                          Object {
-                            "data-stack": "Monoton, cursive",
-                            "groupId": "cursive-3",
-                            "groupName": "Cursive",
-                            "index": 3,
-                            "name": "Monoton",
-                            "value": "Monoton",
-                          },
-                          Object {
-                            "data-stack": "\\"Gloria Hallelujah\\", cursive",
-                            "groupId": "cursive-3",
-                            "groupName": "Cursive",
-                            "index": 4,
-                            "name": "Gloria Hallelujah",
-                            "value": "Gloria Hallelujah",
-                          },
-                        ],
-                        "name": "Cursive",
-                        "type": "group",
-                      },
-                      Object {
-                        "groupId": "monospace-4",
-                        "items": Array [
-                          Object {
-                            "data-stack": "VT323, monospace",
-                            "groupId": "monospace-4",
-                            "groupName": "Monospace",
-                            "index": 5,
-                            "name": "VT323",
-                            "value": "VT323",
-                          },
-                        ],
-                        "name": "Monospace",
-                        "type": "group",
-                      },
-                    ],
-                    "search": "",
-                    "searching": false,
-                    "value": Object {
-                      "index": 0,
-                      "name": "Helvetica",
-                      "value": "helvetica",
-                    },
-                  }
-                }
+                selected={false}
+                value="Playfair Display"
               >
-                <ul
-                  className="select-search__options"
+                <li
+                  className="select-search__row"
+                  data-index={2}
+                  data-value="Playfair%20Display"
+                  key="Playfair Display"
+                  role="menuitem"
                 >
-                  <Option
-                    className={[Function]}
-                    data-stack="\\"Playfair Display\\", serif"
-                    groupId="serif-2"
-                    groupName="Serif"
-                    highlighted={false}
-                    index={2}
-                    key="Playfair Display"
-                    name="Playfair Display"
-                    optionProps={
-                      Object {
-                        "onBlur": [Function],
-                        "onKeyDown": [Function],
-                        "onKeyPress": [Function],
-                        "onMouseDown": [Function],
-                        "tabIndex": "-1",
-                      }
-                    }
-                    renderOption={[Function]}
-                    selected={false}
+                  <button
+                    className="select-search__option"
+                    disabled={false}
+                    onBlur={[Function]}
+                    onKeyDown={[Function]}
+                    onKeyPress={[Function]}
+                    onMouseDown={[Function]}
+                    tabIndex="-1"
+                    type="button"
                     value="Playfair Display"
                   >
-                    <li
-                      className="select-search__row"
-                      data-index={2}
-                      data-value="Playfair%20Display"
-                      key="Playfair Display"
-                      role="menuitem"
+                    <span
+                      style={
+                        Object {
+                          "fontFamily": undefined,
+                        }
+                      }
                     >
-                      <button
-                        className="select-search__option"
-                        disabled={false}
-                        onBlur={[Function]}
-                        onKeyDown={[Function]}
-                        onKeyPress={[Function]}
-                        onMouseDown={[Function]}
-                        tabIndex="-1"
-                        type="button"
-                        value="Playfair Display"
-                      >
-                        <span
-                          style={
-                            Object {
-                              "fontFamily": undefined,
-                            }
-                          }
-                        >
-                          Playfair Display
-                        </span>
-                      </button>
-                    </li>
-                  </Option>
-                </ul>
-              </Options>
-            </div>
-          </li>
-          <li
-            className="select-search__row"
-            key="cursive-3"
-            role="none"
+                      Playfair Display
+                    </span>
+                  </button>
+                </li>
+              </Option>
+            </ul>
+          </div>
+        </li>
+        <li
+          className="select-search__row"
+          key="cursive-3"
+          role="none"
+        >
+          <div
+            className="select-search__group"
           >
             <div
-              className="select-search__group"
+              className="select-search__group-header"
             >
-              <div
-                className="select-search__group-header"
-              >
-                Type: Cursive
-              </div>
-              <Options
-                className={[Function]}
+              Type: Cursive
+            </div>
+            <ul
+              className="select-search__options"
+            >
+              <Option
+                cls={[Function]}
+                data-stack="Monoton, cursive"
+                groupId="cursive-3"
+                groupName="Cursive"
+                highlighted={false}
+                index={3}
+                key="Monoton"
+                name="Monoton"
                 optionProps={
                   Object {
                     "onBlur": [Function],
@@ -2119,245 +1062,49 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
                     "tabIndex": "-1",
                   }
                 }
-                options={
-                  Array [
-                    Object {
-                      "data-stack": "Monoton, cursive",
-                      "groupId": "cursive-3",
-                      "groupName": "Cursive",
-                      "index": 3,
-                      "name": "Monoton",
-                      "value": "Monoton",
-                    },
-                    Object {
-                      "data-stack": "\\"Gloria Hallelujah\\", cursive",
-                      "groupId": "cursive-3",
-                      "groupName": "Cursive",
-                      "index": 4,
-                      "name": "Gloria Hallelujah",
-                      "value": "Gloria Hallelujah",
-                    },
-                  ]
-                }
-                renderGroupHeader={[Function]}
                 renderOption={[Function]}
-                snapshot={
-                  Object {
-                    "disabled": false,
-                    "displayValue": "Helvetica",
-                    "focus": true,
-                    "highlighted": -1,
-                    "options": Array [
-                      Object {
-                        "index": 0,
-                        "name": "Helvetica",
-                        "value": "helvetica",
-                      },
-                      Object {
-                        "groupId": "sans-serif-1",
-                        "items": Array [
-                          Object {
-                            "data-stack": "Roboto, sans-serif",
-                            "groupId": "sans-serif-1",
-                            "groupName": "Sans serif",
-                            "index": 1,
-                            "name": "Roboto",
-                            "value": "Roboto",
-                          },
-                        ],
-                        "name": "Sans serif",
-                        "type": "group",
-                      },
-                      Object {
-                        "groupId": "serif-2",
-                        "items": Array [
-                          Object {
-                            "data-stack": "\\"Playfair Display\\", serif",
-                            "groupId": "serif-2",
-                            "groupName": "Serif",
-                            "index": 2,
-                            "name": "Playfair Display",
-                            "value": "Playfair Display",
-                          },
-                        ],
-                        "name": "Serif",
-                        "type": "group",
-                      },
-                      Object {
-                        "groupId": "cursive-3",
-                        "items": Array [
-                          Object {
-                            "data-stack": "Monoton, cursive",
-                            "groupId": "cursive-3",
-                            "groupName": "Cursive",
-                            "index": 3,
-                            "name": "Monoton",
-                            "value": "Monoton",
-                          },
-                          Object {
-                            "data-stack": "\\"Gloria Hallelujah\\", cursive",
-                            "groupId": "cursive-3",
-                            "groupName": "Cursive",
-                            "index": 4,
-                            "name": "Gloria Hallelujah",
-                            "value": "Gloria Hallelujah",
-                          },
-                        ],
-                        "name": "Cursive",
-                        "type": "group",
-                      },
-                      Object {
-                        "groupId": "monospace-4",
-                        "items": Array [
-                          Object {
-                            "data-stack": "VT323, monospace",
-                            "groupId": "monospace-4",
-                            "groupName": "Monospace",
-                            "index": 5,
-                            "name": "VT323",
-                            "value": "VT323",
-                          },
-                        ],
-                        "name": "Monospace",
-                        "type": "group",
-                      },
-                    ],
-                    "search": "",
-                    "searching": false,
-                    "value": Object {
-                      "index": 0,
-                      "name": "Helvetica",
-                      "value": "helvetica",
-                    },
-                  }
-                }
+                selected={false}
+                value="Monoton"
               >
-                <ul
-                  className="select-search__options"
+                <li
+                  className="select-search__row"
+                  data-index={3}
+                  data-value="Monoton"
+                  key="Monoton"
+                  role="menuitem"
                 >
-                  <Option
-                    className={[Function]}
-                    data-stack="Monoton, cursive"
-                    groupId="cursive-3"
-                    groupName="Cursive"
-                    highlighted={false}
-                    index={3}
-                    key="Monoton"
-                    name="Monoton"
-                    optionProps={
-                      Object {
-                        "onBlur": [Function],
-                        "onKeyDown": [Function],
-                        "onKeyPress": [Function],
-                        "onMouseDown": [Function],
-                        "tabIndex": "-1",
-                      }
-                    }
-                    renderOption={[Function]}
-                    selected={false}
+                  <button
+                    className="select-search__option"
+                    disabled={false}
+                    onBlur={[Function]}
+                    onKeyDown={[Function]}
+                    onKeyPress={[Function]}
+                    onMouseDown={[Function]}
+                    tabIndex="-1"
+                    type="button"
                     value="Monoton"
                   >
-                    <li
-                      className="select-search__row"
-                      data-index={3}
-                      data-value="Monoton"
-                      key="Monoton"
-                      role="menuitem"
-                    >
-                      <button
-                        className="select-search__option"
-                        disabled={false}
-                        onBlur={[Function]}
-                        onKeyDown={[Function]}
-                        onKeyPress={[Function]}
-                        onMouseDown={[Function]}
-                        tabIndex="-1"
-                        type="button"
-                        value="Monoton"
-                      >
-                        <span
-                          style={
-                            Object {
-                              "fontFamily": undefined,
-                            }
-                          }
-                        >
-                          Monoton
-                        </span>
-                      </button>
-                    </li>
-                  </Option>
-                  <Option
-                    className={[Function]}
-                    data-stack="\\"Gloria Hallelujah\\", cursive"
-                    groupId="cursive-3"
-                    groupName="Cursive"
-                    highlighted={false}
-                    index={4}
-                    key="Gloria Hallelujah"
-                    name="Gloria Hallelujah"
-                    optionProps={
-                      Object {
-                        "onBlur": [Function],
-                        "onKeyDown": [Function],
-                        "onKeyPress": [Function],
-                        "onMouseDown": [Function],
-                        "tabIndex": "-1",
+                    <span
+                      style={
+                        Object {
+                          "fontFamily": undefined,
+                        }
                       }
-                    }
-                    renderOption={[Function]}
-                    selected={false}
-                    value="Gloria Hallelujah"
-                  >
-                    <li
-                      className="select-search__row"
-                      data-index={4}
-                      data-value="Gloria%20Hallelujah"
-                      key="Gloria Hallelujah"
-                      role="menuitem"
                     >
-                      <button
-                        className="select-search__option"
-                        disabled={false}
-                        onBlur={[Function]}
-                        onKeyDown={[Function]}
-                        onKeyPress={[Function]}
-                        onMouseDown={[Function]}
-                        tabIndex="-1"
-                        type="button"
-                        value="Gloria Hallelujah"
-                      >
-                        <span
-                          style={
-                            Object {
-                              "fontFamily": undefined,
-                            }
-                          }
-                        >
-                          Gloria Hallelujah
-                        </span>
-                      </button>
-                    </li>
-                  </Option>
-                </ul>
-              </Options>
-            </div>
-          </li>
-          <li
-            className="select-search__row"
-            key="monospace-4"
-            role="none"
-          >
-            <div
-              className="select-search__group"
-            >
-              <div
-                className="select-search__group-header"
-              >
-                Type: Monospace
-              </div>
-              <Options
-                className={[Function]}
+                      Monoton
+                    </span>
+                  </button>
+                </li>
+              </Option>
+              <Option
+                cls={[Function]}
+                data-stack="\\"Gloria Hallelujah\\", cursive"
+                groupId="cursive-3"
+                groupName="Cursive"
+                highlighted={false}
+                index={4}
+                key="Gloria Hallelujah"
+                name="Gloria Hallelujah"
                 optionProps={
                   Object {
                     "onBlur": [Function],
@@ -2367,172 +1114,115 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
                     "tabIndex": "-1",
                   }
                 }
-                options={
-                  Array [
-                    Object {
-                      "data-stack": "VT323, monospace",
-                      "groupId": "monospace-4",
-                      "groupName": "Monospace",
-                      "index": 5,
-                      "name": "VT323",
-                      "value": "VT323",
-                    },
-                  ]
-                }
-                renderGroupHeader={[Function]}
                 renderOption={[Function]}
-                snapshot={
+                selected={false}
+                value="Gloria Hallelujah"
+              >
+                <li
+                  className="select-search__row"
+                  data-index={4}
+                  data-value="Gloria%20Hallelujah"
+                  key="Gloria Hallelujah"
+                  role="menuitem"
+                >
+                  <button
+                    className="select-search__option"
+                    disabled={false}
+                    onBlur={[Function]}
+                    onKeyDown={[Function]}
+                    onKeyPress={[Function]}
+                    onMouseDown={[Function]}
+                    tabIndex="-1"
+                    type="button"
+                    value="Gloria Hallelujah"
+                  >
+                    <span
+                      style={
+                        Object {
+                          "fontFamily": undefined,
+                        }
+                      }
+                    >
+                      Gloria Hallelujah
+                    </span>
+                  </button>
+                </li>
+              </Option>
+            </ul>
+          </div>
+        </li>
+        <li
+          className="select-search__row"
+          key="monospace-4"
+          role="none"
+        >
+          <div
+            className="select-search__group"
+          >
+            <div
+              className="select-search__group-header"
+            >
+              Type: Monospace
+            </div>
+            <ul
+              className="select-search__options"
+            >
+              <Option
+                cls={[Function]}
+                data-stack="VT323, monospace"
+                groupId="monospace-4"
+                groupName="Monospace"
+                highlighted={false}
+                index={5}
+                key="VT323"
+                name="VT323"
+                optionProps={
                   Object {
-                    "disabled": false,
-                    "displayValue": "Helvetica",
-                    "focus": true,
-                    "highlighted": -1,
-                    "options": Array [
-                      Object {
-                        "index": 0,
-                        "name": "Helvetica",
-                        "value": "helvetica",
-                      },
-                      Object {
-                        "groupId": "sans-serif-1",
-                        "items": Array [
-                          Object {
-                            "data-stack": "Roboto, sans-serif",
-                            "groupId": "sans-serif-1",
-                            "groupName": "Sans serif",
-                            "index": 1,
-                            "name": "Roboto",
-                            "value": "Roboto",
-                          },
-                        ],
-                        "name": "Sans serif",
-                        "type": "group",
-                      },
-                      Object {
-                        "groupId": "serif-2",
-                        "items": Array [
-                          Object {
-                            "data-stack": "\\"Playfair Display\\", serif",
-                            "groupId": "serif-2",
-                            "groupName": "Serif",
-                            "index": 2,
-                            "name": "Playfair Display",
-                            "value": "Playfair Display",
-                          },
-                        ],
-                        "name": "Serif",
-                        "type": "group",
-                      },
-                      Object {
-                        "groupId": "cursive-3",
-                        "items": Array [
-                          Object {
-                            "data-stack": "Monoton, cursive",
-                            "groupId": "cursive-3",
-                            "groupName": "Cursive",
-                            "index": 3,
-                            "name": "Monoton",
-                            "value": "Monoton",
-                          },
-                          Object {
-                            "data-stack": "\\"Gloria Hallelujah\\", cursive",
-                            "groupId": "cursive-3",
-                            "groupName": "Cursive",
-                            "index": 4,
-                            "name": "Gloria Hallelujah",
-                            "value": "Gloria Hallelujah",
-                          },
-                        ],
-                        "name": "Cursive",
-                        "type": "group",
-                      },
-                      Object {
-                        "groupId": "monospace-4",
-                        "items": Array [
-                          Object {
-                            "data-stack": "VT323, monospace",
-                            "groupId": "monospace-4",
-                            "groupName": "Monospace",
-                            "index": 5,
-                            "name": "VT323",
-                            "value": "VT323",
-                          },
-                        ],
-                        "name": "Monospace",
-                        "type": "group",
-                      },
-                    ],
-                    "search": "",
-                    "searching": false,
-                    "value": Object {
-                      "index": 0,
-                      "name": "Helvetica",
-                      "value": "helvetica",
-                    },
+                    "onBlur": [Function],
+                    "onKeyDown": [Function],
+                    "onKeyPress": [Function],
+                    "onMouseDown": [Function],
+                    "tabIndex": "-1",
                   }
                 }
+                renderOption={[Function]}
+                selected={false}
+                value="VT323"
               >
-                <ul
-                  className="select-search__options"
+                <li
+                  className="select-search__row"
+                  data-index={5}
+                  data-value="VT323"
+                  key="VT323"
+                  role="menuitem"
                 >
-                  <Option
-                    className={[Function]}
-                    data-stack="VT323, monospace"
-                    groupId="monospace-4"
-                    groupName="Monospace"
-                    highlighted={false}
-                    index={5}
-                    key="VT323"
-                    name="VT323"
-                    optionProps={
-                      Object {
-                        "onBlur": [Function],
-                        "onKeyDown": [Function],
-                        "onKeyPress": [Function],
-                        "onMouseDown": [Function],
-                        "tabIndex": "-1",
-                      }
-                    }
-                    renderOption={[Function]}
-                    selected={false}
+                  <button
+                    className="select-search__option"
+                    disabled={false}
+                    onBlur={[Function]}
+                    onKeyDown={[Function]}
+                    onKeyPress={[Function]}
+                    onMouseDown={[Function]}
+                    tabIndex="-1"
+                    type="button"
                     value="VT323"
                   >
-                    <li
-                      className="select-search__row"
-                      data-index={5}
-                      data-value="VT323"
-                      key="VT323"
-                      role="menuitem"
+                    <span
+                      style={
+                        Object {
+                          "fontFamily": undefined,
+                        }
+                      }
                     >
-                      <button
-                        className="select-search__option"
-                        disabled={false}
-                        onBlur={[Function]}
-                        onKeyDown={[Function]}
-                        onKeyPress={[Function]}
-                        onMouseDown={[Function]}
-                        tabIndex="-1"
-                        type="button"
-                        value="VT323"
-                      >
-                        <span
-                          style={
-                            Object {
-                              "fontFamily": undefined,
-                            }
-                          }
-                        >
-                          VT323
-                        </span>
-                      </button>
-                    </li>
-                  </Option>
-                </ul>
-              </Options>
-            </div>
-          </li>
-        </ul>
-      </Options>
+                      VT323
+                    </span>
+                  </button>
+                </li>
+              </Option>
+            </ul>
+          </div>
+        </li>
+      </ul>
     </div>
   </div>
 </ForwardRef>
@@ -2556,57 +1246,27 @@ exports[`Test SelectSearch component Focus displays options 1`] = `
   <div
     className="select-search"
   >
-    <Value
-      autoComplete="on"
-      autoFocus={false}
-      className={[Function]}
-      disabled={false}
-      displayValue="Foo"
-      placeholder={null}
-      search={false}
-      valueProps={
-        Object {
-          "onBlur": [Function],
-          "onChange": null,
-          "onFocus": [Function],
-          "onKeyDown": [Function],
-          "onKeyPress": [Function],
-          "onKeyUp": [Function],
-          "onMouseDown": [Function],
-          "readOnly": true,
-          "ref": Object {
-            "current": <input
-              class="select-search__input"
-              readonly=""
-              tabindex="0"
-              value="Foo"
-            />,
-          },
-          "tabIndex": "0",
-        }
-      }
+    <div
+      className="select-search__value"
     >
-      <div
-        className="select-search__value"
-      >
-        <input
-          autoFocus={false}
-          className="select-search__input"
-          disabled={false}
-          onBlur={[Function]}
-          onChange={null}
-          onFocus={[Function]}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
-          onKeyUp={[Function]}
-          onMouseDown={[Function]}
-          placeholder={null}
-          readOnly={true}
-          tabIndex="0"
-          value="Foo"
-        />
-      </div>
-    </Value>
+      <input
+        autoComplete="on"
+        autoFocus={false}
+        className="select-search__input"
+        disabled={false}
+        onBlur={[Function]}
+        onChange={null}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyPress={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        placeholder={null}
+        readOnly={true}
+        tabIndex="0"
+        value="Foo"
+      />
+    </div>
   </div>
 </ForwardRef>
 `;
@@ -2629,200 +1289,114 @@ exports[`Test SelectSearch component Focus displays options 2`] = `
   <div
     className="select-search has-focus"
   >
-    <Value
-      autoComplete="on"
-      autoFocus={false}
-      className={[Function]}
-      disabled={false}
-      displayValue="Foo"
-      placeholder={null}
-      search={false}
-      valueProps={
-        Object {
-          "onBlur": [Function],
-          "onChange": null,
-          "onFocus": [Function],
-          "onKeyDown": [Function],
-          "onKeyPress": [Function],
-          "onKeyUp": [Function],
-          "onMouseDown": [Function],
-          "readOnly": true,
-          "ref": Object {
-            "current": <input
-              class="select-search__input"
-              readonly=""
-              tabindex="0"
-              value="Foo"
-            />,
-          },
-          "tabIndex": "0",
-        }
-      }
+    <div
+      className="select-search__value"
     >
-      <div
-        className="select-search__value"
-      >
-        <input
-          autoFocus={false}
-          className="select-search__input"
-          disabled={false}
-          onBlur={[Function]}
-          onChange={null}
-          onFocus={[Function]}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
-          onKeyUp={[Function]}
-          onMouseDown={[Function]}
-          placeholder={null}
-          readOnly={true}
-          tabIndex="0"
-          value="Foo"
-        />
-      </div>
-    </Value>
+      <input
+        autoComplete="on"
+        autoFocus={false}
+        className="select-search__input"
+        disabled={false}
+        onBlur={[Function]}
+        onChange={null}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyPress={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        placeholder={null}
+        readOnly={true}
+        tabIndex="0"
+        value="Foo"
+      />
+    </div>
     <div
       className="select-search__select"
     >
-      <Options
-        className={[Function]}
-        optionProps={
-          Object {
-            "onBlur": [Function],
-            "onKeyDown": [Function],
-            "onKeyPress": [Function],
-            "onMouseDown": [Function],
-            "tabIndex": "-1",
-          }
-        }
-        options={
-          Array [
-            Object {
-              "index": 0,
-              "name": "Foo",
-              "value": "foo",
-            },
-            Object {
-              "index": 1,
-              "name": "Bar",
-              "value": "bar",
-            },
-          ]
-        }
-        renderGroupHeader={[Function]}
-        renderOption={null}
-        snapshot={
-          Object {
-            "disabled": false,
-            "displayValue": "Foo",
-            "focus": true,
-            "highlighted": -1,
-            "options": Array [
-              Object {
-                "index": 0,
-                "name": "Foo",
-                "value": "foo",
-              },
-              Object {
-                "index": 1,
-                "name": "Bar",
-                "value": "bar",
-              },
-            ],
-            "search": "",
-            "searching": false,
-            "value": Object {
-              "index": 0,
-              "name": "Foo",
-              "value": "foo",
-            },
-          }
-        }
+      <ul
+        className="select-search__options"
       >
-        <ul
-          className="select-search__options"
+        <Option
+          cls={[Function]}
+          highlighted={false}
+          index={0}
+          key="foo"
+          name="Foo"
+          optionProps={
+            Object {
+              "onBlur": [Function],
+              "onKeyDown": [Function],
+              "onKeyPress": [Function],
+              "onMouseDown": [Function],
+              "tabIndex": "-1",
+            }
+          }
+          renderOption={[Function]}
+          selected={true}
+          value="foo"
         >
-          <Option
-            className={[Function]}
-            highlighted={false}
-            index={0}
+          <li
+            className="select-search__row"
+            data-index={0}
+            data-value="foo"
             key="foo"
-            name="Foo"
-            optionProps={
-              Object {
-                "onBlur": [Function],
-                "onKeyDown": [Function],
-                "onKeyPress": [Function],
-                "onMouseDown": [Function],
-                "tabIndex": "-1",
-              }
-            }
-            renderOption={null}
-            selected={true}
-            value="foo"
+            role="menuitem"
           >
-            <li
-              className="select-search__row"
-              data-index={0}
-              data-value="foo"
-              key="foo"
-              role="menuitem"
+            <button
+              className="select-search__option is-selected"
+              disabled={false}
+              onBlur={[Function]}
+              onKeyDown={[Function]}
+              onKeyPress={[Function]}
+              onMouseDown={[Function]}
+              tabIndex="-1"
+              value="foo"
             >
-              <button
-                className="select-search__option is-selected"
-                disabled={false}
-                onBlur={[Function]}
-                onKeyDown={[Function]}
-                onKeyPress={[Function]}
-                onMouseDown={[Function]}
-                tabIndex="-1"
-                value="foo"
-              >
-                Foo
-              </button>
-            </li>
-          </Option>
-          <Option
-            className={[Function]}
-            highlighted={false}
-            index={1}
+              Foo
+            </button>
+          </li>
+        </Option>
+        <Option
+          cls={[Function]}
+          highlighted={false}
+          index={1}
+          key="bar"
+          name="Bar"
+          optionProps={
+            Object {
+              "onBlur": [Function],
+              "onKeyDown": [Function],
+              "onKeyPress": [Function],
+              "onMouseDown": [Function],
+              "tabIndex": "-1",
+            }
+          }
+          renderOption={[Function]}
+          selected={false}
+          value="bar"
+        >
+          <li
+            className="select-search__row"
+            data-index={1}
+            data-value="bar"
             key="bar"
-            name="Bar"
-            optionProps={
-              Object {
-                "onBlur": [Function],
-                "onKeyDown": [Function],
-                "onKeyPress": [Function],
-                "onMouseDown": [Function],
-                "tabIndex": "-1",
-              }
-            }
-            renderOption={null}
-            selected={false}
-            value="bar"
+            role="menuitem"
           >
-            <li
-              className="select-search__row"
-              data-index={1}
-              data-value="bar"
-              key="bar"
-              role="menuitem"
+            <button
+              className="select-search__option"
+              disabled={false}
+              onBlur={[Function]}
+              onKeyDown={[Function]}
+              onKeyPress={[Function]}
+              onMouseDown={[Function]}
+              tabIndex="-1"
+              value="bar"
             >
-              <button
-                className="select-search__option"
-                disabled={false}
-                onBlur={[Function]}
-                onKeyDown={[Function]}
-                onKeyPress={[Function]}
-                onMouseDown={[Function]}
-                tabIndex="-1"
-                value="bar"
-              >
-                Bar
-              </button>
-            </li>
-          </Option>
-        </ul>
-      </Options>
+              Bar
+            </button>
+          </li>
+        </Option>
+      </ul>
     </div>
   </div>
 </ForwardRef>
@@ -2900,6 +1474,7 @@ exports[`Test SelectSearch component Renders groups 1`] = `
         autoComplete="on"
         autoFocus={false}
         className="select-search__input"
+        disabled={false}
         onBlur={[Function]}
         onChange={null}
         onFocus={[Function]}
@@ -2994,6 +1569,7 @@ exports[`Test SelectSearch component Renders groups 2`] = `
         autoComplete="on"
         autoFocus={false}
         className="select-search__input"
+        disabled={false}
         onBlur={[Function]}
         onChange={null}
         onFocus={[Function]}
@@ -3015,254 +1591,83 @@ exports[`Test SelectSearch component Renders groups 2`] = `
     <div
       className="select-search__select"
     >
-      <Options
-        className={[Function]}
-        optionProps={
-          Object {
-            "onBlur": [Function],
-            "onKeyDown": [Function],
-            "onKeyPress": [Function],
-            "onMouseDown": [Function],
-            "tabIndex": "-1",
-          }
-        }
-        options={
-          Array [
-            Object {
-              "index": 0,
-              "name": "Helvetica",
-              "value": "helvetica",
-            },
-            Object {
-              "groupId": "sans-serif-1",
-              "items": Array [
-                Object {
-                  "data-stack": "Roboto, sans-serif",
-                  "groupId": "sans-serif-1",
-                  "groupName": "Sans serif",
-                  "index": 1,
-                  "name": "Roboto",
-                  "value": "Roboto",
-                },
-              ],
-              "name": "Sans serif",
-              "type": "group",
-            },
-            Object {
-              "groupId": "serif-2",
-              "items": Array [
-                Object {
-                  "data-stack": "\\"Playfair Display\\", serif",
-                  "groupId": "serif-2",
-                  "groupName": "Serif",
-                  "index": 2,
-                  "name": "Playfair Display",
-                  "value": "Playfair Display",
-                },
-              ],
-              "name": "Serif",
-              "type": "group",
-            },
-            Object {
-              "groupId": "cursive-3",
-              "items": Array [
-                Object {
-                  "data-stack": "Monoton, cursive",
-                  "groupId": "cursive-3",
-                  "groupName": "Cursive",
-                  "index": 3,
-                  "name": "Monoton",
-                  "value": "Monoton",
-                },
-                Object {
-                  "data-stack": "\\"Gloria Hallelujah\\", cursive",
-                  "groupId": "cursive-3",
-                  "groupName": "Cursive",
-                  "index": 4,
-                  "name": "Gloria Hallelujah",
-                  "value": "Gloria Hallelujah",
-                },
-              ],
-              "name": "Cursive",
-              "type": "group",
-            },
-            Object {
-              "groupId": "monospace-4",
-              "items": Array [
-                Object {
-                  "data-stack": "VT323, monospace",
-                  "groupId": "monospace-4",
-                  "groupName": "Monospace",
-                  "index": 5,
-                  "name": "VT323",
-                  "value": "VT323",
-                },
-              ],
-              "name": "Monospace",
-              "type": "group",
-            },
-          ]
-        }
-        renderGroupHeader={[Function]}
-        renderOption={[Function]}
-        snapshot={
-          Object {
-            "disabled": false,
-            "displayValue": "Helvetica",
-            "focus": true,
-            "highlighted": -1,
-            "options": Array [
-              Object {
-                "index": 0,
-                "name": "Helvetica",
-                "value": "helvetica",
-              },
-              Object {
-                "groupId": "sans-serif-1",
-                "items": Array [
-                  Object {
-                    "data-stack": "Roboto, sans-serif",
-                    "groupId": "sans-serif-1",
-                    "groupName": "Sans serif",
-                    "index": 1,
-                    "name": "Roboto",
-                    "value": "Roboto",
-                  },
-                ],
-                "name": "Sans serif",
-                "type": "group",
-              },
-              Object {
-                "groupId": "serif-2",
-                "items": Array [
-                  Object {
-                    "data-stack": "\\"Playfair Display\\", serif",
-                    "groupId": "serif-2",
-                    "groupName": "Serif",
-                    "index": 2,
-                    "name": "Playfair Display",
-                    "value": "Playfair Display",
-                  },
-                ],
-                "name": "Serif",
-                "type": "group",
-              },
-              Object {
-                "groupId": "cursive-3",
-                "items": Array [
-                  Object {
-                    "data-stack": "Monoton, cursive",
-                    "groupId": "cursive-3",
-                    "groupName": "Cursive",
-                    "index": 3,
-                    "name": "Monoton",
-                    "value": "Monoton",
-                  },
-                  Object {
-                    "data-stack": "\\"Gloria Hallelujah\\", cursive",
-                    "groupId": "cursive-3",
-                    "groupName": "Cursive",
-                    "index": 4,
-                    "name": "Gloria Hallelujah",
-                    "value": "Gloria Hallelujah",
-                  },
-                ],
-                "name": "Cursive",
-                "type": "group",
-              },
-              Object {
-                "groupId": "monospace-4",
-                "items": Array [
-                  Object {
-                    "data-stack": "VT323, monospace",
-                    "groupId": "monospace-4",
-                    "groupName": "Monospace",
-                    "index": 5,
-                    "name": "VT323",
-                    "value": "VT323",
-                  },
-                ],
-                "name": "Monospace",
-                "type": "group",
-              },
-            ],
-            "search": "",
-            "searching": false,
-            "value": Object {
-              "index": 0,
-              "name": "Helvetica",
-              "value": "helvetica",
-            },
-          }
-        }
+      <ul
+        className="select-search__options"
       >
-        <ul
-          className="select-search__options"
-        >
-          <Option
-            className={[Function]}
-            highlighted={false}
-            index={0}
-            key="helvetica"
-            name="Helvetica"
-            optionProps={
-              Object {
-                "onBlur": [Function],
-                "onKeyDown": [Function],
-                "onKeyPress": [Function],
-                "onMouseDown": [Function],
-                "tabIndex": "-1",
-              }
+        <Option
+          cls={[Function]}
+          highlighted={false}
+          index={0}
+          key="helvetica"
+          name="Helvetica"
+          optionProps={
+            Object {
+              "onBlur": [Function],
+              "onKeyDown": [Function],
+              "onKeyPress": [Function],
+              "onMouseDown": [Function],
+              "tabIndex": "-1",
             }
-            renderOption={[Function]}
-            selected={true}
-            value="helvetica"
-          >
-            <li
-              className="select-search__row"
-              data-index={0}
-              data-value="helvetica"
-              key="helvetica"
-              role="menuitem"
-            >
-              <button
-                className="select-search__option is-selected"
-                disabled={false}
-                onBlur={[Function]}
-                onKeyDown={[Function]}
-                onKeyPress={[Function]}
-                onMouseDown={[Function]}
-                tabIndex="-1"
-                type="button"
-                value="helvetica"
-              >
-                <span
-                  style={
-                    Object {
-                      "fontFamily": undefined,
-                    }
-                  }
-                >
-                  Helvetica
-                </span>
-              </button>
-            </li>
-          </Option>
+          }
+          renderOption={[Function]}
+          selected={true}
+          value="helvetica"
+        >
           <li
             className="select-search__row"
-            key="sans-serif-1"
-            role="none"
+            data-index={0}
+            data-value="helvetica"
+            key="helvetica"
+            role="menuitem"
+          >
+            <button
+              className="select-search__option is-selected"
+              disabled={false}
+              onBlur={[Function]}
+              onKeyDown={[Function]}
+              onKeyPress={[Function]}
+              onMouseDown={[Function]}
+              tabIndex="-1"
+              type="button"
+              value="helvetica"
+            >
+              <span
+                style={
+                  Object {
+                    "fontFamily": undefined,
+                  }
+                }
+              >
+                Helvetica
+              </span>
+            </button>
+          </li>
+        </Option>
+        <li
+          className="select-search__row"
+          key="sans-serif-1"
+          role="none"
+        >
+          <div
+            className="select-search__group"
           >
             <div
-              className="select-search__group"
+              className="select-search__group-header"
             >
-              <div
-                className="select-search__group-header"
-              >
-                Sans serif
-              </div>
-              <Options
-                className={[Function]}
+              Sans serif
+            </div>
+            <ul
+              className="select-search__options"
+            >
+              <Option
+                cls={[Function]}
+                data-stack="Roboto, sans-serif"
+                groupId="sans-serif-1"
+                groupName="Sans serif"
+                highlighted={false}
+                index={1}
+                key="Roboto"
+                name="Roboto"
                 optionProps={
                   Object {
                     "onBlur": [Function],
@@ -3272,185 +1677,68 @@ exports[`Test SelectSearch component Renders groups 2`] = `
                     "tabIndex": "-1",
                   }
                 }
-                options={
-                  Array [
-                    Object {
-                      "data-stack": "Roboto, sans-serif",
-                      "groupId": "sans-serif-1",
-                      "groupName": "Sans serif",
-                      "index": 1,
-                      "name": "Roboto",
-                      "value": "Roboto",
-                    },
-                  ]
-                }
-                renderGroupHeader={[Function]}
                 renderOption={[Function]}
-                snapshot={
-                  Object {
-                    "disabled": false,
-                    "displayValue": "Helvetica",
-                    "focus": true,
-                    "highlighted": -1,
-                    "options": Array [
-                      Object {
-                        "index": 0,
-                        "name": "Helvetica",
-                        "value": "helvetica",
-                      },
-                      Object {
-                        "groupId": "sans-serif-1",
-                        "items": Array [
-                          Object {
-                            "data-stack": "Roboto, sans-serif",
-                            "groupId": "sans-serif-1",
-                            "groupName": "Sans serif",
-                            "index": 1,
-                            "name": "Roboto",
-                            "value": "Roboto",
-                          },
-                        ],
-                        "name": "Sans serif",
-                        "type": "group",
-                      },
-                      Object {
-                        "groupId": "serif-2",
-                        "items": Array [
-                          Object {
-                            "data-stack": "\\"Playfair Display\\", serif",
-                            "groupId": "serif-2",
-                            "groupName": "Serif",
-                            "index": 2,
-                            "name": "Playfair Display",
-                            "value": "Playfair Display",
-                          },
-                        ],
-                        "name": "Serif",
-                        "type": "group",
-                      },
-                      Object {
-                        "groupId": "cursive-3",
-                        "items": Array [
-                          Object {
-                            "data-stack": "Monoton, cursive",
-                            "groupId": "cursive-3",
-                            "groupName": "Cursive",
-                            "index": 3,
-                            "name": "Monoton",
-                            "value": "Monoton",
-                          },
-                          Object {
-                            "data-stack": "\\"Gloria Hallelujah\\", cursive",
-                            "groupId": "cursive-3",
-                            "groupName": "Cursive",
-                            "index": 4,
-                            "name": "Gloria Hallelujah",
-                            "value": "Gloria Hallelujah",
-                          },
-                        ],
-                        "name": "Cursive",
-                        "type": "group",
-                      },
-                      Object {
-                        "groupId": "monospace-4",
-                        "items": Array [
-                          Object {
-                            "data-stack": "VT323, monospace",
-                            "groupId": "monospace-4",
-                            "groupName": "Monospace",
-                            "index": 5,
-                            "name": "VT323",
-                            "value": "VT323",
-                          },
-                        ],
-                        "name": "Monospace",
-                        "type": "group",
-                      },
-                    ],
-                    "search": "",
-                    "searching": false,
-                    "value": Object {
-                      "index": 0,
-                      "name": "Helvetica",
-                      "value": "helvetica",
-                    },
-                  }
-                }
+                selected={false}
+                value="Roboto"
               >
-                <ul
-                  className="select-search__options"
+                <li
+                  className="select-search__row"
+                  data-index={1}
+                  data-value="Roboto"
+                  key="Roboto"
+                  role="menuitem"
                 >
-                  <Option
-                    className={[Function]}
-                    data-stack="Roboto, sans-serif"
-                    groupId="sans-serif-1"
-                    groupName="Sans serif"
-                    highlighted={false}
-                    index={1}
-                    key="Roboto"
-                    name="Roboto"
-                    optionProps={
-                      Object {
-                        "onBlur": [Function],
-                        "onKeyDown": [Function],
-                        "onKeyPress": [Function],
-                        "onMouseDown": [Function],
-                        "tabIndex": "-1",
-                      }
-                    }
-                    renderOption={[Function]}
-                    selected={false}
+                  <button
+                    className="select-search__option"
+                    disabled={false}
+                    onBlur={[Function]}
+                    onKeyDown={[Function]}
+                    onKeyPress={[Function]}
+                    onMouseDown={[Function]}
+                    tabIndex="-1"
+                    type="button"
                     value="Roboto"
                   >
-                    <li
-                      className="select-search__row"
-                      data-index={1}
-                      data-value="Roboto"
-                      key="Roboto"
-                      role="menuitem"
+                    <span
+                      style={
+                        Object {
+                          "fontFamily": undefined,
+                        }
+                      }
                     >
-                      <button
-                        className="select-search__option"
-                        disabled={false}
-                        onBlur={[Function]}
-                        onKeyDown={[Function]}
-                        onKeyPress={[Function]}
-                        onMouseDown={[Function]}
-                        tabIndex="-1"
-                        type="button"
-                        value="Roboto"
-                      >
-                        <span
-                          style={
-                            Object {
-                              "fontFamily": undefined,
-                            }
-                          }
-                        >
-                          Roboto
-                        </span>
-                      </button>
-                    </li>
-                  </Option>
-                </ul>
-              </Options>
-            </div>
-          </li>
-          <li
-            className="select-search__row"
-            key="serif-2"
-            role="none"
+                      Roboto
+                    </span>
+                  </button>
+                </li>
+              </Option>
+            </ul>
+          </div>
+        </li>
+        <li
+          className="select-search__row"
+          key="serif-2"
+          role="none"
+        >
+          <div
+            className="select-search__group"
           >
             <div
-              className="select-search__group"
+              className="select-search__group-header"
             >
-              <div
-                className="select-search__group-header"
-              >
-                Serif
-              </div>
-              <Options
-                className={[Function]}
+              Serif
+            </div>
+            <ul
+              className="select-search__options"
+            >
+              <Option
+                cls={[Function]}
+                data-stack="\\"Playfair Display\\", serif"
+                groupId="serif-2"
+                groupName="Serif"
+                highlighted={false}
+                index={2}
+                key="Playfair Display"
+                name="Playfair Display"
                 optionProps={
                   Object {
                     "onBlur": [Function],
@@ -3460,185 +1748,68 @@ exports[`Test SelectSearch component Renders groups 2`] = `
                     "tabIndex": "-1",
                   }
                 }
-                options={
-                  Array [
-                    Object {
-                      "data-stack": "\\"Playfair Display\\", serif",
-                      "groupId": "serif-2",
-                      "groupName": "Serif",
-                      "index": 2,
-                      "name": "Playfair Display",
-                      "value": "Playfair Display",
-                    },
-                  ]
-                }
-                renderGroupHeader={[Function]}
                 renderOption={[Function]}
-                snapshot={
-                  Object {
-                    "disabled": false,
-                    "displayValue": "Helvetica",
-                    "focus": true,
-                    "highlighted": -1,
-                    "options": Array [
-                      Object {
-                        "index": 0,
-                        "name": "Helvetica",
-                        "value": "helvetica",
-                      },
-                      Object {
-                        "groupId": "sans-serif-1",
-                        "items": Array [
-                          Object {
-                            "data-stack": "Roboto, sans-serif",
-                            "groupId": "sans-serif-1",
-                            "groupName": "Sans serif",
-                            "index": 1,
-                            "name": "Roboto",
-                            "value": "Roboto",
-                          },
-                        ],
-                        "name": "Sans serif",
-                        "type": "group",
-                      },
-                      Object {
-                        "groupId": "serif-2",
-                        "items": Array [
-                          Object {
-                            "data-stack": "\\"Playfair Display\\", serif",
-                            "groupId": "serif-2",
-                            "groupName": "Serif",
-                            "index": 2,
-                            "name": "Playfair Display",
-                            "value": "Playfair Display",
-                          },
-                        ],
-                        "name": "Serif",
-                        "type": "group",
-                      },
-                      Object {
-                        "groupId": "cursive-3",
-                        "items": Array [
-                          Object {
-                            "data-stack": "Monoton, cursive",
-                            "groupId": "cursive-3",
-                            "groupName": "Cursive",
-                            "index": 3,
-                            "name": "Monoton",
-                            "value": "Monoton",
-                          },
-                          Object {
-                            "data-stack": "\\"Gloria Hallelujah\\", cursive",
-                            "groupId": "cursive-3",
-                            "groupName": "Cursive",
-                            "index": 4,
-                            "name": "Gloria Hallelujah",
-                            "value": "Gloria Hallelujah",
-                          },
-                        ],
-                        "name": "Cursive",
-                        "type": "group",
-                      },
-                      Object {
-                        "groupId": "monospace-4",
-                        "items": Array [
-                          Object {
-                            "data-stack": "VT323, monospace",
-                            "groupId": "monospace-4",
-                            "groupName": "Monospace",
-                            "index": 5,
-                            "name": "VT323",
-                            "value": "VT323",
-                          },
-                        ],
-                        "name": "Monospace",
-                        "type": "group",
-                      },
-                    ],
-                    "search": "",
-                    "searching": false,
-                    "value": Object {
-                      "index": 0,
-                      "name": "Helvetica",
-                      "value": "helvetica",
-                    },
-                  }
-                }
+                selected={false}
+                value="Playfair Display"
               >
-                <ul
-                  className="select-search__options"
+                <li
+                  className="select-search__row"
+                  data-index={2}
+                  data-value="Playfair%20Display"
+                  key="Playfair Display"
+                  role="menuitem"
                 >
-                  <Option
-                    className={[Function]}
-                    data-stack="\\"Playfair Display\\", serif"
-                    groupId="serif-2"
-                    groupName="Serif"
-                    highlighted={false}
-                    index={2}
-                    key="Playfair Display"
-                    name="Playfair Display"
-                    optionProps={
-                      Object {
-                        "onBlur": [Function],
-                        "onKeyDown": [Function],
-                        "onKeyPress": [Function],
-                        "onMouseDown": [Function],
-                        "tabIndex": "-1",
-                      }
-                    }
-                    renderOption={[Function]}
-                    selected={false}
+                  <button
+                    className="select-search__option"
+                    disabled={false}
+                    onBlur={[Function]}
+                    onKeyDown={[Function]}
+                    onKeyPress={[Function]}
+                    onMouseDown={[Function]}
+                    tabIndex="-1"
+                    type="button"
                     value="Playfair Display"
                   >
-                    <li
-                      className="select-search__row"
-                      data-index={2}
-                      data-value="Playfair%20Display"
-                      key="Playfair Display"
-                      role="menuitem"
+                    <span
+                      style={
+                        Object {
+                          "fontFamily": undefined,
+                        }
+                      }
                     >
-                      <button
-                        className="select-search__option"
-                        disabled={false}
-                        onBlur={[Function]}
-                        onKeyDown={[Function]}
-                        onKeyPress={[Function]}
-                        onMouseDown={[Function]}
-                        tabIndex="-1"
-                        type="button"
-                        value="Playfair Display"
-                      >
-                        <span
-                          style={
-                            Object {
-                              "fontFamily": undefined,
-                            }
-                          }
-                        >
-                          Playfair Display
-                        </span>
-                      </button>
-                    </li>
-                  </Option>
-                </ul>
-              </Options>
-            </div>
-          </li>
-          <li
-            className="select-search__row"
-            key="cursive-3"
-            role="none"
+                      Playfair Display
+                    </span>
+                  </button>
+                </li>
+              </Option>
+            </ul>
+          </div>
+        </li>
+        <li
+          className="select-search__row"
+          key="cursive-3"
+          role="none"
+        >
+          <div
+            className="select-search__group"
           >
             <div
-              className="select-search__group"
+              className="select-search__group-header"
             >
-              <div
-                className="select-search__group-header"
-              >
-                Cursive
-              </div>
-              <Options
-                className={[Function]}
+              Cursive
+            </div>
+            <ul
+              className="select-search__options"
+            >
+              <Option
+                cls={[Function]}
+                data-stack="Monoton, cursive"
+                groupId="cursive-3"
+                groupName="Cursive"
+                highlighted={false}
+                index={3}
+                key="Monoton"
+                name="Monoton"
                 optionProps={
                   Object {
                     "onBlur": [Function],
@@ -3648,245 +1819,49 @@ exports[`Test SelectSearch component Renders groups 2`] = `
                     "tabIndex": "-1",
                   }
                 }
-                options={
-                  Array [
-                    Object {
-                      "data-stack": "Monoton, cursive",
-                      "groupId": "cursive-3",
-                      "groupName": "Cursive",
-                      "index": 3,
-                      "name": "Monoton",
-                      "value": "Monoton",
-                    },
-                    Object {
-                      "data-stack": "\\"Gloria Hallelujah\\", cursive",
-                      "groupId": "cursive-3",
-                      "groupName": "Cursive",
-                      "index": 4,
-                      "name": "Gloria Hallelujah",
-                      "value": "Gloria Hallelujah",
-                    },
-                  ]
-                }
-                renderGroupHeader={[Function]}
                 renderOption={[Function]}
-                snapshot={
-                  Object {
-                    "disabled": false,
-                    "displayValue": "Helvetica",
-                    "focus": true,
-                    "highlighted": -1,
-                    "options": Array [
-                      Object {
-                        "index": 0,
-                        "name": "Helvetica",
-                        "value": "helvetica",
-                      },
-                      Object {
-                        "groupId": "sans-serif-1",
-                        "items": Array [
-                          Object {
-                            "data-stack": "Roboto, sans-serif",
-                            "groupId": "sans-serif-1",
-                            "groupName": "Sans serif",
-                            "index": 1,
-                            "name": "Roboto",
-                            "value": "Roboto",
-                          },
-                        ],
-                        "name": "Sans serif",
-                        "type": "group",
-                      },
-                      Object {
-                        "groupId": "serif-2",
-                        "items": Array [
-                          Object {
-                            "data-stack": "\\"Playfair Display\\", serif",
-                            "groupId": "serif-2",
-                            "groupName": "Serif",
-                            "index": 2,
-                            "name": "Playfair Display",
-                            "value": "Playfair Display",
-                          },
-                        ],
-                        "name": "Serif",
-                        "type": "group",
-                      },
-                      Object {
-                        "groupId": "cursive-3",
-                        "items": Array [
-                          Object {
-                            "data-stack": "Monoton, cursive",
-                            "groupId": "cursive-3",
-                            "groupName": "Cursive",
-                            "index": 3,
-                            "name": "Monoton",
-                            "value": "Monoton",
-                          },
-                          Object {
-                            "data-stack": "\\"Gloria Hallelujah\\", cursive",
-                            "groupId": "cursive-3",
-                            "groupName": "Cursive",
-                            "index": 4,
-                            "name": "Gloria Hallelujah",
-                            "value": "Gloria Hallelujah",
-                          },
-                        ],
-                        "name": "Cursive",
-                        "type": "group",
-                      },
-                      Object {
-                        "groupId": "monospace-4",
-                        "items": Array [
-                          Object {
-                            "data-stack": "VT323, monospace",
-                            "groupId": "monospace-4",
-                            "groupName": "Monospace",
-                            "index": 5,
-                            "name": "VT323",
-                            "value": "VT323",
-                          },
-                        ],
-                        "name": "Monospace",
-                        "type": "group",
-                      },
-                    ],
-                    "search": "",
-                    "searching": false,
-                    "value": Object {
-                      "index": 0,
-                      "name": "Helvetica",
-                      "value": "helvetica",
-                    },
-                  }
-                }
+                selected={false}
+                value="Monoton"
               >
-                <ul
-                  className="select-search__options"
+                <li
+                  className="select-search__row"
+                  data-index={3}
+                  data-value="Monoton"
+                  key="Monoton"
+                  role="menuitem"
                 >
-                  <Option
-                    className={[Function]}
-                    data-stack="Monoton, cursive"
-                    groupId="cursive-3"
-                    groupName="Cursive"
-                    highlighted={false}
-                    index={3}
-                    key="Monoton"
-                    name="Monoton"
-                    optionProps={
-                      Object {
-                        "onBlur": [Function],
-                        "onKeyDown": [Function],
-                        "onKeyPress": [Function],
-                        "onMouseDown": [Function],
-                        "tabIndex": "-1",
-                      }
-                    }
-                    renderOption={[Function]}
-                    selected={false}
+                  <button
+                    className="select-search__option"
+                    disabled={false}
+                    onBlur={[Function]}
+                    onKeyDown={[Function]}
+                    onKeyPress={[Function]}
+                    onMouseDown={[Function]}
+                    tabIndex="-1"
+                    type="button"
                     value="Monoton"
                   >
-                    <li
-                      className="select-search__row"
-                      data-index={3}
-                      data-value="Monoton"
-                      key="Monoton"
-                      role="menuitem"
-                    >
-                      <button
-                        className="select-search__option"
-                        disabled={false}
-                        onBlur={[Function]}
-                        onKeyDown={[Function]}
-                        onKeyPress={[Function]}
-                        onMouseDown={[Function]}
-                        tabIndex="-1"
-                        type="button"
-                        value="Monoton"
-                      >
-                        <span
-                          style={
-                            Object {
-                              "fontFamily": undefined,
-                            }
-                          }
-                        >
-                          Monoton
-                        </span>
-                      </button>
-                    </li>
-                  </Option>
-                  <Option
-                    className={[Function]}
-                    data-stack="\\"Gloria Hallelujah\\", cursive"
-                    groupId="cursive-3"
-                    groupName="Cursive"
-                    highlighted={false}
-                    index={4}
-                    key="Gloria Hallelujah"
-                    name="Gloria Hallelujah"
-                    optionProps={
-                      Object {
-                        "onBlur": [Function],
-                        "onKeyDown": [Function],
-                        "onKeyPress": [Function],
-                        "onMouseDown": [Function],
-                        "tabIndex": "-1",
+                    <span
+                      style={
+                        Object {
+                          "fontFamily": undefined,
+                        }
                       }
-                    }
-                    renderOption={[Function]}
-                    selected={false}
-                    value="Gloria Hallelujah"
-                  >
-                    <li
-                      className="select-search__row"
-                      data-index={4}
-                      data-value="Gloria%20Hallelujah"
-                      key="Gloria Hallelujah"
-                      role="menuitem"
                     >
-                      <button
-                        className="select-search__option"
-                        disabled={false}
-                        onBlur={[Function]}
-                        onKeyDown={[Function]}
-                        onKeyPress={[Function]}
-                        onMouseDown={[Function]}
-                        tabIndex="-1"
-                        type="button"
-                        value="Gloria Hallelujah"
-                      >
-                        <span
-                          style={
-                            Object {
-                              "fontFamily": undefined,
-                            }
-                          }
-                        >
-                          Gloria Hallelujah
-                        </span>
-                      </button>
-                    </li>
-                  </Option>
-                </ul>
-              </Options>
-            </div>
-          </li>
-          <li
-            className="select-search__row"
-            key="monospace-4"
-            role="none"
-          >
-            <div
-              className="select-search__group"
-            >
-              <div
-                className="select-search__group-header"
-              >
-                Monospace
-              </div>
-              <Options
-                className={[Function]}
+                      Monoton
+                    </span>
+                  </button>
+                </li>
+              </Option>
+              <Option
+                cls={[Function]}
+                data-stack="\\"Gloria Hallelujah\\", cursive"
+                groupId="cursive-3"
+                groupName="Cursive"
+                highlighted={false}
+                index={4}
+                key="Gloria Hallelujah"
+                name="Gloria Hallelujah"
                 optionProps={
                   Object {
                     "onBlur": [Function],
@@ -3896,172 +1871,115 @@ exports[`Test SelectSearch component Renders groups 2`] = `
                     "tabIndex": "-1",
                   }
                 }
-                options={
-                  Array [
-                    Object {
-                      "data-stack": "VT323, monospace",
-                      "groupId": "monospace-4",
-                      "groupName": "Monospace",
-                      "index": 5,
-                      "name": "VT323",
-                      "value": "VT323",
-                    },
-                  ]
-                }
-                renderGroupHeader={[Function]}
                 renderOption={[Function]}
-                snapshot={
+                selected={false}
+                value="Gloria Hallelujah"
+              >
+                <li
+                  className="select-search__row"
+                  data-index={4}
+                  data-value="Gloria%20Hallelujah"
+                  key="Gloria Hallelujah"
+                  role="menuitem"
+                >
+                  <button
+                    className="select-search__option"
+                    disabled={false}
+                    onBlur={[Function]}
+                    onKeyDown={[Function]}
+                    onKeyPress={[Function]}
+                    onMouseDown={[Function]}
+                    tabIndex="-1"
+                    type="button"
+                    value="Gloria Hallelujah"
+                  >
+                    <span
+                      style={
+                        Object {
+                          "fontFamily": undefined,
+                        }
+                      }
+                    >
+                      Gloria Hallelujah
+                    </span>
+                  </button>
+                </li>
+              </Option>
+            </ul>
+          </div>
+        </li>
+        <li
+          className="select-search__row"
+          key="monospace-4"
+          role="none"
+        >
+          <div
+            className="select-search__group"
+          >
+            <div
+              className="select-search__group-header"
+            >
+              Monospace
+            </div>
+            <ul
+              className="select-search__options"
+            >
+              <Option
+                cls={[Function]}
+                data-stack="VT323, monospace"
+                groupId="monospace-4"
+                groupName="Monospace"
+                highlighted={false}
+                index={5}
+                key="VT323"
+                name="VT323"
+                optionProps={
                   Object {
-                    "disabled": false,
-                    "displayValue": "Helvetica",
-                    "focus": true,
-                    "highlighted": -1,
-                    "options": Array [
-                      Object {
-                        "index": 0,
-                        "name": "Helvetica",
-                        "value": "helvetica",
-                      },
-                      Object {
-                        "groupId": "sans-serif-1",
-                        "items": Array [
-                          Object {
-                            "data-stack": "Roboto, sans-serif",
-                            "groupId": "sans-serif-1",
-                            "groupName": "Sans serif",
-                            "index": 1,
-                            "name": "Roboto",
-                            "value": "Roboto",
-                          },
-                        ],
-                        "name": "Sans serif",
-                        "type": "group",
-                      },
-                      Object {
-                        "groupId": "serif-2",
-                        "items": Array [
-                          Object {
-                            "data-stack": "\\"Playfair Display\\", serif",
-                            "groupId": "serif-2",
-                            "groupName": "Serif",
-                            "index": 2,
-                            "name": "Playfair Display",
-                            "value": "Playfair Display",
-                          },
-                        ],
-                        "name": "Serif",
-                        "type": "group",
-                      },
-                      Object {
-                        "groupId": "cursive-3",
-                        "items": Array [
-                          Object {
-                            "data-stack": "Monoton, cursive",
-                            "groupId": "cursive-3",
-                            "groupName": "Cursive",
-                            "index": 3,
-                            "name": "Monoton",
-                            "value": "Monoton",
-                          },
-                          Object {
-                            "data-stack": "\\"Gloria Hallelujah\\", cursive",
-                            "groupId": "cursive-3",
-                            "groupName": "Cursive",
-                            "index": 4,
-                            "name": "Gloria Hallelujah",
-                            "value": "Gloria Hallelujah",
-                          },
-                        ],
-                        "name": "Cursive",
-                        "type": "group",
-                      },
-                      Object {
-                        "groupId": "monospace-4",
-                        "items": Array [
-                          Object {
-                            "data-stack": "VT323, monospace",
-                            "groupId": "monospace-4",
-                            "groupName": "Monospace",
-                            "index": 5,
-                            "name": "VT323",
-                            "value": "VT323",
-                          },
-                        ],
-                        "name": "Monospace",
-                        "type": "group",
-                      },
-                    ],
-                    "search": "",
-                    "searching": false,
-                    "value": Object {
-                      "index": 0,
-                      "name": "Helvetica",
-                      "value": "helvetica",
-                    },
+                    "onBlur": [Function],
+                    "onKeyDown": [Function],
+                    "onKeyPress": [Function],
+                    "onMouseDown": [Function],
+                    "tabIndex": "-1",
                   }
                 }
+                renderOption={[Function]}
+                selected={false}
+                value="VT323"
               >
-                <ul
-                  className="select-search__options"
+                <li
+                  className="select-search__row"
+                  data-index={5}
+                  data-value="VT323"
+                  key="VT323"
+                  role="menuitem"
                 >
-                  <Option
-                    className={[Function]}
-                    data-stack="VT323, monospace"
-                    groupId="monospace-4"
-                    groupName="Monospace"
-                    highlighted={false}
-                    index={5}
-                    key="VT323"
-                    name="VT323"
-                    optionProps={
-                      Object {
-                        "onBlur": [Function],
-                        "onKeyDown": [Function],
-                        "onKeyPress": [Function],
-                        "onMouseDown": [Function],
-                        "tabIndex": "-1",
-                      }
-                    }
-                    renderOption={[Function]}
-                    selected={false}
+                  <button
+                    className="select-search__option"
+                    disabled={false}
+                    onBlur={[Function]}
+                    onKeyDown={[Function]}
+                    onKeyPress={[Function]}
+                    onMouseDown={[Function]}
+                    tabIndex="-1"
+                    type="button"
                     value="VT323"
                   >
-                    <li
-                      className="select-search__row"
-                      data-index={5}
-                      data-value="VT323"
-                      key="VT323"
-                      role="menuitem"
+                    <span
+                      style={
+                        Object {
+                          "fontFamily": undefined,
+                        }
+                      }
                     >
-                      <button
-                        className="select-search__option"
-                        disabled={false}
-                        onBlur={[Function]}
-                        onKeyDown={[Function]}
-                        onKeyPress={[Function]}
-                        onMouseDown={[Function]}
-                        tabIndex="-1"
-                        type="button"
-                        value="VT323"
-                      >
-                        <span
-                          style={
-                            Object {
-                              "fontFamily": undefined,
-                            }
-                          }
-                        >
-                          VT323
-                        </span>
-                      </button>
-                    </li>
-                  </Option>
-                </ul>
-              </Options>
-            </div>
-          </li>
-        </ul>
-      </Options>
+                      VT323
+                    </span>
+                  </button>
+                </li>
+              </Option>
+            </ul>
+          </div>
+        </li>
+      </ul>
     </div>
   </div>
 </ForwardRef>
@@ -4075,6 +1993,7 @@ exports[`Test SelectSearch component Renders with default props 1`] = `
     className="select-search__value"
   >
     <input
+      autoComplete="on"
       autoFocus={false}
       className="select-search__input"
       disabled={false}
@@ -4096,12 +2015,13 @@ exports[`Test SelectSearch component Renders with default props 1`] = `
 
 exports[`Test SelectSearch component Renders with disabled 1`] = `
 <div
-  className="select-search"
+  className="select-search is-disabled"
 >
   <div
     className="select-search__value"
   >
     <input
+      autoComplete="on"
       autoFocus={false}
       className="select-search__input"
       disabled={true}
@@ -4182,6 +2102,7 @@ exports[`Test SelectSearch component Renders with search 1`] = `
     className="select-search__value"
   >
     <input
+      autoComplete="on"
       autoFocus={false}
       className="select-search__input"
       disabled={false}
@@ -4209,6 +2130,7 @@ exports[`Test SelectSearch component Renders with search and multiple 1`] = `
     className="select-search__value"
   >
     <input
+      autoComplete="on"
       autoFocus={false}
       className="select-search__input"
       disabled={false}
@@ -4282,6 +2204,7 @@ exports[`Test SelectSearch component Renders with search and placeholder 1`] = `
     className="select-search__value"
   >
     <input
+      autoComplete="on"
       autoFocus={false}
       className="select-search__input"
       disabled={false}
@@ -4319,57 +2242,27 @@ exports[`Test SelectSearch component Value change works without onChange handler
   <div
     className="select-search"
   >
-    <Value
-      autoComplete="on"
-      autoFocus={false}
-      className={[Function]}
-      disabled={false}
-      displayValue="Foo"
-      placeholder={null}
-      search={false}
-      valueProps={
-        Object {
-          "onBlur": [Function],
-          "onChange": null,
-          "onFocus": [Function],
-          "onKeyDown": [Function],
-          "onKeyPress": [Function],
-          "onKeyUp": [Function],
-          "onMouseDown": [Function],
-          "readOnly": true,
-          "ref": Object {
-            "current": <input
-              class="select-search__input"
-              readonly=""
-              tabindex="0"
-              value="Foo"
-            />,
-          },
-          "tabIndex": "0",
-        }
-      }
+    <div
+      className="select-search__value"
     >
-      <div
-        className="select-search__value"
-      >
-        <input
-          autoFocus={false}
-          className="select-search__input"
-          disabled={false}
-          onBlur={[Function]}
-          onChange={null}
-          onFocus={[Function]}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
-          onKeyUp={[Function]}
-          onMouseDown={[Function]}
-          placeholder={null}
-          readOnly={true}
-          tabIndex="0"
-          value="Foo"
-        />
-      </div>
-    </Value>
+      <input
+        autoComplete="on"
+        autoFocus={false}
+        className="select-search__input"
+        disabled={false}
+        onBlur={[Function]}
+        onChange={null}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyPress={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        placeholder={null}
+        readOnly={true}
+        tabIndex="0"
+        value="Foo"
+      />
+    </div>
   </div>
 </ForwardRef>
 `;
@@ -4392,200 +2285,114 @@ exports[`Test SelectSearch component Value change works without onChange handler
   <div
     className="select-search has-focus"
   >
-    <Value
-      autoComplete="on"
-      autoFocus={false}
-      className={[Function]}
-      disabled={false}
-      displayValue="Foo"
-      placeholder={null}
-      search={false}
-      valueProps={
-        Object {
-          "onBlur": [Function],
-          "onChange": null,
-          "onFocus": [Function],
-          "onKeyDown": [Function],
-          "onKeyPress": [Function],
-          "onKeyUp": [Function],
-          "onMouseDown": [Function],
-          "readOnly": true,
-          "ref": Object {
-            "current": <input
-              class="select-search__input"
-              readonly=""
-              tabindex="0"
-              value="Foo"
-            />,
-          },
-          "tabIndex": "0",
-        }
-      }
+    <div
+      className="select-search__value"
     >
-      <div
-        className="select-search__value"
-      >
-        <input
-          autoFocus={false}
-          className="select-search__input"
-          disabled={false}
-          onBlur={[Function]}
-          onChange={null}
-          onFocus={[Function]}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
-          onKeyUp={[Function]}
-          onMouseDown={[Function]}
-          placeholder={null}
-          readOnly={true}
-          tabIndex="0"
-          value="Foo"
-        />
-      </div>
-    </Value>
+      <input
+        autoComplete="on"
+        autoFocus={false}
+        className="select-search__input"
+        disabled={false}
+        onBlur={[Function]}
+        onChange={null}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyPress={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        placeholder={null}
+        readOnly={true}
+        tabIndex="0"
+        value="Foo"
+      />
+    </div>
     <div
       className="select-search__select"
     >
-      <Options
-        className={[Function]}
-        optionProps={
-          Object {
-            "onBlur": [Function],
-            "onKeyDown": [Function],
-            "onKeyPress": [Function],
-            "onMouseDown": [Function],
-            "tabIndex": "-1",
-          }
-        }
-        options={
-          Array [
-            Object {
-              "index": 0,
-              "name": "Foo",
-              "value": "foo",
-            },
-            Object {
-              "index": 1,
-              "name": "Bar",
-              "value": "bar",
-            },
-          ]
-        }
-        renderGroupHeader={[Function]}
-        renderOption={null}
-        snapshot={
-          Object {
-            "disabled": false,
-            "displayValue": "Foo",
-            "focus": true,
-            "highlighted": -1,
-            "options": Array [
-              Object {
-                "index": 0,
-                "name": "Foo",
-                "value": "foo",
-              },
-              Object {
-                "index": 1,
-                "name": "Bar",
-                "value": "bar",
-              },
-            ],
-            "search": "",
-            "searching": false,
-            "value": Object {
-              "index": 0,
-              "name": "Foo",
-              "value": "foo",
-            },
-          }
-        }
+      <ul
+        className="select-search__options"
       >
-        <ul
-          className="select-search__options"
+        <Option
+          cls={[Function]}
+          highlighted={false}
+          index={0}
+          key="foo"
+          name="Foo"
+          optionProps={
+            Object {
+              "onBlur": [Function],
+              "onKeyDown": [Function],
+              "onKeyPress": [Function],
+              "onMouseDown": [Function],
+              "tabIndex": "-1",
+            }
+          }
+          renderOption={[Function]}
+          selected={true}
+          value="foo"
         >
-          <Option
-            className={[Function]}
-            highlighted={false}
-            index={0}
+          <li
+            className="select-search__row"
+            data-index={0}
+            data-value="foo"
             key="foo"
-            name="Foo"
-            optionProps={
-              Object {
-                "onBlur": [Function],
-                "onKeyDown": [Function],
-                "onKeyPress": [Function],
-                "onMouseDown": [Function],
-                "tabIndex": "-1",
-              }
-            }
-            renderOption={null}
-            selected={true}
-            value="foo"
+            role="menuitem"
           >
-            <li
-              className="select-search__row"
-              data-index={0}
-              data-value="foo"
-              key="foo"
-              role="menuitem"
+            <button
+              className="select-search__option is-selected"
+              disabled={false}
+              onBlur={[Function]}
+              onKeyDown={[Function]}
+              onKeyPress={[Function]}
+              onMouseDown={[Function]}
+              tabIndex="-1"
+              value="foo"
             >
-              <button
-                className="select-search__option is-selected"
-                disabled={false}
-                onBlur={[Function]}
-                onKeyDown={[Function]}
-                onKeyPress={[Function]}
-                onMouseDown={[Function]}
-                tabIndex="-1"
-                value="foo"
-              >
-                Foo
-              </button>
-            </li>
-          </Option>
-          <Option
-            className={[Function]}
-            highlighted={false}
-            index={1}
+              Foo
+            </button>
+          </li>
+        </Option>
+        <Option
+          cls={[Function]}
+          highlighted={false}
+          index={1}
+          key="bar"
+          name="Bar"
+          optionProps={
+            Object {
+              "onBlur": [Function],
+              "onKeyDown": [Function],
+              "onKeyPress": [Function],
+              "onMouseDown": [Function],
+              "tabIndex": "-1",
+            }
+          }
+          renderOption={[Function]}
+          selected={false}
+          value="bar"
+        >
+          <li
+            className="select-search__row"
+            data-index={1}
+            data-value="bar"
             key="bar"
-            name="Bar"
-            optionProps={
-              Object {
-                "onBlur": [Function],
-                "onKeyDown": [Function],
-                "onKeyPress": [Function],
-                "onMouseDown": [Function],
-                "tabIndex": "-1",
-              }
-            }
-            renderOption={null}
-            selected={false}
-            value="bar"
+            role="menuitem"
           >
-            <li
-              className="select-search__row"
-              data-index={1}
-              data-value="bar"
-              key="bar"
-              role="menuitem"
+            <button
+              className="select-search__option"
+              disabled={false}
+              onBlur={[Function]}
+              onKeyDown={[Function]}
+              onKeyPress={[Function]}
+              onMouseDown={[Function]}
+              tabIndex="-1"
+              value="bar"
             >
-              <button
-                className="select-search__option"
-                disabled={false}
-                onBlur={[Function]}
-                onKeyDown={[Function]}
-                onKeyPress={[Function]}
-                onMouseDown={[Function]}
-                tabIndex="-1"
-                value="bar"
-              >
-                Bar
-              </button>
-            </li>
-          </Option>
-        </ul>
-      </Options>
+              Bar
+            </button>
+          </li>
+        </Option>
+      </ul>
     </div>
   </div>
 </ForwardRef>

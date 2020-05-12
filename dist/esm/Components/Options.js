@@ -44,10 +44,6 @@ const Options = ({
   }, option));
 }));
 
-Options.defaultProps = {
-  renderOption: null,
-  renderGroupHeader: name => name
-};
 Options.propTypes = process.env.NODE_ENV !== "production" ? {
   options: PropTypes.arrayOf(optionType).isRequired,
   snapshot: PropTypes.shape({
@@ -60,7 +56,7 @@ Options.propTypes = process.env.NODE_ENV !== "production" ? {
     onMouseDown: PropTypes.func.isRequired
   }).isRequired,
   className: PropTypes.func.isRequired,
-  renderOption: PropTypes.func,
-  renderGroupHeader: PropTypes.func
+  renderOption: PropTypes.func.isRequired,
+  renderGroupHeader: PropTypes.func.isRequired
 } : {};
 export default memo(Options);
