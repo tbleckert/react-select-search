@@ -74,9 +74,9 @@ const options = [
 /* Simple example */
 <SelectSearch options={options} defaultValue="sv" name="language" placeholder="Choose your language" />
 ```
-For examples you can take a look at the [example](example/index.jsx) file.
+For examples you can take a look in the [stories](stories) directory.
 
-You will also need some CSS to make it look right. Example theme can be found in [style.css](style.css)
+You will also need some CSS to make it look right. Example theme can be found in [style.css](style.css).
 
 ## Headless mode with hooks
 
