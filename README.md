@@ -21,9 +21,6 @@
     <a href="https://bundlephobia.com/result?p=react-select-search">
       <img src="https://badgen.net/bundlephobia/minzip/react-select-search" />
     </a>
-    <a href="https://beerpay.io/tbleckert/react-select-search">
-      <img src="https://beerpay.io/tbleckert/react-select-search/badge.svg?style=flat" />
-    </a>
 </p>
 
 ## Features
