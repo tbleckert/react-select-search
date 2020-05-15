@@ -33,7 +33,8 @@ export default function useSelectSearch({
     search: '',
     focus: false,
     searching: false,
-    highlighted: -1
+    highlighted: -1,
+    changed: null
   });
   const {
     flat,
@@ -81,10 +82,10 @@ export default function useSelectSearch({
       const item = val || oldState.flat[oldState.highlighted].value;
       const values = getNewValue(item, oldState.value, multiple);
       const newOptions = getOption(values, oldState.flat);
-      onChange(values, newOptions);
       return _objectSpread(_objectSpread({}, oldState), {}, {
         addedOptions: multiple ? newOptions : [newOptions],
-        value: values
+        value: values,
+        changed: [values, newOptions]
       });
     });
   }, [multiple, onChange]);
@@ -197,6 +198,11 @@ export default function useSelectSearch({
       flat: flatDefaultOptions
     }));
   }, [flatDefaultOptions]);
+  useEffect(() => {
+    if (state.changed) {
+      onChange(...state.changed);
+    }
+  }, [state.changed]);
   return [{
     value: option,
     highlighted,

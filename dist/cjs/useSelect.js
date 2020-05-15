@@ -59,7 +59,8 @@ function useSelectSearch(_ref) {
     search: '',
     focus: false,
     searching: false,
-    highlighted: -1
+    highlighted: -1,
+    changed: null
   }),
       state = _useState[0],
       setState = _useState[1];
@@ -122,10 +123,10 @@ function useSelectSearch(_ref) {
       var item = val || oldState.flat[oldState.highlighted].value;
       var values = (0, _getNewValue["default"])(item, oldState.value, multiple);
       var newOptions = (0, _getOption["default"])(values, oldState.flat);
-      onChange(values, newOptions);
       return _objectSpread(_objectSpread({}, oldState), {}, {
         addedOptions: multiple ? newOptions : [newOptions],
-        value: values
+        value: values,
+        changed: [values, newOptions]
       });
     });
   }, [multiple, onChange]);
@@ -249,6 +250,11 @@ function useSelectSearch(_ref) {
       });
     });
   }, [flatDefaultOptions]);
+  (0, _react.useEffect)(function () {
+    if (state.changed) {
+      onChange.apply(void 0, state.changed);
+    }
+  }, [state.changed]);
   return [{
     value: option,
     highlighted: highlighted,
