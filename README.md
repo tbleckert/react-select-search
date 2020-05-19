@@ -75,6 +75,10 @@ For examples you can take a look in the [stories](stories) directory.
 
 You will also need some CSS to make it look right. Example theme can be found in [style.css](style.css).
 
+## Use with SSR
+
+For you with SSR you might need to use the commonjs bundle (react-select-search/dist/cjs). If you want to utilise the example theme ([style.css](style.css)) you need to check if you're build script manipulates class names, for example minifies them. If that's the case, you can use CSS modules to get the class names from the style.css file and apply them using the [className function](#custom-class-names). Example can be seen [here](stories/3-Custom.stories.js#L64) as well as here https://react-select-search.com/?path=/story/custom--css-modules.
+
 ## Headless mode with hooks
 
 If you want complete control (more than styling and [custom renderers](#custom-renderers)) you can use hooks to pass data to your own components and build it yourself.
