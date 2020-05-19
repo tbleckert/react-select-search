@@ -30,10 +30,10 @@ describe('Unit test for highlightReducer function', () => {
         expect(state).toEqual(0);
     });
 
-    test('ArrowDown should equal -1 if more than max', () => {
+    test('ArrowDown should equal 0 if more than max', () => {
         const state = highlightReducer(options.length, { key: 'ArrowDown', options });
 
-        expect(state).toEqual(-1);
+        expect(state).toEqual(0);
     });
 
     test('ArrowUp should decrease input if not first option', () => {
@@ -48,10 +48,10 @@ describe('Unit test for highlightReducer function', () => {
         expect(state).toEqual(options.length - 1);
     });
 
-    test('ArrowUp should equal -1 if below zero', () => {
+    test('ArrowUp should equal last option if below zero', () => {
         const state = highlightReducer(-1, { key: 'ArrowUp', options });
 
-        expect(state).toEqual(-1);
+        expect(state).toEqual(options.length - 1);
     });
 
     test('Should skip to next option if option is disabled', () => {
