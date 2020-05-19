@@ -69,7 +69,7 @@ const options = [
 ];
 
 /* Simple example */
-<SelectSearch options={options} defaultValue="sv" name="language" placeholder="Choose your language" />
+<SelectSearch options={options} value="sv" name="language" placeholder="Choose your language" />
 ```
 For examples you can take a look in the [stories](stories) directory.
 
