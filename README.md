@@ -184,7 +184,7 @@ The optionProps and the valueProps are needed for the component you render to wo
 
 Monkeypatch it if you need to but make sure to not remove important props.
 
-The optionSnapshot is an object that contains the object state: `{ selected: bool, highlighted: bool, disabled: bool }`.
+The optionSnapshot is an object that contains the object state: `{ selected: bool, highlighted: bool }`.
 
 ## Get options
 
