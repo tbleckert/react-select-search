@@ -88,7 +88,7 @@ export default function useSelectSearch({
                 changed: [values, newOptions],
             };
         });
-    }, [multiple, onChange]);
+    }, [multiple]);
 
     const onMouseDown = useCallback((e) => {
         if (!closeOnSelect || multiple) {
@@ -203,7 +203,7 @@ export default function useSelectSearch({
         if (state.changed) {
             onChange(...state.changed);
         }
-    }, [state.changed]);
+    }, [state.changed, onChange]);
 
     return [
         {

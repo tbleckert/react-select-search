@@ -17,14 +17,16 @@ function highlightReducer(highlighted, value) {
 
   var newHighlighted = -1;
 
-  if (key === 'ArrowDown' && highlighted < options.length - 1) {
+  if (key === 'ArrowDown') {
     newHighlighted = highlighted + 1;
-  } else if (key === 'ArrowDown' && highlighted === options.length - 1) {
-    newHighlighted = 0;
-  } else if (key === 'ArrowUp' && highlighted > 0) {
+  } else if (key === 'ArrowUp') {
     newHighlighted = highlighted - 1;
-  } else if (key === 'ArrowUp' && highlighted === 0) {
+  }
+
+  if (newHighlighted < 0) {
     newHighlighted = options.length - 1;
+  } else if (newHighlighted > options.length - 1) {
+    newHighlighted = 0;
   }
 
   var option = options[newHighlighted];

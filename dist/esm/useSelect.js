@@ -88,7 +88,7 @@ export default function useSelectSearch({
         changed: [values, newOptions]
       });
     });
-  }, [multiple, onChange]);
+  }, [multiple]);
   const onMouseDown = useCallback(e => {
     if (!closeOnSelect || multiple) {
       e.preventDefault();
@@ -202,7 +202,7 @@ export default function useSelectSearch({
     if (state.changed) {
       onChange(...state.changed);
     }
-  }, [state.changed]);
+  }, [state.changed, onChange]);
   return [{
     value: option,
     highlighted,

@@ -129,7 +129,7 @@ function useSelectSearch(_ref) {
         changed: [values, newOptions]
       });
     });
-  }, [multiple, onChange]);
+  }, [multiple]);
   var onMouseDown = (0, _react.useCallback)(function (e) {
     if (!closeOnSelect || multiple) {
       e.preventDefault();
@@ -254,7 +254,7 @@ function useSelectSearch(_ref) {
     if (state.changed) {
       onChange.apply(void 0, state.changed);
     }
-  }, [state.changed]);
+  }, [state.changed, onChange]);
   return [{
     value: option,
     highlighted: highlighted,
