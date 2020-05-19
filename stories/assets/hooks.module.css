@@ -1,0 +1,89 @@
+.button {
+    display: inline-flex;
+    position: relative;
+    align-items: center;
+    height: 50px;
+    padding: 0 16px;
+    border: none;
+    border-radius: 3px;
+    outline: none;
+    background: rgb(49, 173, 122);
+    color: #fff;
+    font-size: 16px;
+    font-family: 'Nunito Sans', sans-serif;
+    font-weight: 500;
+    line-height: 1;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.select {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.5);
+    transition: .3s opacity;
+}
+
+.options {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 240px;
+    padding: 16px 0;
+    border-radius: 10px;
+    background: #ffff;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    transition: .3s transform;
+}
+
+.option {
+    display: block;
+    width: 100%;
+    padding: 16px 24px;
+    border: none;
+    background: none;
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 18px;
+    text-align: left;
+    cursor: pointer;
+    transition: .3s background;
+    outline: none;
+}
+
+.option.is-selected {
+    background: rgb(103, 121, 225);
+    color: #fff;
+}
+
+.enter .select {
+    opacity: 0;
+}
+
+.enter-active .select {
+    opacity: 1;
+}
+.exit .select {
+    opacity: 1;
+}
+.exit-active .select {
+    opacity: 0;
+}
+
+.enter .options {
+    transform: translate(-50%, calc(-50% + 20px));
+}
+
+.enter-active .options {
+    transform: translate(-50%, -50%);
+}
+.exit .options {
+    transform: translate(-50%, -50%);
+}
+.exit-active .options {
+    transform: translate(-50%, calc(-50% + 20px));
+}
