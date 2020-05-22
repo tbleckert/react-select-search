@@ -14,7 +14,7 @@ try {
 function fuzzySearch(value, options, fuseOptions) {
     const fuse = new Fuse(options, fuseOptions);
 
-    return fuse.search(value).map((item, index) => Object.assign({}, item, { index }));
+    return fuse.search(value).map((item, index) => ({ ...item, index }));
 }
 
 export default function search(value, options, fuseOptions) {

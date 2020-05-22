@@ -3,8 +3,8 @@ export default function groupOptions(options) {
 
     options.forEach((option, i) => {
         if ('groupId' in option) {
-            const nextOption = Object.assign({}, option);
-            const groupIndex = nextOptions.findIndex(el => 'groupId' in el && el.groupId === nextOption.groupId);
+            const nextOption = { ...option };
+            const groupIndex = nextOptions.findIndex((el) => 'groupId' in el && el.groupId === nextOption.groupId);
 
             nextOption.index = i;
 

@@ -13,7 +13,7 @@ const Option = ({
         cls('option'),
         (selected) ? cls('is-selected') : false,
         (highlighted) ? cls('is-highlighted') : false,
-    ].filter(single => !!single).join(' ');
+    ].filter((single) => !!single).join(' ');
 
     const domProps = {
         ...optionProps,

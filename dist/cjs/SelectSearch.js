@@ -196,9 +196,13 @@ SelectSearch.defaultProps = {
   printOptions: 'auto',
   closeOnSelect: true,
   renderOption: function renderOption(domProps, option, snapshot, className) {
-    return /*#__PURE__*/_react["default"].createElement("button", _extends({
-      className: className
-    }, domProps), option.name);
+    return (
+      /*#__PURE__*/
+      // eslint-disable-next-line react/button-has-type
+      _react["default"].createElement("button", _extends({
+        className: className
+      }, domProps), option.name)
+    );
   },
   renderGroupHeader: function renderGroupHeader(name) {
     return name;

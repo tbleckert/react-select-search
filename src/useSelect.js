@@ -59,7 +59,7 @@ export default function useSelectSearch({
     const options = useMemo(() => GroupOptions(flat), [flat]);
     const displayValue = useMemo(() => getDisplayValue(option), [option]);
     const onBlur = useCallback(() => {
-        setState(oldState => ({
+        setState((oldState) => ({
             ...oldState,
             focus: false,
             search: '',
@@ -72,7 +72,7 @@ export default function useSelectSearch({
         }
     }, [flatDefaultOptions, ref]);
 
-    const setFocus = newFocus => setState(oldState => ({ ...oldState, focus: newFocus }));
+    const setFocus = (newFocus) => setState((oldState) => ({ ...oldState, focus: newFocus }));
     const onClick = () => setFocus(!focus);
     const onFocus = () => setFocus(true);
     const onSelect = useCallback((val) => {
@@ -108,7 +108,7 @@ export default function useSelectSearch({
         if (key === 'ArrowDown' || key === 'ArrowUp') {
             e.preventDefault();
 
-            setState(oldState => ({
+            setState((oldState) => ({
                 ...oldState,
                 highlighted: highlightReducer(oldState.highlighted, {
                     key,
@@ -146,7 +146,7 @@ export default function useSelectSearch({
             searchableOption = getOptions(inputVal);
         }
 
-        setState(oldState => ({ ...oldState, ...newState }));
+        setState((oldState) => ({ ...oldState, ...newState }));
 
         Promise.resolve(searchableOption)
             .then((foundOptions) => {
@@ -156,13 +156,13 @@ export default function useSelectSearch({
                     newOptions = doSearch(inputVal, foundOptions, fuse);
                 }
 
-                setState(oldState => ({
+                setState((oldState) => ({
                     ...oldState,
                     flat: (newOptions === false) ? foundOptions : newOptions,
                     searching: false,
                 }));
             })
-            .catch(() => setState(oldState => ({
+            .catch(() => setState((oldState) => ({
                 ...oldState,
                 flat: flatDefaultOptions,
                 searching: false,
@@ -192,11 +192,11 @@ export default function useSelectSearch({
     }), [onMouseDown, onKeyDown, onKeyPress, onBlur]);
 
     useEffect(() => {
-        setState(oldState => ({ ...oldState, value: defaultValue }));
+        setState((oldState) => ({ ...oldState, value: defaultValue }));
     }, [defaultValue]);
 
     useEffect(() => {
-        setState(oldState => ({ ...oldState, flat: flatDefaultOptions }));
+        setState((oldState) => ({ ...oldState, flat: flatDefaultOptions }));
     }, [flatDefaultOptions]);
 
     useEffect(() => {
@@ -218,6 +218,6 @@ export default function useSelectSearch({
         },
         valueProps,
         optionProps,
-        newValue => setState(oldState => ({ ...oldState, value: newValue })),
+        (newValue) => setState((oldState) => ({ ...oldState, value: newValue })),
     ];
 }

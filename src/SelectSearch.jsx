@@ -75,7 +75,7 @@ const SelectSearch = forwardRef(({
         (disabled) ? cls('is-disabled') : false,
         (searching) ? cls('is-loading') : false,
         (focus) ? cls('has-focus') : false,
-    ].filter(single => !!single).join(' ');
+    ].filter((single) => !!single).join(' ');
 
     const inputValue = (focus && search) ? searchValue : displayValue;
 
@@ -100,8 +100,7 @@ const SelectSearch = forwardRef(({
             const rect = current.getBoundingClientRect();
             const selectedRect = selected.getBoundingClientRect();
 
-            current.scrollTop =
-                selected.offsetTop - (rect.height / 2) + (selectedRect.height / 2);
+            current.scrollTop = selected.offsetTop - (rect.height / 2) + (selectedRect.height / 2);
         }
     }, [focus, value, highlighted, selectRef, multiple]);
 
@@ -149,7 +148,7 @@ const SelectSearch = forwardRef(({
                                         <div className={cls('group')}>
                                             <div className={cls('group-header')}>{renderGroupHeader(option.name)}</div>
                                             <ul className={cls('options')}>
-                                                {option.items.map(o => (
+                                                {option.items.map((o) => (
                                                     <Option
                                                         key={o.value}
                                                         cls={cls}
@@ -198,11 +197,12 @@ SelectSearch.defaultProps = {
     printOptions: 'auto',
     closeOnSelect: true,
     renderOption: (domProps, option, snapshot, className) => (
+        // eslint-disable-next-line react/button-has-type
         <button className={className} {...domProps}>
             {option.name}
         </button>
     ),
-    renderGroupHeader: name => name,
+    renderGroupHeader: (name) => name,
     renderValue: (valueProps, snapshot, className) => (
         <input
             {...valueProps}
