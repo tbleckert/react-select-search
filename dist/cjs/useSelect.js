@@ -60,7 +60,7 @@ function useSelectSearch(_ref) {
     focus: false,
     searching: false,
     highlighted: -1,
-    changed: null
+    changed: false
   }),
       state = _useState[0],
       setState = _useState[1];
@@ -251,7 +251,12 @@ function useSelectSearch(_ref) {
     });
   }, [flatDefaultOptions]);
   (0, _react.useEffect)(function () {
-    if (state.changed) {
+    if (state.changed !== false) {
+      setState(function (oldState) {
+        return _objectSpread(_objectSpread({}, oldState), {}, {
+          changed: false
+        });
+      });
       onChange.apply(void 0, state.changed);
     }
   }, [state.changed, onChange]);

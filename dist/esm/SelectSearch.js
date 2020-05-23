@@ -95,7 +95,7 @@ const SelectSearch = forwardRef(({
       current.scrollTop = selected.offsetTop - rect.height / 2 + selectedRect.height / 2;
     }
   }, [focus, value, highlighted, selectRef, multiple]);
-  let shouldRenderOptions = true;
+  let shouldRenderOptions;
 
   switch (printOptions) {
     case 'never':

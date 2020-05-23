@@ -34,7 +34,7 @@ export default function useSelectSearch({
     focus: false,
     searching: false,
     highlighted: -1,
-    changed: null
+    changed: false
   });
   const {
     flat,
@@ -199,7 +199,10 @@ export default function useSelectSearch({
     }));
   }, [flatDefaultOptions]);
   useEffect(() => {
-    if (state.changed) {
+    if (state.changed !== false) {
+      setState(oldState => _objectSpread(_objectSpread({}, oldState), {}, {
+        changed: false
+      }));
       onChange(...state.changed);
     }
   }, [state.changed, onChange]);

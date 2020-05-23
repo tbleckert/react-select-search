@@ -114,7 +114,7 @@ var SelectSearch = (0, _react.forwardRef)(function (_ref, ref) {
       current.scrollTop = selected.offsetTop - rect.height / 2 + selectedRect.height / 2;
     }
   }, [focus, value, highlighted, selectRef, multiple]);
-  var shouldRenderOptions = true;
+  var shouldRenderOptions;
 
   switch (printOptions) {
     case 'never':

@@ -104,7 +104,7 @@ const SelectSearch = forwardRef(({
         }
     }, [focus, value, highlighted, selectRef, multiple]);
 
-    let shouldRenderOptions = true;
+    let shouldRenderOptions;
 
     switch (printOptions) {
     case 'never':
