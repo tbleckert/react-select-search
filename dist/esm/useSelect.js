@@ -79,7 +79,14 @@ export default function useSelectSearch({
 
   const onSelect = useCallback(val => {
     setState(oldState => {
-      const item = val || oldState.flat[oldState.highlighted].value;
+      const defaultItem = oldState.flat[oldState.highlighted];
+      const oldStateValue = defaultItem && defaultItem.value;
+      const item = val || oldStateValue;
+
+      if (!item) {
+        return oldState;
+      }
+
       const values = getNewValue(item, oldState.value, multiple);
       const newOptions = getOption(values, oldState.flat);
       return _objectSpread(_objectSpread({}, oldState), {}, {

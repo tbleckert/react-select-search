@@ -120,7 +120,14 @@ function useSelectSearch(_ref) {
 
   var onSelect = (0, _react.useCallback)(function (val) {
     setState(function (oldState) {
-      var item = val || oldState.flat[oldState.highlighted].value;
+      var defaultItem = oldState.flat[oldState.highlighted];
+      var oldStateValue = defaultItem && defaultItem.value;
+      var item = val || oldStateValue;
+
+      if (!item) {
+        return oldState;
+      }
+
       var values = (0, _getNewValue["default"])(item, oldState.value, multiple);
       var newOptions = (0, _getOption["default"])(values, oldState.flat);
       return _objectSpread(_objectSpread({}, oldState), {}, {
