@@ -80,6 +80,11 @@ export default function useSelectSearch({
             const defaultItem = oldState.flat[oldState.highlighted];
             const oldStateValue = defaultItem && defaultItem.value;
             const item = val || oldStateValue;
+
+            if (!item) {
+                return oldState;
+            }
+
             const values = getNewValue(item, oldState.value, multiple);
             const newOptions = getOption(values, oldState.flat);
 
