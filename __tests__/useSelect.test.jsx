@@ -36,5 +36,24 @@ describe('Test SelectSearch component', () => {
             searching: false,
             search: '',
         });
+	});
+
+	test('Renders without value present', () => {
+        const flatOptions = flattenOptions(friends);
+        const groupedOptions = groupOptions(flatOptions);
+        const initialOption = flatOptions[1];
+        const wrapper = mount(<CustomSelect options={friends} value={undefined} />);
+        const output = wrapper.find('div').props();
+
+        expect(output.snapshot).toStrictEqual({
+            value: null,
+            highlighted: -1,
+            options: groupedOptions,
+            disabled: false,
+            displayValue: "",
+            focus: false,
+            searching: false,
+            search: '',
+        });
     });
 });
