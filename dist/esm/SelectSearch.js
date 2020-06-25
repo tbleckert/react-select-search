@@ -131,7 +131,20 @@ const SelectSearch = forwardRef(({
   }, /*#__PURE__*/React.createElement("ul", {
     className: cls('options')
   }, options.map(option => {
-    if (option.type === 'group') {
+    const isGroup = option.type === 'group';
+    const items = isGroup ? option.items : [option];
+    const base = {
+      cls,
+      optionProps,
+      renderOption
+    };
+    const rendered = items.map(o => /*#__PURE__*/React.createElement(Option, _extends({
+      key: o.value,
+      selected: isSelected(o, value),
+      highlighted: highlighted === o.index
+    }, base, o)));
+
+    if (isGroup) {
       return /*#__PURE__*/React.createElement("li", {
         role: "none",
         className: cls('row'),
@@ -142,24 +155,10 @@ const SelectSearch = forwardRef(({
         className: cls('group-header')
       }, renderGroupHeader(option.name)), /*#__PURE__*/React.createElement("ul", {
         className: cls('options')
-      }, option.items.map(o => /*#__PURE__*/React.createElement(Option, _extends({
-        key: o.value,
-        cls: cls,
-        optionProps: optionProps,
-        selected: isSelected(o, value),
-        highlighted: highlighted === o.index,
-        renderOption: renderOption
-      }, o))))));
+      }, rendered)));
     }
 
-    return /*#__PURE__*/React.createElement(Option, _extends({
-      key: option.value,
-      cls: cls,
-      optionProps: optionProps,
-      selected: isSelected(option, value),
-      highlighted: highlighted === option.index,
-      renderOption: renderOption
-    }, option));
+    return rendered;
   }))));
 });
 SelectSearch.defaultProps = {

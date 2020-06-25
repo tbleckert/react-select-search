@@ -142,40 +142,33 @@ const SelectSearch = forwardRef(({
                 <div className={cls('select')} ref={selectRef}>
                     <ul className={cls('options')}>
                         {options.map((option) => {
-                            if (option.type === 'group') {
+                            const isGroup = option.type === 'group';
+                            const items = (isGroup) ? option.items : [option];
+                            const base = { cls, optionProps, renderOption };
+                            const rendered = items.map((o) => (
+                                <Option
+                                    key={o.value}
+                                    selected={isSelected(o, value)}
+                                    highlighted={highlighted === o.index}
+                                    {...base}
+                                    {...o}
+                                />
+                            ));
+
+                            if (isGroup) {
                                 return (
                                     <li role="none" className={cls('row')} key={option.groupId}>
                                         <div className={cls('group')}>
                                             <div className={cls('group-header')}>{renderGroupHeader(option.name)}</div>
                                             <ul className={cls('options')}>
-                                                {option.items.map((o) => (
-                                                    <Option
-                                                        key={o.value}
-                                                        cls={cls}
-                                                        optionProps={optionProps}
-                                                        selected={isSelected(o, value)}
-                                                        highlighted={highlighted === o.index}
-                                                        renderOption={renderOption}
-                                                        {...o}
-                                                    />
-                                                ))}
+                                                {rendered}
                                             </ul>
                                         </div>
                                     </li>
                                 );
                             }
 
-                            return (
-                                <Option
-                                    key={option.value}
-                                    cls={cls}
-                                    optionProps={optionProps}
-                                    selected={isSelected(option, value)}
-                                    highlighted={highlighted === option.index}
-                                    renderOption={renderOption}
-                                    {...option}
-                                />
-                            );
+                            return rendered;
                         })}
                     </ul>
                 </div>

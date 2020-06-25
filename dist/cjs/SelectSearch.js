@@ -150,7 +150,22 @@ var SelectSearch = (0, _react.forwardRef)(function (_ref, ref) {
   }, /*#__PURE__*/_react["default"].createElement("ul", {
     className: cls('options')
   }, options.map(function (option) {
-    if (option.type === 'group') {
+    var isGroup = option.type === 'group';
+    var items = isGroup ? option.items : [option];
+    var base = {
+      cls: cls,
+      optionProps: optionProps,
+      renderOption: renderOption
+    };
+    var rendered = items.map(function (o) {
+      return /*#__PURE__*/_react["default"].createElement(_Option["default"], _extends({
+        key: o.value,
+        selected: (0, _isSelected["default"])(o, value),
+        highlighted: highlighted === o.index
+      }, base, o));
+    });
+
+    if (isGroup) {
       return /*#__PURE__*/_react["default"].createElement("li", {
         role: "none",
         className: cls('row'),
@@ -161,26 +176,10 @@ var SelectSearch = (0, _react.forwardRef)(function (_ref, ref) {
         className: cls('group-header')
       }, renderGroupHeader(option.name)), /*#__PURE__*/_react["default"].createElement("ul", {
         className: cls('options')
-      }, option.items.map(function (o) {
-        return /*#__PURE__*/_react["default"].createElement(_Option["default"], _extends({
-          key: o.value,
-          cls: cls,
-          optionProps: optionProps,
-          selected: (0, _isSelected["default"])(o, value),
-          highlighted: highlighted === o.index,
-          renderOption: renderOption
-        }, o));
-      }))));
+      }, rendered)));
     }
 
-    return /*#__PURE__*/_react["default"].createElement(_Option["default"], _extends({
-      key: option.value,
-      cls: cls,
-      optionProps: optionProps,
-      selected: (0, _isSelected["default"])(option, value),
-      highlighted: highlighted === option.index,
-      renderOption: renderOption
-    }, option));
+    return rendered;
   }))));
 });
 SelectSearch.defaultProps = {
