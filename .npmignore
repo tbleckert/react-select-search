@@ -1,3 +1,4 @@
 *
 !dist/**/*
 !package.json
+!src/index.d.ts
