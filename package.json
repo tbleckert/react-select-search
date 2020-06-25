@@ -5,7 +5,7 @@
   "main": "dist/esm/index.js",
   "types": "src/index.d.ts",
   "scripts": {
-    "lint": "eslint src/* --ext .js --ext .jsx",
+    "lint": "eslint src --ext .js --ext .jsx",
     "test": "jest",
     "test:watch": "npm test -- --watch",
     "test:coverage": "npm test -- --coverage --silent",
