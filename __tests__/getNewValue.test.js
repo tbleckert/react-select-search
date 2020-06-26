@@ -23,4 +23,11 @@ describe('Unit test for getNewValue function', () => {
 
         expect(getNewValue(newOption, [newOption], true)).toEqual([]);
     });
+
+    test('Can convert single to multiple', () => {
+        const oldOption = friends[0];
+        const newOption = friends[1];
+
+        expect(getNewValue(newOption, oldOption, true)).toEqual([oldOption, newOption]);
+    });
 });

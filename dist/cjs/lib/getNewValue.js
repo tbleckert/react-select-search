@@ -8,19 +8,15 @@ function getNewValue(value, oldValue, multiple) {
     return value;
   }
 
-  var newValue = null;
+  var newValue = [];
+  var valueIndex = -1;
 
-  if (oldValue && !Array.isArray(oldValue)) {
-    newValue = [oldValue];
-  } else if (!oldValue) {
-    newValue = [];
-  } else {
-    newValue = [].concat(oldValue);
+  if (oldValue) {
+    newValue = !Array.isArray(oldValue) ? [oldValue] : [].concat(oldValue);
+    valueIndex = newValue.findIndex(function (val) {
+      return val === value;
+    });
   }
-
-  var valueIndex = newValue.findIndex(function (val) {
-    return val === value;
-  });
 
   if (valueIndex >= 0) {
     newValue.splice(valueIndex, 1);

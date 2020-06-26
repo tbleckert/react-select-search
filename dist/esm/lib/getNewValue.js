@@ -3,17 +3,13 @@ export default function getNewValue(value, oldValue, multiple) {
     return value;
   }
 
-  let newValue = null;
+  let newValue = [];
+  let valueIndex = -1;
 
-  if (oldValue && !Array.isArray(oldValue)) {
-    newValue = [oldValue];
-  } else if (!oldValue) {
-    newValue = [];
-  } else {
-    newValue = [...oldValue];
+  if (oldValue) {
+    newValue = !Array.isArray(oldValue) ? [oldValue] : [...oldValue];
+    valueIndex = newValue.findIndex(val => val === value);
   }
-
-  const valueIndex = newValue.findIndex(val => val === value);
 
   if (valueIndex >= 0) {
     newValue.splice(valueIndex, 1);
