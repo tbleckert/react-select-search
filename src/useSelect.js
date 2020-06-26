@@ -101,9 +101,9 @@ export default function useSelectSearch({
         if (!closeOnSelect || multiple) {
             e.preventDefault();
 
-            if (multiple) {
-                e.target.focus();
-            }
+            // if (multiple) {
+            //     e.target.focus();
+            // }
         }
 
         onSelect(e.currentTarget.value);
