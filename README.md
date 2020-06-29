@@ -9,8 +9,8 @@
     <a href='https://coveralls.io/github/tbleckert/react-select-search'>
         <img src='https://coveralls.io/repos/github/tbleckert/react-select-search/badge.svg' alt='Coverage Status' />
     </a>
-    <a href="https://www.npmjs.com/package/react-select-search">
-        <img src="https://img.shields.io/badge/license-MIT-blue.svg" style="max-width:100%;" />
+    <a href="https://codeclimate.com/github/tbleckert/react-select-search/maintainability">
+        <img src="https://api.codeclimate.com/v1/badges/ca5314831e777b903ca8/maintainability" />
     </a>
     <a href="https://www.npmjs.com/package/react-select-search">
         <img src="https://img.shields.io/npm/v/react-select-search.svg" alt="npm" style="max-width:100%;" />
