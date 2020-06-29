@@ -6,13 +6,8 @@ exports["default"] = highlightReducer;
 function highlightReducer(highlighted, value) {
   var key = value.key,
       options = value.options;
-
-  if (!options || !key) {
-    return highlighted;
-  }
-
-  var newHighlighted = key === 'ArrowDown' ? highlighted + 1 : highlighted - 1;
   var max = options.length - 1;
+  var newHighlighted = key === 'ArrowDown' ? highlighted + 1 : highlighted - 1;
 
   if (newHighlighted < 0) {
     newHighlighted = max;
