@@ -3,21 +3,8 @@ import flattenOptions from '../src/lib/flattenOptions';
 import { countries, friends } from './data';
 
 const options = flattenOptions(countries);
-const optionsWithDisabled = flattenOptions(friends);
 
 describe('Unit test for highlightReducer function', () => {
-    test('Falsy value should return -1', () => {
-        const state = highlightReducer(0, null);
-
-        expect(state).toEqual(-1);
-    });
-
-    test('Missing options should return input', () => {
-        const state = highlightReducer(0, { key: 'ArrowLeft', options: null });
-
-        expect(state).toEqual(0);
-    });
-
     test('ArrowDown should increment input if not last option', () => {
         const state = highlightReducer(0, { key: 'ArrowDown', options });
 

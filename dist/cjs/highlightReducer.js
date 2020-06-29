@@ -4,14 +4,10 @@ exports.__esModule = true;
 exports["default"] = highlightReducer;
 
 function highlightReducer(highlighted, value) {
-  if (!value) {
-    return -1;
-  }
-
   var key = value.key,
       options = value.options;
 
-  if (!options) {
+  if (!options || !key) {
     return highlighted;
   }
 

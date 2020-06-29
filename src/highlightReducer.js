@@ -1,11 +1,7 @@
 export default function highlightReducer(highlighted, value) {
-    if (!value) {
-        return -1;
-    }
-
     const { key, options } = value;
 
-    if (!options) {
+    if (!options || !key) {
         return highlighted;
     }
 
