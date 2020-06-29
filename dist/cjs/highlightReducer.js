@@ -15,13 +15,13 @@ function highlightReducer(highlighted, value) {
     return highlighted;
   }
 
-  var newHighlighted = -1;
+  var newHighlighted = key === 'ArrowDown' ? highlighted + 1 : highlighted - 1;
   var max = options.length - 1;
 
-  if (key === 'ArrowDown') {
-    newHighlighted = highlighted >= max ? 0 : highlighted + 1;
-  } else if (key === 'ArrowUp') {
-    newHighlighted = highlighted <= 0 ? max : highlighted - 1;
+  if (newHighlighted < 0) {
+    newHighlighted = max;
+  } else if (newHighlighted > max) {
+    newHighlighted = 0;
   }
 
   var option = options[newHighlighted];

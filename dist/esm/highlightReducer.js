@@ -12,13 +12,13 @@ export default function highlightReducer(highlighted, value) {
     return highlighted;
   }
 
-  let newHighlighted = -1;
+  let newHighlighted = key === 'ArrowDown' ? highlighted + 1 : highlighted - 1;
   const max = options.length - 1;
 
-  if (key === 'ArrowDown') {
-    newHighlighted = highlighted >= max ? 0 : highlighted + 1;
-  } else if (key === 'ArrowUp') {
-    newHighlighted = highlighted <= 0 ? max : highlighted - 1;
+  if (newHighlighted < 0) {
+    newHighlighted = max;
+  } else if (newHighlighted > max) {
+    newHighlighted = 0;
   }
 
   const option = options[newHighlighted];
