@@ -98,15 +98,14 @@ export default function useSelectSearch({
     }, [multiple]);
 
     const onMouseDown = useCallback((e) => {
+        onSelect(e.currentTarget.value);
         if (!closeOnSelect || multiple) {
             e.preventDefault();
 
-            // if (multiple) {
-            //     e.target.focus();
-            // }
+            if (multiple) {
+                e.target.focus();
+            }
         }
-
-        onSelect(e.currentTarget.value);
     }, [onSelect, closeOnSelect, multiple]);
 
     const onKeyDown = useCallback((e) => {
