@@ -23,7 +23,6 @@ exports[`Test Option component Option can be highlighted 1`] = `
     disabled={false}
     onMouseDown={[Function]}
     tabIndex={0}
-    value="foo"
   >
     Foo
   </button>
@@ -42,7 +41,6 @@ exports[`Test Option component Option can be selected 1`] = `
     disabled={false}
     onMouseDown={[Function]}
     tabIndex={0}
-    value="foo"
   >
     Foo
   </button>
@@ -61,7 +59,6 @@ exports[`Test Option component Renders value element 1`] = `
     disabled={false}
     onMouseDown={[Function]}
     tabIndex={0}
-    value="foo"
   >
     Foo
   </button>

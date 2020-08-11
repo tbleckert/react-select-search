@@ -24,7 +24,7 @@ const Option = (_ref) => {
   const optionClass = [cls('option'), selected ? cls('is-selected') : false, highlighted ? cls('is-highlighted') : false].filter(single => !!single).join(' ');
 
   const domProps = _objectSpread(_objectSpread({}, optionProps), {}, {
-    value: option.value,
+    value: option._id,
     disabled: option.disabled
   });
 
@@ -47,7 +47,7 @@ Option.defaultProps = {
 };
 Option.propTypes = process.env.NODE_ENV !== "production" ? {
   name: PropTypes.string.isRequired,
-  value: PropTypes.string,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   disabled: PropTypes.bool,
   index: PropTypes.number,
   highlighted: PropTypes.bool.isRequired,

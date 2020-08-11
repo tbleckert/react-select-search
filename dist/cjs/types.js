@@ -9,7 +9,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 
 var option = _propTypes["default"].shape({
   name: _propTypes["default"].string.isRequired,
-  value: _propTypes["default"].string.isRequired
+  value: _propTypes["default"].oneOfType([_propTypes["default"].string, _propTypes["default"].number]).isRequired
 });
 
 var optionType = _propTypes["default"].oneOfType([option, _propTypes["default"].shape({

@@ -2,7 +2,10 @@ import PropTypes from 'prop-types';
 
 const option = PropTypes.shape({
     name: PropTypes.string.isRequired,
-    value: PropTypes.string.isRequired,
+    value: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number,
+    ]).isRequired,
 });
 
 export const optionType = PropTypes.oneOfType([

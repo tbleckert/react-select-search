@@ -118,19 +118,21 @@ function useSelectSearch(_ref) {
     return setFocus(true);
   };
 
-  var onSelect = (0, _react.useCallback)(function (val) {
-    setState(function (oldState) {
-      var defaultItem = oldState.flat[oldState.highlighted];
-      var oldStateValue = defaultItem && defaultItem.value;
-      var item = val || oldStateValue;
+  var onSelect = (0, _react.useCallback)(function (id) {
+    setState(function (prevState) {
+      var prevFlat = prevState.flat,
+          prevHighlighted = prevState.highlighted;
+      var item = id ? prevFlat.find(function (i) {
+        return i._id === id;
+      }) : prevFlat[prevHighlighted];
 
       if (!item) {
-        return oldState;
+        return prevState;
       }
 
-      var values = (0, _getNewValue["default"])(item, oldState.value, multiple);
-      var newOptions = (0, _getOption["default"])(values, oldState.flat);
-      return _objectSpread(_objectSpread({}, oldState), {}, {
+      var values = (0, _getNewValue["default"])(item.value, prevState.value, multiple);
+      var newOptions = (0, _getOption["default"])(values, prevFlat);
+      return _objectSpread(_objectSpread({}, prevState), {}, {
         addedOptions: multiple ? newOptions : [newOptions],
         value: values,
         changed: [values, newOptions]

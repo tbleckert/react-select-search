@@ -131,7 +131,7 @@ describe('Test SelectSearch component', () => {
 
             expect(onChangeMock.mock.calls.length).toBe(1);
             expect(onChangeMock.mock.calls[0][0]).toBe('foo');
-            expect(onChangeMock.mock.calls[0][1]).toStrictEqual({ value: 'foo', name: 'Foo', index: 0 });
+            expect(onChangeMock.mock.calls[0][1]).toStrictEqual({ value: 'foo', name: 'Foo', index: 0, _id: 'foo' });
 
             done();
         });

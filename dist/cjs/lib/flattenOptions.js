@@ -19,16 +19,17 @@ function flattenOptions(options) {
     if ('type' in option && option.type === 'group') {
       var id = option.name.replace(/\s+/g, '-').toLowerCase() + "-" + index;
       option.items.forEach(function (groupOption) {
-        var nextGroupOption = _objectSpread({}, groupOption);
-
-        nextGroupOption.groupId = id;
-        nextGroupOption.groupName = option.name;
-        nextOptions.push(nextGroupOption);
+        nextOptions.push(_objectSpread(_objectSpread({}, groupOption), {}, {
+          groupId: id,
+          groupName: option.name,
+          _id: "" + groupOption.value
+        }));
       });
       return;
     }
 
     nextOptions.push(_objectSpread(_objectSpread({}, option), {}, {
+      _id: "" + option.value,
       index: index
     }));
   });

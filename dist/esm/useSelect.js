@@ -8,7 +8,7 @@ import { useEffect, useMemo, useState, useRef, useCallback } from 'react';
 import highlightReducer from './highlightReducer';
 import getDisplayValue from './lib/getDisplayValue';
 import flattenOptions from './lib/flattenOptions';
-import GroupOptions from './lib/groupOptions';
+import groupOptions from './lib/groupOptions';
 import getNewValue from './lib/getNewValue';
 import getOption from './lib/getOption';
 import doSearch from './search';
@@ -54,7 +54,7 @@ export default function useSelectSearch({
 
     return newOption;
   }, [value, flatDefaultOptions, addedOptions, allowEmpty, multiple]);
-  const options = useMemo(() => GroupOptions(flat), [flat]);
+  const options = useMemo(() => groupOptions(flat), [flat]);
   const displayValue = useMemo(() => getDisplayValue(option), [option]);
   const onBlur = useCallback(() => {
     setState(oldState => _objectSpread(_objectSpread({}, oldState), {}, {
@@ -77,19 +77,21 @@ export default function useSelectSearch({
 
   const onFocus = () => setFocus(true);
 
-  const onSelect = useCallback(val => {
-    setState(oldState => {
-      const defaultItem = oldState.flat[oldState.highlighted];
-      const oldStateValue = defaultItem && defaultItem.value;
-      const item = val || oldStateValue;
+  const onSelect = useCallback(id => {
+    setState(prevState => {
+      const {
+        flat: prevFlat,
+        highlighted: prevHighlighted
+      } = prevState;
+      const item = id ? prevFlat.find(i => i._id === id) : prevFlat[prevHighlighted];
 
       if (!item) {
-        return oldState;
+        return prevState;
       }
 
-      const values = getNewValue(item, oldState.value, multiple);
-      const newOptions = getOption(values, oldState.flat);
-      return _objectSpread(_objectSpread({}, oldState), {}, {
+      const values = getNewValue(item.value, prevState.value, multiple);
+      const newOptions = getOption(values, prevFlat);
+      return _objectSpread(_objectSpread({}, prevState), {}, {
         addedOptions: multiple ? newOptions : [newOptions],
         value: values,
         changed: [values, newOptions]

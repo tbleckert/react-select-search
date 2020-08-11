@@ -17,7 +17,7 @@ const Option = ({
 
     const domProps = {
         ...optionProps,
-        value: option.value,
+        value: option._id,
         disabled: option.disabled,
     };
 
@@ -36,7 +36,7 @@ Option.defaultProps = {
 
 Option.propTypes = {
     name: PropTypes.string.isRequired,
-    value: PropTypes.string,
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     disabled: PropTypes.bool,
     index: PropTypes.number,
     highlighted: PropTypes.bool.isRequired,

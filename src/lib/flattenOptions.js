@@ -10,18 +10,18 @@ export default function flattenOptions(options) {
             const id = `${option.name.replace(/\s+/g, '-').toLowerCase()}-${index}`;
 
             option.items.forEach((groupOption) => {
-                const nextGroupOption = { ...groupOption };
-
-                nextGroupOption.groupId = id;
-                nextGroupOption.groupName = option.name;
-
-                nextOptions.push(nextGroupOption);
+                nextOptions.push({
+                    ...groupOption,
+                    groupId: id,
+                    groupName: option.name,
+                    _id: `${groupOption.value}`,
+                });
             });
 
             return;
         }
 
-        nextOptions.push({ ...option, index });
+        nextOptions.push({ ...option, _id: `${option.value}`, index });
     });
 
     return nextOptions;

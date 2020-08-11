@@ -34,7 +34,7 @@ var Option = function Option(_ref) {
   }).join(' ');
 
   var domProps = _objectSpread(_objectSpread({}, optionProps), {}, {
-    value: option.value,
+    value: option._id,
     disabled: option.disabled
   });
 
@@ -57,7 +57,7 @@ Option.defaultProps = {
 };
 Option.propTypes = process.env.NODE_ENV !== "production" ? {
   name: _propTypes["default"].string.isRequired,
-  value: _propTypes["default"].string,
+  value: _propTypes["default"].oneOfType([_propTypes["default"].string, _propTypes["default"].number]),
   disabled: _propTypes["default"].bool,
   index: _propTypes["default"].number,
   highlighted: _propTypes["default"].bool.isRequired,

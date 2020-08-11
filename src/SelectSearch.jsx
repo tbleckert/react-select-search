@@ -214,7 +214,11 @@ SelectSearch.propTypes = {
     getOptions: PropTypes.func,
     value: PropTypes.oneOfType([
         PropTypes.string,
-        PropTypes.arrayOf(PropTypes.string),
+        PropTypes.number,
+        PropTypes.arrayOf(PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.number,
+        ])),
     ]),
     className: PropTypes.oneOfType([
         PropTypes.string,

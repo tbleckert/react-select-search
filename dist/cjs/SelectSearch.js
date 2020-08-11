@@ -220,7 +220,7 @@ SelectSearch.defaultProps = {
 SelectSearch.propTypes = process.env.NODE_ENV !== "production" ? {
   options: _propTypes["default"].arrayOf(_types.optionType).isRequired,
   getOptions: _propTypes["default"].func,
-  value: _propTypes["default"].oneOfType([_propTypes["default"].string, _propTypes["default"].arrayOf(_propTypes["default"].string)]),
+  value: _propTypes["default"].oneOfType([_propTypes["default"].string, _propTypes["default"].number, _propTypes["default"].arrayOf(_propTypes["default"].oneOfType([_propTypes["default"].string, _propTypes["default"].number]))]),
   className: _propTypes["default"].oneOfType([_propTypes["default"].string, _propTypes["default"].func]),
   multiple: _propTypes["default"].bool,
   search: _propTypes["default"].bool,

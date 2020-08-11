@@ -192,7 +192,7 @@ SelectSearch.defaultProps = {
 SelectSearch.propTypes = process.env.NODE_ENV !== "production" ? {
   options: PropTypes.arrayOf(optionType).isRequired,
   getOptions: PropTypes.func,
-  value: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number]))]),
   className: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   multiple: PropTypes.bool,
   search: PropTypes.bool,
