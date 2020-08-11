@@ -42,6 +42,7 @@ const SelectSearch = forwardRef(({
     onChange,
     getOptions,
     closeOnSelect,
+    closable: !multiple || printOptions === 'on-focus',
     allowEmpty: !!placeholder
   });
   const {

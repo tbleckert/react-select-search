@@ -23,6 +23,7 @@ export default function useSelectSearch({
     getOptions = null,
     allowEmpty = true,
     closeOnSelect = true,
+    closable = true,
 }) {
     const ref = useRef(null);
     const flatDefaultOptions = useMemo(() => flattenOptions(defaultOptions), [defaultOptions]);
@@ -125,7 +126,7 @@ export default function useSelectSearch({
         if (key === 'Enter') {
             onSelect();
 
-            if (!multiple && closeOnSelect) {
+            if (closable && closeOnSelect) {
                 onBlur();
             }
         }

@@ -59,6 +59,7 @@ var SelectSearch = (0, _react.forwardRef)(function (_ref, ref) {
     onChange: onChange,
     getOptions: getOptions,
     closeOnSelect: closeOnSelect,
+    closable: !multiple || printOptions === 'on-focus',
     allowEmpty: !!placeholder
   }),
       snapshot = _useSelect[0],

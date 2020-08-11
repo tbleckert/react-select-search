@@ -17,3 +17,27 @@ export const NumericValues = () => (
         ]}
     />
 );
+
+export const Form = () => (
+    <>
+        <div style={{ marginBottom: '16px' }}>
+            <SelectSearch
+                printOptions="on-focus"
+                multiple
+                placeholder="Select your items"
+                options={[
+                    { value: 'hamburger', name: 'Hamburger' },
+                    { value: 'fries', name: 'Fries' },
+                    { value: 'milkshake', name: 'Milkshake' },
+                ]}
+            />
+        </div>
+        <SelectSearch
+            options={[
+                { value: 's', name: 'Small' },
+                { value: 'm', name: 'Medium' },
+                { value: 'l', name: 'Large' },
+            ]}
+        />
+    </>
+);

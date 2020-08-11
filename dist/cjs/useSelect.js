@@ -46,7 +46,9 @@ function useSelectSearch(_ref) {
       _ref$allowEmpty = _ref.allowEmpty,
       allowEmpty = _ref$allowEmpty === void 0 ? true : _ref$allowEmpty,
       _ref$closeOnSelect = _ref.closeOnSelect,
-      closeOnSelect = _ref$closeOnSelect === void 0 ? true : _ref$closeOnSelect;
+      closeOnSelect = _ref$closeOnSelect === void 0 ? true : _ref$closeOnSelect,
+      _ref$closable = _ref.closable,
+      closable = _ref$closable === void 0 ? true : _ref$closable;
   var ref = (0, _react.useRef)(null);
   var flatDefaultOptions = (0, _react.useMemo)(function () {
     return (0, _flattenOptions["default"])(defaultOptions);
@@ -168,7 +170,7 @@ function useSelectSearch(_ref) {
     if (key === 'Enter') {
       onSelect();
 
-      if (!multiple && closeOnSelect) {
+      if (closable && closeOnSelect) {
         onBlur();
       }
     }
