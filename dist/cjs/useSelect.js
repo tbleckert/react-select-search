@@ -121,7 +121,8 @@ function useSelectSearch(_ref) {
   var onSelect = (0, _react.useCallback)(function (id) {
     setState(function (prevState) {
       var prevFlat = prevState.flat,
-          prevHighlighted = prevState.highlighted;
+          prevHighlighted = prevState.highlighted; // eslint-disable-next-line no-underscore-dangle
+
       var item = id ? prevFlat.find(function (i) {
         return i._id === id;
       }) : prevFlat[prevHighlighted];
@@ -140,12 +141,8 @@ function useSelectSearch(_ref) {
     });
   }, [multiple]);
   var onMouseDown = (0, _react.useCallback)(function (e) {
-    if (!closeOnSelect || multiple) {
+    if (!closeOnSelect) {
       e.preventDefault();
-
-      if (multiple) {
-        e.target.focus();
-      }
     }
 
     onSelect(e.currentTarget.value);

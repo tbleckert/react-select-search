@@ -84,3 +84,17 @@ export const OnFocus = () => (
         placeholder="Select your items"
     />
 );
+
+export const StayOnSelect = () => (
+    <SelectSearch
+        closeOnSelect={false}
+        printOptions="on-focus"
+        multiple
+        placeholder="Select your items"
+        options={[
+            { value: 'hamburger', name: 'Hamburger' },
+            { value: 'fries', name: 'Fries' },
+            { value: 'milkshake', name: 'Milkshake' },
+        ]}
+    />
+);

@@ -82,7 +82,8 @@ export default function useSelectSearch({
       const {
         flat: prevFlat,
         highlighted: prevHighlighted
-      } = prevState;
+      } = prevState; // eslint-disable-next-line no-underscore-dangle
+
       const item = id ? prevFlat.find(i => i._id === id) : prevFlat[prevHighlighted];
 
       if (!item) {
@@ -99,12 +100,8 @@ export default function useSelectSearch({
     });
   }, [multiple]);
   const onMouseDown = useCallback(e => {
-    if (!closeOnSelect || multiple) {
+    if (!closeOnSelect) {
       e.preventDefault();
-
-      if (multiple) {
-        e.target.focus();
-      }
     }
 
     onSelect(e.currentTarget.value);
