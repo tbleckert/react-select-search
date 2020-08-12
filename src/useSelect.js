@@ -12,7 +12,7 @@ import getNewValue from './lib/getNewValue';
 import getOption from './lib/getOption';
 import doSearch from './search';
 
-export default function useSelectSearch({
+export default function useSelect({
     value: defaultValue = null,
     disabled = false,
     multiple = false,

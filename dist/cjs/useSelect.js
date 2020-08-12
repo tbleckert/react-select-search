@@ -1,7 +1,7 @@
 "use strict";
 
 exports.__esModule = true;
-exports["default"] = useSelectSearch;
+exports["default"] = useSelect;
 
 var _react = require("react");
 
@@ -27,7 +27,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-function useSelectSearch(_ref) {
+function useSelect(_ref) {
   var _ref$value = _ref.value,
       defaultValue = _ref$value === void 0 ? null : _ref$value,
       _ref$disabled = _ref.disabled,
