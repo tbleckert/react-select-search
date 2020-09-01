@@ -12,7 +12,7 @@ import useSelect from './useSelect';
 import { optionType } from './types';
 import Option from './Components/Option';
 import isSelected from './lib/isSelected';
-const SelectSearch = forwardRef(({
+const SelectSearch = /*#__PURE__*/forwardRef(({
   value: defaultValue,
   disabled,
   placeholder,
@@ -31,7 +31,7 @@ const SelectSearch = forwardRef(({
   getOptions,
   fuse
 }, ref) => {
-  const selectRef = createRef();
+  const selectRef = /*#__PURE__*/createRef();
   const [snapshot, valueProps, optionProps] = useSelect({
     options: defaultOptions,
     value: defaultValue,
@@ -179,7 +179,9 @@ SelectSearch.defaultProps = {
   // eslint-disable-next-line react/button-has-type
   React.createElement("button", _extends({
     className: className
-  }, domProps), option.name),
+  }, domProps, {
+    value: option.value
+  }), option.name),
   renderGroupHeader: name => name,
   renderValue: (valueProps, snapshot, className) => /*#__PURE__*/React.createElement("input", _extends({}, valueProps, {
     className: className
@@ -212,4 +214,4 @@ SelectSearch.propTypes = process.env.NODE_ENV !== "production" ? {
     threshold: PropTypes.number
   })])
 } : {};
-export default memo(SelectSearch);
+export default /*#__PURE__*/memo(SelectSearch);
