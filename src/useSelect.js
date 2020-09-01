@@ -80,8 +80,7 @@ export default function useSelect({
         setState((prevState) => {
             const { flat: prevFlat, highlighted: prevHighlighted } = prevState;
             // eslint-disable-next-line no-underscore-dangle
-            const item = (id) ? prevFlat.find((i) => i._id === id) : prevFlat[prevHighlighted];
-
+            const item = (id) ? prevFlat.find((i) => i.value === id) : prevFlat[prevHighlighted];
             if (!item) {
                 return prevState;
             }
@@ -104,7 +103,7 @@ export default function useSelect({
         if (!closeOnSelect) {
             e.preventDefault();
         }
-    }, [onSelect, closeOnSelect, multiple]);
+    }, [onSelect, closeOnSelect]);
 
     const onKeyDown = useCallback((e) => {
         const { key } = e;
