@@ -85,7 +85,7 @@ export default function useSelect({
         highlighted: prevHighlighted
       } = prevState; // eslint-disable-next-line no-underscore-dangle
 
-      const item = id ? prevFlat.find(i => i._id === id) : prevFlat[prevHighlighted];
+      const item = typeof id !== 'undefined' ? prevFlat.find(i => i._id === id) : prevFlat[prevHighlighted];
 
       if (!item) {
         return prevState;

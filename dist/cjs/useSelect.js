@@ -125,7 +125,7 @@ function useSelect(_ref) {
       var prevFlat = prevState.flat,
           prevHighlighted = prevState.highlighted; // eslint-disable-next-line no-underscore-dangle
 
-      var item = id ? prevFlat.find(function (i) {
+      var item = typeof id !== 'undefined' ? prevFlat.find(function (i) {
         return i._id === id;
       }) : prevFlat[prevHighlighted];
 
