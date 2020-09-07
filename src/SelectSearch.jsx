@@ -83,18 +83,11 @@ const SelectSearch = forwardRef(({
     useEffect(() => {
         const { current } = selectRef;
 
-        if (!current) {
+        if (!current || multiple || (highlighted < 0 && !value)) {
             return;
         }
 
-        let query = null;
-
-        if (highlighted > -1) {
-            query = `[data-index="${highlighted}"]`;
-        } else if (value && !multiple) {
-            query = `[data-value="${escape(value.value)}"]`;
-        }
-
+        const query = (highlighted > -1) ? `[data-index="${highlighted}"]` : `[data-value="${escape(value.value)}"]`;
         const selected = current.querySelector(query);
 
         if (selected) {
