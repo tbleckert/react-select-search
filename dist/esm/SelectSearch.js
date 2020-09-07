@@ -6,7 +6,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-import React, { forwardRef, memo, createRef, useEffect, useCallback } from 'react';
+import React, { forwardRef, memo, useRef, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import useSelect from './useSelect';
 import { optionType } from './types';
@@ -31,7 +31,7 @@ const SelectSearch = forwardRef(({
   getOptions,
   fuse
 }, ref) => {
-  const selectRef = createRef();
+  const selectRef = useRef(null);
   const [snapshot, valueProps, optionProps] = useSelect({
     options: defaultOptions,
     value: defaultValue,
@@ -76,18 +76,11 @@ const SelectSearch = forwardRef(({
       current
     } = selectRef;
 
-    if (!current) {
+    if (!current || multiple || highlighted < 0 && !value) {
       return;
     }
 
-    let query = null;
-
-    if (highlighted > -1) {
-      query = "[data-index=\"" + highlighted + "\"]";
-    } else if (value && !multiple) {
-      query = "[data-value=\"" + escape(value.value) + "\"]";
-    }
-
+    const query = highlighted > -1 ? "[data-index=\"" + highlighted + "\"]" : "[data-value=\"" + escape(value.value) + "\"]";
     const selected = current.querySelector(query);
 
     if (selected) {

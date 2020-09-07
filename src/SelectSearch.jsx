@@ -1,7 +1,7 @@
 import React, {
     forwardRef,
     memo,
-    createRef,
+    useRef,
     useEffect,
     useCallback,
 } from 'react';
@@ -30,7 +30,7 @@ const SelectSearch = forwardRef(({
     getOptions,
     fuse,
 }, ref) => {
-    const selectRef = createRef();
+    const selectRef = useRef(null);
     const [snapshot, valueProps, optionProps] = useSelect({
         options: defaultOptions,
         value: defaultValue,
