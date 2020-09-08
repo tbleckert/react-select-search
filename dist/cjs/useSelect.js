@@ -143,11 +143,11 @@ function useSelect(_ref) {
     });
   }, [multiple]);
   var onMouseDown = (0, _react.useCallback)(function (e) {
-    onSelect(e.currentTarget.value);
-
     if (!closeOnSelect) {
       e.preventDefault();
     }
+
+    onSelect(e.currentTarget.value);
   }, [onSelect, closeOnSelect]);
   var onKeyDown = (0, _react.useCallback)(function (e) {
     var key = e.key;
