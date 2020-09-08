@@ -47,7 +47,7 @@ var SelectSearch = /*#__PURE__*/(0, _react.forwardRef)(function (_ref, ref) {
       renderGroupHeader = _ref.renderGroupHeader,
       getOptions = _ref.getOptions,
       fuse = _ref.fuse;
-  var selectRef = /*#__PURE__*/(0, _react.createRef)();
+  var selectRef = (0, _react.useRef)(null);
 
   var _useSelect = (0, _useSelect2["default"])({
     options: defaultOptions,
@@ -95,18 +95,11 @@ var SelectSearch = /*#__PURE__*/(0, _react.forwardRef)(function (_ref, ref) {
   (0, _react.useEffect)(function () {
     var current = selectRef.current;
 
-    if (!current) {
+    if (!current || multiple || highlighted < 0 && !value) {
       return;
     }
 
-    var query = null;
-
-    if (highlighted > -1) {
-      query = "[data-index=\"" + highlighted + "\"]";
-    } else if (value && !multiple) {
-      query = "[data-value=\"" + escape(value.value) + "\"]";
-    }
-
+    var query = highlighted > -1 ? "[data-index=\"" + highlighted + "\"]" : "[data-value=\"" + escape(value.value) + "\"]";
     var selected = current.querySelector(query);
 
     if (selected) {
