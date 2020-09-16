@@ -20,6 +20,7 @@ const SelectSearch = forwardRef(({
     autoFocus,
     autoComplete,
     options: defaultOptions,
+    id,
     onChange,
     printOptions,
     closeOnSelect,
@@ -116,7 +117,7 @@ const SelectSearch = forwardRef(({
     }
 
     return (
-        <div ref={ref} className={wrapperClass}>
+        <div ref={ref} className={wrapperClass} id={id}>
             {((!multiple || placeholder) || search) && (
                 <div className={cls('value')}>
                     {renderValue(
@@ -177,6 +178,7 @@ SelectSearch.defaultProps = {
     search: false,
     multiple: false,
     placeholder: null,
+    id: null,
     autoFocus: false,
     autoComplete: 'on',
     value: '',
@@ -222,6 +224,7 @@ SelectSearch.propTypes = {
     search: PropTypes.bool,
     disabled: PropTypes.bool,
     placeholder: PropTypes.string,
+    id: PropTypes.string,
     autoComplete: PropTypes.string,
     autoFocus: PropTypes.bool,
     onChange: PropTypes.func,
