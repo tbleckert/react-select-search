@@ -206,3 +206,11 @@ function getOptions(query) {
 The function runs on each search query update, so you might want to throttle the fetches.
 If you return a promise, the class `is-searching` will be applied to the main element, giving you a chance
 to change the appearance, like adding a spinner. The property `searching` is also available in the snapshot that is sent to your render callbacks.
+
+## IE11 support
+
+The main build is an ES module and targets modern browsers. In particular, it specifically excludes IE11 in the build process. If you need to support IE11, you should require the CommonJS build instead like so
+
+```js
+import SelectSearch from 'react-select-search/dist/cjs/index.js';
+```
