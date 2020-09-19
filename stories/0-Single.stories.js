@@ -9,6 +9,7 @@ export default {
 
 export const Default = () => (
     <SelectSearch
+        id="test-id"
         options={[
           { value: 's', name: 'Small' },
           { value: 'm', name: 'Medium' },

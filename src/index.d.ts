@@ -79,6 +79,7 @@ export type SelectSearchProps = {
     search?:boolean
     disabled?:boolean
     placeholder?:string
+    id?:string
     autoComplete?:'on'|'off'
     autoFocus?:boolean
     fuse?:FuseOption|boolean
