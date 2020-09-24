@@ -34,7 +34,7 @@ var Option = function Option(_ref) {
   }).join(' ');
 
   var domProps = _objectSpread(_objectSpread({}, optionProps), {}, {
-    value: option._id,
+    value: option.value,
     disabled: option.disabled
   });
 

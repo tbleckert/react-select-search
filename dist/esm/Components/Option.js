@@ -24,7 +24,7 @@ const Option = (_ref) => {
   const optionClass = [cls('option'), selected ? cls('is-selected') : false, highlighted ? cls('is-highlighted') : false].filter(single => !!single).join(' ');
 
   const domProps = _objectSpread(_objectSpread({}, optionProps), {}, {
-    value: option._id,
+    value: option.value,
     disabled: option.disabled
   });
 

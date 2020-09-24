@@ -79,8 +79,8 @@ export default function useSelect({
     const onSelect = useCallback((id) => {
         setState((prevState) => {
             const { flat: prevFlat, highlighted: prevHighlighted } = prevState;
-            // eslint-disable-next-line no-underscore-dangle
-            const item = (id) ? prevFlat.find((i) => i.value === id) : prevFlat[prevHighlighted];
+            // eslint-disable-next-line no-underscore-dangle,eqeqeq
+            const item = (id) ? prevFlat.find((i) => i.value == id) : prevFlat[prevHighlighted];
             if (!item) {
                 return prevState;
             }
@@ -128,7 +128,7 @@ export default function useSelect({
                 onBlur();
             }
         }
-    }, [onSelect, multiple, closeOnSelect, onBlur]);
+    }, [onSelect, closeOnSelect, onBlur, closable]);
 
     const onKeyUp = useCallback(({ key }) => {
         if (key === 'Escape') {

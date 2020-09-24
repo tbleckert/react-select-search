@@ -38,6 +38,7 @@ var SelectSearch = /*#__PURE__*/(0, _react.forwardRef)(function (_ref, ref) {
       autoFocus = _ref.autoFocus,
       autoComplete = _ref.autoComplete,
       defaultOptions = _ref.options,
+      id = _ref.id,
       onChange = _ref.onChange,
       printOptions = _ref.printOptions,
       closeOnSelect = _ref.closeOnSelect,
@@ -130,7 +131,8 @@ var SelectSearch = /*#__PURE__*/(0, _react.forwardRef)(function (_ref, ref) {
 
   return /*#__PURE__*/_react["default"].createElement("div", {
     ref: ref,
-    className: wrapperClass
+    className: wrapperClass,
+    id: id
   }, (!multiple || placeholder || search) && /*#__PURE__*/_react["default"].createElement("div", {
     className: cls('value')
   }, renderValue(_objectSpread(_objectSpread({}, valueProps), {}, {
@@ -182,6 +184,7 @@ SelectSearch.defaultProps = {
   search: false,
   multiple: false,
   placeholder: null,
+  id: null,
   autoFocus: false,
   autoComplete: 'on',
   value: '',
@@ -194,9 +197,7 @@ SelectSearch.defaultProps = {
       // eslint-disable-next-line react/button-has-type
       _react["default"].createElement("button", _extends({
         className: className
-      }, domProps, {
-        value: option.value
-      }), option.name)
+      }, domProps), option.name)
     );
   },
   renderGroupHeader: function renderGroupHeader(name) {
@@ -222,6 +223,7 @@ SelectSearch.propTypes = process.env.NODE_ENV !== "production" ? {
   search: _propTypes["default"].bool,
   disabled: _propTypes["default"].bool,
   placeholder: _propTypes["default"].string,
+  id: _propTypes["default"].string,
   autoComplete: _propTypes["default"].string,
   autoFocus: _propTypes["default"].bool,
   onChange: _propTypes["default"].func,

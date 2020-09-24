@@ -187,7 +187,7 @@ SelectSearch.defaultProps = {
     closeOnSelect: true,
     renderOption: (domProps, option, snapshot, className) => (
         // eslint-disable-next-line react/button-has-type
-        <button className={className} {...domProps} value={option.value}>
+        <button className={className} {...domProps}>
             {option.name}
         </button>
     ),

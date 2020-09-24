@@ -21,6 +21,7 @@ const SelectSearch = /*#__PURE__*/forwardRef(({
   autoFocus,
   autoComplete,
   options: defaultOptions,
+  id,
   onChange,
   printOptions,
   closeOnSelect,
@@ -111,7 +112,8 @@ const SelectSearch = /*#__PURE__*/forwardRef(({
 
   return /*#__PURE__*/React.createElement("div", {
     ref: ref,
-    className: wrapperClass
+    className: wrapperClass,
+    id: id
   }, (!multiple || placeholder || search) && /*#__PURE__*/React.createElement("div", {
     className: cls('value')
   }, renderValue(_objectSpread(_objectSpread({}, valueProps), {}, {
@@ -161,6 +163,7 @@ SelectSearch.defaultProps = {
   search: false,
   multiple: false,
   placeholder: null,
+  id: null,
   autoFocus: false,
   autoComplete: 'on',
   value: '',
@@ -172,9 +175,7 @@ SelectSearch.defaultProps = {
   // eslint-disable-next-line react/button-has-type
   React.createElement("button", _extends({
     className: className
-  }, domProps, {
-    value: option.value
-  }), option.name),
+  }, domProps), option.name),
   renderGroupHeader: name => name,
   renderValue: (valueProps, snapshot, className) => /*#__PURE__*/React.createElement("input", _extends({}, valueProps, {
     className: className
@@ -194,6 +195,7 @@ SelectSearch.propTypes = process.env.NODE_ENV !== "production" ? {
   search: PropTypes.bool,
   disabled: PropTypes.bool,
   placeholder: PropTypes.string,
+  id: PropTypes.string,
   autoComplete: PropTypes.string,
   autoFocus: PropTypes.bool,
   onChange: PropTypes.func,
