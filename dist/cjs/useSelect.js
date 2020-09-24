@@ -126,7 +126,7 @@ function useSelect(_ref) {
           prevHighlighted = prevState.highlighted; // eslint-disable-next-line no-underscore-dangle
 
       var item = id ? prevFlat.find(function (i) {
-        return i._id === id;
+        return i.value === id;
       }) : prevFlat[prevHighlighted];
 
       if (!item) {
@@ -148,7 +148,7 @@ function useSelect(_ref) {
     }
 
     onSelect(e.currentTarget.value);
-  }, [onSelect, closeOnSelect, multiple]);
+  }, [onSelect, closeOnSelect]);
   var onKeyDown = (0, _react.useCallback)(function (e) {
     var key = e.key;
 

@@ -70,6 +70,6 @@ Option.propTypes = process.env.NODE_ENV !== "production" ? {
   renderOption: _propTypes["default"].func.isRequired
 } : {};
 
-var _default = (0, _react.memo)(Option);
+var _default = /*#__PURE__*/(0, _react.memo)(Option);
 
 exports["default"] = _default;

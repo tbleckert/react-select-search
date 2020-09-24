@@ -29,7 +29,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var SelectSearch = (0, _react.forwardRef)(function (_ref, ref) {
+var SelectSearch = /*#__PURE__*/(0, _react.forwardRef)(function (_ref, ref) {
   var defaultValue = _ref.value,
       disabled = _ref.disabled,
       placeholder = _ref.placeholder,
@@ -194,7 +194,9 @@ SelectSearch.defaultProps = {
       // eslint-disable-next-line react/button-has-type
       _react["default"].createElement("button", _extends({
         className: className
-      }, domProps), option.name)
+      }, domProps, {
+        value: option.value
+      }), option.name)
     );
   },
   renderGroupHeader: function renderGroupHeader(name) {
@@ -234,6 +236,6 @@ SelectSearch.propTypes = process.env.NODE_ENV !== "production" ? {
   })])
 } : {};
 
-var _default = (0, _react.memo)(SelectSearch);
+var _default = /*#__PURE__*/(0, _react.memo)(SelectSearch);
 
 exports["default"] = _default;
