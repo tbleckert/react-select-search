@@ -10,4 +10,17 @@ describe('Unit test for getOption function', () => {
         expect(getOption('foo', friends)).toEqual(null);
         expect(getOption('', friends)).toEqual(null);
     });
+
+    test('Can find option by array value', () => {
+        const optionToFind = [
+            friends[0],
+            friends[1],
+        ];
+
+        console.log(getOption(optionToFind.map((o) => o.value), friends));
+
+        expect(getOption(optionToFind.map((o) => o.value), friends)).toStrictEqual(optionToFind);
+        expect(getOption('foo', friends)).toEqual(null);
+        expect(getOption('', friends)).toEqual(null);
+    });
 });
