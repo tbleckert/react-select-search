@@ -12,7 +12,7 @@ import useSelect from './useSelect';
 import { optionType } from './types';
 import Option from './Components/Option';
 import isSelected from './lib/isSelected';
-const SelectSearch = forwardRef(({
+const SelectSearch = /*#__PURE__*/forwardRef(({
   value: defaultValue,
   disabled,
   placeholder,
@@ -21,6 +21,7 @@ const SelectSearch = forwardRef(({
   autoFocus,
   autoComplete,
   options: defaultOptions,
+  id,
   onChange,
   printOptions,
   closeOnSelect,
@@ -111,7 +112,8 @@ const SelectSearch = forwardRef(({
 
   return /*#__PURE__*/React.createElement("div", {
     ref: ref,
-    className: wrapperClass
+    className: wrapperClass,
+    id: id
   }, (!multiple || placeholder || search) && /*#__PURE__*/React.createElement("div", {
     className: cls('value')
   }, renderValue(_objectSpread(_objectSpread({}, valueProps), {}, {
@@ -161,6 +163,7 @@ SelectSearch.defaultProps = {
   search: false,
   multiple: false,
   placeholder: null,
+  id: null,
   autoFocus: false,
   autoComplete: 'on',
   value: '',
@@ -192,6 +195,7 @@ SelectSearch.propTypes = process.env.NODE_ENV !== "production" ? {
   search: PropTypes.bool,
   disabled: PropTypes.bool,
   placeholder: PropTypes.string,
+  id: PropTypes.string,
   autoComplete: PropTypes.string,
   autoFocus: PropTypes.bool,
   onChange: PropTypes.func,
@@ -205,4 +209,4 @@ SelectSearch.propTypes = process.env.NODE_ENV !== "production" ? {
     threshold: PropTypes.number
   })])
 } : {};
-export default memo(SelectSearch);
+export default /*#__PURE__*/memo(SelectSearch);

@@ -17,7 +17,7 @@ const Option = ({
 
     const domProps = {
         ...optionProps,
-        value: option._id,
+        value: option.value,
         disabled: option.disabled,
     };
 
