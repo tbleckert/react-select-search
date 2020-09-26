@@ -2,225 +2,155 @@ import {
     useEffect,
     useMemo,
     useState,
-    useRef, useCallback,
+    useReducer,
+    useRef,
 } from 'react';
-import highlightReducer from './highlightReducer';
-import getDisplayValue from './lib/getDisplayValue';
 import flattenOptions from './lib/flattenOptions';
 import groupOptions from './lib/groupOptions';
-import getNewValue from './lib/getNewValue';
+import highlightReducer from './highlightReducer';
 import getOption from './lib/getOption';
-import doSearch from './search';
+import getNewValue from './lib/getNewValue';
+import getDisplayValue from './lib/getDisplayValue';
+import debounce from './lib/debounce';
 
 export default function useSelect({
     value: defaultValue = null,
-    disabled = false,
-    multiple = false,
+    options: defaultOptions = [],
     search: canSearch = false,
-    fuse = false,
-    options: defaultOptions,
-    onChange = () => {},
-    getOptions = null,
+    multiple = false,
+    disabled = false,
     allowEmpty = true,
     closeOnSelect = true,
-    closable = true,
+    getOptions = null,
+    onChange = () => {},
+    debounce: debounceTime = 0,
 }) {
     const ref = useRef(null);
-    const flatDefaultOptions = useMemo(() => flattenOptions(defaultOptions), [defaultOptions]);
-    const [state, setState] = useState({
-        flat: [],
-        addedOptions: [],
-        value: defaultValue,
-        search: '',
-        focus: false,
-        searching: false,
-        highlighted: -1,
-        changed: false,
-    });
+    const flattenedOptions = useMemo(() => flattenOptions(defaultOptions), [defaultOptions]);
+    const [value, setValue] = useState(defaultValue);
+    const [search, setSearch] = useState('');
+    const [fetching, setFetching] = useState(false);
+    const [focus, setFocus] = useState(false);
+    const [highlighted, dispatchHighlighted] = useReducer(highlightReducer, -1);
+    const [options, setOptions] = useState(flattenedOptions);
+    const [option, setOption] = useState(() => getOption(value, options));
+    const groupedOptions = useMemo(() => groupOptions(options), [options]);
+    const fetchOptions = useMemo(() => (
+        debounce((q) => {
+            const optionsReq = getOptions(q, flattenedOptions, value);
 
-    const {
-        flat,
-        addedOptions,
+            setFetching(true);
+
+            Promise.resolve(optionsReq)
+                .then((newOptions) => setOptions(flattenOptions(newOptions)))
+                .finally(() => setFetching(false));
+        }, debounceTime)
+    ), [flattenedOptions, value, getOptions, debounceTime]);
+    const snapshot = {
+        options: groupedOptions,
+        option,
+        displayValue: getDisplayValue((
+            (!option && !allowEmpty && options.length) ? options[0] : option
+        )),
         value,
         search,
+        fetching,
         focus,
-        searching,
         highlighted,
-    } = state;
+        disabled,
+    };
 
-    const option = useMemo(() => {
-        let newOption = getOption(value, [...flatDefaultOptions, ...addedOptions]);
-
-        if (!newOption && !allowEmpty && !multiple) {
-            ([newOption] = flatDefaultOptions);
-        }
-
-        return newOption;
-    }, [value, flatDefaultOptions, addedOptions, allowEmpty, multiple]);
-    const options = useMemo(() => groupOptions(flat), [flat]);
-    const displayValue = useMemo(() => getDisplayValue(option), [option]);
-    const onBlur = useCallback(() => {
-        setState((oldState) => ({
-            ...oldState,
-            focus: false,
-            search: '',
-            flat: flatDefaultOptions,
-            highlighted: -1,
-        }));
+    const onFocus = () => setFocus(true);
+    const onBlur = () => {
+        setFocus(false);
+        setOptions(flattenedOptions);
+        setSearch('');
 
         if (ref.current) {
             ref.current.blur();
         }
-    }, [flatDefaultOptions, ref]);
+    };
 
-    const setFocus = (newFocus) => setState((oldState) => ({ ...oldState, focus: newFocus }));
-    const onClick = () => setFocus(!focus);
-    const onFocus = () => setFocus(true);
-    const onSelect = useCallback((id) => {
-        setState((prevState) => {
-            const { flat: prevFlat, highlighted: prevHighlighted } = prevState;
-            // eslint-disable-next-line no-underscore-dangle,eqeqeq
-            const item = (id) ? prevFlat.find((i) => i.value == id) : prevFlat[prevHighlighted];
-            if (!item) {
-                return prevState;
-            }
+    const onSelect = (id) => {
+        // eslint-disable-next-line no-underscore-dangle,eqeqeq
+        const item = (id) ? options.find((i) => i.value == id) : options[highlighted];
 
-            const values = getNewValue(item.value, prevState.value, multiple);
-            const newOptions = getOption(values, prevFlat);
+        if (!item) {
+            return;
+        }
 
-            return {
-                ...prevState,
-                addedOptions: (multiple) ? newOptions : [newOptions],
-                value: values,
-                changed: [values, newOptions],
-            };
-        });
-    }, [multiple]);
+        const newValues = getNewValue(item.value, value, multiple);
+        const newOption = getOption(newValues, options);
 
-    const onMouseDown = useCallback((e) => {
+        setValue(newValues);
+        setOption(newOption);
+
+        onChange(newValues, newOption);
+    };
+
+    const onMouseDown = (e) => {
         if (!closeOnSelect) {
             e.preventDefault();
         }
-        onSelect(e.currentTarget.value);
-    }, [onSelect, closeOnSelect]);
 
-    const onKeyDown = useCallback((e) => {
+        onSelect(e.currentTarget.value);
+    };
+
+    const onKeyDown = (e) => {
         const { key } = e;
 
         if (key === 'ArrowDown' || key === 'ArrowUp') {
             e.preventDefault();
-
-            setState((oldState) => ({
-                ...oldState,
-                highlighted: highlightReducer(oldState.highlighted, {
-                    key,
-                    options: oldState.flat,
-                }),
-            }));
+            dispatchHighlighted({ key, options });
         }
-    }, []);
+    };
 
-    const onKeyPress = useCallback(({ key }) => {
-        if (key === 'Enter') {
+    const onKeyPress = (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
             onSelect();
 
-            if (closable && closeOnSelect) {
+            if (closeOnSelect) {
                 onBlur();
             }
         }
-    }, [onSelect, closeOnSelect, onBlur, closable]);
+    };
 
-    const onKeyUp = useCallback(({ key }) => {
+    const onKeyUp = ({ key }) => {
         if (key === 'Escape') {
             onBlur();
         }
-    }, [onBlur]);
-
-    const onSearch = ({ target }) => {
-        const { value: inputVal } = target;
-        const newState = { search: inputVal };
-
-        let searchableOption = flatDefaultOptions;
-
-        if (getOptions && inputVal.length) {
-            newState.searching = true;
-
-            searchableOption = getOptions(inputVal);
-        }
-
-        setState((oldState) => ({ ...oldState, ...newState }));
-
-        Promise.resolve(searchableOption)
-            .then((foundOptions) => {
-                let newOptions = foundOptions;
-
-                if (inputVal.length) {
-                    newOptions = doSearch(inputVal, foundOptions, fuse);
-                }
-
-                setState((oldState) => ({
-                    ...oldState,
-                    flat: (newOptions === false) ? foundOptions : newOptions,
-                    searching: false,
-                }));
-            })
-            .catch(() => setState((oldState) => ({
-                ...oldState,
-                flat: flatDefaultOptions,
-                searching: false,
-            })));
     };
+
+    const onSearch = ({ target }) => setSearch(target.value);
 
     const valueProps = {
         tabIndex: '0',
         readOnly: !canSearch,
-        onChange: (canSearch) ? onSearch : null,
-        disabled,
-        onMouseDown: onClick,
-        onBlur,
         onFocus,
+        onBlur,
         onKeyPress,
         onKeyDown,
         onKeyUp,
+        onChange: (canSearch) ? onSearch : null,
+        disabled,
         ref,
     };
 
-    const optionProps = useMemo(() => ({
+    const optionProps = {
         tabIndex: '-1',
         onMouseDown,
         onKeyDown,
         onKeyPress,
         onBlur,
-    }), [onMouseDown, onKeyDown, onKeyPress, onBlur]);
+    };
+
+    useEffect(() => setValue(defaultValue), [defaultValue]);
+    useEffect(() => setOptions(flattenedOptions), [flattenedOptions]);
 
     useEffect(() => {
-        setState((oldState) => ({ ...oldState, value: defaultValue }));
-    }, [defaultValue]);
+        fetchOptions(search);
+    }, [search, fetchOptions]);
 
-    useEffect(() => {
-        setState((oldState) => ({ ...oldState, flat: flatDefaultOptions }));
-    }, [flatDefaultOptions]);
-
-    useEffect(() => {
-        if (state.changed !== false) {
-            setState((oldState) => ({ ...oldState, changed: false }));
-            onChange(...state.changed);
-        }
-    }, [state.changed, onChange]);
-
-    return [
-        {
-            value: option,
-            highlighted,
-            options,
-            disabled,
-            displayValue,
-            focus,
-            search,
-            searching,
-        },
-        valueProps,
-        optionProps,
-        (newValue) => setState((oldState) => ({ ...oldState, value: newValue })),
-    ];
+    return [snapshot, valueProps, optionProps, setValue];
 }

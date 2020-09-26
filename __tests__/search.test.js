@@ -1,4 +1,4 @@
-import search from '../src/search';
+import fuzzySearch from '../src/fuzzySearch';
 import flattenOptions from '../src/lib/flattenOptions';
 import { countries } from './data';
 
@@ -10,7 +10,7 @@ const fuseOptions = {
 
 describe('Unit test for search function', () => {
     test('Can search', () => {
-        const newOptions = search('sweden', options, fuseOptions);
+        const newOptions = fuzzySearch('sweden', options, fuseOptions);
 
         expect(typeof newOptions).toEqual('object');
         expect(newOptions.length).toEqual(1);
@@ -18,7 +18,7 @@ describe('Unit test for search function', () => {
     });
 
     test('Return false if unmet conditions', () => {
-        const newOptions = search('sweden', null, null);
+        const newOptions = fuzzySearch('sweden', null, null);
 
         expect(newOptions).toEqual(false);
     });

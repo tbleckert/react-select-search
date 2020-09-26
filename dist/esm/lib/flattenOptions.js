@@ -16,8 +16,7 @@ export default function flattenOptions(options) {
       option.items.forEach(groupOption => {
         nextOptions.push(_objectSpread(_objectSpread({}, groupOption), {}, {
           groupId: id,
-          groupName: option.name,
-          _id: "" + groupOption.value
+          groupName: option.name
         }));
       });
       return;

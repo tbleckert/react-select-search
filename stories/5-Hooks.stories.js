@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import classes from './assets/hooks.module.css';
-import useSelectNew from '../src/useSelectNew';
+import useSelectNew from '../src/useSelect';
 
 export default {
   title: 'Hooks',
@@ -34,7 +34,7 @@ const CustomSelect = ({ options, value }) => {
 
     return (
         <>
-            <div {...valueProps} className={classes.button}>{`Size: ${snapshot.option.name}`}</div>
+            <div {...valueProps} className={classes.button}>{`Size: ${snapshot.displayValue}`}</div>
             <CSSTransition in={snapshot.focus} timeout={200} mountOnEnter unmountOnExit classNames={classNames}>
                 <div className={classes.select}>
                     <div className={classes.options}>
@@ -43,7 +43,7 @@ const CustomSelect = ({ options, value }) => {
                                 key={option.value}
                                 {...optionProps}
                                 value={option.value}
-                                className={[classes.option, (snapshot.option.value === option.value) ? classes['is-selected'] : null].filter(Boolean).join(' ')}
+                                className={[classes.option, (snapshot.value === option.value) ? classes['is-selected'] : null].filter(Boolean).join(' ')}
                             >
                                 {option.name}
                             </button>

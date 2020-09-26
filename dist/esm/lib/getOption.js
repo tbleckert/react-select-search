@@ -1,7 +1,7 @@
-export default function getOption(value, defaultOptions) {
+export default function getOption(value, options) {
   if (Array.isArray(value)) {
-    return value.map(singleValue => defaultOptions.find(option => option.value === singleValue));
+    return value.map(singleValue => options.find(option => option.value === singleValue));
   }
 
-  return defaultOptions.find(option => option.value === value) || null;
+  return options.find(option => option.value === value) || null;
 }

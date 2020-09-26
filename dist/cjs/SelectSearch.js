@@ -15,6 +15,8 @@ var _Option = _interopRequireDefault(require("./Components/Option"));
 
 var _isSelected = _interopRequireDefault(require("./lib/isSelected"));
 
+var _fuzzySearch = _interopRequireDefault(require("./fuzzySearch"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
@@ -47,21 +49,33 @@ var SelectSearch = /*#__PURE__*/(0, _react.forwardRef)(function (_ref, ref) {
       renderOption = _ref.renderOption,
       renderGroupHeader = _ref.renderGroupHeader,
       getOptions = _ref.getOptions,
+      debounce = _ref.debounce,
       fuse = _ref.fuse;
   var selectRef = (0, _react.useRef)(null);
+  var fetchOptions = (0, _react.useCallback)(function (q, options, value) {
+    if (getOptions) {
+      return getOptions(q, options, value);
+    }
+
+    if (q.length && fuse) {
+      return (0, _fuzzySearch["default"])(q, options, fuse);
+    }
+
+    return options;
+  }, [getOptions, fuse]);
 
   var _useSelect = (0, _useSelect2["default"])({
     options: defaultOptions,
     value: defaultValue,
     multiple: multiple,
     disabled: disabled,
-    fuse: fuse,
     search: search,
     onChange: onChange,
-    getOptions: getOptions,
     closeOnSelect: closeOnSelect,
     closable: !multiple || printOptions === 'on-focus',
-    allowEmpty: !!placeholder
+    allowEmpty: !!placeholder,
+    getOptions: fetchOptions,
+    debounce: debounce
   }),
       snapshot = _useSelect[0],
       valueProps = _useSelect[1],
@@ -70,6 +84,7 @@ var SelectSearch = /*#__PURE__*/(0, _react.forwardRef)(function (_ref, ref) {
   var focus = snapshot.focus,
       highlighted = snapshot.highlighted,
       value = snapshot.value,
+      selectedOption = snapshot.option,
       options = snapshot.options,
       searching = snapshot.searching,
       displayValue = snapshot.displayValue,
@@ -156,7 +171,7 @@ var SelectSearch = /*#__PURE__*/(0, _react.forwardRef)(function (_ref, ref) {
     var rendered = items.map(function (o) {
       return /*#__PURE__*/_react["default"].createElement(_Option["default"], _extends({
         key: o.value,
-        selected: (0, _isSelected["default"])(o, value),
+        selected: (0, _isSelected["default"])(o, selectedOption),
         highlighted: highlighted === o.index
       }, base, o));
     });
@@ -208,6 +223,7 @@ SelectSearch.defaultProps = {
       className: className
     }));
   },
+  debounce: 0,
   fuse: {
     keys: ['name', 'groupName'],
     threshold: 0.3
@@ -232,6 +248,7 @@ SelectSearch.propTypes = process.env.NODE_ENV !== "production" ? {
   renderOption: _propTypes["default"].func,
   renderGroupHeader: _propTypes["default"].func,
   renderValue: _propTypes["default"].func,
+  debounce: _propTypes["default"].number,
   fuse: _propTypes["default"].oneOfType([_propTypes["default"].bool, _propTypes["default"].shape({
     keys: _propTypes["default"].arrayOf(_propTypes["default"].string),
     threshold: _propTypes["default"].number

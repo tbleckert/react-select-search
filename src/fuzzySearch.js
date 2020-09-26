@@ -11,16 +11,12 @@ try {
     }
 }
 
-function fuzzySearch(value, options, fuseOptions) {
-    const fuse = new Fuse(options, fuseOptions);
-
-    return fuse.search(value).map((item, index) => ({ ...item, index }));
-}
-
-export default function search(value, options, fuseOptions) {
-    if (value.length && Fuse && fuseOptions) {
-        return fuzzySearch(value, options, fuseOptions);
+export default function fuzzySearch(value, options, fuseOptions) {
+    if (!Fuse) {
+        return options;
     }
 
-    return false;
+    const fuse = new Fuse(options, fuseOptions);
+
+    return fuse.search(value);
 }

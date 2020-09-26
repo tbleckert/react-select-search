@@ -12,6 +12,7 @@ import useSelect from './useSelect';
 import { optionType } from './types';
 import Option from './Components/Option';
 import isSelected from './lib/isSelected';
+import fuzzySearch from './fuzzySearch';
 const SelectSearch = /*#__PURE__*/forwardRef(({
   value: defaultValue,
   disabled,
@@ -30,26 +31,39 @@ const SelectSearch = /*#__PURE__*/forwardRef(({
   renderOption,
   renderGroupHeader,
   getOptions,
+  debounce,
   fuse
 }, ref) => {
   const selectRef = useRef(null);
+  const fetchOptions = useCallback((q, options, value) => {
+    if (getOptions) {
+      return getOptions(q, options, value);
+    }
+
+    if (q.length && fuse) {
+      return fuzzySearch(q, options, fuse);
+    }
+
+    return options;
+  }, [getOptions, fuse]);
   const [snapshot, valueProps, optionProps] = useSelect({
     options: defaultOptions,
     value: defaultValue,
     multiple,
     disabled,
-    fuse,
     search,
     onChange,
-    getOptions,
     closeOnSelect,
     closable: !multiple || printOptions === 'on-focus',
-    allowEmpty: !!placeholder
+    allowEmpty: !!placeholder,
+    getOptions: fetchOptions,
+    debounce
   });
   const {
     focus,
     highlighted,
     value,
+    option: selectedOption,
     options,
     searching,
     displayValue,
@@ -136,7 +150,7 @@ const SelectSearch = /*#__PURE__*/forwardRef(({
     };
     const rendered = items.map(o => /*#__PURE__*/React.createElement(Option, _extends({
       key: o.value,
-      selected: isSelected(o, value),
+      selected: isSelected(o, selectedOption),
       highlighted: highlighted === o.index
     }, base, o)));
 
@@ -180,6 +194,7 @@ SelectSearch.defaultProps = {
   renderValue: (valueProps, snapshot, className) => /*#__PURE__*/React.createElement("input", _extends({}, valueProps, {
     className: className
   })),
+  debounce: 0,
   fuse: {
     keys: ['name', 'groupName'],
     threshold: 0.3
@@ -204,6 +219,7 @@ SelectSearch.propTypes = process.env.NODE_ENV !== "production" ? {
   renderOption: PropTypes.func,
   renderGroupHeader: PropTypes.func,
   renderValue: PropTypes.func,
+  debounce: PropTypes.number,
   fuse: PropTypes.oneOfType([PropTypes.bool, PropTypes.shape({
     keys: PropTypes.arrayOf(PropTypes.string),
     threshold: PropTypes.number

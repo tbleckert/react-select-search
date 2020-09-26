@@ -14,7 +14,6 @@ export default function flattenOptions(options) {
                     ...groupOption,
                     groupId: id,
                     groupName: option.name,
-                    _id: `${groupOption.value}`,
                 });
             });
 
