@@ -28,7 +28,6 @@ function flattenOptions(options) {
     }
 
     nextOptions.push(_objectSpread(_objectSpread({}, option), {}, {
-      _id: "" + option.value,
       index: index
     }));
   });

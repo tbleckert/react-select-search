@@ -20,7 +20,7 @@ export default function flattenOptions(options) {
             return;
         }
 
-        nextOptions.push({ ...option, _id: `${option.value}`, index });
+        nextOptions.push({ ...option, index });
     });
 
     return nextOptions;
