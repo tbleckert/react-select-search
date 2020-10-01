@@ -86,7 +86,7 @@ var SelectSearch = /*#__PURE__*/(0, _react.forwardRef)(function (_ref, ref) {
       value = snapshot.value,
       selectedOption = snapshot.option,
       options = snapshot.options,
-      searching = snapshot.searching,
+      fetching = snapshot.fetching,
       displayValue = snapshot.displayValue,
       searchValue = snapshot.search;
   var cls = (0, _react.useCallback)(function (key) {
@@ -104,7 +104,7 @@ var SelectSearch = /*#__PURE__*/(0, _react.forwardRef)(function (_ref, ref) {
 
     return className.split(' ')[0] + "__" + key;
   }, [className]);
-  var wrapperClass = [cls('container'), disabled ? cls('is-disabled') : false, searching ? cls('is-loading') : false, focus ? cls('has-focus') : false].filter(function (single) {
+  var wrapperClass = [cls('container'), disabled ? cls('is-disabled') : false, fetching ? cls('is-loading') : false, focus ? cls('has-focus') : false].filter(function (single) {
     return !!single;
   }).join(' ');
   var inputValue = focus && search ? searchValue : displayValue;

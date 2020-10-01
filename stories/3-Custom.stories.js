@@ -2,16 +2,16 @@ import React from 'react';
 import SelectSearch from '../src';
 import '../style.css';
 import classes from '../style.module.css';
-import { countries, fontStacks, friends } from './data';
+import { fontStacks, friends } from './data';
 
 export default {
   title: 'Custom',
 };
 
 function renderFontValue(valueProps, snapshot, className) {
-    const { value } = snapshot;
+    const { option } = snapshot;
     const style = {
-        fontFamily: (value && 'stack' in value) ? value.stack : null,
+        fontFamily: (option && 'stack' in option) ? option.stack : null,
     };
 
     return (

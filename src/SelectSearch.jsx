@@ -65,7 +65,7 @@ const SelectSearch = forwardRef(({
         value,
         option: selectedOption,
         options,
-        searching,
+        fetching,
         displayValue,
         search: searchValue,
     } = snapshot;
@@ -89,7 +89,7 @@ const SelectSearch = forwardRef(({
     const wrapperClass = [
         cls('container'),
         (disabled) ? cls('is-disabled') : false,
-        (searching) ? cls('is-loading') : false,
+        (fetching) ? cls('is-loading') : false,
         (focus) ? cls('has-focus') : false,
     ].filter((single) => !!single).join(' ');
 

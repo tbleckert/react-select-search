@@ -65,7 +65,7 @@ const SelectSearch = /*#__PURE__*/forwardRef(({
     value,
     option: selectedOption,
     options,
-    searching,
+    fetching,
     displayValue,
     search: searchValue
   } = snapshot;
@@ -84,7 +84,7 @@ const SelectSearch = /*#__PURE__*/forwardRef(({
 
     return className.split(' ')[0] + "__" + key;
   }, [className]);
-  const wrapperClass = [cls('container'), disabled ? cls('is-disabled') : false, searching ? cls('is-loading') : false, focus ? cls('has-focus') : false].filter(single => !!single).join(' ');
+  const wrapperClass = [cls('container'), disabled ? cls('is-disabled') : false, fetching ? cls('is-loading') : false, focus ? cls('has-focus') : false].filter(single => !!single).join(' ');
   const inputValue = focus && search ? searchValue : displayValue;
   useEffect(() => {
     const {

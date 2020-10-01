@@ -19,7 +19,6 @@ exports[`Test SelectSearch component Class name as fn 1`] = `
       onKeyDown={[Function]}
       onKeyPress={[Function]}
       onKeyUp={[Function]}
-      onMouseDown={[Function]}
       placeholder={null}
       readOnly={true}
       tabIndex="0"
@@ -48,7 +47,6 @@ exports[`Test SelectSearch component Class name as string 1`] = `
       onKeyDown={[Function]}
       onKeyPress={[Function]}
       onKeyUp={[Function]}
-      onMouseDown={[Function]}
       placeholder={null}
       readOnly={true}
       tabIndex="0"
@@ -139,7 +137,6 @@ exports[`Test SelectSearch component Custom renderers work 1`] = `
         onKeyDown={[Function]}
         onKeyPress={[Function]}
         onKeyUp={[Function]}
-        onMouseDown={[Function]}
         placeholder={null}
         readOnly={true}
         style={
@@ -236,7 +233,6 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
         onKeyDown={[Function]}
         onKeyPress={[Function]}
         onKeyUp={[Function]}
-        onMouseDown={[Function]}
         placeholder={null}
         readOnly={true}
         style={
@@ -255,7 +251,6 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
         className="select-search__options"
       >
         <Option
-          _id="helvetica"
           cls={[Function]}
           highlighted={false}
           index={0}
@@ -271,7 +266,7 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
             }
           }
           renderOption={[Function]}
-          selected={true}
+          selected={false}
           value="helvetica"
         >
           <li
@@ -282,7 +277,7 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
             role="menuitem"
           >
             <button
-              className="select-search__option is-selected"
+              className="select-search__option"
               disabled={false}
               onBlur={[Function]}
               onKeyDown={[Function]}
@@ -321,7 +316,6 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
               className="select-search__options"
             >
               <Option
-                _id="Roboto"
                 cls={[Function]}
                 data-stack="Roboto, sans-serif"
                 groupId="sans-serif-1"
@@ -393,7 +387,6 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
               className="select-search__options"
             >
               <Option
-                _id="Playfair Display"
                 cls={[Function]}
                 data-stack="\\"Playfair Display\\", serif"
                 groupId="serif-2"
@@ -465,7 +458,6 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
               className="select-search__options"
             >
               <Option
-                _id="Monoton"
                 cls={[Function]}
                 data-stack="Monoton, cursive"
                 groupId="cursive-3"
@@ -518,7 +510,6 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
                 </li>
               </Option>
               <Option
-                _id="Gloria Hallelujah"
                 cls={[Function]}
                 data-stack="\\"Gloria Hallelujah\\", cursive"
                 groupId="cursive-3"
@@ -590,7 +581,6 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
               className="select-search__options"
             >
               <Option
-                _id="VT323"
                 cls={[Function]}
                 data-stack="VT323, monospace"
                 groupId="monospace-4"
@@ -733,7 +723,6 @@ exports[`Test SelectSearch component Custom renderers work with search 1`] = `
         onKeyDown={[Function]}
         onKeyPress={[Function]}
         onKeyUp={[Function]}
-        onMouseDown={[Function]}
         placeholder={null}
         readOnly={false}
         style={
@@ -831,7 +820,6 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
         onKeyDown={[Function]}
         onKeyPress={[Function]}
         onKeyUp={[Function]}
-        onMouseDown={[Function]}
         placeholder={null}
         readOnly={false}
         style={
@@ -850,7 +838,6 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
         className="select-search__options"
       >
         <Option
-          _id="helvetica"
           cls={[Function]}
           highlighted={false}
           index={0}
@@ -866,7 +853,7 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
             }
           }
           renderOption={[Function]}
-          selected={true}
+          selected={false}
           value="helvetica"
         >
           <li
@@ -877,7 +864,7 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
             role="menuitem"
           >
             <button
-              className="select-search__option is-selected"
+              className="select-search__option"
               disabled={false}
               onBlur={[Function]}
               onKeyDown={[Function]}
@@ -916,7 +903,6 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
               className="select-search__options"
             >
               <Option
-                _id="Roboto"
                 cls={[Function]}
                 data-stack="Roboto, sans-serif"
                 groupId="sans-serif-1"
@@ -988,7 +974,6 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
               className="select-search__options"
             >
               <Option
-                _id="Playfair Display"
                 cls={[Function]}
                 data-stack="\\"Playfair Display\\", serif"
                 groupId="serif-2"
@@ -1060,7 +1045,6 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
               className="select-search__options"
             >
               <Option
-                _id="Monoton"
                 cls={[Function]}
                 data-stack="Monoton, cursive"
                 groupId="cursive-3"
@@ -1113,7 +1097,6 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
                 </li>
               </Option>
               <Option
-                _id="Gloria Hallelujah"
                 cls={[Function]}
                 data-stack="\\"Gloria Hallelujah\\", cursive"
                 groupId="cursive-3"
@@ -1185,7 +1168,6 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
               className="select-search__options"
             >
               <Option
-                _id="VT323"
                 cls={[Function]}
                 data-stack="VT323, monospace"
                 groupId="monospace-4"
@@ -1279,7 +1261,6 @@ exports[`Test SelectSearch component Focus displays options 1`] = `
         onKeyDown={[Function]}
         onKeyPress={[Function]}
         onKeyUp={[Function]}
-        onMouseDown={[Function]}
         placeholder={null}
         readOnly={true}
         tabIndex="0"
@@ -1323,7 +1304,6 @@ exports[`Test SelectSearch component Focus displays options 2`] = `
         onKeyDown={[Function]}
         onKeyPress={[Function]}
         onKeyUp={[Function]}
-        onMouseDown={[Function]}
         placeholder={null}
         readOnly={true}
         tabIndex="0"
@@ -1337,7 +1317,6 @@ exports[`Test SelectSearch component Focus displays options 2`] = `
         className="select-search__options"
       >
         <Option
-          _id="foo"
           cls={[Function]}
           highlighted={false}
           index={0}
@@ -1353,7 +1332,7 @@ exports[`Test SelectSearch component Focus displays options 2`] = `
             }
           }
           renderOption={[Function]}
-          selected={true}
+          selected={false}
           value="foo"
         >
           <li
@@ -1364,7 +1343,7 @@ exports[`Test SelectSearch component Focus displays options 2`] = `
             role="menuitem"
           >
             <button
-              className="select-search__option is-selected"
+              className="select-search__option"
               disabled={false}
               onBlur={[Function]}
               onKeyDown={[Function]}
@@ -1378,7 +1357,6 @@ exports[`Test SelectSearch component Focus displays options 2`] = `
           </li>
         </Option>
         <Option
-          _id="bar"
           cls={[Function]}
           highlighted={false}
           index={1}
@@ -1504,7 +1482,6 @@ exports[`Test SelectSearch component Renders groups 1`] = `
         onKeyDown={[Function]}
         onKeyPress={[Function]}
         onKeyUp={[Function]}
-        onMouseDown={[Function]}
         placeholder={null}
         readOnly={true}
         style={
@@ -1600,7 +1577,6 @@ exports[`Test SelectSearch component Renders groups 2`] = `
         onKeyDown={[Function]}
         onKeyPress={[Function]}
         onKeyUp={[Function]}
-        onMouseDown={[Function]}
         placeholder={null}
         readOnly={true}
         style={
@@ -1619,7 +1595,6 @@ exports[`Test SelectSearch component Renders groups 2`] = `
         className="select-search__options"
       >
         <Option
-          _id="helvetica"
           cls={[Function]}
           highlighted={false}
           index={0}
@@ -1635,7 +1610,7 @@ exports[`Test SelectSearch component Renders groups 2`] = `
             }
           }
           renderOption={[Function]}
-          selected={true}
+          selected={false}
           value="helvetica"
         >
           <li
@@ -1646,7 +1621,7 @@ exports[`Test SelectSearch component Renders groups 2`] = `
             role="menuitem"
           >
             <button
-              className="select-search__option is-selected"
+              className="select-search__option"
               disabled={false}
               onBlur={[Function]}
               onKeyDown={[Function]}
@@ -1685,7 +1660,6 @@ exports[`Test SelectSearch component Renders groups 2`] = `
               className="select-search__options"
             >
               <Option
-                _id="Roboto"
                 cls={[Function]}
                 data-stack="Roboto, sans-serif"
                 groupId="sans-serif-1"
@@ -1757,7 +1731,6 @@ exports[`Test SelectSearch component Renders groups 2`] = `
               className="select-search__options"
             >
               <Option
-                _id="Playfair Display"
                 cls={[Function]}
                 data-stack="\\"Playfair Display\\", serif"
                 groupId="serif-2"
@@ -1829,7 +1802,6 @@ exports[`Test SelectSearch component Renders groups 2`] = `
               className="select-search__options"
             >
               <Option
-                _id="Monoton"
                 cls={[Function]}
                 data-stack="Monoton, cursive"
                 groupId="cursive-3"
@@ -1882,7 +1854,6 @@ exports[`Test SelectSearch component Renders groups 2`] = `
                 </li>
               </Option>
               <Option
-                _id="Gloria Hallelujah"
                 cls={[Function]}
                 data-stack="\\"Gloria Hallelujah\\", cursive"
                 groupId="cursive-3"
@@ -1954,7 +1925,6 @@ exports[`Test SelectSearch component Renders groups 2`] = `
               className="select-search__options"
             >
               <Option
-                _id="VT323"
                 cls={[Function]}
                 data-stack="VT323, monospace"
                 groupId="monospace-4"
@@ -2034,7 +2004,6 @@ exports[`Test SelectSearch component Renders with default props 1`] = `
       onKeyDown={[Function]}
       onKeyPress={[Function]}
       onKeyUp={[Function]}
-      onMouseDown={[Function]}
       placeholder={null}
       readOnly={true}
       tabIndex="0"
@@ -2063,7 +2032,6 @@ exports[`Test SelectSearch component Renders with disabled 1`] = `
       onKeyDown={[Function]}
       onKeyPress={[Function]}
       onKeyUp={[Function]}
-      onMouseDown={[Function]}
       placeholder={null}
       readOnly={true}
       tabIndex="0"
@@ -2146,7 +2114,6 @@ exports[`Test SelectSearch component Renders with search 1`] = `
       onKeyDown={[Function]}
       onKeyPress={[Function]}
       onKeyUp={[Function]}
-      onMouseDown={[Function]}
       placeholder={null}
       readOnly={false}
       tabIndex="0"
@@ -2175,11 +2142,10 @@ exports[`Test SelectSearch component Renders with search and multiple 1`] = `
       onKeyDown={[Function]}
       onKeyPress={[Function]}
       onKeyUp={[Function]}
-      onMouseDown={[Function]}
       placeholder={null}
       readOnly={false}
       tabIndex="0"
-      value=""
+      value="Foo"
     />
   </div>
   <div
@@ -2250,7 +2216,6 @@ exports[`Test SelectSearch component Renders with search and placeholder 1`] = `
       onKeyDown={[Function]}
       onKeyPress={[Function]}
       onKeyUp={[Function]}
-      onMouseDown={[Function]}
       placeholder="Search..."
       readOnly={false}
       tabIndex="0"
@@ -2293,7 +2258,6 @@ exports[`Test SelectSearch component Value change works without onChange handler
         onKeyDown={[Function]}
         onKeyPress={[Function]}
         onKeyUp={[Function]}
-        onMouseDown={[Function]}
         placeholder={null}
         readOnly={true}
         tabIndex="0"
@@ -2337,7 +2301,6 @@ exports[`Test SelectSearch component Value change works without onChange handler
         onKeyDown={[Function]}
         onKeyPress={[Function]}
         onKeyUp={[Function]}
-        onMouseDown={[Function]}
         placeholder={null}
         readOnly={true}
         tabIndex="0"
@@ -2351,7 +2314,6 @@ exports[`Test SelectSearch component Value change works without onChange handler
         className="select-search__options"
       >
         <Option
-          _id="foo"
           cls={[Function]}
           highlighted={false}
           index={0}
@@ -2392,7 +2354,6 @@ exports[`Test SelectSearch component Value change works without onChange handler
           </li>
         </Option>
         <Option
-          _id="bar"
           cls={[Function]}
           highlighted={false}
           index={1}
