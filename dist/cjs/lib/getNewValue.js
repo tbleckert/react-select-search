@@ -3,25 +3,32 @@
 exports.__esModule = true;
 exports["default"] = getNewValue;
 
-function getNewValue(value, oldValue, multiple) {
+function getNewValue(value, oldValue, options, multiple) {
+  var newValue = value === null && options.length ? options[0].value : value;
+
   if (!multiple) {
-    return value;
+    return newValue;
+  }
+
+  if (!newValue) {
+    return [];
   }
 
   if (!oldValue) {
-    return [value];
+    return [newValue];
   }
 
-  var newValue = !Array.isArray(oldValue) ? [oldValue] : [].concat(oldValue);
-  var valueIndex = newValue.findIndex(function (val) {
-    return val === value;
+  var newArrayValue = !Array.isArray(oldValue) ? [oldValue] : [].concat(oldValue); // eslint-disable-next-line eqeqeq
+
+  var valueIndex = newArrayValue.findIndex(function (val) {
+    return val == newValue;
   });
 
   if (valueIndex >= 0) {
-    newValue.splice(valueIndex, 1);
+    newArrayValue.splice(valueIndex, 1);
   } else {
-    newValue.push(value);
+    newArrayValue.push(value);
   }
 
-  return newValue;
+  return newArrayValue;
 }

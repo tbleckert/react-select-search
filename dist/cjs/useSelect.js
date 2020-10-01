@@ -32,8 +32,6 @@ function useSelect(_ref) {
       multiple = _ref$multiple === void 0 ? false : _ref$multiple,
       _ref$disabled = _ref.disabled,
       disabled = _ref$disabled === void 0 ? false : _ref$disabled,
-      _ref$allowEmpty = _ref.allowEmpty,
-      allowEmpty = _ref$allowEmpty === void 0 ? true : _ref$allowEmpty,
       _ref$closeOnSelect = _ref.closeOnSelect,
       closeOnSelect = _ref$closeOnSelect === void 0 ? true : _ref$closeOnSelect,
       _ref$getOptions = _ref.getOptions,
@@ -82,7 +80,7 @@ function useSelect(_ref) {
   }, [options]);
   var fetchOptions = (0, _react.useMemo)(function () {
     return (0, _debounce["default"])(function (q) {
-      var optionsReq = getOptions(q, flattenedOptions, value);
+      var optionsReq = getOptions(q, flattenedOptions);
       setFetching(true);
       Promise.resolve(optionsReq).then(function (newOptions) {
         return setOptions((0, _flattenOptions["default"])(newOptions));
@@ -90,11 +88,11 @@ function useSelect(_ref) {
         return setFetching(false);
       });
     }, debounceTime);
-  }, [flattenedOptions, value, getOptions, debounceTime]);
+  }, [flattenedOptions, getOptions, debounceTime]);
   var snapshot = {
     options: groupedOptions,
     option: option,
-    displayValue: (0, _getDisplayValue["default"])(!option && !allowEmpty && options.length ? options[0] : option),
+    displayValue: (0, _getDisplayValue["default"])(option),
     value: value,
     search: search,
     fetching: fetching,
@@ -117,21 +115,19 @@ function useSelect(_ref) {
     }
   };
 
-  var onSelect = function onSelect(id) {
-    // eslint-disable-next-line no-underscore-dangle,eqeqeq
-    var item = id ? options.find(function (i) {
-      return i.value == id;
-    }) : options[highlighted];
-
-    if (!item) {
-      return;
+  var onSelect = function onSelect(newValue, silent) {
+    if (silent === void 0) {
+      silent = false;
     }
 
-    var newValues = (0, _getNewValue["default"])(item.value, value, multiple);
+    var newValues = (0, _getNewValue["default"])(newValue, value, options, multiple);
     var newOption = (0, _getOption["default"])(newValues, options);
     setValue(newValues);
     setOption(newOption);
-    onChange(newValues, newOption);
+
+    if (!silent) {
+      onChange(newValues, newOption);
+    }
   };
 
   var onMouseDown = function onMouseDown(e) {
@@ -157,7 +153,11 @@ function useSelect(_ref) {
   var onKeyPress = function onKeyPress(e) {
     if (e.key === 'Enter') {
       e.preventDefault();
-      onSelect();
+      var selected = options[highlighted];
+
+      if (selected) {
+        onSelect(selected.value);
+      }
 
       if (closeOnSelect) {
         onBlur();
@@ -198,13 +198,13 @@ function useSelect(_ref) {
     onBlur: onBlur
   };
   (0, _react.useEffect)(function () {
-    return setValue(defaultValue);
+    return onSelect(defaultValue, true);
   }, [defaultValue]);
   (0, _react.useEffect)(function () {
     return setOptions(flattenedOptions);
   }, [flattenedOptions]);
   (0, _react.useEffect)(function () {
-    fetchOptions(search);
+    return fetchOptions(search);
   }, [search, fetchOptions]);
   return [snapshot, valueProps, optionProps, setValue];
 }

@@ -47,14 +47,13 @@ const SelectSearch = forwardRef(({
     }, [getOptions, fuse]);
     const [snapshot, valueProps, optionProps] = useSelect({
         options: defaultOptions,
-        value: defaultValue,
+        value: (defaultValue === null && (placeholder || multiple)) ? '' : defaultValue,
         multiple,
         disabled,
         search,
         onChange,
         closeOnSelect,
         closable: !multiple || printOptions === 'on-focus',
-        allowEmpty: !!placeholder,
         getOptions: fetchOptions,
         debounce,
     });
@@ -195,7 +194,7 @@ SelectSearch.defaultProps = {
     id: null,
     autoFocus: false,
     autoComplete: 'on',
-    value: '',
+    value: null,
     onChange: () => {},
     printOptions: 'auto',
     closeOnSelect: true,

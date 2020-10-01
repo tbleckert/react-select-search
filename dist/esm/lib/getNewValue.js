@@ -1,20 +1,27 @@
-export default function getNewValue(value, oldValue, multiple) {
+export default function getNewValue(value, oldValue, options, multiple) {
+  const newValue = value === null && options.length ? options[0].value : value;
+
   if (!multiple) {
-    return value;
+    return newValue;
+  }
+
+  if (!newValue) {
+    return [];
   }
 
   if (!oldValue) {
-    return [value];
+    return [newValue];
   }
 
-  const newValue = !Array.isArray(oldValue) ? [oldValue] : [...oldValue];
-  const valueIndex = newValue.findIndex(val => val === value);
+  const newArrayValue = !Array.isArray(oldValue) ? [oldValue] : [...oldValue]; // eslint-disable-next-line eqeqeq
+
+  const valueIndex = newArrayValue.findIndex(val => val == newValue);
 
   if (valueIndex >= 0) {
-    newValue.splice(valueIndex, 1);
+    newArrayValue.splice(valueIndex, 1);
   } else {
-    newValue.push(value);
+    newArrayValue.push(value);
   }
 
-  return newValue;
+  return newArrayValue;
 }

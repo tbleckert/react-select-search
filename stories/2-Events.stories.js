@@ -26,6 +26,7 @@ export const OnChange = () => {
     return (
         <>
             <SelectSearch
+                value={size}
                 onChange={setSize}
                 placeholder="Select font size"
                 options={[

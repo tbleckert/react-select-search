@@ -19,7 +19,6 @@ export default function useSelect({
     search: canSearch = false,
     multiple = false,
     disabled = false,
-    allowEmpty = true,
     closeOnSelect = true,
     getOptions = null,
     onChange = () => {},
@@ -37,7 +36,7 @@ export default function useSelect({
     const groupedOptions = useMemo(() => groupOptions(options), [options]);
     const fetchOptions = useMemo(() => (
         debounce((q) => {
-            const optionsReq = getOptions(q, flattenedOptions, value);
+            const optionsReq = getOptions(q, flattenedOptions);
 
             setFetching(true);
 
@@ -45,13 +44,11 @@ export default function useSelect({
                 .then((newOptions) => setOptions(flattenOptions(newOptions)))
                 .finally(() => setFetching(false));
         }, debounceTime)
-    ), [flattenedOptions, value, getOptions, debounceTime]);
+    ), [flattenedOptions, getOptions, debounceTime]);
     const snapshot = {
         options: groupedOptions,
         option,
-        displayValue: getDisplayValue((
-            (!option && !allowEmpty && options.length) ? options[0] : option
-        )),
+        displayValue: getDisplayValue(option),
         value,
         search,
         fetching,
@@ -71,21 +68,16 @@ export default function useSelect({
         }
     };
 
-    const onSelect = (id) => {
-        // eslint-disable-next-line no-underscore-dangle,eqeqeq
-        const item = (id) ? options.find((i) => i.value == id) : options[highlighted];
-
-        if (!item) {
-            return;
-        }
-
-        const newValues = getNewValue(item.value, value, multiple);
+    const onSelect = (newValue, silent = false) => {
+        const newValues = getNewValue(newValue, value, options, multiple);
         const newOption = getOption(newValues, options);
 
         setValue(newValues);
         setOption(newOption);
 
-        onChange(newValues, newOption);
+        if (!silent) {
+            onChange(newValues, newOption);
+        }
     };
 
     const onMouseDown = (e) => {
@@ -108,7 +100,12 @@ export default function useSelect({
     const onKeyPress = (e) => {
         if (e.key === 'Enter') {
             e.preventDefault();
-            onSelect();
+
+            const selected = options[highlighted];
+
+            if (selected) {
+                onSelect(selected.value);
+            }
 
             if (closeOnSelect) {
                 onBlur();
@@ -145,12 +142,9 @@ export default function useSelect({
         onBlur,
     };
 
-    useEffect(() => setValue(defaultValue), [defaultValue]);
+    useEffect(() => onSelect(defaultValue, true), [defaultValue]);
     useEffect(() => setOptions(flattenedOptions), [flattenedOptions]);
-
-    useEffect(() => {
-        fetchOptions(search);
-    }, [search, fetchOptions]);
+    useEffect(() => fetchOptions(search), [search, fetchOptions]);
 
     return [snapshot, valueProps, optionProps, setValue];
 }

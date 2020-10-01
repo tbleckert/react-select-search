@@ -66,14 +66,13 @@ var SelectSearch = /*#__PURE__*/(0, _react.forwardRef)(function (_ref, ref) {
 
   var _useSelect = (0, _useSelect2["default"])({
     options: defaultOptions,
-    value: defaultValue,
+    value: defaultValue === null && (placeholder || multiple) ? '' : defaultValue,
     multiple: multiple,
     disabled: disabled,
     search: search,
     onChange: onChange,
     closeOnSelect: closeOnSelect,
     closable: !multiple || printOptions === 'on-focus',
-    allowEmpty: !!placeholder,
     getOptions: fetchOptions,
     debounce: debounce
   }),
@@ -202,7 +201,7 @@ SelectSearch.defaultProps = {
   id: null,
   autoFocus: false,
   autoComplete: 'on',
-  value: '',
+  value: null,
   onChange: function onChange() {},
   printOptions: 'auto',
   closeOnSelect: true,
