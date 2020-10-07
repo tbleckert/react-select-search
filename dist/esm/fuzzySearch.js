@@ -12,7 +12,7 @@ try {
 }
 
 export default function fuzzySearch(value, options, fuseOptions) {
-  if (!Fuse) {
+  if (!Fuse || !fuseOptions) {
     return options;
   }
 
