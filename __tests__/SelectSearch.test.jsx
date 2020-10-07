@@ -1,13 +1,21 @@
-import React, { memo } from 'react';
-import renderer from 'react-test-renderer';
-import Enzyme, { mount, shallow } from 'enzyme';
-import toJson from 'enzyme-to-json';
-import SelectSearch from '../src/SelectSearch';
+import React from "react";
+import { render, unmountComponentAtNode } from "react-dom";
+import { act, Simulate } from "react-dom/test-utils";
+import pretty from "pretty";
+import SelectSearch from "../src/SelectSearch";
 
-import './helpers/setup-enzyme';
-import './helpers/setup-browser-env';
-import Option from '../src/Components/Option';
-import { fontStacks } from './data';
+let container;
+
+beforeEach(() => {
+    container = document.createElement("div");
+    document.body.appendChild(container);
+});
+
+afterEach(() => {
+    unmountComponentAtNode(container);
+    container.remove();
+    container = null;
+});
 
 function renderFontOption(props, { stack, name }, snapshot, className) {
     return (
@@ -20,215 +28,108 @@ function renderFontOption(props, { stack, name }, snapshot, className) {
 function renderFontValue(valueProps, snapshot, className) {
     const { selectedOption } = snapshot;
     const style = {
-        fontFamily: (selectedOption && 'stack' in selectedOption) ? selectedOption.stack : null,
+        fontFamily:
+            selectedOption && "stack" in selectedOption
+                ? selectedOption.stack
+                : null,
     };
 
     return (
-        <input {...valueProps} className={className} style={style} value={snapshot.displayValue} />
+        <input
+            {...valueProps}
+            className={className}
+            style={style}
+            value={snapshot.displayValue}
+        />
     );
 }
 
-describe('Test SelectSearch component', () => {
-    test('Renders with default props', () => {
-        const tree = renderer.create((
-            <SelectSearch options={[
-                { value: 'foo', name: 'Foo' },
-                { value: 'bar', name: 'Bar' },
-            ]} />
-        )).toJSON();
-
-        expect(tree).toMatchSnapshot();
-    });
-
-    test('Renders with multiple', () => {
-        const tree = renderer.create((
-            <SelectSearch options={[
-                { value: 'foo', name: 'Foo' },
-                { value: 'bar', name: 'Bar' },
-            ]} multiple />
-        )).toJSON();
-
-        expect(tree).toMatchSnapshot();
-    });
-
-    test('Renders with disabled', () => {
-        const tree = renderer.create((
-            <SelectSearch options={[
-                { value: 'foo', name: 'Foo' },
-                { value: 'bar', name: 'Bar' },
-            ]} disabled />
-        )).toJSON();
-
-        expect(tree).toMatchSnapshot();
-    });
-
-    test('Renders with search', () => {
-        const tree = renderer.create((
-            <SelectSearch options={[
-                { value: 'foo', name: 'Foo' },
-                { value: 'bar', name: 'Bar' },
-            ]} search />
-        )).toJSON();
-
-        expect(tree).toMatchSnapshot();
-    });
-
-    test('Renders with search and placeholder', () => {
-        const tree = renderer.create((
-            <SelectSearch options={[
-                { value: 'foo', name: 'Foo' },
-                { value: 'bar', name: 'Bar' },
-            ]} search placeholder="Search..." />
-        )).toJSON();
-
-        expect(tree).toMatchSnapshot();
-    });
-
-    test('Renders with search and multiple', () => {
-        const tree = renderer.create((
-            <SelectSearch options={[
-                { value: 'foo', name: 'Foo' },
-                { value: 'bar', name: 'Bar' },
-            ]} search multiple />
-        )).toJSON();
-
-        expect(tree).toMatchSnapshot();
-    });
-
-    test('Focus displays options', () => {
-        const wrapper = mount((
-            <SelectSearch options={[
-                { value: 'foo', name: 'Foo' },
-                { value: 'bar', name: 'Bar' },
-            ]} />
-        ));
-
-        expect(wrapper.find(Option).length).toBe(0);
-        expect(toJson(wrapper)).toMatchSnapshot();
-
-        wrapper.find('.select-search__input').simulate('focus');
-
-        expect(wrapper.find(Option).length).toBe(2);
-        expect(toJson(wrapper)).toMatchSnapshot();
-    });
-
-    test('Value change triggers onChange', (done) => {
-        const onChangeMock = jest.fn();
-        const wrapper = mount((
-            <SelectSearch onChange={onChangeMock} options={[
-                { value: 'foo', name: 'Foo' },
-                { value: 'bar', name: 'Bar' },
-            ]} />
-        ));
-
-        expect(onChangeMock.mock.calls.length).toBe(0);
-
-        wrapper.find('.select-search__input').simulate('focus');
-
-        setImmediate(() => {
-            wrapper.update();
-            wrapper.find(Option).at(0).find('button').simulate('mouseDown');
-
-            expect(onChangeMock.mock.calls.length).toBe(1);
-            expect(onChangeMock.mock.calls[0][0]).toBe('foo');
-            expect(onChangeMock.mock.calls[0][1]).toStrictEqual({ value: 'foo', name: 'Foo', index: 0, _id: 'foo' });
-
-            done();
+describe("Test SelectSearch component", () => {
+    test("Renders with default props", () => {
+        act(() => {
+            render(
+                <SelectSearch
+                    options={[
+                        { value: "foo", name: "Foo" },
+                        { value: "bar", name: "Bar" },
+                    ]}
+                />,
+                container
+            );
         });
+
+        expect(pretty(container.innerHTML)).toMatchInlineSnapshot(`
+            "<div class=\\"select-search\\">
+              <div class=\\"select-search__value\\"><input tabindex=\\"0\\" readonly=\\"\\" autocomplete=\\"on\\" class=\\"select-search__input\\" value=\\"Foo\\"></div>
+            </div>"
+        `);
     });
 
-    test('Value change works without onChange handler', (done) => {
-        const wrapper = mount((
-            <SelectSearch options={[
-                { value: 'foo', name: 'Foo' },
-                { value: 'bar', name: 'Bar' },
-            ]} />
-        ));
-
-        expect(toJson(wrapper)).toMatchSnapshot();
-
-        wrapper.find('.select-search__input').simulate('focus');
-
-        setImmediate(() => {
-            wrapper.update();
-            wrapper.find(Option).at(0).find('button').simulate('mouseDown');
-
-            expect(toJson(wrapper)).toMatchSnapshot();
-
-            done();
+    test("Renders with multiple", () => {
+        act(() => {
+            render(
+                <SelectSearch
+                    options={[
+                        { value: "foo", name: "Foo" },
+                        { value: "bar", name: "Bar" },
+                    ]}
+                    multiple
+                />,
+                container
+            );
         });
+
+        expect(pretty(container.innerHTML)).toMatchInlineSnapshot(`
+            "<div class=\\"select-search\\">
+              <div class=\\"select-search__select\\">
+                <ul class=\\"select-search__options\\">
+                  <li class=\\"select-search__row\\" role=\\"menuitem\\" data-index=\\"0\\" data-value=\\"foo\\"><button class=\\"select-search__option\\" tabindex=\\"-1\\" value=\\"foo\\">Foo</button></li>
+                  <li class=\\"select-search__row\\" role=\\"menuitem\\" data-index=\\"1\\" data-value=\\"bar\\"><button class=\\"select-search__option\\" tabindex=\\"-1\\" value=\\"bar\\">Bar</button></li>
+                </ul>
+              </div>
+            </div>"
+        `);
     });
 
-    test('Renders groups', () => {
-        const wrapper = mount((
-            <SelectSearch
-                options={fontStacks}
-                renderOption={renderFontOption}
-                renderValue={renderFontValue}
-            />
-        ));
+    test("Focus displays options", () => {
+        act(() => {
+            render(
+                <SelectSearch
+                    options={[
+                        { value: "foo", name: "Foo" },
+                        { value: "bar", name: "Bar" },
+                    ]}
+                />,
+                container
+            );
+        });
 
-        expect(toJson(wrapper)).toMatchSnapshot();
+        expect(
+            container.querySelectorAll(".select-search__option").length
+        ).toBe(0);
+        expect(pretty(container.innerHTML)).toMatchInlineSnapshot(`
+            "<div class=\\"select-search\\">
+              <div class=\\"select-search__value\\"><input tabindex=\\"0\\" readonly=\\"\\" autocomplete=\\"on\\" class=\\"select-search__input\\" value=\\"Foo\\"></div>
+            </div>"
+        `);
 
-        wrapper.find('.select-search__input').simulate('focus');
+        act(() => {
+            Simulate.focus(container.querySelector(".select-search__input"));
+        });
 
-        expect(toJson(wrapper)).toMatchSnapshot();
-    });
-
-    test('Custom renderers work', () => {
-        const wrapper = mount((
-            <SelectSearch
-                options={fontStacks}
-                renderOption={renderFontOption}
-                renderValue={renderFontValue}
-                renderGroupHeader={(name) => `Type: ${name}`}
-            />
-        ));
-
-        expect(toJson(wrapper)).toMatchSnapshot();
-
-        wrapper.find('.select-search__input').simulate('focus');
-
-        expect(toJson(wrapper)).toMatchSnapshot();
-    });
-
-    test('Custom renderers work with search', () => {
-        const wrapper = mount((
-            <SelectSearch
-                options={fontStacks}
-                search
-                renderOption={renderFontOption}
-                renderValue={renderFontValue}
-                renderGroupHeader={(name) => `Type: ${name}`}
-            />
-        ));
-
-        expect(toJson(wrapper)).toMatchSnapshot();
-
-        wrapper.find('.select-search__input').simulate('focus');
-
-        expect(toJson(wrapper)).toMatchSnapshot();
-    });
-
-    test('Class name as string', () => {
-        const tree = renderer.create((
-            <SelectSearch
-                className="custom-select"
-                options={fontStacks}
-            />
-        )).toJSON();
-
-        expect(tree).toMatchSnapshot();
-    });
-
-    test('Class name as fn', () => {
-        const tree = renderer.create((
-            <SelectSearch
-                className={(key) => `class-base__${key}`}
-                options={fontStacks}
-            />
-        )).toJSON();
-
-        expect(tree).toMatchSnapshot();
+        expect(
+            container.querySelectorAll(".select-search__option").length
+        ).toBe(2);
+        expect(pretty(container.innerHTML)).toMatchInlineSnapshot(`
+            "<div class=\\"select-search has-focus\\">
+              <div class=\\"select-search__value\\"><input tabindex=\\"0\\" readonly=\\"\\" autocomplete=\\"on\\" class=\\"select-search__input\\" value=\\"Foo\\"></div>
+              <div class=\\"select-search__select\\">
+                <ul class=\\"select-search__options\\">
+                  <li class=\\"select-search__row\\" role=\\"menuitem\\" data-index=\\"0\\" data-value=\\"foo\\"><button class=\\"select-search__option is-selected\\" tabindex=\\"-1\\" value=\\"foo\\">Foo</button></li>
+                  <li class=\\"select-search__row\\" role=\\"menuitem\\" data-index=\\"1\\" data-value=\\"bar\\"><button class=\\"select-search__option\\" tabindex=\\"-1\\" value=\\"bar\\">Bar</button></li>
+                </ul>
+              </div>
+            </div>"
+        `);
     });
 });

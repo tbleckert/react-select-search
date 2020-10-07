@@ -17,9 +17,10 @@ describe('Unit test for search function', () => {
         expect(newOptions[0].name).toEqual('Sweden');
     });
 
-    test('Return false if unmet conditions', () => {
-        const newOptions = fuzzySearch('sweden', null, null);
+    test('Return same options if unmet conditions', () => {
+        const searchOptions = [];
+        const newOptions = fuzzySearch('sweden', searchOptions, null);
 
-        expect(newOptions).toEqual(false);
+        expect(newOptions).toEqual(searchOptions);
     });
 });
