@@ -30,7 +30,8 @@ const SelectSearch = /*#__PURE__*/forwardRef(({
   renderOption,
   renderGroupHeader,
   getOptions,
-  fuse
+  fuse,
+  emptyMessage
 }, ref) => {
   const selectRef = useRef(null);
   const [snapshot, valueProps, optionProps] = useSelect({
@@ -70,6 +71,15 @@ const SelectSearch = /*#__PURE__*/forwardRef(({
 
     return className.split(' ')[0] + "__" + key;
   }, [className]);
+  const renderEmptyMessage = useCallback(() => {
+    if (typeof emptyMessage === 'function') {
+      return emptyMessage();
+    } else if (typeof emptyMessage === 'string') {
+      return /*#__PURE__*/React.createElement("li", null, emptyMessage);
+    }
+
+    return null;
+  }, emptyMessage);
   const wrapperClass = [cls('container'), disabled ? cls('is-disabled') : false, searching ? cls('is-loading') : false, focus ? cls('has-focus') : false].filter(single => !!single).join(' ');
   const inputValue = focus && search ? searchValue : displayValue;
   useEffect(() => {
@@ -126,7 +136,7 @@ const SelectSearch = /*#__PURE__*/forwardRef(({
     ref: selectRef
   }, /*#__PURE__*/React.createElement("ul", {
     className: cls('options')
-  }, options.map(option => {
+  }, options.length > 0 ? options.map(option => {
     const isGroup = option.type === 'group';
     const items = isGroup ? option.items : [option];
     const base = {
@@ -155,7 +165,7 @@ const SelectSearch = /*#__PURE__*/forwardRef(({
     }
 
     return rendered;
-  }))));
+  }) : renderEmptyMessage() || null)));
 });
 SelectSearch.defaultProps = {
   className: 'select-search',
@@ -184,7 +194,8 @@ SelectSearch.defaultProps = {
     keys: ['name', 'groupName'],
     threshold: 0.3
   },
-  getOptions: null
+  getOptions: null,
+  emptyMessage: null
 };
 SelectSearch.propTypes = process.env.NODE_ENV !== "production" ? {
   options: PropTypes.arrayOf(optionType).isRequired,
@@ -207,6 +218,7 @@ SelectSearch.propTypes = process.env.NODE_ENV !== "production" ? {
   fuse: PropTypes.oneOfType([PropTypes.bool, PropTypes.shape({
     keys: PropTypes.arrayOf(PropTypes.string),
     threshold: PropTypes.number
-  })])
+  })]),
+  emptyMessage: PropTypes.oneOfType([PropTypes.string, PropTypes.func])
 } : {};
 export default /*#__PURE__*/memo(SelectSearch);
