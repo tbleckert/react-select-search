@@ -2073,6 +2073,86 @@ exports[`Test SelectSearch component Renders with disabled 1`] = `
 </div>
 `;
 
+exports[`Test SelectSearch component Renders with empty message renderer 1`] = `
+<div
+  className="select-search"
+  id={null}
+>
+  <div
+    className="select-search__value"
+  >
+    <input
+      autoComplete="on"
+      autoFocus={false}
+      className="select-search__input"
+      disabled={false}
+      onBlur={[Function]}
+      onChange={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyPress={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      placeholder={null}
+      readOnly={false}
+      tabIndex="0"
+      value=""
+    />
+  </div>
+  <div
+    className="select-search__select"
+  >
+    <ul
+      className="select-search__options"
+    >
+      <div>
+        Not found
+      </div>
+    </ul>
+  </div>
+</div>
+`;
+
+exports[`Test SelectSearch component Renders with empty message string 1`] = `
+<div
+  className="select-search"
+  id={null}
+>
+  <div
+    className="select-search__value"
+  >
+    <input
+      autoComplete="on"
+      autoFocus={false}
+      className="select-search__input"
+      disabled={false}
+      onBlur={[Function]}
+      onChange={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyPress={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      placeholder={null}
+      readOnly={false}
+      tabIndex="0"
+      value=""
+    />
+  </div>
+  <div
+    className="select-search__select"
+  >
+    <ul
+      className="select-search__options"
+    >
+      <li>
+        Not found
+      </li>
+    </ul>
+  </div>
+</div>
+`;
+
 exports[`Test SelectSearch component Renders with multiple 1`] = `
 <div
   className="select-search"

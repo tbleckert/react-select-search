@@ -30,6 +30,7 @@ const SelectSearch = forwardRef(({
     renderGroupHeader,
     getOptions,
     fuse,
+    emptyMessage
 }, ref) => {
     const selectRef = useRef(null);
     const [snapshot, valueProps, optionProps] = useSelect({
@@ -71,6 +72,16 @@ const SelectSearch = forwardRef(({
 
         return `${className.split(' ')[0]}__${key}`;
     }, [className]);
+
+    const renderEmptyMessage = useCallback(() => {
+        if (typeof emptyMessage === 'function') {
+            return emptyMessage();
+        } else if (typeof emptyMessage === 'string') {
+            return <li>{emptyMessage}</li>
+        }
+
+        return null;
+    }, [emptyMessage]);
 
     const wrapperClass = [
         cls('container'),
@@ -136,35 +147,37 @@ const SelectSearch = forwardRef(({
             {shouldRenderOptions && (
                 <div className={cls('select')} ref={selectRef}>
                     <ul className={cls('options')}>
-                        {options.map((option) => {
-                            const isGroup = option.type === 'group';
-                            const items = (isGroup) ? option.items : [option];
-                            const base = { cls, optionProps, renderOption };
-                            const rendered = items.map((o) => (
-                                <Option
-                                    key={o.value}
-                                    selected={isSelected(o, value)}
-                                    highlighted={highlighted === o.index}
-                                    {...base}
-                                    {...o}
-                                />
-                            ));
+                        {options.length > 0 ? (
+                            options.map((option) => {
+                                const isGroup = option.type === 'group';
+                                const items = (isGroup) ? option.items : [option];
+                                const base = { cls, optionProps, renderOption };
+                                const rendered = items.map((o) => (
+                                    <Option
+                                        key={o.value}
+                                        selected={isSelected(o, value)}
+                                        highlighted={highlighted === o.index}
+                                        {...base}
+                                        {...o}
+                                    />
+                                ));
 
-                            if (isGroup) {
-                                return (
-                                    <li role="none" className={cls('row')} key={option.groupId}>
-                                        <div className={cls('group')}>
-                                            <div className={cls('group-header')}>{renderGroupHeader(option.name)}</div>
-                                            <ul className={cls('options')}>
-                                                {rendered}
-                                            </ul>
-                                        </div>
-                                    </li>
-                                );
-                            }
+                                if (isGroup) {
+                                    return (
+                                        <li role="none" className={cls('row')} key={option.groupId}>
+                                            <div className={cls('group')}>
+                                                <div className={cls('group-header')}>{renderGroupHeader(option.name)}</div>
+                                                <ul className={cls('options')}>
+                                                    {rendered}
+                                                </ul>
+                                            </div>
+                                        </li>
+                                    );
+                                }
 
-                            return rendered;
-                        })}
+                                return rendered;
+                            })
+                        ) : (renderEmptyMessage() || null)}
                     </ul>
                 </div>
             )}
@@ -203,6 +216,7 @@ SelectSearch.defaultProps = {
         threshold: 0.3,
     },
     getOptions: null,
+    emptyMessage: null,
 };
 
 SelectSearch.propTypes = {
@@ -240,6 +254,10 @@ SelectSearch.propTypes = {
             threshold: PropTypes.number,
         }),
     ]),
+    emptyMessage: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.func
+    ])
 };
 
 export default memo(SelectSearch);
