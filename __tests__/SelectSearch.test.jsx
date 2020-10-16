@@ -73,6 +73,32 @@ describe('Test SelectSearch component', () => {
         expect(tree).toMatchSnapshot();
     });
 
+    test('Renders with empty message string', () => {
+        const tree = renderer.create((
+            <SelectSearch
+                options={[]}
+                search
+                printOptions="always"
+                emptyMessage="Not found"
+            />
+        )).toJSON();
+
+        expect(tree).toMatchSnapshot();
+    });
+
+    test('Renders with empty message renderer', () => {
+        const tree = renderer.create((
+            <SelectSearch
+                options={[]}
+                search
+                printOptions="always"
+                emptyMessage={() => <div>Not found</div>}
+            />
+        )).toJSON();
+
+        expect(tree).toMatchSnapshot();
+    });
+
     test('Renders with search and placeholder', () => {
         const tree = renderer.create((
             <SelectSearch options={[
