@@ -52,7 +52,8 @@ var SelectSearch = /*#__PURE__*/(0, _react.forwardRef)(function (_ref, ref) {
       renderGroupHeader = _ref.renderGroupHeader,
       getOptions = _ref.getOptions,
       debounce = _ref.debounce,
-      fuse = _ref.fuse;
+      fuse = _ref.fuse,
+      emptyMessage = _ref.emptyMessage;
   var selectRef = (0, _react.useRef)(null);
   var fetchOptions = (0, _react.useCallback)(function (q, options, value) {
     if (getOptions) {
@@ -107,6 +108,21 @@ var SelectSearch = /*#__PURE__*/(0, _react.forwardRef)(function (_ref, ref) {
 
     return className.split(' ')[0] + "__" + key;
   }, [className]);
+  var renderEmptyMessage = (0, _react.useCallback)(function () {
+    var wrapLi = function wrapLi(content) {
+      return /*#__PURE__*/_react["default"].createElement("li", {
+        className: cls('not-found')
+      }, content);
+    };
+
+    if (typeof emptyMessage === 'function') {
+      return wrapLi(emptyMessage());
+    } else if (typeof emptyMessage === 'string') {
+      return wrapLi(emptyMessage);
+    }
+
+    return null;
+  }, [emptyMessage, cls]);
   var wrapperClass = [cls('container'), disabled ? cls('is-disabled') : false, fetching ? cls('is-loading') : false, focus ? cls('has-focus') : false].filter(function (single) {
     return !!single;
   }).join(' ');
@@ -163,7 +179,7 @@ var SelectSearch = /*#__PURE__*/(0, _react.forwardRef)(function (_ref, ref) {
     ref: selectRef
   }, /*#__PURE__*/_react["default"].createElement("ul", {
     className: cls('options')
-  }, options.map(function (option) {
+  }, options.length > 0 ? options.map(function (option) {
     var isGroup = option.type === 'group';
     var items = isGroup ? option.items : [option];
     var base = {
@@ -194,7 +210,7 @@ var SelectSearch = /*#__PURE__*/(0, _react.forwardRef)(function (_ref, ref) {
     }
 
     return rendered;
-  }))));
+  }) : renderEmptyMessage() || null)));
 });
 SelectSearch.defaultProps = {
   // Data
@@ -236,6 +252,7 @@ SelectSearch.defaultProps = {
       className: className
     }));
   },
+  emptyMessage: null,
   // Events
   onChange: function onChange() {},
   onFocus: function onFocus() {},
@@ -268,6 +285,7 @@ SelectSearch.propTypes = process.env.NODE_ENV !== "production" ? {
   renderOption: _propTypes["default"].func,
   renderGroupHeader: _propTypes["default"].func,
   renderValue: _propTypes["default"].func,
+  emptyMessage: _propTypes["default"].oneOfType([_propTypes["default"].string, _propTypes["default"].func]),
   // Events
   onChange: _propTypes["default"].func,
   onFocus: _propTypes["default"].func,

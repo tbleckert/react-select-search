@@ -34,6 +34,7 @@ const SelectSearch = forwardRef(({
     getOptions,
     debounce,
     fuse,
+    emptyMessage,
 }, ref) => {
     const selectRef = useRef(null);
     const fetchOptions = useCallback((q, options, value) => {
@@ -88,6 +89,18 @@ const SelectSearch = forwardRef(({
 
         return `${className.split(' ')[0]}__${key}`;
     }, [className]);
+
+    const renderEmptyMessage = useCallback(() => {
+        const wrapLi = content => <li className={cls('not-found')}>{content}</li>;
+
+        if (typeof emptyMessage === 'function') {
+            return wrapLi(emptyMessage());
+        } else if (typeof emptyMessage === 'string') {
+            return wrapLi(emptyMessage);
+        }
+
+        return null;
+    }, [emptyMessage, cls]);
 
     const wrapperClass = [
         cls('container'),
@@ -153,35 +166,37 @@ const SelectSearch = forwardRef(({
             {shouldRenderOptions && (
                 <div className={cls('select')} ref={selectRef}>
                     <ul className={cls('options')}>
-                        {options.map((option) => {
-                            const isGroup = option.type === 'group';
-                            const items = (isGroup) ? option.items : [option];
-                            const base = { cls, optionProps, renderOption };
-                            const rendered = items.map((o) => (
-                                <Option
-                                    key={o.value}
-                                    selected={isSelected(o, selectedOption)}
-                                    highlighted={highlighted === o.index}
-                                    {...base}
-                                    {...o}
-                                />
-                            ));
+                        {options.length > 0 ? (
+                            options.map((option) => {
+                                const isGroup = option.type === 'group';
+                                const items = (isGroup) ? option.items : [option];
+                                const base = { cls, optionProps, renderOption };
+                                const rendered = items.map((o) => (
+                                    <Option
+                                        key={o.value}
+                                        selected={isSelected(o, selectedOption)}
+                                        highlighted={highlighted === o.index}
+                                        {...base}
+                                        {...o}
+                                    />
+                                ));
 
-                            if (isGroup) {
-                                return (
-                                    <li role="none" className={cls('row')} key={option.groupId}>
-                                        <div className={cls('group')}>
-                                            <div className={cls('group-header')}>{renderGroupHeader(option.name)}</div>
-                                            <ul className={cls('options')}>
-                                                {rendered}
-                                            </ul>
-                                        </div>
-                                    </li>
-                                );
-                            }
+                                if (isGroup) {
+                                    return (
+                                        <li role="none" className={cls('row')} key={option.groupId}>
+                                            <div className={cls('group')}>
+                                                <div className={cls('group-header')}>{renderGroupHeader(option.name)}</div>
+                                                <ul className={cls('options')}>
+                                                    {rendered}
+                                                </ul>
+                                            </div>
+                                        </li>
+                                    );
+                                }
 
-                            return rendered;
-                        })}
+                                return rendered;
+                            })
+                        ) : (renderEmptyMessage() || null)}
                     </ul>
                 </div>
             )}
@@ -229,6 +244,7 @@ SelectSearch.defaultProps = {
             className={className}
         />
     ),
+    emptyMessage: null,
 
     // Events
     onChange: () => {},
@@ -280,6 +296,10 @@ SelectSearch.propTypes = {
     renderOption: PropTypes.func,
     renderGroupHeader: PropTypes.func,
     renderValue: PropTypes.func,
+    emptyMessage: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.func,
+    ]),
 
     // Events
     onChange: PropTypes.func,

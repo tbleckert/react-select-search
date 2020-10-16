@@ -34,7 +34,8 @@ const SelectSearch = /*#__PURE__*/forwardRef(({
   renderGroupHeader,
   getOptions,
   debounce,
-  fuse
+  fuse,
+  emptyMessage
 }, ref) => {
   const selectRef = useRef(null);
   const fetchOptions = useCallback((q, options, value) => {
@@ -87,6 +88,19 @@ const SelectSearch = /*#__PURE__*/forwardRef(({
 
     return className.split(' ')[0] + "__" + key;
   }, [className]);
+  const renderEmptyMessage = useCallback(() => {
+    const wrapLi = content => /*#__PURE__*/React.createElement("li", {
+      className: cls('not-found')
+    }, content);
+
+    if (typeof emptyMessage === 'function') {
+      return wrapLi(emptyMessage());
+    } else if (typeof emptyMessage === 'string') {
+      return wrapLi(emptyMessage);
+    }
+
+    return null;
+  }, [emptyMessage, cls]);
   const wrapperClass = [cls('container'), disabled ? cls('is-disabled') : false, fetching ? cls('is-loading') : false, focus ? cls('has-focus') : false].filter(single => !!single).join(' ');
   const inputValue = focus && search ? searchValue : displayValue;
   useEffect(() => {
@@ -143,7 +157,7 @@ const SelectSearch = /*#__PURE__*/forwardRef(({
     ref: selectRef
   }, /*#__PURE__*/React.createElement("ul", {
     className: cls('options')
-  }, options.map(option => {
+  }, options.length > 0 ? options.map(option => {
     const isGroup = option.type === 'group';
     const items = isGroup ? option.items : [option];
     const base = {
@@ -172,7 +186,7 @@ const SelectSearch = /*#__PURE__*/forwardRef(({
     }
 
     return rendered;
-  }))));
+  }) : renderEmptyMessage() || null)));
 });
 SelectSearch.defaultProps = {
   // Data
@@ -207,6 +221,7 @@ SelectSearch.defaultProps = {
   renderValue: (valueProps, snapshot, className) => /*#__PURE__*/React.createElement("input", _extends({}, valueProps, {
     className: className
   })),
+  emptyMessage: null,
   // Events
   onChange: () => {},
   onFocus: () => {},
@@ -239,6 +254,7 @@ SelectSearch.propTypes = process.env.NODE_ENV !== "production" ? {
   renderOption: PropTypes.func,
   renderGroupHeader: PropTypes.func,
   renderValue: PropTypes.func,
+  emptyMessage: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   // Events
   onChange: PropTypes.func,
   onFocus: PropTypes.func,
