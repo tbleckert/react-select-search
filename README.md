@@ -127,7 +127,7 @@ Below is all the available options you can pass to the component. Options withou
 | autoComplete | string, on/off | off | Disables/Enables autoComplete functionality in search field. |
 | autoFocus | boolean | false | Autofocus on select |
 | fuse | object, boolean | true | Use fuse.js to apply fuzzy search on search. Set to true to use default options or pass a fuse.js config option. If `search` is enabled and no `filterOptions` callback is passed, this will be set to `true` automatically. |
-| className | string, function | select-search-box | Set a base class string or pass a function for complete control. Se [custom classNames](#custom-classnames) for more. |
+| className | string, function | select-search-box | Set a base class string or pass a function for complete control. Se [custom classNames](#custom-class-names) for more. |
 | onChange | function | null | Function to receive and handle value changes. |
 | onFocus | function | null | Focus callback. |
 | onBlur | function | null | Blur callback. |
