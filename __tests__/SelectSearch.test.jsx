@@ -1,8 +1,8 @@
-import React from "react";
-import { render, unmountComponentAtNode } from "react-dom";
-import { act, Simulate } from "react-dom/test-utils";
-import pretty from "pretty";
-import SelectSearch from "../src/SelectSearch";
+import React from 'react';
+import { render, unmountComponentAtNode } from 'react-dom';
+import { act, Simulate } from 'react-dom/test-utils';
+import pretty from 'pretty';
+import SelectSearch from '../src/SelectSearch';
 
 let container;
 
@@ -58,11 +58,7 @@ describe("Test SelectSearch component", () => {
             );
         });
 
-        expect(pretty(container.innerHTML)).toMatchInlineSnapshot(`
-            "<div class=\\"select-search\\">
-              <div class=\\"select-search__value\\"><input tabindex=\\"0\\" readonly=\\"\\" autocomplete=\\"on\\" class=\\"select-search__input\\" value=\\"Foo\\"></div>
-            </div>"
-        `);
+        expect(pretty(container.innerHTML)).toMatchSnapshot();
     });
 
     test("Renders with multiple", () => {
@@ -79,16 +75,7 @@ describe("Test SelectSearch component", () => {
             );
         });
 
-        expect(pretty(container.innerHTML)).toMatchInlineSnapshot(`
-            "<div class=\\"select-search\\">
-              <div class=\\"select-search__select\\">
-                <ul class=\\"select-search__options\\">
-                  <li class=\\"select-search__row\\" role=\\"menuitem\\" data-index=\\"0\\" data-value=\\"foo\\"><button class=\\"select-search__option\\" tabindex=\\"-1\\" value=\\"foo\\">Foo</button></li>
-                  <li class=\\"select-search__row\\" role=\\"menuitem\\" data-index=\\"1\\" data-value=\\"bar\\"><button class=\\"select-search__option\\" tabindex=\\"-1\\" value=\\"bar\\">Bar</button></li>
-                </ul>
-              </div>
-            </div>"
-        `);
+        expect(pretty(container.innerHTML)).toMatchSnapshot();
     });
 
     test("Focus displays options", () => {
@@ -107,11 +94,7 @@ describe("Test SelectSearch component", () => {
         expect(
             container.querySelectorAll(".select-search__option").length
         ).toBe(0);
-        expect(pretty(container.innerHTML)).toMatchInlineSnapshot(`
-            "<div class=\\"select-search\\">
-              <div class=\\"select-search__value\\"><input tabindex=\\"0\\" readonly=\\"\\" autocomplete=\\"on\\" class=\\"select-search__input\\" value=\\"Foo\\"></div>
-            </div>"
-        `);
+        expect(pretty(container.innerHTML)).toMatchSnapshot();
 
         act(() => {
             Simulate.focus(container.querySelector(".select-search__input"));
@@ -120,16 +103,6 @@ describe("Test SelectSearch component", () => {
         expect(
             container.querySelectorAll(".select-search__option").length
         ).toBe(2);
-        expect(pretty(container.innerHTML)).toMatchInlineSnapshot(`
-            "<div class=\\"select-search has-focus\\">
-              <div class=\\"select-search__value\\"><input tabindex=\\"0\\" readonly=\\"\\" autocomplete=\\"on\\" class=\\"select-search__input\\" value=\\"Foo\\"></div>
-              <div class=\\"select-search__select\\">
-                <ul class=\\"select-search__options\\">
-                  <li class=\\"select-search__row\\" role=\\"menuitem\\" data-index=\\"0\\" data-value=\\"foo\\"><button class=\\"select-search__option is-selected\\" tabindex=\\"-1\\" value=\\"foo\\">Foo</button></li>
-                  <li class=\\"select-search__row\\" role=\\"menuitem\\" data-index=\\"1\\" data-value=\\"bar\\"><button class=\\"select-search__option\\" tabindex=\\"-1\\" value=\\"bar\\">Bar</button></li>
-                </ul>
-              </div>
-            </div>"
-        `);
+        expect(pretty(container.innerHTML)).toMatchSnapshot();
     });
 });
