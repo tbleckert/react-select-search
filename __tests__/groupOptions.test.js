@@ -22,8 +22,6 @@ describe('Unit test for GroupOptions function', () => {
 
     const groupedOptions = GroupOptions(flattenOptions);
 
-    console.log(groupedOptions);
-
     test('Has correct amount of items', () => {
         expect(groupedOptions.length).toEqual(2);
     });

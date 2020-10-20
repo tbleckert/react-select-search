@@ -17,8 +17,6 @@ describe('Unit test for getOption function', () => {
             friends[1],
         ];
 
-        console.log(getOption(optionToFind.map((o) => o.value), friends));
-
         expect(getOption(optionToFind.map((o) => o.value), friends)).toStrictEqual(optionToFind);
         expect(getOption('foo', friends)).toEqual(null);
         expect(getOption('', friends)).toEqual(null);
