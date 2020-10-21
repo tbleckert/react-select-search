@@ -129,6 +129,8 @@ Below is all the available options you can pass to the component. Options withou
 | fuse | object, boolean | true | Use fuse.js to apply fuzzy search on search. Set to true to use default options or pass a fuse.js config option. If `search` is enabled and no `filterOptions` callback is passed, this will be set to `true` automatically. |
 | className | string, function | select-search-box | Set a base class string or pass a function for complete control. Se [custom classNames](#custom-classnames) for more. |
 | onChange | function | null | Function to receive and handle value changes. |
+| onFocus | function | null | Focus callback. |
+| onBlur | function | null | Blur callback. |
 | printOptions | string | auto | Can be: auto, always, never, on-focus. This property controls when the options list should be rendered. |
 | closeOnSelect | boolean | true | The selectbox will blur by default when selecting an option. Set this to false to prevent this behavior. |
 | renderOption | function | null | Function that renders the options. See [custom renderers](#custom-renderers) for more. |

@@ -24,6 +24,8 @@ const SelectSearch = /*#__PURE__*/forwardRef(({
   options: defaultOptions,
   id,
   onChange,
+  onFocus,
+  onBlur,
   printOptions,
   closeOnSelect,
   className,
@@ -53,6 +55,8 @@ const SelectSearch = /*#__PURE__*/forwardRef(({
     disabled,
     search,
     onChange,
+    onFocus,
+    onBlur,
     closeOnSelect,
     closable: !multiple || printOptions === 'on-focus',
     getOptions: fetchOptions,
@@ -171,18 +175,28 @@ const SelectSearch = /*#__PURE__*/forwardRef(({
   }))));
 });
 SelectSearch.defaultProps = {
-  className: 'select-search',
-  disabled: false,
-  search: false,
+  // Data
+  getOptions: null,
+  value: null,
+  // Interaction
   multiple: false,
+  search: false,
+  disabled: false,
+  printOptions: 'auto',
+  closeOnSelect: true,
+  debounce: 0,
+  fuse: {
+    keys: ['name', 'groupName'],
+    threshold: 0.3
+  },
+  // Attributes
   placeholder: null,
   id: null,
   autoFocus: false,
   autoComplete: 'on',
-  value: null,
-  onChange: () => {},
-  printOptions: 'auto',
-  closeOnSelect: true,
+  // Design
+  className: 'select-search',
+  // Renderers
   renderOption: (domProps, option, snapshot, className) =>
   /*#__PURE__*/
   // eslint-disable-next-line react/button-has-type
@@ -193,35 +207,41 @@ SelectSearch.defaultProps = {
   renderValue: (valueProps, snapshot, className) => /*#__PURE__*/React.createElement("input", _extends({}, valueProps, {
     className: className
   })),
-  debounce: 0,
-  fuse: {
-    keys: ['name', 'groupName'],
-    threshold: 0.3
-  },
-  getOptions: null
+  // Events
+  onChange: () => {},
+  onFocus: () => {},
+  onBlur: () => {}
 };
 SelectSearch.propTypes = process.env.NODE_ENV !== "production" ? {
+  // Data
   options: PropTypes.arrayOf(optionType).isRequired,
   getOptions: PropTypes.func,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number]))]),
-  className: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+  // Interaction
   multiple: PropTypes.bool,
   search: PropTypes.bool,
   disabled: PropTypes.bool,
-  placeholder: PropTypes.string,
-  id: PropTypes.string,
-  autoComplete: PropTypes.string,
-  autoFocus: PropTypes.bool,
-  onChange: PropTypes.func,
   printOptions: PropTypes.oneOf(['auto', 'always', 'never', 'on-focus']),
   closeOnSelect: PropTypes.bool,
-  renderOption: PropTypes.func,
-  renderGroupHeader: PropTypes.func,
-  renderValue: PropTypes.func,
   debounce: PropTypes.number,
   fuse: PropTypes.oneOfType([PropTypes.bool, PropTypes.shape({
     keys: PropTypes.arrayOf(PropTypes.string),
     threshold: PropTypes.number
-  })])
+  })]),
+  // Attributes
+  placeholder: PropTypes.string,
+  id: PropTypes.string,
+  autoComplete: PropTypes.string,
+  autoFocus: PropTypes.bool,
+  // Design
+  className: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+  // Renderers
+  renderOption: PropTypes.func,
+  renderGroupHeader: PropTypes.func,
+  renderValue: PropTypes.func,
+  // Events
+  onChange: PropTypes.func,
+  onFocus: PropTypes.func,
+  onBlur: PropTypes.func
 } : {};
 export default /*#__PURE__*/memo(SelectSearch);

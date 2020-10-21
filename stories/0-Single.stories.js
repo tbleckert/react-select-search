@@ -1,10 +1,12 @@
 import React from 'react';
+import { action } from '@storybook/addon-actions';
 import SelectSearch from '../src';
 import '../style.css';
 import { countries } from './data';
 
 export default {
-  title: 'Single select',
+    title: 'Single select',
+    component: SelectSearch,
 };
 
 export const Default = () => (
@@ -15,6 +17,8 @@ export const Default = () => (
           { value: 'm', name: 'Medium' },
           { value: 'l', name: 'Large' },
         ]}
+        onFocus={action('Focus')}
+        onBlur={action('Blur')}
     />
 );
 

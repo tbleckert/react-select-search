@@ -22,6 +22,8 @@ export default function useSelect({
     closeOnSelect = true,
     getOptions = null,
     onChange = () => {},
+    onFocus: onFocusCb = () => {},
+    onBlur: onBlurCb = () => {},
     debounce: debounceTime = 0,
 }) {
     const ref = useRef(null);
@@ -57,8 +59,12 @@ export default function useSelect({
         disabled,
     };
 
-    const onFocus = () => setFocus(true);
-    const onBlur = () => {
+    const onFocus = (e) => {
+        setFocus(true);
+        onFocusCb(e);
+    };
+
+    const onBlur = (e) => {
         setFocus(false);
         setOptions(flattenedOptions);
         setSearch('');
@@ -66,6 +72,8 @@ export default function useSelect({
         if (ref.current) {
             ref.current.blur();
         }
+
+        onBlurCb(e);
     };
 
     const onSelect = (newValue, silent = false) => {
@@ -120,7 +128,6 @@ export default function useSelect({
     };
 
     const onSearch = ({ target }) => setSearch(target.value);
-
     const valueProps = {
         tabIndex: '0',
         readOnly: !canSearch,

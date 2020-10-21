@@ -42,6 +42,8 @@ var SelectSearch = /*#__PURE__*/(0, _react.forwardRef)(function (_ref, ref) {
       defaultOptions = _ref.options,
       id = _ref.id,
       onChange = _ref.onChange,
+      onFocus = _ref.onFocus,
+      onBlur = _ref.onBlur,
       printOptions = _ref.printOptions,
       closeOnSelect = _ref.closeOnSelect,
       className = _ref.className,
@@ -71,6 +73,8 @@ var SelectSearch = /*#__PURE__*/(0, _react.forwardRef)(function (_ref, ref) {
     disabled: disabled,
     search: search,
     onChange: onChange,
+    onFocus: onFocus,
+    onBlur: onBlur,
     closeOnSelect: closeOnSelect,
     closable: !multiple || printOptions === 'on-focus',
     getOptions: fetchOptions,
@@ -193,18 +197,28 @@ var SelectSearch = /*#__PURE__*/(0, _react.forwardRef)(function (_ref, ref) {
   }))));
 });
 SelectSearch.defaultProps = {
-  className: 'select-search',
-  disabled: false,
-  search: false,
+  // Data
+  getOptions: null,
+  value: null,
+  // Interaction
   multiple: false,
+  search: false,
+  disabled: false,
+  printOptions: 'auto',
+  closeOnSelect: true,
+  debounce: 0,
+  fuse: {
+    keys: ['name', 'groupName'],
+    threshold: 0.3
+  },
+  // Attributes
   placeholder: null,
   id: null,
   autoFocus: false,
   autoComplete: 'on',
-  value: null,
-  onChange: function onChange() {},
-  printOptions: 'auto',
-  closeOnSelect: true,
+  // Design
+  className: 'select-search',
+  // Renderers
   renderOption: function renderOption(domProps, option, snapshot, className) {
     return (
       /*#__PURE__*/
@@ -222,36 +236,42 @@ SelectSearch.defaultProps = {
       className: className
     }));
   },
-  debounce: 0,
-  fuse: {
-    keys: ['name', 'groupName'],
-    threshold: 0.3
-  },
-  getOptions: null
+  // Events
+  onChange: function onChange() {},
+  onFocus: function onFocus() {},
+  onBlur: function onBlur() {}
 };
 SelectSearch.propTypes = process.env.NODE_ENV !== "production" ? {
+  // Data
   options: _propTypes["default"].arrayOf(_types.optionType).isRequired,
   getOptions: _propTypes["default"].func,
   value: _propTypes["default"].oneOfType([_propTypes["default"].string, _propTypes["default"].number, _propTypes["default"].arrayOf(_propTypes["default"].oneOfType([_propTypes["default"].string, _propTypes["default"].number]))]),
-  className: _propTypes["default"].oneOfType([_propTypes["default"].string, _propTypes["default"].func]),
+  // Interaction
   multiple: _propTypes["default"].bool,
   search: _propTypes["default"].bool,
   disabled: _propTypes["default"].bool,
-  placeholder: _propTypes["default"].string,
-  id: _propTypes["default"].string,
-  autoComplete: _propTypes["default"].string,
-  autoFocus: _propTypes["default"].bool,
-  onChange: _propTypes["default"].func,
   printOptions: _propTypes["default"].oneOf(['auto', 'always', 'never', 'on-focus']),
   closeOnSelect: _propTypes["default"].bool,
-  renderOption: _propTypes["default"].func,
-  renderGroupHeader: _propTypes["default"].func,
-  renderValue: _propTypes["default"].func,
   debounce: _propTypes["default"].number,
   fuse: _propTypes["default"].oneOfType([_propTypes["default"].bool, _propTypes["default"].shape({
     keys: _propTypes["default"].arrayOf(_propTypes["default"].string),
     threshold: _propTypes["default"].number
-  })])
+  })]),
+  // Attributes
+  placeholder: _propTypes["default"].string,
+  id: _propTypes["default"].string,
+  autoComplete: _propTypes["default"].string,
+  autoFocus: _propTypes["default"].bool,
+  // Design
+  className: _propTypes["default"].oneOfType([_propTypes["default"].string, _propTypes["default"].func]),
+  // Renderers
+  renderOption: _propTypes["default"].func,
+  renderGroupHeader: _propTypes["default"].func,
+  renderValue: _propTypes["default"].func,
+  // Events
+  onChange: _propTypes["default"].func,
+  onFocus: _propTypes["default"].func,
+  onBlur: _propTypes["default"].func
 } : {};
 
 var _default = /*#__PURE__*/(0, _react.memo)(SelectSearch);

@@ -38,6 +38,10 @@ function useSelect(_ref) {
       getOptions = _ref$getOptions === void 0 ? null : _ref$getOptions,
       _ref$onChange = _ref.onChange,
       onChange = _ref$onChange === void 0 ? function () {} : _ref$onChange,
+      _ref$onFocus = _ref.onFocus,
+      onFocusCb = _ref$onFocus === void 0 ? function () {} : _ref$onFocus,
+      _ref$onBlur = _ref.onBlur,
+      onBlurCb = _ref$onBlur === void 0 ? function () {} : _ref$onBlur,
       _ref$debounce = _ref.debounce,
       debounceTime = _ref$debounce === void 0 ? 0 : _ref$debounce;
   var ref = (0, _react.useRef)(null);
@@ -101,11 +105,12 @@ function useSelect(_ref) {
     disabled: disabled
   };
 
-  var onFocus = function onFocus() {
-    return setFocus(true);
+  var onFocus = function onFocus(e) {
+    setFocus(true);
+    onFocusCb(e);
   };
 
-  var onBlur = function onBlur() {
+  var onBlur = function onBlur(e) {
     setFocus(false);
     setOptions(flattenedOptions);
     setSearch('');
@@ -113,6 +118,8 @@ function useSelect(_ref) {
     if (ref.current) {
       ref.current.blur();
     }
+
+    onBlurCb(e);
   };
 
   var onSelect = function onSelect(newValue, silent) {
