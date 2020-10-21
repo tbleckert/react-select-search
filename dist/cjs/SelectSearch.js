@@ -47,7 +47,8 @@ var SelectSearch = /*#__PURE__*/(0, _react.forwardRef)(function (_ref, ref) {
       renderOption = _ref.renderOption,
       renderGroupHeader = _ref.renderGroupHeader,
       getOptions = _ref.getOptions,
-      fuse = _ref.fuse;
+      fuse = _ref.fuse,
+      emptyMessage = _ref.emptyMessage;
   var selectRef = (0, _react.useRef)(null);
 
   var _useSelect = (0, _useSelect2["default"])({
@@ -89,6 +90,15 @@ var SelectSearch = /*#__PURE__*/(0, _react.forwardRef)(function (_ref, ref) {
 
     return className.split(' ')[0] + "__" + key;
   }, [className]);
+  var renderEmptyMessage = (0, _react.useCallback)(function () {
+    if (typeof emptyMessage === 'function') {
+      return emptyMessage();
+    } else if (typeof emptyMessage === 'string') {
+      return /*#__PURE__*/_react["default"].createElement("li", null, emptyMessage);
+    }
+
+    return null;
+  }, [emptyMessage]);
   var wrapperClass = [cls('container'), disabled ? cls('is-disabled') : false, searching ? cls('is-loading') : false, focus ? cls('has-focus') : false].filter(function (single) {
     return !!single;
   }).join(' ');
@@ -145,7 +155,7 @@ var SelectSearch = /*#__PURE__*/(0, _react.forwardRef)(function (_ref, ref) {
     ref: selectRef
   }, /*#__PURE__*/_react["default"].createElement("ul", {
     className: cls('options')
-  }, options.map(function (option) {
+  }, options.length > 0 ? options.map(function (option) {
     var isGroup = option.type === 'group';
     var items = isGroup ? option.items : [option];
     var base = {
@@ -176,7 +186,7 @@ var SelectSearch = /*#__PURE__*/(0, _react.forwardRef)(function (_ref, ref) {
     }
 
     return rendered;
-  }))));
+  }) : renderEmptyMessage() || null)));
 });
 SelectSearch.defaultProps = {
   className: 'select-search',
@@ -212,7 +222,8 @@ SelectSearch.defaultProps = {
     keys: ['name', 'groupName'],
     threshold: 0.3
   },
-  getOptions: null
+  getOptions: null,
+  emptyMessage: null
 };
 SelectSearch.propTypes = process.env.NODE_ENV !== "production" ? {
   options: _propTypes["default"].arrayOf(_types.optionType).isRequired,
@@ -235,7 +246,8 @@ SelectSearch.propTypes = process.env.NODE_ENV !== "production" ? {
   fuse: _propTypes["default"].oneOfType([_propTypes["default"].bool, _propTypes["default"].shape({
     keys: _propTypes["default"].arrayOf(_propTypes["default"].string),
     threshold: _propTypes["default"].number
-  })])
+  })]),
+  emptyMessage: _propTypes["default"].oneOfType([_propTypes["default"].string, _propTypes["default"].func])
 } : {};
 
 var _default = /*#__PURE__*/(0, _react.memo)(SelectSearch);

@@ -122,6 +122,7 @@ Below is all the available options you can pass to the component. Options withou
 | value | string, array | undefined | The value should be an array if multiple mode. |
 | multiple | boolean | false | Set to true if you want to allow multiple selected options. |
 | search | boolean | false | Set to true to enable search functionality |
+| emptyMessage | string, function | null | Set empty message for empty options list, you can provide render function without arguments instead plain string message|
 | disabled | boolean | false | Disables all functionality |
 | placeholder | string | empty string | Displayed if no option is selected and/or when search field is focused with empty value. |
 | autoComplete | string, on/off | off | Disables/Enables autoComplete functionality in search field. |

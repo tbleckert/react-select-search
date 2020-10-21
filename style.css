@@ -199,3 +199,8 @@
     border-top: 1px solid #eee;
     border-radius: 0 0 3px 3px;
 }
+
+.select-search__not-found {
+    font-style: italic;
+    text-align: center;
+}

@@ -37,6 +37,24 @@ export const Search = () => (
     />
 );
 
+export const SearchWithEmptyMessage = () => (
+    <SelectSearch
+        options={countries}
+        search
+        emptyMessage="Not found"
+        placeholder="Select your country"
+    />
+);
+
+export const SearchWithEmptyMessageRenderer = () => (
+    <SelectSearch
+        options={countries}
+        search
+        emptyMessage={() => <div style={{ textAlign: 'center', fontSize: '0.8em' }}>Not found renderer</div>}
+        placeholder="Select your country"
+    />
+);
+
 export const AlwaysOpen = () => (
     <SelectSearch
         options={[
