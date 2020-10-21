@@ -1,5 +1,4 @@
 import React from 'react';
-import { action } from '@storybook/addon-actions';
 import SelectSearch from '../src';
 import '../style.css';
 import { countries } from './data';
@@ -7,20 +6,52 @@ import { countries } from './data';
 export default {
     title: 'Single select',
     component: SelectSearch,
+    argTypes: {
+        multiple: { control: { type: 'boolean' } },
+        search: { control: { type: 'boolean' } },
+        disabled: { control: { type: 'boolean' } },
+        closeOnSelect: { control: { type: 'boolean' } },
+        placeholder: { control: { type: 'text' } },
+        onFocus: {
+            action: 'focus',
+        },
+        onBlur: {
+            action: 'blur',
+        },
+        onChange: {
+            action: 'change',
+        },
+        printOptions: {
+            control: {
+                type: 'radio',
+                options: ['auto', 'always', 'never', 'on-focus'],
+            },
+        },
+    },
 };
 
-export const Default = () => (
-    <SelectSearch
-        id="test-id"
-        options={[
-          { value: 's', name: 'Small' },
-          { value: 'm', name: 'Medium' },
-          { value: 'l', name: 'Large' },
-        ]}
-        onFocus={action('Focus')}
-        onBlur={action('Blur')}
-    />
-);
+const Template = (args) => <SelectSearch {...args} />;
+
+export const Default = Template.bind({});
+
+Default.args = {
+    id: 'test-id',
+    multiple: false,
+    search: false,
+    disabled: false,
+    closeOnSelect: true,
+    printOptions: 'auto',
+    placeholder: null,
+    options: [
+        { value: 's', name: 'Small' },
+        { value: 'm', name: 'Medium' },
+        { value: 'l', name: 'Large' },
+    ],
+};
+
+Default.argTypes = {
+    multiple: { control: { type: 'boolean' } },
+};
 
 export const withPlaceholder = () => (
     <SelectSearch
