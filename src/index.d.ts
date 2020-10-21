@@ -96,4 +96,42 @@ export type SelectSearchProps = {
 
 
 export const SelectSearch:React.FunctionComponent<SelectSearchProps>
+
+export function useSelect(
+    value?:string|string[],
+    disabled?:boolean,
+    multiple?:boolean,
+    search?:boolean,
+    fuse?:FuseOption|boolean,
+    options?:SelectSearchOption[],
+    onChange?:(selectedValue:SelectedOptionValue|SelectedOptionValue[], selectedOption:SelectedOption|SelectedOption[], optionSnapshot:SelectSearchProps) => void,
+    getOptions?:(query:string) => Promise<SelectSearchOption[]>,
+    allowEmpty?:boolean,
+    closeOnSelect?:boolean,
+    closable?:boolean,
+): [
+    ValueSnapshot,
+    {
+        tabIndex:string;
+        readOnly:boolean;
+        onChange:(selectedValue:SelectedOptionValue|SelectedOptionValue[], selectedOption:SelectedOption|SelectedOption[], optionSnapshot:SelectSearchProps) => void;
+        disabled:boolean;
+        onMouseDown:(event:MouseEvent) => void;
+        onKeyDown:(event:KeyboardEvent) => void;
+        onKeyUp:(event:KeyboardEvent) => void;
+        onKeyPress:(event:KeyboardEvent) => void;
+        onBlur:() => void;
+        onFocus:() => void;
+        ref:React.MutableRefObject<any>;
+    },
+    {
+        tabIndex:string;
+        onMouseDown:(event:MouseEvent) => void;
+        onKeyDown:(event:KeyboardEvent) => void;
+        onKeyPress:(event:KeyboardEvent) => void;
+        onBlur:() => void;
+    },
+    (value:string) => void
+]
+
 export default SelectSearch
