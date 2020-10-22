@@ -11,6 +11,7 @@ import { optionType } from './types';
 import Option from './Components/Option';
 import isSelected from './lib/isSelected';
 import fuzzySearch from './fuzzySearch';
+import Value from './Components/Value';
 
 const SelectSearch = forwardRef(({
     value: defaultValue,
@@ -70,8 +71,6 @@ const SelectSearch = forwardRef(({
         option: selectedOption,
         options,
         fetching,
-        displayValue,
-        search: searchValue,
     } = snapshot;
 
     const cls = useCallback((key) => {
@@ -106,8 +105,6 @@ const SelectSearch = forwardRef(({
         (fetching) ? cls('is-loading') : false,
         (focus) ? cls('has-focus') : false,
     ].filter((single) => !!single).join(' ');
-
-    const inputValue = (focus && search) ? searchValue : displayValue;
 
     useEffect(() => {
         const { current } = selectRef;
@@ -146,21 +143,17 @@ const SelectSearch = forwardRef(({
 
     return (
         <div ref={ref} className={wrapperClass} id={id}>
-            {((!multiple || placeholder) || search) && (
-                <div className={cls('value')}>
-                    {renderValue(
-                        {
-                            ...valueProps,
-                            placeholder,
-                            autoFocus,
-                            autoComplete,
-                            value: inputValue,
-                        },
-                        snapshot,
-                        cls('input'),
-                    )}
-                </div>
-            )}
+            <Value
+                valueProps={valueProps}
+                placeholder={placeholder}
+                multiple={multiple}
+                search={search}
+                autoComplete={autoComplete}
+                autoFocus={autoFocus}
+                snapshot={snapshot}
+                cls={cls}
+                renderValue={renderValue}
+            />
             {shouldRenderOptions && (
                 <div className={cls('select')} ref={selectRef}>
                     <ul className={cls('options')}>

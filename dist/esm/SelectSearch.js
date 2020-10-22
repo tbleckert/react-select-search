@@ -1,11 +1,5 @@
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 import React, { forwardRef, memo, useRef, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import useSelect from './useSelect';
@@ -13,6 +7,7 @@ import { optionType } from './types';
 import Option from './Components/Option';
 import isSelected from './lib/isSelected';
 import fuzzySearch from './fuzzySearch';
+import Value from './Components/Value';
 const SelectSearch = /*#__PURE__*/forwardRef(({
   value: defaultValue,
   disabled,
@@ -69,9 +64,7 @@ const SelectSearch = /*#__PURE__*/forwardRef(({
     value,
     option: selectedOption,
     options,
-    fetching,
-    displayValue,
-    search: searchValue
+    fetching
   } = snapshot;
   const cls = useCallback(key => {
     if (typeof className === 'function') {
@@ -99,7 +92,6 @@ const SelectSearch = /*#__PURE__*/forwardRef(({
     }, content);
   }, [emptyMessage, cls]);
   const wrapperClass = [cls('container'), disabled ? cls('is-disabled') : false, fetching ? cls('is-loading') : false, focus ? cls('has-focus') : false].filter(single => !!single).join(' ');
-  const inputValue = focus && search ? searchValue : displayValue;
   useEffect(() => {
     const {
       current
@@ -142,14 +134,17 @@ const SelectSearch = /*#__PURE__*/forwardRef(({
     ref: ref,
     className: wrapperClass,
     id: id
-  }, (!multiple || placeholder || search) && /*#__PURE__*/React.createElement("div", {
-    className: cls('value')
-  }, renderValue(_objectSpread(_objectSpread({}, valueProps), {}, {
-    placeholder,
-    autoFocus,
-    autoComplete,
-    value: inputValue
-  }), snapshot, cls('input'))), shouldRenderOptions && /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement(Value, {
+    valueProps: valueProps,
+    placeholder: placeholder,
+    multiple: multiple,
+    search: search,
+    autoComplete: autoComplete,
+    autoFocus: autoFocus,
+    snapshot: snapshot,
+    cls: cls,
+    renderValue: renderValue
+  }), shouldRenderOptions && /*#__PURE__*/React.createElement("div", {
     className: cls('select'),
     ref: selectRef
   }, /*#__PURE__*/React.createElement("ul", {
