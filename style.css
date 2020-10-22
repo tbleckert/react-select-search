@@ -89,7 +89,8 @@
 /**
  * Option
  */
-.select-search__option {
+.select-search__option,
+.select-search__not-found {
     display: block;
     height: 36px;
     width: 100%;
@@ -201,6 +202,8 @@
 }
 
 .select-search__not-found {
-    font-style: italic;
+    height: auto;
+    padding: 16px;
     text-align: center;
+    color: #888;
 }
