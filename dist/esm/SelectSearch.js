@@ -89,17 +89,14 @@ const SelectSearch = /*#__PURE__*/forwardRef(({
     return className.split(' ')[0] + "__" + key;
   }, [className]);
   const renderEmptyMessage = useCallback(() => {
-    const wrapLi = content => /*#__PURE__*/React.createElement("li", {
-      className: cls('not-found')
-    }, content);
-
-    if (typeof emptyMessage === 'function') {
-      return wrapLi(emptyMessage());
-    } else if (typeof emptyMessage === 'string') {
-      return wrapLi(emptyMessage);
+    if (emptyMessage === null) {
+      return null;
     }
 
-    return null;
+    const content = typeof emptyMessage === 'function' ? emptyMessage() : emptyMessage;
+    return /*#__PURE__*/React.createElement("li", {
+      className: cls('not-found')
+    }, content);
   }, [emptyMessage, cls]);
   const wrapperClass = [cls('container'), disabled ? cls('is-disabled') : false, fetching ? cls('is-loading') : false, focus ? cls('has-focus') : false].filter(single => !!single).join(' ');
   const inputValue = focus && search ? searchValue : displayValue;

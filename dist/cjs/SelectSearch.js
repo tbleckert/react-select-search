@@ -109,19 +109,14 @@ var SelectSearch = /*#__PURE__*/(0, _react.forwardRef)(function (_ref, ref) {
     return className.split(' ')[0] + "__" + key;
   }, [className]);
   var renderEmptyMessage = (0, _react.useCallback)(function () {
-    var wrapLi = function wrapLi(content) {
-      return /*#__PURE__*/_react["default"].createElement("li", {
-        className: cls('not-found')
-      }, content);
-    };
-
-    if (typeof emptyMessage === 'function') {
-      return wrapLi(emptyMessage());
-    } else if (typeof emptyMessage === 'string') {
-      return wrapLi(emptyMessage);
+    if (emptyMessage === null) {
+      return null;
     }
 
-    return null;
+    var content = typeof emptyMessage === 'function' ? emptyMessage() : emptyMessage;
+    return /*#__PURE__*/_react["default"].createElement("li", {
+      className: cls('not-found')
+    }, content);
   }, [emptyMessage, cls]);
   var wrapperClass = [cls('container'), disabled ? cls('is-disabled') : false, fetching ? cls('is-loading') : false, focus ? cls('has-focus') : false].filter(function (single) {
     return !!single;

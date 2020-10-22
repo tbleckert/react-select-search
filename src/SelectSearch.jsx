@@ -91,15 +91,13 @@ const SelectSearch = forwardRef(({
     }, [className]);
 
     const renderEmptyMessage = useCallback(() => {
-        const wrapLi = content => <li className={cls('not-found')}>{content}</li>;
-
-        if (typeof emptyMessage === 'function') {
-            return wrapLi(emptyMessage());
-        } else if (typeof emptyMessage === 'string') {
-            return wrapLi(emptyMessage);
+        if (emptyMessage === null) {
+            return null;
         }
 
-        return null;
+        const content = (typeof emptyMessage === 'function') ? emptyMessage() : emptyMessage;
+
+        return <li className={cls('not-found')}>{content}</li>;
     }, [emptyMessage, cls]);
 
     const wrapperClass = [
