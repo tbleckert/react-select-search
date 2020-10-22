@@ -3,5 +3,5 @@ export default function getOption(value, options) {
     return value.map(singleValue => options.find(option => option.value === singleValue));
   }
 
-  return options.find(option => option.value === value) || null;
+  return options.find(option => option.value == value) || null;
 }

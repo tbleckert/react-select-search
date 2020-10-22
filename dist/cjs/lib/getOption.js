@@ -13,6 +13,6 @@ function getOption(value, options) {
   }
 
   return options.find(function (option) {
-    return option.value === value;
+    return option.value == value;
   }) || null;
 }

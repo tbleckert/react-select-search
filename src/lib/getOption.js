@@ -5,5 +5,5 @@ export default function getOption(value, options) {
         ));
     }
 
-    return options.find((option) => option.value === value) || null;
+    return options.find((option) => option.value == value) || null;
 }
