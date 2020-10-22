@@ -30,7 +30,7 @@ const SelectSearch = forwardRef(({
     renderGroupHeader,
     getOptions,
     fuse,
-    emptyMessage
+    emptyMessage,
 }, ref) => {
     const selectRef = useRef(null);
     const [snapshot, valueProps, optionProps] = useSelect({
@@ -74,15 +74,13 @@ const SelectSearch = forwardRef(({
     }, [className]);
 
     const renderEmptyMessage = useCallback(() => {
-        const wrapLi = content => <li className={cls('not-found')}>{content}</li>;
-
-        if (typeof emptyMessage === 'function') {
-            return wrapLi(emptyMessage());
-        } else if (typeof emptyMessage === 'string') {
-            return wrapLi(emptyMessage);
+        if (emptyMessage === null) {
+            return null;
         }
 
-        return null;
+        const content = (typeof emptyMessage === 'function') ? emptyMessage() : emptyMessage;
+
+        return <li className={cls('not-found')}>{content}</li>;
     }, [emptyMessage, cls]);
 
     const wrapperClass = [
@@ -258,8 +256,8 @@ SelectSearch.propTypes = {
     ]),
     emptyMessage: PropTypes.oneOfType([
         PropTypes.string,
-        PropTypes.func
-    ])
+        PropTypes.func,
+    ]),
 };
 
 export default memo(SelectSearch);
