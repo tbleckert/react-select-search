@@ -8,10 +8,9 @@ import React, {
 import PropTypes from 'prop-types';
 import useSelect from './useSelect';
 import { optionType } from './types';
-import Option from './Components/Option';
-import isSelected from './lib/isSelected';
 import fuzzySearch from './fuzzySearch';
 import Value from './Components/Value';
+import Options from './Components/Options';
 
 const SelectSearch = forwardRef(({
     value: defaultValue,
@@ -68,7 +67,6 @@ const SelectSearch = forwardRef(({
         focus,
         highlighted,
         value,
-        option: selectedOption,
         options,
         fetching,
     } = snapshot;
@@ -88,16 +86,6 @@ const SelectSearch = forwardRef(({
 
         return `${className.split(' ')[0]}__${key}`;
     }, [className]);
-
-    const renderEmptyMessage = useCallback(() => {
-        if (emptyMessage === null) {
-            return null;
-        }
-
-        const content = (typeof emptyMessage === 'function') ? emptyMessage() : emptyMessage;
-
-        return <li className={cls('not-found')}>{content}</li>;
-    }, [emptyMessage, cls]);
 
     const wrapperClass = [
         cls('container'),
@@ -156,39 +144,15 @@ const SelectSearch = forwardRef(({
             />
             {shouldRenderOptions && (
                 <div className={cls('select')} ref={selectRef}>
-                    <ul className={cls('options')}>
-                        {options.length > 0 ? (
-                            options.map((option) => {
-                                const isGroup = option.type === 'group';
-                                const items = (isGroup) ? option.items : [option];
-                                const base = { cls, optionProps, renderOption };
-                                const rendered = items.map((o) => (
-                                    <Option
-                                        key={o.value}
-                                        selected={isSelected(o, selectedOption)}
-                                        highlighted={highlighted === o.index}
-                                        {...base}
-                                        {...o}
-                                    />
-                                ));
-
-                                if (isGroup) {
-                                    return (
-                                        <li role="none" className={cls('row')} key={option.groupId}>
-                                            <div className={cls('group')}>
-                                                <div className={cls('group-header')}>{renderGroupHeader(option.name)}</div>
-                                                <ul className={cls('options')}>
-                                                    {rendered}
-                                                </ul>
-                                            </div>
-                                        </li>
-                                    );
-                                }
-
-                                return rendered;
-                            })
-                        ) : (renderEmptyMessage() || null)}
-                    </ul>
+                    <Options
+                        options={options}
+                        emptyMessage={emptyMessage}
+                        optionProps={optionProps}
+                        renderOption={renderOption}
+                        renderGroupHeader={renderGroupHeader}
+                        cls={cls}
+                        snapshot={snapshot}
+                    />
                 </div>
             )}
         </div>

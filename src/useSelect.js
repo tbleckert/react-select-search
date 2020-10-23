@@ -36,17 +36,23 @@ export default function useSelect({
     const [options, setOptions] = useState(flattenedOptions);
     const [option, setOption] = useState(() => getOption(value, options));
     const groupedOptions = useMemo(() => groupOptions(options), [options]);
-    const fetchOptions = useMemo(() => (
-        debounce((q) => {
-            const optionsReq = getOptions(q, flattenedOptions);
+    const fetchOptions = useMemo(() => {
+        if (!getOptions) {
+            return () => flattenedOptions;
+        }
 
-            setFetching(true);
+        return (
+            debounce((q) => {
+                const optionsReq = getOptions(q, flattenedOptions);
 
-            Promise.resolve(optionsReq)
-                .then((newOptions) => setOptions(flattenOptions(newOptions)))
-                .finally(() => setFetching(false));
-        }, debounceTime)
-    ), [flattenedOptions, getOptions, debounceTime]);
+                setFetching(true);
+
+                Promise.resolve(optionsReq)
+                    .then((newOptions) => setOptions(flattenOptions(newOptions)))
+                    .finally(() => setFetching(false));
+            }, debounceTime)
+        );
+    }, [flattenedOptions, getOptions, debounceTime]);
     const snapshot = {
         options: groupedOptions,
         option,

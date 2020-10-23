@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import classes from './assets/hooks.module.css';
-import useSelectNew from '../src/useSelect';
+import useSelect from '../src/useSelect';
 
 export default {
   title: 'Hooks',
@@ -26,7 +26,7 @@ const options = [
 ];
 
 const CustomSelect = ({ options, value }) => {
-    const [snapshot, valueProps, optionProps] = useSelectNew({
+    const [snapshot, valueProps, optionProps] = useSelect({
         options,
         value,
         allowEmpty: false
