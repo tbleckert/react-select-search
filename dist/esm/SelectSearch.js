@@ -4,10 +4,9 @@ import React, { forwardRef, memo, useRef, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import useSelect from './useSelect';
 import { optionType } from './types';
-import Option from './Components/Option';
-import isSelected from './lib/isSelected';
 import fuzzySearch from './fuzzySearch';
 import Value from './Components/Value';
+import Options from './Components/Options';
 const SelectSearch = /*#__PURE__*/forwardRef(({
   value: defaultValue,
   disabled,
@@ -28,22 +27,12 @@ const SelectSearch = /*#__PURE__*/forwardRef(({
   renderOption,
   renderGroupHeader,
   getOptions,
+  filterOptions,
   debounce,
   fuse,
   emptyMessage
 }, ref) => {
   const selectRef = useRef(null);
-  const fetchOptions = useCallback((q, options, value) => {
-    if (getOptions) {
-      return getOptions(q, options, value);
-    }
-
-    if (q.length && fuse) {
-      return fuzzySearch(q, options, fuse);
-    }
-
-    return options;
-  }, [getOptions, fuse]);
   const [snapshot, valueProps, optionProps] = useSelect({
     options: defaultOptions,
     value: defaultValue === null && (placeholder || multiple) ? '' : defaultValue,
@@ -55,14 +44,15 @@ const SelectSearch = /*#__PURE__*/forwardRef(({
     onBlur,
     closeOnSelect,
     closable: !multiple || printOptions === 'on-focus',
-    getOptions: fetchOptions,
+    getOptions,
+    filterOptions,
+    fuse,
     debounce
   });
   const {
     focus,
     highlighted,
     value,
-    option: selectedOption,
     options,
     fetching
   } = snapshot;
@@ -81,16 +71,6 @@ const SelectSearch = /*#__PURE__*/forwardRef(({
 
     return className.split(' ')[0] + "__" + key;
   }, [className]);
-  const renderEmptyMessage = useCallback(() => {
-    if (emptyMessage === null) {
-      return null;
-    }
-
-    const content = typeof emptyMessage === 'function' ? emptyMessage() : emptyMessage;
-    return /*#__PURE__*/React.createElement("li", {
-      className: cls('not-found')
-    }, content);
-  }, [emptyMessage, cls]);
   const wrapperClass = [cls('container'), disabled ? cls('is-disabled') : false, fetching ? cls('is-loading') : false, focus ? cls('has-focus') : false].filter(single => !!single).join(' ');
   useEffect(() => {
     const {
@@ -147,42 +127,20 @@ const SelectSearch = /*#__PURE__*/forwardRef(({
   }), shouldRenderOptions && /*#__PURE__*/React.createElement("div", {
     className: cls('select'),
     ref: selectRef
-  }, /*#__PURE__*/React.createElement("ul", {
-    className: cls('options')
-  }, options.length > 0 ? options.map(option => {
-    const isGroup = option.type === 'group';
-    const items = isGroup ? option.items : [option];
-    const base = {
-      cls,
-      optionProps,
-      renderOption
-    };
-    const rendered = items.map(o => /*#__PURE__*/React.createElement(Option, _extends({
-      key: o.value,
-      selected: isSelected(o, selectedOption),
-      highlighted: highlighted === o.index
-    }, base, o)));
-
-    if (isGroup) {
-      return /*#__PURE__*/React.createElement("li", {
-        role: "none",
-        className: cls('row'),
-        key: option.groupId
-      }, /*#__PURE__*/React.createElement("div", {
-        className: cls('group')
-      }, /*#__PURE__*/React.createElement("div", {
-        className: cls('group-header')
-      }, renderGroupHeader(option.name)), /*#__PURE__*/React.createElement("ul", {
-        className: cls('options')
-      }, rendered)));
-    }
-
-    return rendered;
-  }) : renderEmptyMessage() || null)));
+  }, /*#__PURE__*/React.createElement(Options, {
+    options: options,
+    emptyMessage: emptyMessage,
+    optionProps: optionProps,
+    renderOption: renderOption,
+    renderGroupHeader: renderGroupHeader,
+    cls: cls,
+    snapshot: snapshot
+  })));
 });
 SelectSearch.defaultProps = {
   // Data
   getOptions: null,
+  filterOptions: null,
   value: null,
   // Interaction
   multiple: false,
@@ -223,6 +181,7 @@ SelectSearch.propTypes = process.env.NODE_ENV !== "production" ? {
   // Data
   options: PropTypes.arrayOf(optionType).isRequired,
   getOptions: PropTypes.func,
+  filterOptions: PropTypes.func,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number]))]),
   // Interaction
   multiple: PropTypes.bool,

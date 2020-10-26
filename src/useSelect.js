@@ -3,7 +3,7 @@ import {
     useMemo,
     useState,
     useReducer,
-    useRef,
+    useRef, useCallback,
 } from 'react';
 import flattenOptions from './lib/flattenOptions';
 import groupOptions from './lib/groupOptions';
@@ -12,6 +12,7 @@ import getOption from './lib/getOption';
 import getNewValue from './lib/getNewValue';
 import getDisplayValue from './lib/getDisplayValue';
 import debounce from './lib/debounce';
+import fuzzySearch from './fuzzySearch';
 
 export default function useSelect({
     value: defaultValue = null,
@@ -21,6 +22,8 @@ export default function useSelect({
     disabled = false,
     closeOnSelect = true,
     getOptions = null,
+    filterOptions = null,
+    fuse = false,
     onChange = () => {},
     onFocus: onFocusCb = () => {},
     onBlur: onBlurCb = () => {},
@@ -36,9 +39,25 @@ export default function useSelect({
     const [options, setOptions] = useState(flattenedOptions);
     const [option, setOption] = useState(() => getOption(value, options));
     const groupedOptions = useMemo(() => groupOptions(options), [options]);
+    const filter = useCallback((q, o) => {
+        let nextOptions = o;
+
+        if (q.length && fuse) {
+            nextOptions = fuzzySearch(q, nextOptions, fuse);
+        }
+
+        if (filterOptions) {
+            nextOptions = filterOptions(q, nextOptions);
+        }
+
+        return nextOptions;
+    }, [filterOptions, fuse]);
+
     const fetchOptions = useMemo(() => {
         if (!getOptions) {
-            return () => flattenedOptions;
+            return (q) => {
+                setOptions(filter(q, flattenedOptions));
+            };
         }
 
         return (
@@ -48,11 +67,13 @@ export default function useSelect({
                 setFetching(true);
 
                 Promise.resolve(optionsReq)
-                    .then((newOptions) => setOptions(flattenOptions(newOptions)))
+                    .then((newOptions) => {
+                        setOptions(filter(q, flattenOptions(newOptions)));
+                    })
                     .finally(() => setFetching(false));
             }, debounceTime)
         );
-    }, [flattenedOptions, getOptions, debounceTime]);
+    }, [flattenedOptions, getOptions, filter, debounceTime]);
     const snapshot = {
         options: groupedOptions,
         option,
@@ -72,7 +93,7 @@ export default function useSelect({
 
     const onBlur = (e) => {
         setFocus(false);
-        setOptions(flattenedOptions);
+        setOptions(filter(search, flattenedOptions));
         setSearch('');
 
         if (ref.current) {
@@ -157,7 +178,7 @@ export default function useSelect({
 
     useEffect(() => onSelect(defaultValue, true), [defaultValue]);
     useEffect(() => setOptions(flattenedOptions), [flattenedOptions]);
-    useEffect(() => fetchOptions(search), [search, fetchOptions]);
+    useEffect(() => { fetchOptions(search); }, [search, fetchOptions]);
 
     return [snapshot, valueProps, optionProps, setValue];
 }

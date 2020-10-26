@@ -32,22 +32,12 @@ const SelectSearch = forwardRef(({
     renderOption,
     renderGroupHeader,
     getOptions,
+    filterOptions,
     debounce,
     fuse,
     emptyMessage,
 }, ref) => {
     const selectRef = useRef(null);
-    const fetchOptions = useCallback((q, options, value) => {
-        if (getOptions) {
-            return getOptions(q, options, value);
-        }
-
-        if (q.length && fuse) {
-            return fuzzySearch(q, options, fuse);
-        }
-
-        return options;
-    }, [getOptions, fuse]);
     const [snapshot, valueProps, optionProps] = useSelect({
         options: defaultOptions,
         value: (defaultValue === null && (placeholder || multiple)) ? '' : defaultValue,
@@ -59,7 +49,9 @@ const SelectSearch = forwardRef(({
         onBlur,
         closeOnSelect,
         closable: !multiple || printOptions === 'on-focus',
-        getOptions: fetchOptions,
+        getOptions,
+        filterOptions,
+        fuse,
         debounce,
     });
 
@@ -162,6 +154,7 @@ const SelectSearch = forwardRef(({
 SelectSearch.defaultProps = {
     // Data
     getOptions: null,
+    filterOptions: null,
     value: null,
 
     // Interaction
@@ -211,6 +204,7 @@ SelectSearch.propTypes = {
     // Data
     options: PropTypes.arrayOf(optionType).isRequired,
     getOptions: PropTypes.func,
+    filterOptions: PropTypes.func,
     value: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.number,

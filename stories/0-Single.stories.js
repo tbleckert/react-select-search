@@ -90,6 +90,17 @@ export const SearchWithEmptyMessageRenderer = () => (
     />
 );
 
+export const LimitedOptions = () => (
+    <SelectSearch
+        options={countries}
+        search
+        placeholder="Select your country"
+        filterOptions={(q, options) => {
+            return options.slice(0, 8);
+        }}
+    />
+);
+
 export const AlwaysOpen = () => (
     <SelectSearch
         options={[

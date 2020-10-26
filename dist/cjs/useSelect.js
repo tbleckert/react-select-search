@@ -19,6 +19,8 @@ var _getDisplayValue = _interopRequireDefault(require("./lib/getDisplayValue"));
 
 var _debounce = _interopRequireDefault(require("./lib/debounce"));
 
+var _fuzzySearch = _interopRequireDefault(require("./fuzzySearch"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function useSelect(_ref) {
@@ -36,6 +38,10 @@ function useSelect(_ref) {
       closeOnSelect = _ref$closeOnSelect === void 0 ? true : _ref$closeOnSelect,
       _ref$getOptions = _ref.getOptions,
       getOptions = _ref$getOptions === void 0 ? null : _ref$getOptions,
+      _ref$filterOptions = _ref.filterOptions,
+      filterOptions = _ref$filterOptions === void 0 ? null : _ref$filterOptions,
+      _ref$fuse = _ref.fuse,
+      fuse = _ref$fuse === void 0 ? false : _ref$fuse,
       _ref$onChange = _ref.onChange,
       onChange = _ref$onChange === void 0 ? function () {} : _ref$onChange,
       _ref$onFocus = _ref.onFocus,
@@ -82,17 +88,36 @@ function useSelect(_ref) {
   var groupedOptions = (0, _react.useMemo)(function () {
     return (0, _groupOptions["default"])(options);
   }, [options]);
+  var filter = (0, _react.useCallback)(function (q, o) {
+    var nextOptions = o;
+
+    if (q.length && fuse) {
+      nextOptions = (0, _fuzzySearch["default"])(q, nextOptions, fuse);
+    }
+
+    if (filterOptions) {
+      nextOptions = filterOptions(q, nextOptions);
+    }
+
+    return nextOptions;
+  }, [filterOptions, fuse]);
   var fetchOptions = (0, _react.useMemo)(function () {
+    if (!getOptions) {
+      return function (q) {
+        setOptions(filter(q, flattenedOptions));
+      };
+    }
+
     return (0, _debounce["default"])(function (q) {
       var optionsReq = getOptions(q, flattenedOptions);
       setFetching(true);
       Promise.resolve(optionsReq).then(function (newOptions) {
-        return setOptions((0, _flattenOptions["default"])(newOptions));
+        setOptions(filter(q, (0, _flattenOptions["default"])(newOptions)));
       })["finally"](function () {
         return setFetching(false);
       });
     }, debounceTime);
-  }, [flattenedOptions, getOptions, debounceTime]);
+  }, [flattenedOptions, getOptions, filter, debounceTime]);
   var snapshot = {
     options: groupedOptions,
     option: option,
@@ -112,7 +137,7 @@ function useSelect(_ref) {
 
   var onBlur = function onBlur(e) {
     setFocus(false);
-    setOptions(flattenedOptions);
+    setOptions(filter(search, flattenedOptions));
     setSearch('');
 
     if (ref.current) {
@@ -211,7 +236,7 @@ function useSelect(_ref) {
     return setOptions(flattenedOptions);
   }, [flattenedOptions]);
   (0, _react.useEffect)(function () {
-    return fetchOptions(search);
+    fetchOptions(search);
   }, [search, fetchOptions]);
   return [snapshot, valueProps, optionProps, setValue];
 }

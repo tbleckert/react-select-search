@@ -11,13 +11,11 @@ var _useSelect2 = _interopRequireDefault(require("./useSelect"));
 
 var _types = require("./types");
 
-var _Option = _interopRequireDefault(require("./Components/Option"));
-
-var _isSelected = _interopRequireDefault(require("./lib/isSelected"));
-
 var _fuzzySearch = _interopRequireDefault(require("./fuzzySearch"));
 
 var _Value = _interopRequireDefault(require("./Components/Value"));
+
+var _Options = _interopRequireDefault(require("./Components/Options"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -47,21 +45,11 @@ var SelectSearch = /*#__PURE__*/(0, _react.forwardRef)(function (_ref, ref) {
       renderOption = _ref.renderOption,
       renderGroupHeader = _ref.renderGroupHeader,
       getOptions = _ref.getOptions,
+      filterOptions = _ref.filterOptions,
       debounce = _ref.debounce,
       fuse = _ref.fuse,
       emptyMessage = _ref.emptyMessage;
   var selectRef = (0, _react.useRef)(null);
-  var fetchOptions = (0, _react.useCallback)(function (q, options, value) {
-    if (getOptions) {
-      return getOptions(q, options, value);
-    }
-
-    if (q.length && fuse) {
-      return (0, _fuzzySearch["default"])(q, options, fuse);
-    }
-
-    return options;
-  }, [getOptions, fuse]);
 
   var _useSelect = (0, _useSelect2["default"])({
     options: defaultOptions,
@@ -74,7 +62,9 @@ var SelectSearch = /*#__PURE__*/(0, _react.forwardRef)(function (_ref, ref) {
     onBlur: onBlur,
     closeOnSelect: closeOnSelect,
     closable: !multiple || printOptions === 'on-focus',
-    getOptions: fetchOptions,
+    getOptions: getOptions,
+    filterOptions: filterOptions,
+    fuse: fuse,
     debounce: debounce
   }),
       snapshot = _useSelect[0],
@@ -84,7 +74,6 @@ var SelectSearch = /*#__PURE__*/(0, _react.forwardRef)(function (_ref, ref) {
   var focus = snapshot.focus,
       highlighted = snapshot.highlighted,
       value = snapshot.value,
-      selectedOption = snapshot.option,
       options = snapshot.options,
       fetching = snapshot.fetching;
   var cls = (0, _react.useCallback)(function (key) {
@@ -102,16 +91,6 @@ var SelectSearch = /*#__PURE__*/(0, _react.forwardRef)(function (_ref, ref) {
 
     return className.split(' ')[0] + "__" + key;
   }, [className]);
-  var renderEmptyMessage = (0, _react.useCallback)(function () {
-    if (emptyMessage === null) {
-      return null;
-    }
-
-    var content = typeof emptyMessage === 'function' ? emptyMessage() : emptyMessage;
-    return /*#__PURE__*/_react["default"].createElement("li", {
-      className: cls('not-found')
-    }, content);
-  }, [emptyMessage, cls]);
   var wrapperClass = [cls('container'), disabled ? cls('is-disabled') : false, fetching ? cls('is-loading') : false, focus ? cls('has-focus') : false].filter(function (single) {
     return !!single;
   }).join(' ');
@@ -168,44 +147,20 @@ var SelectSearch = /*#__PURE__*/(0, _react.forwardRef)(function (_ref, ref) {
   }), shouldRenderOptions && /*#__PURE__*/_react["default"].createElement("div", {
     className: cls('select'),
     ref: selectRef
-  }, /*#__PURE__*/_react["default"].createElement("ul", {
-    className: cls('options')
-  }, options.length > 0 ? options.map(function (option) {
-    var isGroup = option.type === 'group';
-    var items = isGroup ? option.items : [option];
-    var base = {
-      cls: cls,
-      optionProps: optionProps,
-      renderOption: renderOption
-    };
-    var rendered = items.map(function (o) {
-      return /*#__PURE__*/_react["default"].createElement(_Option["default"], _extends({
-        key: o.value,
-        selected: (0, _isSelected["default"])(o, selectedOption),
-        highlighted: highlighted === o.index
-      }, base, o));
-    });
-
-    if (isGroup) {
-      return /*#__PURE__*/_react["default"].createElement("li", {
-        role: "none",
-        className: cls('row'),
-        key: option.groupId
-      }, /*#__PURE__*/_react["default"].createElement("div", {
-        className: cls('group')
-      }, /*#__PURE__*/_react["default"].createElement("div", {
-        className: cls('group-header')
-      }, renderGroupHeader(option.name)), /*#__PURE__*/_react["default"].createElement("ul", {
-        className: cls('options')
-      }, rendered)));
-    }
-
-    return rendered;
-  }) : renderEmptyMessage() || null)));
+  }, /*#__PURE__*/_react["default"].createElement(_Options["default"], {
+    options: options,
+    emptyMessage: emptyMessage,
+    optionProps: optionProps,
+    renderOption: renderOption,
+    renderGroupHeader: renderGroupHeader,
+    cls: cls,
+    snapshot: snapshot
+  })));
 });
 SelectSearch.defaultProps = {
   // Data
   getOptions: null,
+  filterOptions: null,
   value: null,
   // Interaction
   multiple: false,
@@ -253,6 +208,7 @@ SelectSearch.propTypes = process.env.NODE_ENV !== "production" ? {
   // Data
   options: _propTypes["default"].arrayOf(_types.optionType).isRequired,
   getOptions: _propTypes["default"].func,
+  filterOptions: _propTypes["default"].func,
   value: _propTypes["default"].oneOfType([_propTypes["default"].string, _propTypes["default"].number, _propTypes["default"].arrayOf(_propTypes["default"].oneOfType([_propTypes["default"].string, _propTypes["default"].number]))]),
   // Interaction
   multiple: _propTypes["default"].bool,
