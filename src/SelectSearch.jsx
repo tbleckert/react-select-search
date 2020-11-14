@@ -179,19 +179,9 @@ SelectSearch.defaultProps = {
     className: 'select-search',
 
     // Renderers
-    renderOption: (domProps, option, snapshot, className) => (
-        // eslint-disable-next-line react/button-has-type
-        <button className={className} {...domProps}>
-            {option.name}
-        </button>
-    ),
-    renderGroupHeader: (name) => name,
-    renderValue: (valueProps, snapshot, className) => (
-        <input
-            {...valueProps}
-            className={className}
-        />
-    ),
+    renderOption: undefined,
+    renderGroupHeader: undefined,
+    renderValue: undefined,
     emptyMessage: null,
 
     // Events

@@ -62,6 +62,8 @@ const Options = ({
 
 Options.defaultProps = {
     emptyMessage: null,
+    renderOption: undefined,
+    renderGroupHeader: (name) => name,
 };
 
 Options.propTypes = {
@@ -79,8 +81,8 @@ Options.propTypes = {
         highlighted: PropTypes.number.isRequired,
         option: optionType,
     }).isRequired,
-    renderOption: PropTypes.func.isRequired,
-    renderGroupHeader: PropTypes.func.isRequired,
+    renderOption: PropTypes.func,
+    renderGroupHeader: PropTypes.func,
 };
 
 export default memo(Options);

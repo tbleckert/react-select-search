@@ -76,7 +76,11 @@ var Options = function Options(_ref) {
 };
 
 Options.defaultProps = {
-  emptyMessage: null
+  emptyMessage: null,
+  renderOption: undefined,
+  renderGroupHeader: function renderGroupHeader(name) {
+    return name;
+  }
 };
 Options.propTypes = process.env.NODE_ENV !== "production" ? {
   options: _propTypes["default"].arrayOf(_types.optionType).isRequired,
@@ -90,8 +94,8 @@ Options.propTypes = process.env.NODE_ENV !== "production" ? {
     highlighted: _propTypes["default"].number.isRequired,
     option: _types.optionType
   }).isRequired,
-  renderOption: _propTypes["default"].func.isRequired,
-  renderGroupHeader: _propTypes["default"].func.isRequired
+  renderOption: _propTypes["default"].func,
+  renderGroupHeader: _propTypes["default"].func
 } : {};
 
 var _default = /*#__PURE__*/(0, _react.memo)(Options);

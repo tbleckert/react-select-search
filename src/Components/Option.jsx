@@ -32,6 +32,12 @@ Option.defaultProps = {
     disabled: false,
     index: null,
     value: null,
+    renderOption: (domProps, option, snapshot, className) => (
+        // eslint-disable-next-line react/button-has-type
+        <button className={className} {...domProps}>
+            {option.name}
+        </button>
+    ),
 };
 
 Option.propTypes = {
@@ -46,7 +52,7 @@ Option.propTypes = {
         onMouseDown: PropTypes.func.isRequired,
     }).isRequired,
     cls: PropTypes.func.isRequired,
-    renderOption: PropTypes.func.isRequired,
+    renderOption: PropTypes.func,
 };
 
 export default memo(Option);

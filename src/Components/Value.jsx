@@ -38,6 +38,12 @@ const Value = ({
 
 Value.defaultProps = {
     placeholder: null,
+    renderValue: (valueProps, snapshot, className) => (
+        <input
+            {...valueProps}
+            className={className}
+        />
+    ),
 };
 
 Value.propTypes = {
@@ -67,7 +73,7 @@ Value.propTypes = {
         displayValue: PropTypes.string.isRequired,
     }).isRequired,
     cls: PropTypes.func.isRequired,
-    renderValue: PropTypes.func.isRequired,
+    renderValue: PropTypes.func,
 };
 
 export default memo(Value);

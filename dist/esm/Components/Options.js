@@ -60,7 +60,9 @@ const Options = ({
 };
 
 Options.defaultProps = {
-  emptyMessage: null
+  emptyMessage: null,
+  renderOption: undefined,
+  renderGroupHeader: name => name
 };
 Options.propTypes = process.env.NODE_ENV !== "production" ? {
   options: PropTypes.arrayOf(optionType).isRequired,
@@ -74,7 +76,7 @@ Options.propTypes = process.env.NODE_ENV !== "production" ? {
     highlighted: PropTypes.number.isRequired,
     option: optionType
   }).isRequired,
-  renderOption: PropTypes.func.isRequired,
-  renderGroupHeader: PropTypes.func.isRequired
+  renderOption: PropTypes.func,
+  renderGroupHeader: PropTypes.func
 } : {};
 export default /*#__PURE__*/memo(Options);

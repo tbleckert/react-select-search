@@ -1,5 +1,3 @@
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
 import React, { forwardRef, memo, useRef, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import useSelect from './useSelect';
@@ -161,16 +159,9 @@ SelectSearch.defaultProps = {
   // Design
   className: 'select-search',
   // Renderers
-  renderOption: (domProps, option, snapshot, className) =>
-  /*#__PURE__*/
-  // eslint-disable-next-line react/button-has-type
-  React.createElement("button", _extends({
-    className: className
-  }, domProps), option.name),
-  renderGroupHeader: name => name,
-  renderValue: (valueProps, snapshot, className) => /*#__PURE__*/React.createElement("input", _extends({}, valueProps, {
-    className: className
-  })),
+  renderOption: undefined,
+  renderGroupHeader: undefined,
+  renderValue: undefined,
   emptyMessage: null,
   // Events
   onChange: () => {},
