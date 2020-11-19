@@ -104,7 +104,7 @@ function useSelect(_ref) {
   var fetchOptions = (0, _react.useMemo)(function () {
     if (!getOptions) {
       return function (q) {
-        setOptions(filter(q, flattenedOptions));
+        return setOptions(filter(q, flattenedOptions));
       };
     }
 
@@ -153,7 +153,7 @@ function useSelect(_ref) {
     }
 
     var newValues = (0, _getNewValue["default"])(newValue, value, options, multiple);
-    var newOption = (0, _getOption["default"])(newValues, options);
+    var newOption = (0, _getOption["default"])(newValues, Array.isArray(option) ? [].concat(option, options) : options);
     setValue(newValues);
     setOption(newOption);
 

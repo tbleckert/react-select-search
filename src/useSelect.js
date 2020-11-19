@@ -55,24 +55,20 @@ export default function useSelect({
 
     const fetchOptions = useMemo(() => {
         if (!getOptions) {
-            return (q) => {
-                setOptions(filter(q, flattenedOptions));
-            };
+            return (q) => setOptions(filter(q, flattenedOptions));
         }
 
-        return (
-            debounce((q) => {
-                const optionsReq = getOptions(q, flattenedOptions);
+        return debounce((q) => {
+            const optionsReq = getOptions(q, flattenedOptions);
 
-                setFetching(true);
+            setFetching(true);
 
-                Promise.resolve(optionsReq)
-                    .then((newOptions) => {
-                        setOptions(filter(q, flattenOptions(newOptions)));
-                    })
-                    .finally(() => setFetching(false));
-            }, debounceTime)
-        );
+            Promise.resolve(optionsReq)
+                .then((newOptions) => {
+                    setOptions(filter(q, flattenOptions(newOptions)));
+                })
+                .finally(() => setFetching(false));
+        }, debounceTime);
     }, [flattenedOptions, getOptions, filter, debounceTime]);
     const snapshot = {
         options: groupedOptions,
@@ -105,7 +101,10 @@ export default function useSelect({
 
     const onSelect = (newValue, silent = false) => {
         const newValues = getNewValue(newValue, value, options, multiple);
-        const newOption = getOption(newValues, options);
+        const newOption = getOption(
+            newValues,
+            (Array.isArray(option)) ? [...option, ...options] : options,
+        );
 
         setValue(newValues);
         setOption(newOption);

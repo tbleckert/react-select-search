@@ -47,9 +47,7 @@ export default function useSelect({
   }, [filterOptions, fuse]);
   const fetchOptions = useMemo(() => {
     if (!getOptions) {
-      return q => {
-        setOptions(filter(q, flattenedOptions));
-      };
+      return q => setOptions(filter(q, flattenedOptions));
     }
 
     return debounce(q => {
@@ -91,7 +89,7 @@ export default function useSelect({
 
   const onSelect = (newValue, silent = false) => {
     const newValues = getNewValue(newValue, value, options, multiple);
-    const newOption = getOption(newValues, options);
+    const newOption = getOption(newValues, Array.isArray(option) ? [...option, ...options] : options);
     setValue(newValues);
     setOption(newOption);
 
