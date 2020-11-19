@@ -173,7 +173,7 @@ function useSelect(_ref) {
   var onKeyDown = function onKeyDown(e) {
     var key = e.key;
 
-    if (key === 'ArrowDown' || key === 'ArrowUp') {
+    if (['ArrowDown', 'ArrowUp'].includes(key)) {
       e.preventDefault();
       dispatchHighlighted({
         key: key,

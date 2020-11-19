@@ -126,7 +126,7 @@ export default function useSelect({
     const onKeyDown = (e) => {
         const { key } = e;
 
-        if (key === 'ArrowDown' || key === 'ArrowUp') {
+        if (['ArrowDown', 'ArrowUp'].includes(key)) {
             e.preventDefault();
             dispatchHighlighted({ key, options });
         }
