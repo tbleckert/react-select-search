@@ -197,16 +197,15 @@ function useSelect(_ref) {
     }
   };
 
-  var onKeyUp = function onKeyUp(_ref2) {
-    var key = _ref2.key;
-
-    if (key === 'Escape') {
+  var onKeyUp = function onKeyUp(e) {
+    if (e.key === 'Escape') {
+      e.preventDefault();
       onBlur();
     }
   };
 
-  var onSearch = function onSearch(_ref3) {
-    var target = _ref3.target;
+  var onSearch = function onSearch(_ref2) {
+    var target = _ref2.target;
     return setSearch(target.value);
   };
 

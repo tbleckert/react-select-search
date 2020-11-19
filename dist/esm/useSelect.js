@@ -137,10 +137,9 @@ export default function useSelect({
     }
   };
 
-  const onKeyUp = ({
-    key
-  }) => {
-    if (key === 'Escape') {
+  const onKeyUp = e => {
+    if (e.key === 'Escape') {
+      e.preventDefault();
       onBlur();
     }
   };

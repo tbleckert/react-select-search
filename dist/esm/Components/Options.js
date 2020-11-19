@@ -74,7 +74,7 @@ Options.propTypes = process.env.NODE_ENV !== "production" ? {
   }).isRequired,
   snapshot: PropTypes.shape({
     highlighted: PropTypes.number.isRequired,
-    option: optionType
+    option: PropTypes.oneOfType([optionType, PropTypes.arrayOf(optionType)])
   }).isRequired,
   renderOption: PropTypes.func,
   renderGroupHeader: PropTypes.func
