@@ -24,16 +24,18 @@ const Options = ({
             return null;
         }
 
-        const content = (typeof emptyMessage === 'function') ? emptyMessage() : emptyMessage;
-
-        return <li className={cls('not-found')}>{content}</li>;
+        return (
+            <li className={cls('not-found')}>
+                {(typeof emptyMessage === 'function') ? emptyMessage() : emptyMessage}
+            </li>
+        );
     }, [emptyMessage, cls]);
     const { focus, value, highlighted } = snapshot;
 
     useEffect(() => {
         const { current } = selectRef;
 
-        if (!current || Array.isArray(value) || (highlighted < 0 && value === undefined)) {
+        if (!current || Array.isArray(value) || (highlighted < 0 && value === null)) {
             return;
         }
 
@@ -82,7 +84,7 @@ const Options = ({
 
                         return rendered;
                     })
-                ) : (renderEmptyMessage() || null)}
+                ) : renderEmptyMessage()}
             </ul>
         </div>
     );

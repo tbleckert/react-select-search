@@ -35,10 +35,9 @@ var Options = function Options(_ref) {
       return null;
     }
 
-    var content = typeof emptyMessage === 'function' ? emptyMessage() : emptyMessage;
     return /*#__PURE__*/_react["default"].createElement("li", {
       className: cls('not-found')
-    }, content);
+    }, typeof emptyMessage === 'function' ? emptyMessage() : emptyMessage);
   }, [emptyMessage, cls]);
   var focus = snapshot.focus,
       value = snapshot.value,
@@ -46,7 +45,7 @@ var Options = function Options(_ref) {
   (0, _react.useEffect)(function () {
     var current = selectRef.current;
 
-    if (!current || Array.isArray(value) || highlighted < 0 && value === undefined) {
+    if (!current || Array.isArray(value) || highlighted < 0 && value === null) {
       return;
     }
 
@@ -101,7 +100,7 @@ var Options = function Options(_ref) {
       }
 
       return rendered;
-    }) : renderEmptyMessage() || null))
+    }) : renderEmptyMessage()))
   );
 };
 

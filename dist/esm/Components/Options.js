@@ -21,10 +21,9 @@ const Options = ({
       return null;
     }
 
-    const content = typeof emptyMessage === 'function' ? emptyMessage() : emptyMessage;
     return /*#__PURE__*/React.createElement("li", {
       className: cls('not-found')
-    }, content);
+    }, typeof emptyMessage === 'function' ? emptyMessage() : emptyMessage);
   }, [emptyMessage, cls]);
   const {
     focus,
@@ -36,7 +35,7 @@ const Options = ({
       current
     } = selectRef;
 
-    if (!current || Array.isArray(value) || highlighted < 0 && value === undefined) {
+    if (!current || Array.isArray(value) || highlighted < 0 && value === null) {
       return;
     }
 
@@ -87,7 +86,7 @@ const Options = ({
       }
 
       return rendered;
-    }) : renderEmptyMessage() || null))
+    }) : renderEmptyMessage()))
   );
 };
 
