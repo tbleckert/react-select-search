@@ -2,7 +2,6 @@ import React, { forwardRef, memo, useRef, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import useSelect from './useSelect';
 import { optionType } from './types';
-import fuzzySearch from './fuzzySearch';
 import Value from './Components/Value';
 import Options from './Components/Options';
 const SelectSearch = /*#__PURE__*/forwardRef(({

@@ -11,8 +11,6 @@ var _useSelect2 = _interopRequireDefault(require("./useSelect"));
 
 var _types = require("./types");
 
-var _fuzzySearch = _interopRequireDefault(require("./fuzzySearch"));
-
 var _Value = _interopRequireDefault(require("./Components/Value"));
 
 var _Options = _interopRequireDefault(require("./Components/Options"));
