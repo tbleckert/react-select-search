@@ -5,7 +5,7 @@ import React, {
 } from 'react';
 import PropTypes from 'prop-types';
 import useSelect from './useSelect';
-import { optionType } from './types';
+import { optionType, valueType } from './types';
 import Value from './Components/Value';
 import Options from './Components/Options';
 
@@ -169,14 +169,7 @@ SelectSearch.propTypes = {
     options: PropTypes.arrayOf(optionType).isRequired,
     getOptions: PropTypes.func,
     filterOptions: PropTypes.func,
-    value: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.number,
-        PropTypes.arrayOf(PropTypes.oneOfType([
-            PropTypes.string,
-            PropTypes.number,
-        ])),
-    ]),
+    value: valueType,
 
     // Interaction
     multiple: PropTypes.bool,

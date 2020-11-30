@@ -4,7 +4,7 @@ import React, { memo, useCallback, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import Option from './Option';
 import isSelected from '../lib/isSelected';
-import { optionType } from '../types';
+import { optionType, valueType } from '../types';
 
 const Options = ({
   options,
@@ -108,7 +108,7 @@ Options.propTypes = process.env.NODE_ENV !== "production" ? {
     highlighted: PropTypes.number.isRequired,
     option: PropTypes.oneOfType([optionType, PropTypes.arrayOf(optionType)]),
     focus: PropTypes.bool.isRequired,
-    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number]))])
+    value: valueType
   }).isRequired,
   renderOption: PropTypes.func,
   renderGroupHeader: PropTypes.func

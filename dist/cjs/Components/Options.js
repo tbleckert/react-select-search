@@ -124,7 +124,7 @@ Options.propTypes = process.env.NODE_ENV !== "production" ? {
     highlighted: _propTypes["default"].number.isRequired,
     option: _propTypes["default"].oneOfType([_types.optionType, _propTypes["default"].arrayOf(_types.optionType)]),
     focus: _propTypes["default"].bool.isRequired,
-    value: _propTypes["default"].oneOfType([_propTypes["default"].string, _propTypes["default"].number, _propTypes["default"].arrayOf(_propTypes["default"].oneOfType([_propTypes["default"].string, _propTypes["default"].number]))])
+    value: _types.valueType
   }).isRequired,
   renderOption: _propTypes["default"].func,
   renderGroupHeader: _propTypes["default"].func
