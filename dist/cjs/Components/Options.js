@@ -29,6 +29,7 @@ var Options = function Options(_ref) {
       renderOption = _ref.renderOption,
       renderGroupHeader = _ref.renderGroupHeader,
       snapshot = _ref.snapshot;
+  var selectRef = (0, _react.useRef)(null);
   var renderEmptyMessage = (0, _react.useCallback)(function () {
     if (emptyMessage === null) {
       return null;
@@ -39,10 +40,35 @@ var Options = function Options(_ref) {
       className: cls('not-found')
     }, content);
   }, [emptyMessage, cls]);
+  var focus = snapshot.focus,
+      value = snapshot.value,
+      highlighted = snapshot.highlighted;
+  (0, _react.useEffect)(function () {
+    var current = selectRef.current;
+
+    if (!current || Array.isArray(value) || highlighted < 0 && value === undefined) {
+      return;
+    }
+
+    var query = highlighted > -1 ? "[data-index=\"" + highlighted + "\"]" : "[data-value=\"" + escape(value) + "\"]";
+    var selected = current.querySelector(query);
+
+    if (selected) {
+      var rect = current.getBoundingClientRect();
+      var selectedRect = selected.getBoundingClientRect();
+      current.scrollTop = selected.offsetTop - rect.height / 2 + selectedRect.height / 2;
+    }
+  }, [focus, value, highlighted, selectRef]);
   return (
     /*#__PURE__*/
-    // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
-    _react["default"].createElement("ul", {
+    // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+    _react["default"].createElement("div", {
+      className: cls('select'),
+      ref: selectRef,
+      onMouseDown: function onMouseDown(e) {
+        return e.preventDefault();
+      }
+    }, /*#__PURE__*/_react["default"].createElement("ul", {
       className: cls('options')
     }, options.length > 0 ? options.map(function (option) {
       var isGroup = option.type === 'group';
@@ -75,7 +101,7 @@ var Options = function Options(_ref) {
       }
 
       return rendered;
-    }) : renderEmptyMessage() || null)
+    }) : renderEmptyMessage() || null))
   );
 };
 
@@ -96,7 +122,9 @@ Options.propTypes = process.env.NODE_ENV !== "production" ? {
   }).isRequired,
   snapshot: _propTypes["default"].shape({
     highlighted: _propTypes["default"].number.isRequired,
-    option: _propTypes["default"].oneOfType([_types.optionType, _propTypes["default"].arrayOf(_types.optionType)])
+    option: _propTypes["default"].oneOfType([_types.optionType, _propTypes["default"].arrayOf(_types.optionType)]),
+    focus: _propTypes["default"].bool.isRequired,
+    value: _propTypes["default"].oneOfType([_propTypes["default"].string, _propTypes["default"].number, _propTypes["default"].arrayOf(_propTypes["default"].oneOfType([_propTypes["default"].string, _propTypes["default"].number]))])
   }).isRequired,
   renderOption: _propTypes["default"].func,
   renderGroupHeader: _propTypes["default"].func

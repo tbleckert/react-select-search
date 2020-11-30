@@ -1,8 +1,6 @@
 import React, {
     forwardRef,
     memo,
-    useRef,
-    useEffect,
     useCallback,
 } from 'react';
 import PropTypes from 'prop-types';
@@ -36,7 +34,6 @@ const SelectSearch = forwardRef(({
     fuse,
     emptyMessage,
 }, ref) => {
-    const selectRef = useRef(null);
     const [snapshot, valueProps, optionProps] = useSelect({
         options: defaultOptions,
         value: (defaultValue === null && (placeholder || multiple)) ? '' : defaultValue,
@@ -56,8 +53,6 @@ const SelectSearch = forwardRef(({
 
     const {
         focus,
-        highlighted,
-        value,
         options,
         fetching,
     } = snapshot;
@@ -84,24 +79,6 @@ const SelectSearch = forwardRef(({
         (fetching) ? cls('is-loading') : false,
         (focus) ? cls('has-focus') : false,
     ].filter((single) => !!single).join(' ');
-
-    useEffect(() => {
-        const { current } = selectRef;
-
-        if (!current || multiple || (highlighted < 0 && value === undefined)) {
-            return;
-        }
-
-        const query = (highlighted > -1) ? `[data-index="${highlighted}"]` : `[data-value="${escape(value)}"]`;
-        const selected = current.querySelector(query);
-
-        if (selected) {
-            const rect = current.getBoundingClientRect();
-            const selectedRect = selected.getBoundingClientRect();
-
-            current.scrollTop = selected.offsetTop - (rect.height / 2) + (selectedRect.height / 2);
-        }
-    }, [focus, value, highlighted, selectRef, multiple]);
 
     let shouldRenderOptions;
 
@@ -134,18 +111,15 @@ const SelectSearch = forwardRef(({
                 renderValue={renderValue}
             />
             {shouldRenderOptions && (
-                // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-                <div className={cls('select')} ref={selectRef} onMouseDown={(e) => e.preventDefault()}>
-                    <Options
-                        options={options}
-                        emptyMessage={emptyMessage}
-                        optionProps={optionProps}
-                        renderOption={renderOption}
-                        renderGroupHeader={renderGroupHeader}
-                        cls={cls}
-                        snapshot={snapshot}
-                    />
-                </div>
+                <Options
+                    options={options}
+                    emptyMessage={emptyMessage}
+                    optionProps={optionProps}
+                    renderOption={renderOption}
+                    renderGroupHeader={renderGroupHeader}
+                    cls={cls}
+                    snapshot={snapshot}
+                />
             )}
         </div>
     );

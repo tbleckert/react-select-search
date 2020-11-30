@@ -1,6 +1,6 @@
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
-import React, { memo, useCallback } from 'react';
+import React, { memo, useCallback, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import Option from './Option';
 import isSelected from '../lib/isSelected';
@@ -15,6 +15,7 @@ const Options = ({
   renderGroupHeader,
   snapshot
 }) => {
+  const selectRef = useRef(null);
   const renderEmptyMessage = useCallback(() => {
     if (emptyMessage === null) {
       return null;
@@ -25,10 +26,37 @@ const Options = ({
       className: cls('not-found')
     }, content);
   }, [emptyMessage, cls]);
+  const {
+    focus,
+    value,
+    highlighted
+  } = snapshot;
+  useEffect(() => {
+    const {
+      current
+    } = selectRef;
+
+    if (!current || Array.isArray(value) || highlighted < 0 && value === undefined) {
+      return;
+    }
+
+    const query = highlighted > -1 ? "[data-index=\"" + highlighted + "\"]" : "[data-value=\"" + escape(value) + "\"]";
+    const selected = current.querySelector(query);
+
+    if (selected) {
+      const rect = current.getBoundingClientRect();
+      const selectedRect = selected.getBoundingClientRect();
+      current.scrollTop = selected.offsetTop - rect.height / 2 + selectedRect.height / 2;
+    }
+  }, [focus, value, highlighted, selectRef]);
   return (
     /*#__PURE__*/
-    // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
-    React.createElement("ul", {
+    // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+    React.createElement("div", {
+      className: cls('select'),
+      ref: selectRef,
+      onMouseDown: e => e.preventDefault()
+    }, /*#__PURE__*/React.createElement("ul", {
       className: cls('options')
     }, options.length > 0 ? options.map(option => {
       const isGroup = option.type === 'group';
@@ -59,7 +87,7 @@ const Options = ({
       }
 
       return rendered;
-    }) : renderEmptyMessage() || null)
+    }) : renderEmptyMessage() || null))
   );
 };
 
@@ -78,7 +106,9 @@ Options.propTypes = process.env.NODE_ENV !== "production" ? {
   }).isRequired,
   snapshot: PropTypes.shape({
     highlighted: PropTypes.number.isRequired,
-    option: PropTypes.oneOfType([optionType, PropTypes.arrayOf(optionType)])
+    option: PropTypes.oneOfType([optionType, PropTypes.arrayOf(optionType)]),
+    focus: PropTypes.bool.isRequired,
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number]))])
   }).isRequired,
   renderOption: PropTypes.func,
   renderGroupHeader: PropTypes.func

@@ -1,7 +1,7 @@
 "use strict";
 
 exports.__esModule = true;
-exports.classNameType = exports.valueType = exports.optionType = void 0;
+exports.optionType = void 0;
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
@@ -19,11 +19,3 @@ var optionType = _propTypes["default"].oneOfType([option, _propTypes["default"].
 })]);
 
 exports.optionType = optionType;
-
-var valueType = _propTypes["default"].oneOfType([_propTypes["default"].object, _propTypes["default"].arrayOf(_propTypes["default"].object)]);
-
-exports.valueType = valueType;
-
-var classNameType = _propTypes["default"].oneOfType([_propTypes["default"].string, _propTypes["default"].func]);
-
-exports.classNameType = classNameType;

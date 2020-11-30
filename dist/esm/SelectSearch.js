@@ -1,4 +1,4 @@
-import React, { forwardRef, memo, useRef, useEffect, useCallback } from 'react';
+import React, { forwardRef, memo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import useSelect from './useSelect';
 import { optionType } from './types';
@@ -29,7 +29,6 @@ const SelectSearch = /*#__PURE__*/forwardRef(({
   fuse,
   emptyMessage
 }, ref) => {
-  const selectRef = useRef(null);
   const [snapshot, valueProps, optionProps] = useSelect({
     options: defaultOptions,
     value: defaultValue === null && (placeholder || multiple) ? '' : defaultValue,
@@ -48,8 +47,6 @@ const SelectSearch = /*#__PURE__*/forwardRef(({
   });
   const {
     focus,
-    highlighted,
-    value,
     options,
     fetching
   } = snapshot;
@@ -69,24 +66,6 @@ const SelectSearch = /*#__PURE__*/forwardRef(({
     return className.split(' ')[0] + "__" + key;
   }, [className]);
   const wrapperClass = [cls('container'), disabled ? cls('is-disabled') : false, fetching ? cls('is-loading') : false, focus ? cls('has-focus') : false].filter(single => !!single).join(' ');
-  useEffect(() => {
-    const {
-      current
-    } = selectRef;
-
-    if (!current || multiple || highlighted < 0 && value === undefined) {
-      return;
-    }
-
-    const query = highlighted > -1 ? "[data-index=\"" + highlighted + "\"]" : "[data-value=\"" + escape(value) + "\"]";
-    const selected = current.querySelector(query);
-
-    if (selected) {
-      const rect = current.getBoundingClientRect();
-      const selectedRect = selected.getBoundingClientRect();
-      current.scrollTop = selected.offsetTop - rect.height / 2 + selectedRect.height / 2;
-    }
-  }, [focus, value, highlighted, selectRef, multiple]);
   let shouldRenderOptions;
 
   switch (printOptions) {
@@ -121,14 +100,7 @@ const SelectSearch = /*#__PURE__*/forwardRef(({
     snapshot: snapshot,
     cls: cls,
     renderValue: renderValue
-  }), shouldRenderOptions &&
-  /*#__PURE__*/
-  // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-  React.createElement("div", {
-    className: cls('select'),
-    ref: selectRef,
-    onMouseDown: e => e.preventDefault()
-  }, /*#__PURE__*/React.createElement(Options, {
+  }), shouldRenderOptions && /*#__PURE__*/React.createElement(Options, {
     options: options,
     emptyMessage: emptyMessage,
     optionProps: optionProps,
@@ -136,7 +108,7 @@ const SelectSearch = /*#__PURE__*/forwardRef(({
     renderGroupHeader: renderGroupHeader,
     cls: cls,
     snapshot: snapshot
-  })));
+  }));
 });
 SelectSearch.defaultProps = {
   // Data
