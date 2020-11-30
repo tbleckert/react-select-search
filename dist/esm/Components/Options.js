@@ -25,38 +25,42 @@ const Options = ({
       className: cls('not-found')
     }, content);
   }, [emptyMessage, cls]);
-  return /*#__PURE__*/React.createElement("ul", {
-    className: cls('options')
-  }, options.length > 0 ? options.map(option => {
-    const isGroup = option.type === 'group';
-    const items = isGroup ? option.items : [option];
-    const base = {
-      cls,
-      optionProps,
-      renderOption
-    };
-    const rendered = items.map(o => /*#__PURE__*/React.createElement(Option, _extends({
-      key: o.value,
-      selected: isSelected(o, snapshot.option),
-      highlighted: snapshot.highlighted === o.index
-    }, base, o)));
+  return (
+    /*#__PURE__*/
+    // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
+    React.createElement("ul", {
+      className: cls('options')
+    }, options.length > 0 ? options.map(option => {
+      const isGroup = option.type === 'group';
+      const items = isGroup ? option.items : [option];
+      const base = {
+        cls,
+        optionProps,
+        renderOption
+      };
+      const rendered = items.map(o => /*#__PURE__*/React.createElement(Option, _extends({
+        key: o.value,
+        selected: isSelected(o, snapshot.option),
+        highlighted: snapshot.highlighted === o.index
+      }, base, o)));
 
-    if (isGroup) {
-      return /*#__PURE__*/React.createElement("li", {
-        role: "none",
-        className: cls('row'),
-        key: option.groupId
-      }, /*#__PURE__*/React.createElement("div", {
-        className: cls('group')
-      }, /*#__PURE__*/React.createElement("div", {
-        className: cls('group-header')
-      }, renderGroupHeader(option.name)), /*#__PURE__*/React.createElement("ul", {
-        className: cls('options')
-      }, rendered)));
-    }
+      if (isGroup) {
+        return /*#__PURE__*/React.createElement("li", {
+          role: "none",
+          className: cls('row'),
+          key: option.groupId
+        }, /*#__PURE__*/React.createElement("div", {
+          className: cls('group')
+        }, /*#__PURE__*/React.createElement("div", {
+          className: cls('group-header')
+        }, renderGroupHeader(option.name)), /*#__PURE__*/React.createElement("ul", {
+          className: cls('options')
+        }, rendered)));
+      }
 
-    return rendered;
-  }) : renderEmptyMessage() || null);
+      return rendered;
+    }) : renderEmptyMessage() || null)
+  );
 };
 
 Options.defaultProps = {

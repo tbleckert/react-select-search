@@ -75,11 +75,11 @@ const SelectSearch = /*#__PURE__*/forwardRef(({
       current
     } = selectRef;
 
-    if (!current || multiple || highlighted < 0 && !value) {
+    if (!current || multiple || highlighted < 0 && value === undefined) {
       return;
     }
 
-    const query = highlighted > -1 ? "[data-index=\"" + highlighted + "\"]" : "[data-value=\"" + escape(value.value) + "\"]";
+    const query = highlighted > -1 ? "[data-index=\"" + highlighted + "\"]" : "[data-value=\"" + escape(value) + "\"]";
     const selected = current.querySelector(query);
 
     if (selected) {
@@ -122,9 +122,13 @@ const SelectSearch = /*#__PURE__*/forwardRef(({
     snapshot: snapshot,
     cls: cls,
     renderValue: renderValue
-  }), shouldRenderOptions && /*#__PURE__*/React.createElement("div", {
+  }), shouldRenderOptions &&
+  /*#__PURE__*/
+  // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+  React.createElement("div", {
     className: cls('select'),
-    ref: selectRef
+    ref: selectRef,
+    onMouseDown: e => e.preventDefault()
   }, /*#__PURE__*/React.createElement(Options, {
     options: options,
     emptyMessage: emptyMessage,

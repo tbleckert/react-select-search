@@ -95,11 +95,11 @@ var SelectSearch = /*#__PURE__*/(0, _react.forwardRef)(function (_ref, ref) {
   (0, _react.useEffect)(function () {
     var current = selectRef.current;
 
-    if (!current || multiple || highlighted < 0 && !value) {
+    if (!current || multiple || highlighted < 0 && value === undefined) {
       return;
     }
 
-    var query = highlighted > -1 ? "[data-index=\"" + highlighted + "\"]" : "[data-value=\"" + escape(value.value) + "\"]";
+    var query = highlighted > -1 ? "[data-index=\"" + highlighted + "\"]" : "[data-value=\"" + escape(value) + "\"]";
     var selected = current.querySelector(query);
 
     if (selected) {
@@ -142,9 +142,15 @@ var SelectSearch = /*#__PURE__*/(0, _react.forwardRef)(function (_ref, ref) {
     snapshot: snapshot,
     cls: cls,
     renderValue: renderValue
-  }), shouldRenderOptions && /*#__PURE__*/_react["default"].createElement("div", {
+  }), shouldRenderOptions &&
+  /*#__PURE__*/
+  // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+  _react["default"].createElement("div", {
     className: cls('select'),
-    ref: selectRef
+    ref: selectRef,
+    onMouseDown: function onMouseDown(e) {
+      return e.preventDefault();
+    }
   }, /*#__PURE__*/_react["default"].createElement(_Options["default"], {
     options: options,
     emptyMessage: emptyMessage,

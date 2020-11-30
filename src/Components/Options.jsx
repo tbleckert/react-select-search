@@ -24,6 +24,7 @@ const Options = ({
     }, [emptyMessage, cls]);
 
     return (
+        // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
         <ul className={cls('options')}>
             {options.length > 0 ? (
                 options.map((option) => {

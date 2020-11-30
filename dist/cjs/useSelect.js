@@ -163,11 +163,12 @@ function useSelect(_ref) {
   };
 
   var onMouseDown = function onMouseDown(e) {
-    if (!closeOnSelect) {
-      e.preventDefault();
-    }
-
+    e.preventDefault();
     onSelect(e.currentTarget.value);
+
+    if (closeOnSelect && ref.current) {
+      ref.current.blur();
+    }
   };
 
   var onKeyDown = function onKeyDown(e) {

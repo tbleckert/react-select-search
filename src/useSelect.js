@@ -115,11 +115,13 @@ export default function useSelect({
     };
 
     const onMouseDown = (e) => {
-        if (!closeOnSelect) {
-            e.preventDefault();
-        }
+        e.preventDefault();
 
         onSelect(e.currentTarget.value);
+
+        if (closeOnSelect && ref.current) {
+            ref.current.blur();
+        }
     };
 
     const onKeyDown = (e) => {

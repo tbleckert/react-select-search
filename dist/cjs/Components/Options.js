@@ -39,40 +39,44 @@ var Options = function Options(_ref) {
       className: cls('not-found')
     }, content);
   }, [emptyMessage, cls]);
-  return /*#__PURE__*/_react["default"].createElement("ul", {
-    className: cls('options')
-  }, options.length > 0 ? options.map(function (option) {
-    var isGroup = option.type === 'group';
-    var items = isGroup ? option.items : [option];
-    var base = {
-      cls: cls,
-      optionProps: optionProps,
-      renderOption: renderOption
-    };
-    var rendered = items.map(function (o) {
-      return /*#__PURE__*/_react["default"].createElement(_Option["default"], _extends({
-        key: o.value,
-        selected: (0, _isSelected["default"])(o, snapshot.option),
-        highlighted: snapshot.highlighted === o.index
-      }, base, o));
-    });
+  return (
+    /*#__PURE__*/
+    // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
+    _react["default"].createElement("ul", {
+      className: cls('options')
+    }, options.length > 0 ? options.map(function (option) {
+      var isGroup = option.type === 'group';
+      var items = isGroup ? option.items : [option];
+      var base = {
+        cls: cls,
+        optionProps: optionProps,
+        renderOption: renderOption
+      };
+      var rendered = items.map(function (o) {
+        return /*#__PURE__*/_react["default"].createElement(_Option["default"], _extends({
+          key: o.value,
+          selected: (0, _isSelected["default"])(o, snapshot.option),
+          highlighted: snapshot.highlighted === o.index
+        }, base, o));
+      });
 
-    if (isGroup) {
-      return /*#__PURE__*/_react["default"].createElement("li", {
-        role: "none",
-        className: cls('row'),
-        key: option.groupId
-      }, /*#__PURE__*/_react["default"].createElement("div", {
-        className: cls('group')
-      }, /*#__PURE__*/_react["default"].createElement("div", {
-        className: cls('group-header')
-      }, renderGroupHeader(option.name)), /*#__PURE__*/_react["default"].createElement("ul", {
-        className: cls('options')
-      }, rendered)));
-    }
+      if (isGroup) {
+        return /*#__PURE__*/_react["default"].createElement("li", {
+          role: "none",
+          className: cls('row'),
+          key: option.groupId
+        }, /*#__PURE__*/_react["default"].createElement("div", {
+          className: cls('group')
+        }, /*#__PURE__*/_react["default"].createElement("div", {
+          className: cls('group-header')
+        }, renderGroupHeader(option.name)), /*#__PURE__*/_react["default"].createElement("ul", {
+          className: cls('options')
+        }, rendered)));
+      }
 
-    return rendered;
-  }) : renderEmptyMessage() || null);
+      return rendered;
+    }) : renderEmptyMessage() || null)
+  );
 };
 
 Options.defaultProps = {

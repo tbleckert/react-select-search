@@ -89,11 +89,11 @@ const SelectSearch = forwardRef(({
     useEffect(() => {
         const { current } = selectRef;
 
-        if (!current || multiple || (highlighted < 0 && !value)) {
+        if (!current || multiple || (highlighted < 0 && value === undefined)) {
             return;
         }
 
-        const query = (highlighted > -1) ? `[data-index="${highlighted}"]` : `[data-value="${escape(value.value)}"]`;
+        const query = (highlighted > -1) ? `[data-index="${highlighted}"]` : `[data-value="${escape(value)}"]`;
         const selected = current.querySelector(query);
 
         if (selected) {
@@ -135,7 +135,8 @@ const SelectSearch = forwardRef(({
                 renderValue={renderValue}
             />
             {shouldRenderOptions && (
-                <div className={cls('select')} ref={selectRef}>
+                // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+                <div className={cls('select')} ref={selectRef} onMouseDown={(e) => e.preventDefault()}>
                     <Options
                         options={options}
                         emptyMessage={emptyMessage}
