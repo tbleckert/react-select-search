@@ -1,4 +1,3 @@
-import React, { useMemo, useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import classes from './assets/hooks.module.css';
 import useSelect from '../src/useSelect';

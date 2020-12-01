@@ -1,8 +1,10 @@
+import { jsx as _jsx } from "react/jsx-runtime";
+
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
 function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
 
-import React, { memo } from 'react';
+import { memo } from 'react';
 import PropTypes from 'prop-types';
 
 const Option = (_ref) => {
@@ -22,16 +24,16 @@ const Option = (_ref) => {
     disabled: option.disabled
   });
 
-  return /*#__PURE__*/React.createElement("li", {
+  return /*#__PURE__*/_jsx("li", {
     className: cls('row'),
     role: "menuitem",
     "data-index": option.index,
     "data-value": escape(option.value),
-    key: option.value
-  }, renderOption(domProps, option, {
-    selected,
-    highlighted
-  }, optionClass));
+    children: renderOption(domProps, option, {
+      selected,
+      highlighted
+    }, optionClass)
+  }, option.value);
 };
 
 Option.defaultProps = {
@@ -41,9 +43,11 @@ Option.defaultProps = {
   renderOption: (domProps, option, snapshot, className) =>
   /*#__PURE__*/
   // eslint-disable-next-line react/button-has-type
-  React.createElement("button", _extends({
+  _jsx("button", _extends({
     className: className
-  }, domProps), option.name)
+  }, domProps, {
+    children: option.name
+  }))
 };
 Option.propTypes = process.env.NODE_ENV !== "production" ? {
   name: PropTypes.string.isRequired,

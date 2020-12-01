@@ -1,4 +1,6 @@
-import React, { forwardRef, memo, useCallback } from 'react';
+import { jsx as _jsx } from "react/jsx-runtime";
+import { jsxs as _jsxs } from "react/jsx-runtime";
+import { forwardRef, memo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import useSelect from './useSelect';
 import { optionType, valueType } from './types';
@@ -86,29 +88,30 @@ const SelectSearch = /*#__PURE__*/forwardRef(({
       break;
   }
 
-  return /*#__PURE__*/React.createElement("div", {
+  return /*#__PURE__*/_jsxs("div", {
     ref: ref,
     className: wrapperClass,
-    id: id
-  }, /*#__PURE__*/React.createElement(Value, {
-    valueProps: valueProps,
-    placeholder: placeholder,
-    multiple: multiple,
-    search: search,
-    autoComplete: autoComplete,
-    autoFocus: autoFocus,
-    snapshot: snapshot,
-    cls: cls,
-    renderValue: renderValue
-  }), shouldRenderOptions && /*#__PURE__*/React.createElement(Options, {
-    options: options,
-    emptyMessage: emptyMessage,
-    optionProps: optionProps,
-    renderOption: renderOption,
-    renderGroupHeader: renderGroupHeader,
-    cls: cls,
-    snapshot: snapshot
-  }));
+    id: id,
+    children: [/*#__PURE__*/_jsx(Value, {
+      valueProps: valueProps,
+      placeholder: placeholder,
+      multiple: multiple,
+      search: search,
+      autoComplete: autoComplete,
+      autoFocus: autoFocus,
+      snapshot: snapshot,
+      cls: cls,
+      renderValue: renderValue
+    }), shouldRenderOptions && /*#__PURE__*/_jsx(Options, {
+      options: options,
+      emptyMessage: emptyMessage,
+      optionProps: optionProps,
+      renderOption: renderOption,
+      renderGroupHeader: renderGroupHeader,
+      cls: cls,
+      snapshot: snapshot
+    })]
+  });
 });
 SelectSearch.defaultProps = {
   // Data

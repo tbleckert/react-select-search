@@ -1,6 +1,9 @@
+import { jsxs as _jsxs } from "react/jsx-runtime";
+import { jsx as _jsx } from "react/jsx-runtime";
+
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
-import React, { memo, useCallback, useEffect, useRef } from 'react';
+import { memo, useCallback, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import Option from './Option';
 import isSelected from '../lib/isSelected';
@@ -21,9 +24,10 @@ const Options = ({
       return null;
     }
 
-    return /*#__PURE__*/React.createElement("li", {
-      className: cls('not-found')
-    }, typeof emptyMessage === 'function' ? emptyMessage() : emptyMessage);
+    return /*#__PURE__*/_jsx("li", {
+      className: cls('not-found'),
+      children: typeof emptyMessage === 'function' ? emptyMessage() : emptyMessage
+    });
   }, [emptyMessage, cls]);
   const {
     focus,
@@ -51,42 +55,46 @@ const Options = ({
   return (
     /*#__PURE__*/
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-    React.createElement("div", {
+    _jsx("div", {
       className: cls('select'),
       ref: selectRef,
-      onMouseDown: e => e.preventDefault()
-    }, /*#__PURE__*/React.createElement("ul", {
-      className: cls('options')
-    }, options.length > 0 ? options.map(option => {
-      const isGroup = option.type === 'group';
-      const items = isGroup ? option.items : [option];
-      const base = {
-        cls,
-        optionProps,
-        renderOption
-      };
-      const rendered = items.map(o => /*#__PURE__*/React.createElement(Option, _extends({
-        key: o.value,
-        selected: isSelected(o, snapshot.option),
-        highlighted: snapshot.highlighted === o.index
-      }, base, o)));
+      onMouseDown: e => e.preventDefault(),
+      children: /*#__PURE__*/_jsx("ul", {
+        className: cls('options'),
+        children: options.length > 0 ? options.map(option => {
+          const isGroup = option.type === 'group';
+          const items = isGroup ? option.items : [option];
+          const base = {
+            cls,
+            optionProps,
+            renderOption
+          };
+          const rendered = items.map(o => /*#__PURE__*/_jsx(Option, _extends({
+            selected: isSelected(o, snapshot.option),
+            highlighted: snapshot.highlighted === o.index
+          }, base, o), o.value));
 
-      if (isGroup) {
-        return /*#__PURE__*/React.createElement("li", {
-          role: "none",
-          className: cls('row'),
-          key: option.groupId
-        }, /*#__PURE__*/React.createElement("div", {
-          className: cls('group')
-        }, /*#__PURE__*/React.createElement("div", {
-          className: cls('group-header')
-        }, renderGroupHeader(option.name)), /*#__PURE__*/React.createElement("ul", {
-          className: cls('options')
-        }, rendered)));
-      }
+          if (isGroup) {
+            return /*#__PURE__*/_jsx("li", {
+              role: "none",
+              className: cls('row'),
+              children: /*#__PURE__*/_jsxs("div", {
+                className: cls('group'),
+                children: [/*#__PURE__*/_jsx("div", {
+                  className: cls('group-header'),
+                  children: renderGroupHeader(option.name)
+                }), /*#__PURE__*/_jsx("ul", {
+                  className: cls('options'),
+                  children: rendered
+                })]
+              })
+            }, option.groupId);
+          }
 
-      return rendered;
-    }) : renderEmptyMessage()))
+          return rendered;
+        }) : renderEmptyMessage()
+      })
+    })
   );
 };
 

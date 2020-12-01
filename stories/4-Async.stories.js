@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import SelectSearch from '../src';
 import '../style.css';
 import { countries, fontStacks } from './data';

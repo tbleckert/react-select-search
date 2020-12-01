@@ -3,7 +3,9 @@
 exports.__esModule = true;
 exports["default"] = void 0;
 
-var _react = _interopRequireWildcard(require("react"));
+var _jsxRuntime = require("react/jsx-runtime");
+
+var _react = require("react");
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
@@ -14,10 +16,6 @@ var _isSelected = _interopRequireDefault(require("../lib/isSelected"));
 var _types = require("../types");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function _getRequireWildcardCache() { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { "default": obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj["default"] = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
@@ -35,9 +33,10 @@ var Options = function Options(_ref) {
       return null;
     }
 
-    return /*#__PURE__*/_react["default"].createElement("li", {
-      className: cls('not-found')
-    }, typeof emptyMessage === 'function' ? emptyMessage() : emptyMessage);
+    return /*#__PURE__*/(0, _jsxRuntime.jsx)("li", {
+      className: cls('not-found'),
+      children: typeof emptyMessage === 'function' ? emptyMessage() : emptyMessage
+    });
   }, [emptyMessage, cls]);
   var focus = snapshot.focus,
       value = snapshot.value,
@@ -61,46 +60,50 @@ var Options = function Options(_ref) {
   return (
     /*#__PURE__*/
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-    _react["default"].createElement("div", {
+    (0, _jsxRuntime.jsx)("div", {
       className: cls('select'),
       ref: selectRef,
       onMouseDown: function onMouseDown(e) {
         return e.preventDefault();
-      }
-    }, /*#__PURE__*/_react["default"].createElement("ul", {
-      className: cls('options')
-    }, options.length > 0 ? options.map(function (option) {
-      var isGroup = option.type === 'group';
-      var items = isGroup ? option.items : [option];
-      var base = {
-        cls: cls,
-        optionProps: optionProps,
-        renderOption: renderOption
-      };
-      var rendered = items.map(function (o) {
-        return /*#__PURE__*/_react["default"].createElement(_Option["default"], _extends({
-          key: o.value,
-          selected: (0, _isSelected["default"])(o, snapshot.option),
-          highlighted: snapshot.highlighted === o.index
-        }, base, o));
-      });
+      },
+      children: /*#__PURE__*/(0, _jsxRuntime.jsx)("ul", {
+        className: cls('options'),
+        children: options.length > 0 ? options.map(function (option) {
+          var isGroup = option.type === 'group';
+          var items = isGroup ? option.items : [option];
+          var base = {
+            cls: cls,
+            optionProps: optionProps,
+            renderOption: renderOption
+          };
+          var rendered = items.map(function (o) {
+            return /*#__PURE__*/(0, _jsxRuntime.jsx)(_Option["default"], _extends({
+              selected: (0, _isSelected["default"])(o, snapshot.option),
+              highlighted: snapshot.highlighted === o.index
+            }, base, o), o.value);
+          });
 
-      if (isGroup) {
-        return /*#__PURE__*/_react["default"].createElement("li", {
-          role: "none",
-          className: cls('row'),
-          key: option.groupId
-        }, /*#__PURE__*/_react["default"].createElement("div", {
-          className: cls('group')
-        }, /*#__PURE__*/_react["default"].createElement("div", {
-          className: cls('group-header')
-        }, renderGroupHeader(option.name)), /*#__PURE__*/_react["default"].createElement("ul", {
-          className: cls('options')
-        }, rendered)));
-      }
+          if (isGroup) {
+            return /*#__PURE__*/(0, _jsxRuntime.jsx)("li", {
+              role: "none",
+              className: cls('row'),
+              children: /*#__PURE__*/(0, _jsxRuntime.jsxs)("div", {
+                className: cls('group'),
+                children: [/*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
+                  className: cls('group-header'),
+                  children: renderGroupHeader(option.name)
+                }), /*#__PURE__*/(0, _jsxRuntime.jsx)("ul", {
+                  className: cls('options'),
+                  children: rendered
+                })]
+              })
+            }, option.groupId);
+          }
 
-      return rendered;
-    }) : renderEmptyMessage()))
+          return rendered;
+        }) : renderEmptyMessage()
+      })
+    })
   );
 };
 

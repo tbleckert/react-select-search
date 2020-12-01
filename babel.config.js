@@ -8,7 +8,9 @@ module.exports = {
                 shippedProposals: true,
             },
         ],
-        '@babel/preset-react',
+        ['@babel/preset-react', {
+            runtime: 'automatic',
+        }],
     ],
     plugins: [
         ['@babel/proposal-class-properties', { loose: true }],

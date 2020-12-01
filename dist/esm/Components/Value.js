@@ -1,6 +1,8 @@
+import { jsx as _jsx } from "react/jsx-runtime";
+
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
-import React, { memo } from 'react';
+import { memo } from 'react';
 import PropTypes from 'prop-types';
 
 const Value = ({
@@ -21,19 +23,20 @@ const Value = ({
     return null;
   }
 
-  return /*#__PURE__*/React.createElement("div", {
-    className: cls('value')
-  }, renderValue(_extends({}, valueProps, {
-    placeholder,
-    autoFocus,
-    autoComplete,
-    value: inputValue
-  }), snapshot, cls('input')));
+  return /*#__PURE__*/_jsx("div", {
+    className: cls('value'),
+    children: renderValue(_extends({}, valueProps, {
+      placeholder,
+      autoFocus,
+      autoComplete,
+      value: inputValue
+    }), snapshot, cls('input'))
+  });
 };
 
 Value.defaultProps = {
   placeholder: null,
-  renderValue: (valueProps, snapshot, className) => /*#__PURE__*/React.createElement("input", _extends({}, valueProps, {
+  renderValue: (valueProps, snapshot, className) => /*#__PURE__*/_jsx("input", _extends({}, valueProps, {
     className: className
   }))
 };
