@@ -97,7 +97,7 @@ export type SelectSearchProps = {
 
 export const SelectSearch:React.FunctionComponent<SelectSearchProps>
 
-export function useSelect(
+export function useSelect(Options: {
     value?:string|string[],
     disabled?:boolean,
     multiple?:boolean,
@@ -109,7 +109,7 @@ export function useSelect(
     allowEmpty?:boolean,
     closeOnSelect?:boolean,
     closable?:boolean,
-): [
+}): [
     ValueSnapshot,
     {
         tabIndex:string;
