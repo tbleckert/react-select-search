@@ -143,8 +143,10 @@ function useSelect(_ref) {
     });
   }, [multiple]);
   var onMouseDown = (0, _react.useCallback)(function (e) {
-    if (!closeOnSelect) {
-      e.preventDefault();
+    e.preventDefault();
+
+    if (closeOnSelect && ref.current) {
+      ref.current.blur();
     }
 
     onSelect(e.currentTarget.value);

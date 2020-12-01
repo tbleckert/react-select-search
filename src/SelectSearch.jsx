@@ -145,7 +145,7 @@ const SelectSearch = forwardRef(({
                 </div>
             )}
             {shouldRenderOptions && (
-                <div className={cls('select')} ref={selectRef}>
+                <div className={cls('select')} ref={selectRef} onMouseDown={(e) => e.preventDefault()}>
                     <ul className={cls('options')}>
                         {options.length > 0 ? (
                             options.map((option) => {

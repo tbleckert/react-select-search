@@ -101,8 +101,10 @@ export default function useSelect({
     });
   }, [multiple]);
   const onMouseDown = useCallback(e => {
-    if (!closeOnSelect) {
-      e.preventDefault();
+    e.preventDefault();
+
+    if (closeOnSelect && ref.current) {
+      ref.current.blur();
     }
 
     onSelect(e.currentTarget.value);

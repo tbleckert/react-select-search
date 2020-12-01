@@ -91,14 +91,15 @@ var SelectSearch = /*#__PURE__*/(0, _react.forwardRef)(function (_ref, ref) {
     return className.split(' ')[0] + "__" + key;
   }, [className]);
   var renderEmptyMessage = (0, _react.useCallback)(function () {
-    if (typeof emptyMessage === 'function') {
-      return emptyMessage();
-    } else if (typeof emptyMessage === 'string') {
-      return /*#__PURE__*/_react["default"].createElement("li", null, emptyMessage);
+    if (emptyMessage === null) {
+      return null;
     }
 
-    return null;
-  }, [emptyMessage]);
+    var content = typeof emptyMessage === 'function' ? emptyMessage() : emptyMessage;
+    return /*#__PURE__*/_react["default"].createElement("li", {
+      className: cls('not-found')
+    }, content);
+  }, [emptyMessage, cls]);
   var wrapperClass = [cls('container'), disabled ? cls('is-disabled') : false, searching ? cls('is-loading') : false, focus ? cls('has-focus') : false].filter(function (single) {
     return !!single;
   }).join(' ');
@@ -152,7 +153,10 @@ var SelectSearch = /*#__PURE__*/(0, _react.forwardRef)(function (_ref, ref) {
     value: inputValue
   }), snapshot, cls('input'))), shouldRenderOptions && /*#__PURE__*/_react["default"].createElement("div", {
     className: cls('select'),
-    ref: selectRef
+    ref: selectRef,
+    onMouseDown: function onMouseDown(e) {
+      return e.preventDefault();
+    }
   }, /*#__PURE__*/_react["default"].createElement("ul", {
     className: cls('options')
   }, options.length > 0 ? options.map(function (option) {

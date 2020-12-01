@@ -72,14 +72,15 @@ const SelectSearch = /*#__PURE__*/forwardRef(({
     return className.split(' ')[0] + "__" + key;
   }, [className]);
   const renderEmptyMessage = useCallback(() => {
-    if (typeof emptyMessage === 'function') {
-      return emptyMessage();
-    } else if (typeof emptyMessage === 'string') {
-      return /*#__PURE__*/React.createElement("li", null, emptyMessage);
+    if (emptyMessage === null) {
+      return null;
     }
 
-    return null;
-  }, [emptyMessage]);
+    const content = typeof emptyMessage === 'function' ? emptyMessage() : emptyMessage;
+    return /*#__PURE__*/React.createElement("li", {
+      className: cls('not-found')
+    }, content);
+  }, [emptyMessage, cls]);
   const wrapperClass = [cls('container'), disabled ? cls('is-disabled') : false, searching ? cls('is-loading') : false, focus ? cls('has-focus') : false].filter(single => !!single).join(' ');
   const inputValue = focus && search ? searchValue : displayValue;
   useEffect(() => {
@@ -133,7 +134,8 @@ const SelectSearch = /*#__PURE__*/forwardRef(({
     value: inputValue
   }), snapshot, cls('input'))), shouldRenderOptions && /*#__PURE__*/React.createElement("div", {
     className: cls('select'),
-    ref: selectRef
+    ref: selectRef,
+    onMouseDown: e => e.preventDefault()
   }, /*#__PURE__*/React.createElement("ul", {
     className: cls('options')
   }, options.length > 0 ? options.map(option => {
