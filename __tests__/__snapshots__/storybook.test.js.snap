@@ -576,6 +576,65 @@ exports[`Storyshots Custom CSS Modules 1`] = `
 </div>
 `;
 
+exports[`Storyshots Custom Controllable Display 1`] = `
+<div
+  style={
+    Object {
+      "display": "flex",
+    }
+  }
+>
+  <div
+    className="select-search"
+    id={null}
+  >
+    <div
+      className="select-search__value"
+    >
+      <input
+        autoComplete="on"
+        autoFocus={false}
+        className="select-search__input"
+        disabled={false}
+        onBlur={[Function]}
+        onChange={null}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyPress={[Function]}
+        onKeyUp={[Function]}
+        placeholder={null}
+        readOnly={true}
+        tabIndex="0"
+        value=""
+      />
+    </div>
+  </div>
+  <button
+    onClick={[Function]}
+    style={
+      Object {
+        "alignItems": "center",
+        "background": "rgb(49, 173, 122)",
+        "border": "none",
+        "borderRadius": "3px",
+        "color": "#fff",
+        "cursor": "pointer",
+        "display": "inline-flex",
+        "fontSize": "16px",
+        "height": "37px",
+        "marginLeft": "16px",
+        "outline": "none",
+        "padding": "0 16px",
+        "position": "relative",
+      }
+    }
+    type="button"
+  >
+    Display options
+  </button>
+</div>
+`;
+
 exports[`Storyshots Custom Font Example 1`] = `
 <div
   className="select-search"
