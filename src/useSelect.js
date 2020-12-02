@@ -30,6 +30,7 @@ export default function useSelect({
     debounce: debounceTime = 0,
 }) {
     const ref = useRef(null);
+    const valueRef = useRef(undefined);
     const flattenedOptions = useMemo(() => flattenOptions(defaultOptions), [defaultOptions]);
     const [value, setValue] = useState(defaultValue);
     const [search, setSearch] = useState('');
@@ -70,7 +71,7 @@ export default function useSelect({
                 .finally(() => setFetching(false));
         }, debounceTime);
     }, [flattenedOptions, getOptions, filter, debounceTime]);
-    const snapshot = {
+    const snapshot = useMemo(() => ({
         options: groupedOptions,
         option,
         displayValue: getDisplayValue(option),
@@ -80,14 +81,14 @@ export default function useSelect({
         focus,
         highlighted,
         disabled,
-    };
+    }), [disabled, fetching, focus, groupedOptions, highlighted, option, search, value]);
 
-    const onFocus = (e) => {
+    const onFocus = useCallback((e) => {
         setFocus(true);
         onFocusCb(e);
-    };
+    }, [onFocusCb]);
 
-    const onBlur = (e) => {
+    const onBlur = useCallback((e) => {
         setFocus(false);
         setOptions(filter(search, flattenedOptions));
         setSearch('');
@@ -97,9 +98,9 @@ export default function useSelect({
         }
 
         onBlurCb(e);
-    };
+    }, [onBlurCb, filter, flattenedOptions, search]);
 
-    const onSelect = (newValue, silent = false) => {
+    const onSelect = useCallback((newValue) => {
         const newValues = getNewValue(newValue, value, options, multiple);
         const newOption = getOption(
             newValues,
@@ -109,31 +110,29 @@ export default function useSelect({
         setValue(newValues);
         setOption(newOption);
 
-        if (!silent) {
-            onChange(newValues, newOption);
-        }
-    };
+        onChange(newValues, newOption);
+    }, [multiple, onChange, option, options, value]);
 
-    const onMouseDown = (e) => {
+    const onMouseDown = useCallback((e) => {
         e.preventDefault();
 
         onSelect(e.currentTarget.value);
 
-        if (closeOnSelect && ref.current) {
-            ref.current.blur();
+        if (closeOnSelect) {
+            onBlur();
         }
-    };
+    }, [closeOnSelect, onBlur, onSelect]);
 
-    const onKeyDown = (e) => {
+    const onKeyDown = useCallback((e) => {
         const { key } = e;
 
         if (['ArrowDown', 'ArrowUp'].includes(key)) {
             e.preventDefault();
             dispatchHighlighted({ key, options });
         }
-    };
+    }, [options]);
 
-    const onKeyPress = (e) => {
+    const onKeyPress = useCallback((e) => {
         if (e.key === 'Enter') {
             e.preventDefault();
 
@@ -147,17 +146,17 @@ export default function useSelect({
                 onBlur();
             }
         }
-    };
+    }, [options, highlighted, closeOnSelect, onSelect, onBlur]);
 
-    const onKeyUp = (e) => {
+    const onKeyUp = useCallback((e) => {
         if (e.key === 'Escape') {
             e.preventDefault();
             onBlur();
         }
-    };
+    }, [onBlur]);
 
     const onSearch = ({ target }) => setSearch(target.value);
-    const valueProps = {
+    const valueProps = useMemo(() => ({
         tabIndex: '0',
         readOnly: !canSearch,
         onFocus,
@@ -168,19 +167,32 @@ export default function useSelect({
         onChange: (canSearch) ? onSearch : null,
         disabled,
         ref,
-    };
+    }), [canSearch, onFocus, onBlur, onKeyPress, onKeyDown, onKeyUp, disabled, ref]);
 
-    const optionProps = {
+    const optionProps = useMemo(() => ({
         tabIndex: '-1',
         onMouseDown,
         onKeyDown,
         onKeyPress,
         onBlur,
-    };
+    }), [onBlur, onKeyDown, onKeyPress, onMouseDown]);
 
-    useEffect(() => onSelect(defaultValue, true), [defaultValue]);
+    useEffect(() => {
+        if (valueRef.current === defaultValue) {
+            return;
+        }
+
+        valueRef.current = defaultValue;
+
+        const newValues = getNewValue(defaultValue, null, options, multiple);
+        const newOption = getOption(newValues, options);
+
+        setValue(defaultValue);
+        setOption(newOption);
+    }, [defaultValue, multiple, options, valueRef.current]);
+
     useEffect(() => setOptions(flattenedOptions), [flattenedOptions]);
-    useEffect(() => { fetchOptions(search); }, [search, fetchOptions]);
+    useEffect(() => fetchOptions(search), [search, fetchOptions]);
 
     return [snapshot, valueProps, optionProps, setValue];
 }

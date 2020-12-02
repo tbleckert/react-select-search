@@ -51,6 +51,7 @@ function useSelect(_ref) {
       _ref$debounce = _ref.debounce,
       debounceTime = _ref$debounce === void 0 ? 0 : _ref$debounce;
   var ref = (0, _react.useRef)(null);
+  var valueRef = (0, _react.useRef)(undefined);
   var flattenedOptions = (0, _react.useMemo)(function () {
     return (0, _flattenOptions["default"])(defaultOptions);
   }, [defaultOptions]);
@@ -118,24 +119,24 @@ function useSelect(_ref) {
       });
     }, debounceTime);
   }, [flattenedOptions, getOptions, filter, debounceTime]);
-  var snapshot = {
-    options: groupedOptions,
-    option: option,
-    displayValue: (0, _getDisplayValue["default"])(option),
-    value: value,
-    search: search,
-    fetching: fetching,
-    focus: focus,
-    highlighted: highlighted,
-    disabled: disabled
-  };
-
-  var onFocus = function onFocus(e) {
+  var snapshot = (0, _react.useMemo)(function () {
+    return {
+      options: groupedOptions,
+      option: option,
+      displayValue: (0, _getDisplayValue["default"])(option),
+      value: value,
+      search: search,
+      fetching: fetching,
+      focus: focus,
+      highlighted: highlighted,
+      disabled: disabled
+    };
+  }, [disabled, fetching, focus, groupedOptions, highlighted, option, search, value]);
+  var onFocus = (0, _react.useCallback)(function (e) {
     setFocus(true);
     onFocusCb(e);
-  };
-
-  var onBlur = function onBlur(e) {
+  }, [onFocusCb]);
+  var onBlur = (0, _react.useCallback)(function (e) {
     setFocus(false);
     setOptions(filter(search, flattenedOptions));
     setSearch('');
@@ -145,33 +146,23 @@ function useSelect(_ref) {
     }
 
     onBlurCb(e);
-  };
-
-  var onSelect = function onSelect(newValue, silent) {
-    if (silent === void 0) {
-      silent = false;
-    }
-
+  }, [onBlurCb, filter, flattenedOptions, search]);
+  var onSelect = (0, _react.useCallback)(function (newValue) {
     var newValues = (0, _getNewValue["default"])(newValue, value, options, multiple);
     var newOption = (0, _getOption["default"])(newValues, Array.isArray(option) ? [].concat(option, options) : options);
     setValue(newValues);
     setOption(newOption);
-
-    if (!silent) {
-      onChange(newValues, newOption);
-    }
-  };
-
-  var onMouseDown = function onMouseDown(e) {
+    onChange(newValues, newOption);
+  }, [multiple, onChange, option, options, value]);
+  var onMouseDown = (0, _react.useCallback)(function (e) {
     e.preventDefault();
     onSelect(e.currentTarget.value);
 
-    if (closeOnSelect && ref.current) {
-      ref.current.blur();
+    if (closeOnSelect) {
+      onBlur();
     }
-  };
-
-  var onKeyDown = function onKeyDown(e) {
+  }, [closeOnSelect, onBlur, onSelect]);
+  var onKeyDown = (0, _react.useCallback)(function (e) {
     var key = e.key;
 
     if (['ArrowDown', 'ArrowUp'].includes(key)) {
@@ -181,9 +172,8 @@ function useSelect(_ref) {
         options: options
       });
     }
-  };
-
-  var onKeyPress = function onKeyPress(e) {
+  }, [options]);
+  var onKeyPress = (0, _react.useCallback)(function (e) {
     if (e.key === 'Enter') {
       e.preventDefault();
       var selected = options[highlighted];
@@ -196,47 +186,58 @@ function useSelect(_ref) {
         onBlur();
       }
     }
-  };
-
-  var onKeyUp = function onKeyUp(e) {
+  }, [options, highlighted, closeOnSelect, onSelect, onBlur]);
+  var onKeyUp = (0, _react.useCallback)(function (e) {
     if (e.key === 'Escape') {
       e.preventDefault();
       onBlur();
     }
-  };
+  }, [onBlur]);
 
   var onSearch = function onSearch(_ref2) {
     var target = _ref2.target;
     return setSearch(target.value);
   };
 
-  var valueProps = {
-    tabIndex: '0',
-    readOnly: !canSearch,
-    onFocus: onFocus,
-    onBlur: onBlur,
-    onKeyPress: onKeyPress,
-    onKeyDown: onKeyDown,
-    onKeyUp: onKeyUp,
-    onChange: canSearch ? onSearch : null,
-    disabled: disabled,
-    ref: ref
-  };
-  var optionProps = {
-    tabIndex: '-1',
-    onMouseDown: onMouseDown,
-    onKeyDown: onKeyDown,
-    onKeyPress: onKeyPress,
-    onBlur: onBlur
-  };
+  var valueProps = (0, _react.useMemo)(function () {
+    return {
+      tabIndex: '0',
+      readOnly: !canSearch,
+      onFocus: onFocus,
+      onBlur: onBlur,
+      onKeyPress: onKeyPress,
+      onKeyDown: onKeyDown,
+      onKeyUp: onKeyUp,
+      onChange: canSearch ? onSearch : null,
+      disabled: disabled,
+      ref: ref
+    };
+  }, [canSearch, onFocus, onBlur, onKeyPress, onKeyDown, onKeyUp, disabled, ref]);
+  var optionProps = (0, _react.useMemo)(function () {
+    return {
+      tabIndex: '-1',
+      onMouseDown: onMouseDown,
+      onKeyDown: onKeyDown,
+      onKeyPress: onKeyPress,
+      onBlur: onBlur
+    };
+  }, [onBlur, onKeyDown, onKeyPress, onMouseDown]);
   (0, _react.useEffect)(function () {
-    return onSelect(defaultValue, true);
-  }, [defaultValue]);
+    if (valueRef.current === defaultValue) {
+      return;
+    }
+
+    valueRef.current = defaultValue;
+    var newValues = (0, _getNewValue["default"])(defaultValue, null, options, multiple);
+    var newOption = (0, _getOption["default"])(newValues, options);
+    setValue(defaultValue);
+    setOption(newOption);
+  }, [defaultValue, multiple, options, valueRef.current]);
   (0, _react.useEffect)(function () {
     return setOptions(flattenedOptions);
   }, [flattenedOptions]);
   (0, _react.useEffect)(function () {
-    fetchOptions(search);
+    return fetchOptions(search);
   }, [search, fetchOptions]);
   return [snapshot, valueProps, optionProps, setValue];
 }
