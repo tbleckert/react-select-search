@@ -110,3 +110,33 @@ export const StayOnSelect = () => (
         ]}
     />
 );
+
+export const StayOnSelectWithSingleInitialValue = () => (
+    <SelectSearch
+        closeOnSelect={false}
+        printOptions="on-focus"
+        multiple
+        placeholder="Select your items"
+        options={[
+            { value: 'hamburger', name: 'Hamburger' },
+            { value: 'fries', name: 'Fries' },
+            { value: 'milkshake', name: 'Milkshake' },
+        ]}
+        value={'fries'}
+    />
+);
+
+export const StayOnSelectWithMultipleInitialValue = () => (
+    <SelectSearch
+        closeOnSelect={false}
+        printOptions="on-focus"
+        multiple
+        placeholder="Select your items"
+        options={[
+            { value: 'hamburger', name: 'Hamburger' },
+            { value: 'fries', name: 'Fries' },
+            { value: 'milkshake', name: 'Milkshake' },
+        ]}
+        value={['hamburger', 'fries']}
+    />
+);
