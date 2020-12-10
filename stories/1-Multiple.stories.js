@@ -18,6 +18,19 @@ export const Default = () => (
     />
 );
 
+export const DefaultValue = () => (
+    <SelectSearch
+        className="select-search select-search--multiple"
+        options={[
+            { value: 'hamburger', name: 'Hamburger' },
+            { value: 'fries', name: 'Fries' },
+            { value: 'milkshake', name: 'Milkshake' },
+        ]}
+        value={['hamburger', 'fries']}
+        multiple
+    />
+);
+
 export const WithPlaceholder = () => (
     <SelectSearch
         className="select-search select-search--multiple"

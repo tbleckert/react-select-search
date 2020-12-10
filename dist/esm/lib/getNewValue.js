@@ -10,7 +10,7 @@ export default function getNewValue(value, oldValue, options, multiple) {
   }
 
   if (!oldValue) {
-    return [newValue];
+    return !Array.isArray(newValue) ? [newValue] : [...newValue];
   }
 
   const newArrayValue = !Array.isArray(oldValue) ? [oldValue] : [...oldValue]; // eslint-disable-next-line eqeqeq

@@ -15,7 +15,7 @@ function getNewValue(value, oldValue, options, multiple) {
   }
 
   if (!oldValue) {
-    return [newValue];
+    return !Array.isArray(newValue) ? [newValue] : [].concat(newValue);
   }
 
   var newArrayValue = !Array.isArray(oldValue) ? [oldValue] : [].concat(oldValue); // eslint-disable-next-line eqeqeq
