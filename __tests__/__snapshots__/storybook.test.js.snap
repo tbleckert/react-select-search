@@ -833,6 +833,80 @@ exports[`Storyshots Multiple select Default 1`] = `
 </div>
 `;
 
+exports[`Storyshots Multiple select Default Value 1`] = `
+<div
+  className="select-search select-search--multiple"
+  id={null}
+>
+  <div
+    className="select-search__select"
+    onMouseDown={[Function]}
+  >
+    <ul
+      className="select-search__options"
+    >
+      <li
+        className="select-search__row"
+        data-index={0}
+        data-value="hamburger"
+        role="menuitem"
+      >
+        <button
+          className="select-search__option is-selected"
+          disabled={false}
+          onBlur={[Function]}
+          onKeyDown={[Function]}
+          onKeyPress={[Function]}
+          onMouseDown={[Function]}
+          tabIndex="-1"
+          value="hamburger"
+        >
+          Hamburger
+        </button>
+      </li>
+      <li
+        className="select-search__row"
+        data-index={1}
+        data-value="fries"
+        role="menuitem"
+      >
+        <button
+          className="select-search__option is-selected"
+          disabled={false}
+          onBlur={[Function]}
+          onKeyDown={[Function]}
+          onKeyPress={[Function]}
+          onMouseDown={[Function]}
+          tabIndex="-1"
+          value="fries"
+        >
+          Fries
+        </button>
+      </li>
+      <li
+        className="select-search__row"
+        data-index={2}
+        data-value="milkshake"
+        role="menuitem"
+      >
+        <button
+          className="select-search__option"
+          disabled={false}
+          onBlur={[Function]}
+          onKeyDown={[Function]}
+          onKeyPress={[Function]}
+          onMouseDown={[Function]}
+          tabIndex="-1"
+          value="milkshake"
+        >
+          Milkshake
+        </button>
+      </li>
+    </ul>
+  </div>
+</div>
+`;
+
 exports[`Storyshots Multiple select Group 1`] = `
 <div
   className="select-search"

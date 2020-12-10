@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test Option component Highlighted 1`] = `
+<li
+  className="row"
+  data-index={null}
+  data-value="hamburger"
+  role="menuitem"
+>
+  <button
+    className="option is-highlighted"
+    disabled={false}
+    value="hamburger"
+  >
+    Hamburger
+  </button>
+</li>
+`;
+
+exports[`Test Option component Renders with default props 1`] = `
+<li
+  className="row"
+  data-index={null}
+  data-value="hamburger"
+  role="menuitem"
+>
+  <button
+    className="option"
+    disabled={false}
+    value="hamburger"
+  >
+    Hamburger
+  </button>
+</li>
+`;
+
+exports[`Test Option component Selected 1`] = `
+<li
+  className="row"
+  data-index={null}
+  data-value="hamburger"
+  role="menuitem"
+>
+  <button
+    className="option is-selected"
+    disabled={false}
+    value="hamburger"
+  >
+    Hamburger
+  </button>
+</li>
+`;
