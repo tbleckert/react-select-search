@@ -186,6 +186,7 @@ SelectSearch.defaultProps = {
   /*#__PURE__*/
   // eslint-disable-next-line react/button-has-type
   React.createElement("button", _extends({
+    type: "button",
     className: className
   }, domProps), option.name),
   renderGroupHeader: name => name,

@@ -7,7 +7,7 @@ function getDisplayValue(value) {
   if (value && typeof value === 'object') {
     if (Array.isArray(value)) {
       return value.map(function (singleOption) {
-        return singleOption.name;
+        return singleOption && singleOption.name;
       }).join(', ');
     }
 
