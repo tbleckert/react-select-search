@@ -39,7 +39,7 @@ const Options = ({
       current
     } = selectRef;
 
-    if (!current || Array.isArray(value) || highlighted < 0 && value === null) {
+    if (!current || highlighted < 0 && Array.isArray(value) || value === null) {
       return;
     }
 

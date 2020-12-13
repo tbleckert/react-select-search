@@ -21,6 +21,7 @@ export default function useSelect({
     multiple = false,
     disabled = false,
     closeOnSelect = true,
+    closable = true,
     getOptions = null,
     filterOptions = null,
     fuse = false,
@@ -118,10 +119,10 @@ export default function useSelect({
 
         onSelect(e.currentTarget.value);
 
-        if (closeOnSelect) {
+        if (closeOnSelect && closable) {
             onBlur();
         }
-    }, [closeOnSelect, onBlur, onSelect]);
+    }, [closable, closeOnSelect, onBlur, onSelect]);
 
     const onKeyDown = useCallback((e) => {
         const { key } = e;
@@ -174,7 +175,6 @@ export default function useSelect({
         onMouseDown,
         onKeyDown,
         onKeyPress,
-        onBlur,
     }), [onBlur, onKeyDown, onKeyPress, onMouseDown]);
 
     useEffect(() => {

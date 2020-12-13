@@ -36,6 +36,8 @@ function useSelect(_ref) {
       disabled = _ref$disabled === void 0 ? false : _ref$disabled,
       _ref$closeOnSelect = _ref.closeOnSelect,
       closeOnSelect = _ref$closeOnSelect === void 0 ? true : _ref$closeOnSelect,
+      _ref$closable = _ref.closable,
+      closable = _ref$closable === void 0 ? true : _ref$closable,
       _ref$getOptions = _ref.getOptions,
       getOptions = _ref$getOptions === void 0 ? null : _ref$getOptions,
       _ref$filterOptions = _ref.filterOptions,
@@ -158,10 +160,10 @@ function useSelect(_ref) {
     e.preventDefault();
     onSelect(e.currentTarget.value);
 
-    if (closeOnSelect) {
+    if (closeOnSelect && closable) {
       onBlur();
     }
-  }, [closeOnSelect, onBlur, onSelect]);
+  }, [closable, closeOnSelect, onBlur, onSelect]);
   var onKeyDown = (0, _react.useCallback)(function (e) {
     var key = e.key;
 
@@ -218,8 +220,7 @@ function useSelect(_ref) {
       tabIndex: '-1',
       onMouseDown: onMouseDown,
       onKeyDown: onKeyDown,
-      onKeyPress: onKeyPress,
-      onBlur: onBlur
+      onKeyPress: onKeyPress
     };
   }, [onBlur, onKeyDown, onKeyPress, onMouseDown]);
   (0, _react.useEffect)(function () {

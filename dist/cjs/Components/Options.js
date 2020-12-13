@@ -44,7 +44,7 @@ var Options = function Options(_ref) {
   (0, _react.useEffect)(function () {
     var current = selectRef.current;
 
-    if (!current || Array.isArray(value) || highlighted < 0 && value === null) {
+    if (!current || highlighted < 0 && Array.isArray(value) || value === null) {
       return;
     }
 
