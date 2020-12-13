@@ -119,25 +119,28 @@ Below is all the available options you can pass to the component. Options withou
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
 | options | array | | Se the [options documentation](#the-options-object) below |
-| value | string, array | undefined | The value should be an array if multiple mode. |
+| getOptions | function | null | Get options through a function call, can return a promise for async usage. See [get options](#get-options) for more. |
+| filterOptions | function | null | Takes the current search query (if any) and the current options and returns a new array of options. Runs after getOptions and fuzzy search (if providing a fuse object). |
+| value | string, array | null | The value should be an array if multiple mode. |
+| fuse | object, boolean | true | Use fuse.js to apply fuzzy search on search. Set to true to use default options or pass a fuse.js config option. If `search` is enabled and no `filterOptions` callback is passed, this will be set to `true` automatically. |
 | multiple | boolean | false | Set to true if you want to allow multiple selected options. |
 | search | boolean | false | Set to true to enable search functionality |
-| emptyMessage | string, function | null | Set empty message for empty options list, you can provide render function without arguments instead plain string message|
 | disabled | boolean | false | Disables all functionality |
+| printOptions | string | auto | Can be: auto, always, never, on-focus. This property controls when the options list should be rendered. |
+| closeOnSelect | boolean | true | The selectbox will blur by default when selecting an option. Set this to false to prevent this behavior. |
+| debounce | number | 0 | Number of ms to wait until calling [get options](#get-options) when searching. |
 | placeholder | string | empty string | Displayed if no option is selected and/or when search field is focused with empty value. |
+| id | string | null | HTML ID on the top level element. |
 | autoComplete | string, on/off | off | Disables/Enables autoComplete functionality in search field. |
 | autoFocus | boolean | false | Autofocus on select |
-| fuse | object, boolean | true | Use fuse.js to apply fuzzy search on search. Set to true to use default options or pass a fuse.js config option. If `search` is enabled and no `filterOptions` callback is passed, this will be set to `true` automatically. |
 | className | string, function | select-search-box | Set a base class string or pass a function for complete control. Se [custom classNames](#custom-class-names) for more. |
+| renderOption | function | null | Function that renders the options. See [custom renderers](#custom-renderers) for more. |
+| renderGroupHeader | function | null | Function that renders the group header. See [custom renderers](#custom-renderers) for more. |
+| renderValue | function | null | Function that renders the value/search field. See [custom renderers](#custom-renderers) for more. |
+| emptyMessage | string, function | null | Set empty message for empty options list, you can provide render function without arguments instead plain string message|
 | onChange | function | null | Function to receive and handle value changes. |
 | onFocus | function | null | Focus callback. |
 | onBlur | function | null | Blur callback. |
-| printOptions | string | auto | Can be: auto, always, never, on-focus. This property controls when the options list should be rendered. |
-| closeOnSelect | boolean | true | The selectbox will blur by default when selecting an option. Set this to false to prevent this behavior. |
-| renderOption | function | null | Function that renders the options. See [custom renderers](#custom-renderers) for more. |
-| renderValue | function | null | Function that renders the value/search field. See [custom renderers](#custom-renderers) for more. |
-| renderGroupHeader | function | null | Function that renders the group header. See [custom renderers](#custom-renderers) for more. |
-| getOptions | function | null | Get options through a function call, can return a promise for async usage. See [get options](#get-options) for more. |
 
 ## The options object
 
