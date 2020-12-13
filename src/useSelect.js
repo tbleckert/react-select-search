@@ -38,13 +38,11 @@ export default function useSelect({
     const [focus, setFocus] = useState(false);
     const [highlighted, dispatchHighlighted] = useReducer(highlightReducer, -1);
     const filter = useFilter(filterOptions, fuse);
-    const { options, fetching } = useFetch(
-        search,
+    const { options, fetching } = useFetch(search, flattenedOptions, {
         getOptions,
         filter,
-        debounce,
-        flattenedOptions,
-    );
+        debounceTime: debounce,
+    });
     const [option, setOption] = useState(() => getOption(value, options));
     const groupedOptions = useMemo(() => groupOptions(options), [options]);
     const snapshot = useMemo(() => ({

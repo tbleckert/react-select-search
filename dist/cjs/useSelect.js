@@ -76,7 +76,11 @@ function useSelect(_ref) {
 
   var filter = (0, _useFilter["default"])(filterOptions, fuse);
 
-  var _useFetch = (0, _useFetch2["default"])(search, getOptions, filter, debounce, flattenedOptions),
+  var _useFetch = (0, _useFetch2["default"])(search, flattenedOptions, {
+    getOptions: getOptions,
+    filter: filter,
+    debounceTime: debounce
+  }),
       options = _useFetch.options,
       fetching = _useFetch.fetching;
 

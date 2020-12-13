@@ -11,7 +11,11 @@ var _flattenOptions = _interopRequireDefault(require("./lib/flattenOptions"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-function useFetch(q, getOptions, filter, debounceTime, defaultOptions) {
+function useFetch(q, defaultOptions, _ref) {
+  var debounceTime = _ref.debounceTime,
+      getOptions = _ref.getOptions,
+      filter = _ref.filter;
+
   var _useState = (0, _react.useState)(false),
       fetching = _useState[0],
       setFetching = _useState[1];

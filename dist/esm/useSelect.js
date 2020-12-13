@@ -34,7 +34,11 @@ export default function useSelect({
   const {
     options,
     fetching
-  } = useFetch(search, getOptions, filter, debounce, flattenedOptions);
+  } = useFetch(search, flattenedOptions, {
+    getOptions,
+    filter,
+    debounceTime: debounce
+  });
   const [option, setOption] = useState(() => getOption(value, options));
   const groupedOptions = useMemo(() => groupOptions(options), [options]);
   const snapshot = useMemo(() => ({
