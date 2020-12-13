@@ -10,7 +10,8 @@ function getOption(value, options) {
         return option.value === singleValue;
       });
     });
-  }
+  } // eslint-disable-next-line eqeqeq
+
 
   return options.find(function (option) {
     return option.value == value;

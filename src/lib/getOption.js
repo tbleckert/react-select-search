@@ -5,5 +5,6 @@ export default function getOption(value, options) {
         ));
     }
 
+    // eslint-disable-next-line eqeqeq
     return options.find((option) => option.value == value) || null;
 }

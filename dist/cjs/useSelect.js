@@ -17,9 +17,9 @@ var _getNewValue = _interopRequireDefault(require("./lib/getNewValue"));
 
 var _getDisplayValue = _interopRequireDefault(require("./lib/getDisplayValue"));
 
-var _debounce = _interopRequireDefault(require("./lib/debounce"));
+var _useFilter = _interopRequireDefault(require("./useFilter"));
 
-var _fuzzySearch = _interopRequireDefault(require("./fuzzySearch"));
+var _useFetch2 = _interopRequireDefault(require("./useFetch"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -51,7 +51,7 @@ function useSelect(_ref) {
       _ref$onBlur = _ref.onBlur,
       onBlurCb = _ref$onBlur === void 0 ? function () {} : _ref$onBlur,
       _ref$debounce = _ref.debounce,
-      debounceTime = _ref$debounce === void 0 ? 0 : _ref$debounce;
+      debounce = _ref$debounce === void 0 ? 0 : _ref$debounce;
   var ref = (0, _react.useRef)(null);
   var valueRef = (0, _react.useRef)(undefined);
   var flattenedOptions = (0, _react.useMemo)(function () {
@@ -67,60 +67,28 @@ function useSelect(_ref) {
       setSearch = _useState2[1];
 
   var _useState3 = (0, _react.useState)(false),
-      fetching = _useState3[0],
-      setFetching = _useState3[1];
-
-  var _useState4 = (0, _react.useState)(false),
-      focus = _useState4[0],
-      setFocus = _useState4[1];
+      focus = _useState3[0],
+      setFocus = _useState3[1];
 
   var _useReducer = (0, _react.useReducer)(_highlightReducer["default"], -1),
       highlighted = _useReducer[0],
       dispatchHighlighted = _useReducer[1];
 
-  var _useState5 = (0, _react.useState)(flattenedOptions),
-      options = _useState5[0],
-      setOptions = _useState5[1];
+  var filter = (0, _useFilter["default"])(filterOptions, fuse);
 
-  var _useState6 = (0, _react.useState)(function () {
+  var _useFetch = (0, _useFetch2["default"])(search, getOptions, filter, debounce, flattenedOptions),
+      options = _useFetch.options,
+      fetching = _useFetch.fetching;
+
+  var _useState4 = (0, _react.useState)(function () {
     return (0, _getOption["default"])(value, options);
   }),
-      option = _useState6[0],
-      setOption = _useState6[1];
+      option = _useState4[0],
+      setOption = _useState4[1];
 
   var groupedOptions = (0, _react.useMemo)(function () {
     return (0, _groupOptions["default"])(options);
   }, [options]);
-  var filter = (0, _react.useCallback)(function (q, o) {
-    var nextOptions = o;
-
-    if (q.length && fuse) {
-      nextOptions = (0, _fuzzySearch["default"])(q, nextOptions, fuse);
-    }
-
-    if (filterOptions) {
-      nextOptions = filterOptions(q, nextOptions);
-    }
-
-    return nextOptions;
-  }, [filterOptions, fuse]);
-  var fetchOptions = (0, _react.useMemo)(function () {
-    if (!getOptions) {
-      return function (q) {
-        return setOptions(filter(q, flattenedOptions));
-      };
-    }
-
-    return (0, _debounce["default"])(function (q) {
-      var optionsReq = getOptions(q, flattenedOptions);
-      setFetching(true);
-      Promise.resolve(optionsReq).then(function (newOptions) {
-        setOptions(filter(q, (0, _flattenOptions["default"])(newOptions)));
-      })["finally"](function () {
-        return setFetching(false);
-      });
-    }, debounceTime);
-  }, [flattenedOptions, getOptions, filter, debounceTime]);
   var snapshot = (0, _react.useMemo)(function () {
     return {
       options: groupedOptions,
@@ -140,7 +108,6 @@ function useSelect(_ref) {
   }, [onFocusCb]);
   var onBlur = (0, _react.useCallback)(function (e) {
     setFocus(false);
-    setOptions(filter(search, flattenedOptions));
     setSearch('');
 
     if (ref.current) {
@@ -148,7 +115,7 @@ function useSelect(_ref) {
     }
 
     onBlurCb(e);
-  }, [onBlurCb, filter, flattenedOptions, search]);
+  }, [onBlurCb]);
   var onSelect = (0, _react.useCallback)(function (newValue) {
     var newValues = (0, _getNewValue["default"])(newValue, value, options, multiple);
     var newOption = (0, _getOption["default"])(newValues, Array.isArray(option) ? [].concat(option, options) : options);
@@ -195,12 +162,6 @@ function useSelect(_ref) {
       onBlur();
     }
   }, [onBlur]);
-
-  var onSearch = function onSearch(_ref2) {
-    var target = _ref2.target;
-    return setSearch(target.value);
-  };
-
   var valueProps = (0, _react.useMemo)(function () {
     return {
       tabIndex: '0',
@@ -210,7 +171,10 @@ function useSelect(_ref) {
       onKeyPress: onKeyPress,
       onKeyDown: onKeyDown,
       onKeyUp: onKeyUp,
-      onChange: canSearch ? onSearch : null,
+      onChange: canSearch ? function (_ref2) {
+        var target = _ref2.target;
+        return setSearch(target.value);
+      } : null,
       disabled: disabled,
       ref: ref
     };
@@ -222,7 +186,7 @@ function useSelect(_ref) {
       onKeyDown: onKeyDown,
       onKeyPress: onKeyPress
     };
-  }, [onBlur, onKeyDown, onKeyPress, onMouseDown]);
+  }, [onKeyDown, onKeyPress, onMouseDown]);
   (0, _react.useEffect)(function () {
     if (valueRef.current === defaultValue) {
       return;
@@ -233,12 +197,6 @@ function useSelect(_ref) {
     var newOption = (0, _getOption["default"])(newValues, options);
     setValue(defaultValue);
     setOption(newOption);
-  }, [defaultValue, multiple, options, valueRef.current]);
-  (0, _react.useEffect)(function () {
-    return setOptions(flattenedOptions);
-  }, [flattenedOptions]);
-  (0, _react.useEffect)(function () {
-    return fetchOptions(search);
-  }, [search, fetchOptions]);
+  }, [defaultValue, multiple, options]);
   return [snapshot, valueProps, optionProps, setValue];
 }
