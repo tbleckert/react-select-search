@@ -1,5 +1,6 @@
 import { useCallback } from 'react';
 import fuzzySearch from './fuzzySearch';
+import flattenOptions from './lib/flattenOptions';
 
 export default function useFilter(filter, fuse) {
     return useCallback((q, o) => {
@@ -13,6 +14,6 @@ export default function useFilter(filter, fuse) {
             nextOptions = filter(q, nextOptions);
         }
 
-        return nextOptions;
+        return flattenOptions(nextOptions);
     }, [filter, fuse]);
 }
