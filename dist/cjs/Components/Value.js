@@ -9,6 +9,8 @@ var _react = require("react");
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
+var _Context = _interopRequireDefault(require("../Context"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
@@ -18,11 +20,14 @@ var Value = function Value(_ref) {
       placeholder = _ref.placeholder,
       multiple = _ref.multiple,
       snapshot = _ref.snapshot,
-      cls = _ref.cls,
       autoFocus = _ref.autoFocus,
       autoComplete = _ref.autoComplete,
-      renderValue = _ref.renderValue,
       valueProps = _ref.valueProps;
+
+  var _useContext = (0, _react.useContext)(_Context["default"]),
+      cls = _useContext.cls,
+      renderValue = _useContext.renderValue;
+
   var inputValue = snapshot.focus && search ? snapshot.search : snapshot.displayValue;
   var shouldRender = !multiple || placeholder || search;
 
@@ -30,24 +35,23 @@ var Value = function Value(_ref) {
     return null;
   }
 
-  return /*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
+  var props = _extends({}, valueProps, {
+    placeholder: placeholder,
+    autoFocus: autoFocus,
+    autoComplete: autoComplete,
+    value: inputValue
+  });
+
+  return /*#__PURE__*/(0, _jsxRuntime.jsxs)("div", {
     className: cls('value'),
-    children: renderValue(_extends({}, valueProps, {
-      placeholder: placeholder,
-      autoFocus: autoFocus,
-      autoComplete: autoComplete,
-      value: inputValue
-    }), snapshot, cls('input'))
+    children: [renderValue && renderValue(props, snapshot, cls('input')), !renderValue && /*#__PURE__*/(0, _jsxRuntime.jsx)("input", _extends({}, props, {
+      className: cls('input')
+    }))]
   });
 };
 
 Value.defaultProps = {
-  placeholder: null,
-  renderValue: function renderValue(valueProps, snapshot, className) {
-    return /*#__PURE__*/(0, _jsxRuntime.jsx)("input", _extends({}, valueProps, {
-      className: className
-    }));
-  }
+  placeholder: null
 };
 Value.propTypes = process.env.NODE_ENV !== "production" ? {
   search: _propTypes["default"].bool.isRequired,
@@ -73,9 +77,7 @@ Value.propTypes = process.env.NODE_ENV !== "production" ? {
     focus: _propTypes["default"].bool.isRequired,
     search: _propTypes["default"].string.isRequired,
     displayValue: _propTypes["default"].string.isRequired
-  }).isRequired,
-  cls: _propTypes["default"].func.isRequired,
-  renderValue: _propTypes["default"].func
+  }).isRequired
 } : {};
 
 var _default = /*#__PURE__*/(0, _react.memo)(Value);

@@ -9,25 +9,23 @@ var _react = require("react");
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
-var _Option = _interopRequireDefault(require("./Option"));
-
-var _isSelected = _interopRequireDefault(require("../lib/isSelected"));
-
 var _types = require("../types");
+
+var _OptionsList = _interopRequireDefault(require("./OptionsList"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
 var Options = function Options(_ref) {
   var options = _ref.options,
-      emptyMessage = _ref.emptyMessage,
-      cls = _ref.cls,
       optionProps = _ref.optionProps,
-      renderOption = _ref.renderOption,
+      snapshot = _ref.snapshot,
+      cls = _ref.cls,
       renderGroupHeader = _ref.renderGroupHeader,
-      snapshot = _ref.snapshot;
+      renderOption = _ref.renderOption,
+      emptyMessage = _ref.emptyMessage;
   var selectRef = (0, _react.useRef)(null);
+  var value = snapshot.value,
+      highlighted = snapshot.highlighted;
   var renderEmptyMessage = (0, _react.useCallback)(function () {
     if (emptyMessage === null) {
       return null;
@@ -38,9 +36,6 @@ var Options = function Options(_ref) {
       children: typeof emptyMessage === 'function' ? emptyMessage() : emptyMessage
     });
   }, [emptyMessage, cls]);
-  var focus = snapshot.focus,
-      value = snapshot.value,
-      highlighted = snapshot.highlighted;
   (0, _react.useEffect)(function () {
     var current = selectRef.current;
 
@@ -56,7 +51,7 @@ var Options = function Options(_ref) {
       var selectedRect = selected.getBoundingClientRect();
       current.scrollTop = selected.offsetTop - rect.height / 2 + selectedRect.height / 2;
     }
-  }, [focus, value, highlighted, selectRef]);
+  }, [value, highlighted, selectRef]);
   return (
     /*#__PURE__*/
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions
@@ -66,70 +61,40 @@ var Options = function Options(_ref) {
       onMouseDown: function onMouseDown(e) {
         return e.preventDefault();
       },
-      children: /*#__PURE__*/(0, _jsxRuntime.jsx)("ul", {
+      children: options.length ? /*#__PURE__*/(0, _jsxRuntime.jsx)(_OptionsList["default"], {
+        optionProps: optionProps,
+        snapshot: snapshot,
+        options: options,
+        renderOption: renderOption,
+        renderGroupHeader: renderGroupHeader,
+        cls: cls
+      }) : /*#__PURE__*/(0, _jsxRuntime.jsx)("ul", {
         className: cls('options'),
-        children: options.length > 0 ? options.map(function (option) {
-          var isGroup = option.type === 'group';
-          var items = isGroup ? option.items : [option];
-          var base = {
-            cls: cls,
-            optionProps: optionProps,
-            renderOption: renderOption
-          };
-          var rendered = items.map(function (o) {
-            return /*#__PURE__*/(0, _jsxRuntime.jsx)(_Option["default"], _extends({
-              selected: (0, _isSelected["default"])(o, snapshot.option),
-              highlighted: snapshot.highlighted === o.index
-            }, base, o), o.value);
-          });
-
-          if (isGroup) {
-            return /*#__PURE__*/(0, _jsxRuntime.jsx)("li", {
-              role: "none",
-              className: cls('row'),
-              children: /*#__PURE__*/(0, _jsxRuntime.jsxs)("div", {
-                className: cls('group'),
-                children: [/*#__PURE__*/(0, _jsxRuntime.jsx)("div", {
-                  className: cls('group-header'),
-                  children: renderGroupHeader(option.name)
-                }), /*#__PURE__*/(0, _jsxRuntime.jsx)("ul", {
-                  className: cls('options'),
-                  children: rendered
-                })]
-              })
-            }, option.groupId);
-          }
-
-          return rendered;
-        }) : renderEmptyMessage()
+        children: renderEmptyMessage()
       })
     })
   );
 };
 
 Options.defaultProps = {
-  emptyMessage: null,
-  renderOption: undefined,
-  renderGroupHeader: function renderGroupHeader(name) {
-    return name;
-  }
+  renderOption: null,
+  renderGroupHeader: null,
+  emptyMessage: null
 };
 Options.propTypes = process.env.NODE_ENV !== "production" ? {
   options: _propTypes["default"].arrayOf(_types.optionType).isRequired,
-  cls: _propTypes["default"].func.isRequired,
-  emptyMessage: _propTypes["default"].oneOfType([_propTypes["default"].string, _propTypes["default"].func]),
   optionProps: _propTypes["default"].shape({
     tabIndex: _propTypes["default"].string.isRequired,
     onMouseDown: _propTypes["default"].func.isRequired
   }).isRequired,
   snapshot: _propTypes["default"].shape({
     highlighted: _propTypes["default"].number.isRequired,
-    option: _propTypes["default"].oneOfType([_types.optionType, _propTypes["default"].arrayOf(_types.optionType)]),
-    focus: _propTypes["default"].bool.isRequired,
     value: _types.valueType
   }).isRequired,
+  cls: _propTypes["default"].func.isRequired,
+  renderGroupHeader: _propTypes["default"].func,
   renderOption: _propTypes["default"].func,
-  renderGroupHeader: _propTypes["default"].func
+  emptyMessage: _propTypes["default"].oneOfType([_propTypes["default"].string, _propTypes["default"].func])
 } : {};
 
 var _default = /*#__PURE__*/(0, _react.memo)(Options);

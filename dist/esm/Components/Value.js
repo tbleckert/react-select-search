@@ -1,21 +1,25 @@
 import { jsx as _jsx } from "react/jsx-runtime";
+import { jsxs as _jsxs } from "react/jsx-runtime";
 
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
-import { memo } from 'react';
+import { memo, useContext } from 'react';
 import PropTypes from 'prop-types';
+import Context from '../Context';
 
 const Value = ({
   search,
   placeholder,
   multiple,
   snapshot,
-  cls,
   autoFocus,
   autoComplete,
-  renderValue,
   valueProps
 }) => {
+  const {
+    cls,
+    renderValue
+  } = useContext(Context);
   const inputValue = snapshot.focus && search ? snapshot.search : snapshot.displayValue;
   const shouldRender = !multiple || placeholder || search;
 
@@ -23,22 +27,23 @@ const Value = ({
     return null;
   }
 
-  return /*#__PURE__*/_jsx("div", {
+  const props = _extends({}, valueProps, {
+    placeholder,
+    autoFocus,
+    autoComplete,
+    value: inputValue
+  });
+
+  return /*#__PURE__*/_jsxs("div", {
     className: cls('value'),
-    children: renderValue(_extends({}, valueProps, {
-      placeholder,
-      autoFocus,
-      autoComplete,
-      value: inputValue
-    }), snapshot, cls('input'))
+    children: [renderValue && renderValue(props, snapshot, cls('input')), !renderValue && /*#__PURE__*/_jsx("input", _extends({}, props, {
+      className: cls('input')
+    }))]
   });
 };
 
 Value.defaultProps = {
-  placeholder: null,
-  renderValue: (valueProps, snapshot, className) => /*#__PURE__*/_jsx("input", _extends({}, valueProps, {
-    className: className
-  }))
+  placeholder: null
 };
 Value.propTypes = process.env.NODE_ENV !== "production" ? {
   search: PropTypes.bool.isRequired,
@@ -64,8 +69,6 @@ Value.propTypes = process.env.NODE_ENV !== "production" ? {
     focus: PropTypes.bool.isRequired,
     search: PropTypes.string.isRequired,
     displayValue: PropTypes.string.isRequired
-  }).isRequired,
-  cls: PropTypes.func.isRequired,
-  renderValue: PropTypes.func
+  }).isRequired
 } : {};
 export default /*#__PURE__*/memo(Value);

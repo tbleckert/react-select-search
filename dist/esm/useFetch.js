@@ -7,7 +7,7 @@ export default function useFetch(q, defaultOptions, {
   filter
 }) {
   const [fetching, setFetching] = useState(false);
-  const [options, setOptions] = useState(defaultOptions);
+  const [options, setOptions] = useState(() => flattenOptions(defaultOptions));
   const fetch = useMemo(() => {
     if (!getOptions) {
       return s => setOptions(filter(s, defaultOptions));

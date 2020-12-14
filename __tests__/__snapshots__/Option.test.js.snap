@@ -3,13 +3,14 @@
 exports[`Test Option component Highlighted 1`] = `
 <li
   className="row"
-  data-index={null}
   data-value="hamburger"
   role="menuitem"
 >
   <button
     className="option is-highlighted"
-    disabled={false}
+    onMouseDown={[Function]}
+    tabIndex="-1"
+    type="button"
     value="hamburger"
   >
     Hamburger
@@ -20,13 +21,14 @@ exports[`Test Option component Highlighted 1`] = `
 exports[`Test Option component Renders with default props 1`] = `
 <li
   className="row"
-  data-index={null}
   data-value="hamburger"
   role="menuitem"
 >
   <button
     className="option"
-    disabled={false}
+    onMouseDown={[Function]}
+    tabIndex="-1"
+    type="button"
     value="hamburger"
   >
     Hamburger
@@ -37,13 +39,14 @@ exports[`Test Option component Renders with default props 1`] = `
 exports[`Test Option component Selected 1`] = `
 <li
   className="row"
-  data-index={null}
   data-value="hamburger"
   role="menuitem"
 >
   <button
     className="option is-selected"
-    disabled={false}
+    onMouseDown={[Function]}
+    tabIndex="-1"
+    type="button"
     value="hamburger"
   >
     Hamburger

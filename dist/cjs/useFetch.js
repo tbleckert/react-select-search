@@ -20,7 +20,9 @@ function useFetch(q, defaultOptions, _ref) {
       fetching = _useState[0],
       setFetching = _useState[1];
 
-  var _useState2 = (0, _react.useState)(defaultOptions),
+  var _useState2 = (0, _react.useState)(function () {
+    return (0, _flattenOptions["default"])(defaultOptions);
+  }),
       options = _useState2[0],
       setOptions = _useState2[1];
 

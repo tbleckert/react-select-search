@@ -6,7 +6,7 @@ module.exports = {
                 modules: false,
                 loose: true,
                 targets: {
-                    browsers: ['>1%, not dead, not ie 11'],
+                    browsers: ['>1%, last 2 versions, not dead, not ie 11'],
                 },
             },
         ],

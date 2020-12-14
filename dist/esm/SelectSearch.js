@@ -1,11 +1,15 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import { jsxs as _jsxs } from "react/jsx-runtime";
-import { forwardRef, memo, useCallback } from 'react';
+
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+import { forwardRef, memo } from 'react';
 import PropTypes from 'prop-types';
 import useSelect from './useSelect';
 import { optionType, valueType } from './types';
-import Value from './Components/Value';
 import Options from './Components/Options';
+import useClassName from './useClassName';
+import classes from './lib/classes';
 const SelectSearch = /*#__PURE__*/forwardRef(({
   value: defaultValue,
   disabled,
@@ -31,6 +35,7 @@ const SelectSearch = /*#__PURE__*/forwardRef(({
   fuse,
   emptyMessage
 }, ref) => {
+  const cls = useClassName(className);
   const [snapshot, valueProps, optionProps] = useSelect({
     options: defaultOptions,
     value: defaultValue === null && (placeholder || multiple) ? '' : defaultValue,
@@ -40,34 +45,18 @@ const SelectSearch = /*#__PURE__*/forwardRef(({
     onChange,
     onFocus,
     onBlur,
-    closeOnSelect,
-    closable: !multiple || printOptions === 'on-focus',
+    closeOnSelect: closeOnSelect && (!multiple || ['on-focus', 'always'].includes(printOptions)),
     getOptions,
     filterOptions,
     fuse,
     debounce
   });
-  const {
-    focus,
-    options,
-    fetching
-  } = snapshot;
-  const cls = useCallback(key => {
-    if (typeof className === 'function') {
-      return className(key);
-    }
-
-    if (key.indexOf('container') === 0) {
-      return key.replace('container', className);
-    }
-
-    if (key.indexOf('is-') === 0 || key.indexOf('has-') === 0) {
-      return key;
-    }
-
-    return className.split(' ')[0] + "__" + key;
-  }, [className]);
-  const wrapperClass = [cls('container'), disabled ? cls('is-disabled') : false, fetching ? cls('is-loading') : false, focus ? cls('has-focus') : false].filter(single => !!single).join(' ');
+  const wrapperClass = classes({
+    [cls('container')]: true,
+    [cls('is-disabled')]: disabled,
+    [cls('is-loading')]: snapshot.fetching,
+    [cls('has-focus')]: snapshot.focus
+  });
   let shouldRenderOptions;
 
   switch (printOptions) {
@@ -80,36 +69,40 @@ const SelectSearch = /*#__PURE__*/forwardRef(({
       break;
 
     case 'on-focus':
-      shouldRenderOptions = focus;
+      shouldRenderOptions = snapshot.focus;
       break;
 
     default:
-      shouldRenderOptions = !disabled && (focus || multiple);
+      shouldRenderOptions = !disabled && (snapshot.focus || multiple);
       break;
   }
+
+  const shouldRenderValue = !multiple || placeholder || search;
+
+  const props = _extends({}, valueProps, {
+    placeholder,
+    autoFocus,
+    autoComplete,
+    value: snapshot.focus && search ? snapshot.search : snapshot.displayValue
+  });
 
   return /*#__PURE__*/_jsxs("div", {
     ref: ref,
     className: wrapperClass,
     id: id,
-    children: [/*#__PURE__*/_jsx(Value, {
-      valueProps: valueProps,
-      placeholder: placeholder,
-      multiple: multiple,
-      search: search,
-      autoComplete: autoComplete,
-      autoFocus: autoFocus,
+    children: [shouldRenderValue && /*#__PURE__*/_jsxs("div", {
+      className: cls('value'),
+      children: [renderValue && renderValue(props, snapshot, cls('input')), !renderValue && /*#__PURE__*/_jsx("input", _extends({}, props, {
+        className: cls('input')
+      }))]
+    }), shouldRenderOptions && /*#__PURE__*/_jsx(Options, {
+      options: snapshot.options,
+      optionProps: optionProps,
       snapshot: snapshot,
       cls: cls,
-      renderValue: renderValue
-    }), shouldRenderOptions && /*#__PURE__*/_jsx(Options, {
-      options: options,
       emptyMessage: emptyMessage,
-      optionProps: optionProps,
       renderOption: renderOption,
-      renderGroupHeader: renderGroupHeader,
-      cls: cls,
-      snapshot: snapshot
+      renderGroupHeader: renderGroupHeader
     })]
   });
 });

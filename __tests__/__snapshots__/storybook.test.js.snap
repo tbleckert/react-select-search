@@ -104,9 +104,6 @@ exports[`Storyshots Custom Avatar Example 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -141,8 +138,6 @@ exports[`Storyshots Custom Avatar Example 1`] = `
         <button
           className="select-search__option"
           disabled={true}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -176,9 +171,6 @@ exports[`Storyshots Custom Avatar Example 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -212,9 +204,6 @@ exports[`Storyshots Custom Avatar Example 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -248,9 +237,6 @@ exports[`Storyshots Custom Avatar Example 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -284,9 +270,6 @@ exports[`Storyshots Custom Avatar Example 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -320,9 +303,6 @@ exports[`Storyshots Custom Avatar Example 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -356,9 +336,6 @@ exports[`Storyshots Custom Avatar Example 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -392,9 +369,6 @@ exports[`Storyshots Custom Avatar Example 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -428,9 +402,6 @@ exports[`Storyshots Custom Avatar Example 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -464,9 +435,6 @@ exports[`Storyshots Custom Avatar Example 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -517,11 +485,9 @@ exports[`Storyshots Custom CSS Modules 1`] = `
       >
         <button
           className="option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="hamburger"
         >
           Hamburger
@@ -535,11 +501,9 @@ exports[`Storyshots Custom CSS Modules 1`] = `
       >
         <button
           className="option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="fries"
         >
           Fries
@@ -553,11 +517,9 @@ exports[`Storyshots Custom CSS Modules 1`] = `
       >
         <button
           className="option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="milkshake"
         >
           Milkshake
@@ -650,11 +612,11 @@ exports[`Storyshots Custom Font Example 1`] = `
       readOnly={true}
       style={
         Object {
-          "fontFamily": "Monoton, cursive",
+          "fontFamily": null,
         }
       }
       tabIndex="0"
-      value="Monoton"
+      value=""
     />
   </div>
 </div>
@@ -770,7 +732,7 @@ Array [
         placeholder="Select font size"
         readOnly={true}
         tabIndex="0"
-        value="Small"
+        value=""
       />
     </div>
   </div>,
@@ -890,7 +852,7 @@ exports[`Storyshots Misc Numeric Values 1`] = `
       placeholder={null}
       readOnly={true}
       tabIndex="0"
-      value="First"
+      value=""
     />
   </div>
 </div>
@@ -916,11 +878,9 @@ exports[`Storyshots Multiple select Default 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="hamburger"
         >
           Hamburger
@@ -934,11 +894,9 @@ exports[`Storyshots Multiple select Default 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="fries"
         >
           Fries
@@ -952,11 +910,9 @@ exports[`Storyshots Multiple select Default 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="milkshake"
         >
           Milkshake
@@ -986,12 +942,10 @@ exports[`Storyshots Multiple select Default Value 1`] = `
         role="menuitem"
       >
         <button
-          className="select-search__option is-selected"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
+          className="select-search__option"
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="hamburger"
         >
           Hamburger
@@ -1004,12 +958,10 @@ exports[`Storyshots Multiple select Default Value 1`] = `
         role="menuitem"
       >
         <button
-          className="select-search__option is-selected"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
+          className="select-search__option"
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="fries"
         >
           Fries
@@ -1023,11 +975,9 @@ exports[`Storyshots Multiple select Default Value 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="milkshake"
         >
           Milkshake
@@ -1065,42 +1015,42 @@ exports[`Storyshots Multiple select Group 1`] = `
           <ul
             className="select-search__options"
           >
-            <li
-              className="select-search__row"
-              data-index={0}
-              data-value="hamburger"
-              role="menuitem"
+            <ul
+              className="select-search__options"
             >
-              <button
-                className="select-search__option"
-                disabled={false}
-                onKeyDown={[Function]}
-                onKeyPress={[Function]}
-                onMouseDown={[Function]}
-                tabIndex="-1"
-                value="hamburger"
+              <li
+                className="select-search__row"
+                data-index={0}
+                data-value="hamburger"
+                role="menuitem"
               >
-                Hamburger
-              </button>
-            </li>
-            <li
-              className="select-search__row"
-              data-index={1}
-              data-value="pizza"
-              role="menuitem"
-            >
-              <button
-                className="select-search__option"
-                disabled={false}
-                onKeyDown={[Function]}
-                onKeyPress={[Function]}
-                onMouseDown={[Function]}
-                tabIndex="-1"
-                value="pizza"
+                <button
+                  className="select-search__option"
+                  onMouseDown={[Function]}
+                  tabIndex="-1"
+                  type="button"
+                  value="hamburger"
+                >
+                  Hamburger
+                </button>
+              </li>
+              <li
+                className="select-search__row"
+                data-index={1}
+                data-value="pizza"
+                role="menuitem"
               >
-                Pizza
-              </button>
-            </li>
+                <button
+                  className="select-search__option"
+                  onMouseDown={[Function]}
+                  tabIndex="-1"
+                  type="button"
+                  value="pizza"
+                >
+                  Pizza
+                </button>
+              </li>
+            </ul>
           </ul>
         </div>
       </li>
@@ -1119,42 +1069,42 @@ exports[`Storyshots Multiple select Group 1`] = `
           <ul
             className="select-search__options"
           >
-            <li
-              className="select-search__row"
-              data-index={2}
-              data-value="soft"
-              role="menuitem"
+            <ul
+              className="select-search__options"
             >
-              <button
-                className="select-search__option"
-                disabled={false}
-                onKeyDown={[Function]}
-                onKeyPress={[Function]}
-                onMouseDown={[Function]}
-                tabIndex="-1"
-                value="soft"
+              <li
+                className="select-search__row"
+                data-index={2}
+                data-value="soft"
+                role="menuitem"
               >
-                Soft drink
-              </button>
-            </li>
-            <li
-              className="select-search__row"
-              data-index={3}
-              data-value="beer"
-              role="menuitem"
-            >
-              <button
-                className="select-search__option"
-                disabled={false}
-                onKeyDown={[Function]}
-                onKeyPress={[Function]}
-                onMouseDown={[Function]}
-                tabIndex="-1"
-                value="beer"
+                <button
+                  className="select-search__option"
+                  onMouseDown={[Function]}
+                  tabIndex="-1"
+                  type="button"
+                  value="soft"
+                >
+                  Soft drink
+                </button>
+              </li>
+              <li
+                className="select-search__row"
+                data-index={3}
+                data-value="beer"
+                role="menuitem"
               >
-                Beer
-              </button>
-            </li>
+                <button
+                  className="select-search__option"
+                  onMouseDown={[Function]}
+                  tabIndex="-1"
+                  type="button"
+                  value="beer"
+                >
+                  Beer
+                </button>
+              </li>
+            </ul>
           </ul>
         </div>
       </li>
@@ -1231,11 +1181,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="AF"
         >
           Afghanistan
@@ -1249,11 +1197,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="AX"
         >
           Åland Islands
@@ -1267,11 +1213,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="AL"
         >
           Albania
@@ -1285,11 +1229,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="DZ"
         >
           Algeria
@@ -1303,11 +1245,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="AS"
         >
           American Samoa
@@ -1321,11 +1261,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="AD"
         >
           AndorrA
@@ -1339,11 +1277,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="AO"
         >
           Angola
@@ -1357,11 +1293,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="AI"
         >
           Anguilla
@@ -1375,11 +1309,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="AQ"
         >
           Antarctica
@@ -1393,11 +1325,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="AG"
         >
           Antigua and Barbuda
@@ -1411,11 +1341,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="AR"
         >
           Argentina
@@ -1429,11 +1357,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="AM"
         >
           Armenia
@@ -1447,11 +1373,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="AW"
         >
           Aruba
@@ -1465,11 +1389,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="AU"
         >
           Australia
@@ -1483,11 +1405,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="AT"
         >
           Austria
@@ -1501,11 +1421,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="AZ"
         >
           Azerbaijan
@@ -1519,11 +1437,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="BS"
         >
           Bahamas
@@ -1537,11 +1453,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="BH"
         >
           Bahrain
@@ -1555,11 +1469,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="BD"
         >
           Bangladesh
@@ -1573,11 +1485,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="BB"
         >
           Barbados
@@ -1591,11 +1501,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="BY"
         >
           Belarus
@@ -1609,11 +1517,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="BE"
         >
           Belgium
@@ -1627,11 +1533,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="BZ"
         >
           Belize
@@ -1645,11 +1549,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="BJ"
         >
           Benin
@@ -1663,11 +1565,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="BM"
         >
           Bermuda
@@ -1681,11 +1581,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="BT"
         >
           Bhutan
@@ -1699,11 +1597,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="BO"
         >
           Bolivia
@@ -1717,11 +1613,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="BA"
         >
           Bosnia and Herzegovina
@@ -1735,11 +1629,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="BW"
         >
           Botswana
@@ -1753,11 +1645,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="BV"
         >
           Bouvet Island
@@ -1771,11 +1661,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="BR"
         >
           Brazil
@@ -1789,11 +1677,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="IO"
         >
           British Indian Ocean Territory
@@ -1807,11 +1693,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="BN"
         >
           Brunei Darussalam
@@ -1825,11 +1709,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="BG"
         >
           Bulgaria
@@ -1843,11 +1725,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="BF"
         >
           Burkina Faso
@@ -1861,11 +1741,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="BI"
         >
           Burundi
@@ -1879,11 +1757,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="KH"
         >
           Cambodia
@@ -1897,11 +1773,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="CM"
         >
           Cameroon
@@ -1915,11 +1789,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="CA"
         >
           Canada
@@ -1933,11 +1805,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="CV"
         >
           Cape Verde
@@ -1951,11 +1821,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="KY"
         >
           Cayman Islands
@@ -1969,11 +1837,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="CF"
         >
           Central African Republic
@@ -1987,11 +1853,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="TD"
         >
           Chad
@@ -2005,11 +1869,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="CL"
         >
           Chile
@@ -2023,11 +1885,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="CN"
         >
           China
@@ -2041,11 +1901,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="CX"
         >
           Christmas Island
@@ -2059,11 +1917,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="CC"
         >
           Cocos (Keeling) Islands
@@ -2077,11 +1933,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="CO"
         >
           Colombia
@@ -2095,11 +1949,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="KM"
         >
           Comoros
@@ -2113,11 +1965,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="CG"
         >
           Congo
@@ -2131,11 +1981,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="CD"
         >
           Congo, The Democratic Republic of the
@@ -2149,11 +1997,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="CK"
         >
           Cook Islands
@@ -2167,11 +2013,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="CR"
         >
           Costa Rica
@@ -2185,11 +2029,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="CI"
         >
           Cote D'Ivoire
@@ -2203,11 +2045,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="HR"
         >
           Croatia
@@ -2221,11 +2061,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="CU"
         >
           Cuba
@@ -2239,11 +2077,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="CY"
         >
           Cyprus
@@ -2257,11 +2093,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="CZ"
         >
           Czech Republic
@@ -2275,11 +2109,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="DK"
         >
           Denmark
@@ -2293,11 +2125,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="DJ"
         >
           Djibouti
@@ -2311,11 +2141,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="DM"
         >
           Dominica
@@ -2329,11 +2157,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="DO"
         >
           Dominican Republic
@@ -2347,11 +2173,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="EC"
         >
           Ecuador
@@ -2365,11 +2189,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="EG"
         >
           Egypt
@@ -2383,11 +2205,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="SV"
         >
           El Salvador
@@ -2401,11 +2221,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="GQ"
         >
           Equatorial Guinea
@@ -2419,11 +2237,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="ER"
         >
           Eritrea
@@ -2437,11 +2253,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="EE"
         >
           Estonia
@@ -2455,11 +2269,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="ET"
         >
           Ethiopia
@@ -2473,11 +2285,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="FK"
         >
           Falkland Islands (Malvinas)
@@ -2491,11 +2301,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="FO"
         >
           Faroe Islands
@@ -2509,11 +2317,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="FJ"
         >
           Fiji
@@ -2527,11 +2333,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="FI"
         >
           Finland
@@ -2545,11 +2349,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="FR"
         >
           France
@@ -2563,11 +2365,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="GF"
         >
           French Guiana
@@ -2581,11 +2381,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="PF"
         >
           French Polynesia
@@ -2599,11 +2397,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="TF"
         >
           French Southern Territories
@@ -2617,11 +2413,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="GA"
         >
           Gabon
@@ -2635,11 +2429,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="GM"
         >
           Gambia
@@ -2653,11 +2445,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="GE"
         >
           Georgia
@@ -2671,11 +2461,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="DE"
         >
           Germany
@@ -2689,11 +2477,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="GH"
         >
           Ghana
@@ -2707,11 +2493,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="GI"
         >
           Gibraltar
@@ -2725,11 +2509,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="GR"
         >
           Greece
@@ -2743,11 +2525,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="GL"
         >
           Greenland
@@ -2761,11 +2541,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="GD"
         >
           Grenada
@@ -2779,11 +2557,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="GP"
         >
           Guadeloupe
@@ -2797,11 +2573,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="GU"
         >
           Guam
@@ -2815,11 +2589,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="GT"
         >
           Guatemala
@@ -2833,11 +2605,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="GG"
         >
           Guernsey
@@ -2851,11 +2621,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="GN"
         >
           Guinea
@@ -2869,11 +2637,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="GW"
         >
           Guinea-Bissau
@@ -2887,11 +2653,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="GY"
         >
           Guyana
@@ -2905,11 +2669,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="HT"
         >
           Haiti
@@ -2923,11 +2685,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="HM"
         >
           Heard Island and Mcdonald Islands
@@ -2941,11 +2701,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="VA"
         >
           Holy See (Vatican City State)
@@ -2959,11 +2717,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="HN"
         >
           Honduras
@@ -2977,11 +2733,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="HK"
         >
           Hong Kong
@@ -2995,11 +2749,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="HU"
         >
           Hungary
@@ -3013,11 +2765,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="IS"
         >
           Iceland
@@ -3031,11 +2781,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="IN"
         >
           India
@@ -3049,11 +2797,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="ID"
         >
           Indonesia
@@ -3067,11 +2813,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="IR"
         >
           Iran, Islamic Republic Of
@@ -3085,11 +2829,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="IQ"
         >
           Iraq
@@ -3103,11 +2845,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="IE"
         >
           Ireland
@@ -3121,11 +2861,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="IM"
         >
           Isle of Man
@@ -3139,11 +2877,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="IL"
         >
           Israel
@@ -3157,11 +2893,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="IT"
         >
           Italy
@@ -3175,11 +2909,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="JM"
         >
           Jamaica
@@ -3193,11 +2925,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="JP"
         >
           Japan
@@ -3211,11 +2941,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="JE"
         >
           Jersey
@@ -3229,11 +2957,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="JO"
         >
           Jordan
@@ -3247,11 +2973,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="KZ"
         >
           Kazakhstan
@@ -3265,11 +2989,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="KE"
         >
           Kenya
@@ -3283,11 +3005,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="KI"
         >
           Kiribati
@@ -3301,11 +3021,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="KP"
         >
           Korea, Democratic People'S Republic of
@@ -3319,11 +3037,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="KR"
         >
           Korea, Republic of
@@ -3337,11 +3053,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="KW"
         >
           Kuwait
@@ -3355,11 +3069,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="KG"
         >
           Kyrgyzstan
@@ -3373,11 +3085,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="LA"
         >
           Lao People'S Democratic Republic
@@ -3391,11 +3101,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="LV"
         >
           Latvia
@@ -3409,11 +3117,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="LB"
         >
           Lebanon
@@ -3427,11 +3133,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="LS"
         >
           Lesotho
@@ -3445,11 +3149,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="LR"
         >
           Liberia
@@ -3463,11 +3165,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="LY"
         >
           Libyan Arab Jamahiriya
@@ -3481,11 +3181,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="LI"
         >
           Liechtenstein
@@ -3499,11 +3197,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="LT"
         >
           Lithuania
@@ -3517,11 +3213,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="LU"
         >
           Luxembourg
@@ -3535,11 +3229,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="MO"
         >
           Macao
@@ -3553,11 +3245,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="MK"
         >
           Macedonia, The Former Yugoslav Republic of
@@ -3571,11 +3261,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="MG"
         >
           Madagascar
@@ -3589,11 +3277,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="MW"
         >
           Malawi
@@ -3607,11 +3293,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="MY"
         >
           Malaysia
@@ -3625,11 +3309,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="MV"
         >
           Maldives
@@ -3643,11 +3325,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="ML"
         >
           Mali
@@ -3661,11 +3341,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="MT"
         >
           Malta
@@ -3679,11 +3357,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="MH"
         >
           Marshall Islands
@@ -3697,11 +3373,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="MQ"
         >
           Martinique
@@ -3715,11 +3389,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="MR"
         >
           Mauritania
@@ -3733,11 +3405,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="MU"
         >
           Mauritius
@@ -3751,11 +3421,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="YT"
         >
           Mayotte
@@ -3769,11 +3437,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="MX"
         >
           Mexico
@@ -3787,11 +3453,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="FM"
         >
           Micronesia, Federated States of
@@ -3805,11 +3469,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="MD"
         >
           Moldova, Republic of
@@ -3823,11 +3485,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="MC"
         >
           Monaco
@@ -3841,11 +3501,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="MN"
         >
           Mongolia
@@ -3859,11 +3517,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="MS"
         >
           Montserrat
@@ -3877,11 +3533,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="MA"
         >
           Morocco
@@ -3895,11 +3549,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="MZ"
         >
           Mozambique
@@ -3913,11 +3565,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="MM"
         >
           Myanmar
@@ -3931,11 +3581,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="NA"
         >
           Namibia
@@ -3949,11 +3597,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="NR"
         >
           Nauru
@@ -3967,11 +3613,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="NP"
         >
           Nepal
@@ -3985,11 +3629,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="NL"
         >
           Netherlands
@@ -4003,11 +3645,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="AN"
         >
           Netherlands Antilles
@@ -4021,11 +3661,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="NC"
         >
           New Caledonia
@@ -4039,11 +3677,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="NZ"
         >
           New Zealand
@@ -4057,11 +3693,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="NI"
         >
           Nicaragua
@@ -4075,11 +3709,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="NE"
         >
           Niger
@@ -4093,11 +3725,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="NG"
         >
           Nigeria
@@ -4111,11 +3741,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="NU"
         >
           Niue
@@ -4129,11 +3757,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="NF"
         >
           Norfolk Island
@@ -4147,11 +3773,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="MP"
         >
           Northern Mariana Islands
@@ -4165,11 +3789,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="NO"
         >
           Norway
@@ -4183,11 +3805,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="OM"
         >
           Oman
@@ -4201,11 +3821,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="PK"
         >
           Pakistan
@@ -4219,11 +3837,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="PW"
         >
           Palau
@@ -4237,11 +3853,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="PS"
         >
           Palestinian Territory, Occupied
@@ -4255,11 +3869,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="PA"
         >
           Panama
@@ -4273,11 +3885,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="PG"
         >
           Papua New Guinea
@@ -4291,11 +3901,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="PY"
         >
           Paraguay
@@ -4309,11 +3917,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="PE"
         >
           Peru
@@ -4327,11 +3933,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="PH"
         >
           Philippines
@@ -4345,11 +3949,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="PN"
         >
           Pitcairn
@@ -4363,11 +3965,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="PL"
         >
           Poland
@@ -4381,11 +3981,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="PT"
         >
           Portugal
@@ -4399,11 +3997,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="PR"
         >
           Puerto Rico
@@ -4417,11 +4013,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="QA"
         >
           Qatar
@@ -4435,11 +4029,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="RE"
         >
           Reunion
@@ -4453,11 +4045,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="RO"
         >
           Romania
@@ -4471,11 +4061,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="RU"
         >
           Russian Federation
@@ -4489,11 +4077,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="RW"
         >
           RWANDA
@@ -4507,11 +4093,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="SH"
         >
           Saint Helena
@@ -4525,11 +4109,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="KN"
         >
           Saint Kitts and Nevis
@@ -4543,11 +4125,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="LC"
         >
           Saint Lucia
@@ -4561,11 +4141,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="PM"
         >
           Saint Pierre and Miquelon
@@ -4579,11 +4157,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="VC"
         >
           Saint Vincent and the Grenadines
@@ -4597,11 +4173,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="WS"
         >
           Samoa
@@ -4615,11 +4189,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="SM"
         >
           San Marino
@@ -4633,11 +4205,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="ST"
         >
           Sao Tome and Principe
@@ -4651,11 +4221,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="SA"
         >
           Saudi Arabia
@@ -4669,11 +4237,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="SN"
         >
           Senegal
@@ -4687,11 +4253,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="CS"
         >
           Serbia and Montenegro
@@ -4705,11 +4269,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="SC"
         >
           Seychelles
@@ -4723,11 +4285,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="SL"
         >
           Sierra Leone
@@ -4741,11 +4301,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="SG"
         >
           Singapore
@@ -4759,11 +4317,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="SK"
         >
           Slovakia
@@ -4777,11 +4333,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="SI"
         >
           Slovenia
@@ -4795,11 +4349,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="SB"
         >
           Solomon Islands
@@ -4813,11 +4365,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="SO"
         >
           Somalia
@@ -4831,11 +4381,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="ZA"
         >
           South Africa
@@ -4849,11 +4397,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="GS"
         >
           South Georgia and the South Sandwich Islands
@@ -4867,11 +4413,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="ES"
         >
           Spain
@@ -4885,11 +4429,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="LK"
         >
           Sri Lanka
@@ -4903,11 +4445,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="SD"
         >
           Sudan
@@ -4921,11 +4461,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="SR"
         >
           Suriname
@@ -4939,11 +4477,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="SJ"
         >
           Svalbard and Jan Mayen
@@ -4957,11 +4493,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="SZ"
         >
           Swaziland
@@ -4975,11 +4509,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="SE"
         >
           Sweden
@@ -4993,11 +4525,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="CH"
         >
           Switzerland
@@ -5011,11 +4541,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="SY"
         >
           Syrian Arab Republic
@@ -5029,11 +4557,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="TW"
         >
           Taiwan, Province of China
@@ -5047,11 +4573,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="TJ"
         >
           Tajikistan
@@ -5065,11 +4589,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="TZ"
         >
           Tanzania, United Republic of
@@ -5083,11 +4605,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="TH"
         >
           Thailand
@@ -5101,11 +4621,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="TL"
         >
           Timor-Leste
@@ -5119,11 +4637,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="TG"
         >
           Togo
@@ -5137,11 +4653,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="TK"
         >
           Tokelau
@@ -5155,11 +4669,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="TO"
         >
           Tonga
@@ -5173,11 +4685,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="TT"
         >
           Trinidad and Tobago
@@ -5191,11 +4701,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="TN"
         >
           Tunisia
@@ -5209,11 +4717,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="TR"
         >
           Turkey
@@ -5227,11 +4733,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="TM"
         >
           Turkmenistan
@@ -5245,11 +4749,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="TC"
         >
           Turks and Caicos Islands
@@ -5263,11 +4765,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="TV"
         >
           Tuvalu
@@ -5281,11 +4781,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="UG"
         >
           Uganda
@@ -5299,11 +4797,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="UA"
         >
           Ukraine
@@ -5317,11 +4813,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="AE"
         >
           United Arab Emirates
@@ -5335,11 +4829,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="GB"
         >
           United Kingdom
@@ -5353,11 +4845,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="US"
         >
           United States
@@ -5371,11 +4861,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="UM"
         >
           United States Minor Outlying Islands
@@ -5389,11 +4877,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="UY"
         >
           Uruguay
@@ -5407,11 +4893,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="UZ"
         >
           Uzbekistan
@@ -5425,11 +4909,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="VU"
         >
           Vanuatu
@@ -5443,11 +4925,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="VE"
         >
           Venezuela
@@ -5461,11 +4941,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="VN"
         >
           Viet Nam
@@ -5479,11 +4957,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="VG"
         >
           Virgin Islands, British
@@ -5497,11 +4973,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="VI"
         >
           Virgin Islands, U.S.
@@ -5515,11 +4989,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="WF"
         >
           Wallis and Futuna
@@ -5533,11 +5005,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="EH"
         >
           Western Sahara
@@ -5551,11 +5021,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="YE"
         >
           Yemen
@@ -5569,11 +5037,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="ZM"
         >
           Zambia
@@ -5587,11 +5053,9 @@ exports[`Storyshots Multiple select Search 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="ZW"
         >
           Zimbabwe
@@ -5652,7 +5116,7 @@ exports[`Storyshots Multiple select Stay On Select With Multiple Initial Value 1
       placeholder="Select your items"
       readOnly={true}
       tabIndex="0"
-      value="Hamburger, Fries"
+      value=""
     />
   </div>
 </div>
@@ -5680,7 +5144,7 @@ exports[`Storyshots Multiple select Stay On Select With Single Initial Value 1`]
       placeholder="Select your items"
       readOnly={true}
       tabIndex="0"
-      value="Fries"
+      value=""
     />
   </div>
 </div>
@@ -5726,11 +5190,9 @@ exports[`Storyshots Multiple select With Placeholder 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="hamburger"
         >
           Hamburger
@@ -5744,11 +5206,9 @@ exports[`Storyshots Multiple select With Placeholder 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="fries"
         >
           Fries
@@ -5762,11 +5222,9 @@ exports[`Storyshots Multiple select With Placeholder 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="milkshake"
         >
           Milkshake
@@ -5817,11 +5275,9 @@ exports[`Storyshots Single select Always Open 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="s"
         >
           Small
@@ -5835,11 +5291,9 @@ exports[`Storyshots Single select Always Open 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="m"
         >
           Medium
@@ -5853,11 +5307,9 @@ exports[`Storyshots Single select Always Open 1`] = `
       >
         <button
           className="select-search__option"
-          disabled={false}
-          onKeyDown={[Function]}
-          onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="l"
         >
           Large

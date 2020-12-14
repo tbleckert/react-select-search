@@ -1,50 +1,41 @@
 import { memo } from 'react';
 import PropTypes from 'prop-types';
+import classes from '../lib/classes';
 
 const Option = ({
     optionProps,
     highlighted,
     selected,
+    option,
     cls,
     renderOption,
-    ...option
 }) => {
-    const optionClass = [
-        cls('option'),
-        (selected) ? cls('is-selected') : false,
-        (highlighted) ? cls('is-highlighted') : false,
-    ].filter((single) => !!single).join(' ');
-
-    const domProps = {
-        ...optionProps,
-        value: option.value,
-        disabled: option.disabled,
-    };
+    const props = { ...optionProps, value: option.value, disabled: option.disabled };
+    const className = classes({
+        [cls('option')]: true,
+        [cls('is-selected')]: selected,
+        [cls('is-highlighted')]: highlighted,
+    });
 
     return (
         <li className={cls('row')} role="menuitem" data-index={option.index} data-value={escape(option.value)} key={option.value}>
-            {renderOption(domProps, option, { selected, highlighted }, optionClass)}
+            {renderOption && renderOption(props, option, { selected, highlighted }, className)}
+            {!renderOption && <button type="button" className={className} {...props}>{option.name}</button>}
         </li>
     );
 };
 
 Option.defaultProps = {
-    disabled: false,
-    index: null,
-    value: null,
-    renderOption: (domProps, option, snapshot, className) => (
-        // eslint-disable-next-line react/button-has-type
-        <button className={className} {...domProps}>
-            {option.name}
-        </button>
-    ),
+    renderOption: null,
 };
 
 Option.propTypes = {
-    name: PropTypes.string.isRequired,
-    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    disabled: PropTypes.bool,
-    index: PropTypes.number,
+    option: PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        disabled: PropTypes.bool,
+        index: PropTypes.number,
+    }).isRequired,
     highlighted: PropTypes.bool.isRequired,
     selected: PropTypes.bool.isRequired,
     optionProps: PropTypes.shape({

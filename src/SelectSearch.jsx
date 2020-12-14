@@ -1,13 +1,13 @@
 import {
     forwardRef,
     memo,
-    useCallback,
 } from 'react';
 import PropTypes from 'prop-types';
 import useSelect from './useSelect';
 import { optionType, valueType } from './types';
-import Value from './Components/Value';
 import Options from './Components/Options';
+import useClassName from './useClassName';
+import classes from './lib/classes';
 
 const SelectSearch = forwardRef(({
     value: defaultValue,
@@ -34,6 +34,7 @@ const SelectSearch = forwardRef(({
     fuse,
     emptyMessage,
 }, ref) => {
+    const cls = useClassName(className);
     const [snapshot, valueProps, optionProps] = useSelect({
         options: defaultOptions,
         value: (defaultValue === null && (placeholder || multiple)) ? '' : defaultValue,
@@ -43,42 +44,19 @@ const SelectSearch = forwardRef(({
         onChange,
         onFocus,
         onBlur,
-        closeOnSelect,
-        closable: !multiple || printOptions === 'on-focus',
+        closeOnSelect: closeOnSelect && (!multiple || ['on-focus', 'always'].includes(printOptions)),
         getOptions,
         filterOptions,
         fuse,
         debounce,
     });
 
-    const {
-        focus,
-        options,
-        fetching,
-    } = snapshot;
-
-    const cls = useCallback((key) => {
-        if (typeof className === 'function') {
-            return className(key);
-        }
-
-        if (key.indexOf('container') === 0) {
-            return key.replace('container', className);
-        }
-
-        if (key.indexOf('is-') === 0 || key.indexOf('has-') === 0) {
-            return key;
-        }
-
-        return `${className.split(' ')[0]}__${key}`;
-    }, [className]);
-
-    const wrapperClass = [
-        cls('container'),
-        (disabled) ? cls('is-disabled') : false,
-        (fetching) ? cls('is-loading') : false,
-        (focus) ? cls('has-focus') : false,
-    ].filter((single) => !!single).join(' ');
+    const wrapperClass = classes({
+        [cls('container')]: true,
+        [cls('is-disabled')]: disabled,
+        [cls('is-loading')]: snapshot.fetching,
+        [cls('has-focus')]: snapshot.focus,
+    });
 
     let shouldRenderOptions;
 
@@ -90,35 +68,39 @@ const SelectSearch = forwardRef(({
         shouldRenderOptions = true;
         break;
     case 'on-focus':
-        shouldRenderOptions = focus;
+        shouldRenderOptions = snapshot.focus;
         break;
     default:
-        shouldRenderOptions = !disabled && (focus || multiple);
+        shouldRenderOptions = !disabled && (snapshot.focus || multiple);
         break;
     }
 
+    const shouldRenderValue = (!multiple || placeholder) || search;
+    const props = {
+        ...valueProps,
+        placeholder,
+        autoFocus,
+        autoComplete,
+        value: (snapshot.focus && search) ? snapshot.search : snapshot.displayValue,
+    };
+
     return (
         <div ref={ref} className={wrapperClass} id={id}>
-            <Value
-                valueProps={valueProps}
-                placeholder={placeholder}
-                multiple={multiple}
-                search={search}
-                autoComplete={autoComplete}
-                autoFocus={autoFocus}
-                snapshot={snapshot}
-                cls={cls}
-                renderValue={renderValue}
-            />
+            {shouldRenderValue && (
+                <div className={cls('value')}>
+                    {renderValue && renderValue(props, snapshot, cls('input'))}
+                    {!renderValue && <input {...props} className={cls('input')} />}
+                </div>
+            )}
             {shouldRenderOptions && (
                 <Options
-                    options={options}
-                    emptyMessage={emptyMessage}
+                    options={snapshot.options}
                     optionProps={optionProps}
+                    snapshot={snapshot}
+                    cls={cls}
+                    emptyMessage={emptyMessage}
                     renderOption={renderOption}
                     renderGroupHeader={renderGroupHeader}
-                    cls={cls}
-                    snapshot={snapshot}
                 />
             )}
         </div>

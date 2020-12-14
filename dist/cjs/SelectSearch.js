@@ -13,13 +13,19 @@ var _useSelect2 = _interopRequireDefault(require("./useSelect"));
 
 var _types = require("./types");
 
-var _Value = _interopRequireDefault(require("./Components/Value"));
-
 var _Options = _interopRequireDefault(require("./Components/Options"));
+
+var _useClassName = _interopRequireDefault(require("./useClassName"));
+
+var _classes2 = _interopRequireDefault(require("./lib/classes"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
 var SelectSearch = /*#__PURE__*/(0, _react.forwardRef)(function (_ref, ref) {
+  var _classes;
+
   var defaultValue = _ref.value,
       disabled = _ref.disabled,
       placeholder = _ref.placeholder,
@@ -43,6 +49,7 @@ var SelectSearch = /*#__PURE__*/(0, _react.forwardRef)(function (_ref, ref) {
       debounce = _ref.debounce,
       fuse = _ref.fuse,
       emptyMessage = _ref.emptyMessage;
+  var cls = (0, _useClassName["default"])(className);
 
   var _useSelect = (0, _useSelect2["default"])({
     options: defaultOptions,
@@ -53,8 +60,7 @@ var SelectSearch = /*#__PURE__*/(0, _react.forwardRef)(function (_ref, ref) {
     onChange: onChange,
     onFocus: onFocus,
     onBlur: onBlur,
-    closeOnSelect: closeOnSelect,
-    closable: !multiple || printOptions === 'on-focus',
+    closeOnSelect: closeOnSelect && (!multiple || ['on-focus', 'always'].includes(printOptions)),
     getOptions: getOptions,
     filterOptions: filterOptions,
     fuse: fuse,
@@ -64,27 +70,7 @@ var SelectSearch = /*#__PURE__*/(0, _react.forwardRef)(function (_ref, ref) {
       valueProps = _useSelect[1],
       optionProps = _useSelect[2];
 
-  var focus = snapshot.focus,
-      options = snapshot.options,
-      fetching = snapshot.fetching;
-  var cls = (0, _react.useCallback)(function (key) {
-    if (typeof className === 'function') {
-      return className(key);
-    }
-
-    if (key.indexOf('container') === 0) {
-      return key.replace('container', className);
-    }
-
-    if (key.indexOf('is-') === 0 || key.indexOf('has-') === 0) {
-      return key;
-    }
-
-    return className.split(' ')[0] + "__" + key;
-  }, [className]);
-  var wrapperClass = [cls('container'), disabled ? cls('is-disabled') : false, fetching ? cls('is-loading') : false, focus ? cls('has-focus') : false].filter(function (single) {
-    return !!single;
-  }).join(' ');
+  var wrapperClass = (0, _classes2["default"])((_classes = {}, _classes[cls('container')] = true, _classes[cls('is-disabled')] = disabled, _classes[cls('is-loading')] = snapshot.fetching, _classes[cls('has-focus')] = snapshot.focus, _classes));
   var shouldRenderOptions;
 
   switch (printOptions) {
@@ -97,36 +83,40 @@ var SelectSearch = /*#__PURE__*/(0, _react.forwardRef)(function (_ref, ref) {
       break;
 
     case 'on-focus':
-      shouldRenderOptions = focus;
+      shouldRenderOptions = snapshot.focus;
       break;
 
     default:
-      shouldRenderOptions = !disabled && (focus || multiple);
+      shouldRenderOptions = !disabled && (snapshot.focus || multiple);
       break;
   }
+
+  var shouldRenderValue = !multiple || placeholder || search;
+
+  var props = _extends({}, valueProps, {
+    placeholder: placeholder,
+    autoFocus: autoFocus,
+    autoComplete: autoComplete,
+    value: snapshot.focus && search ? snapshot.search : snapshot.displayValue
+  });
 
   return /*#__PURE__*/(0, _jsxRuntime.jsxs)("div", {
     ref: ref,
     className: wrapperClass,
     id: id,
-    children: [/*#__PURE__*/(0, _jsxRuntime.jsx)(_Value["default"], {
-      valueProps: valueProps,
-      placeholder: placeholder,
-      multiple: multiple,
-      search: search,
-      autoComplete: autoComplete,
-      autoFocus: autoFocus,
+    children: [shouldRenderValue && /*#__PURE__*/(0, _jsxRuntime.jsxs)("div", {
+      className: cls('value'),
+      children: [renderValue && renderValue(props, snapshot, cls('input')), !renderValue && /*#__PURE__*/(0, _jsxRuntime.jsx)("input", _extends({}, props, {
+        className: cls('input')
+      }))]
+    }), shouldRenderOptions && /*#__PURE__*/(0, _jsxRuntime.jsx)(_Options["default"], {
+      options: snapshot.options,
+      optionProps: optionProps,
       snapshot: snapshot,
       cls: cls,
-      renderValue: renderValue
-    }), shouldRenderOptions && /*#__PURE__*/(0, _jsxRuntime.jsx)(_Options["default"], {
-      options: options,
       emptyMessage: emptyMessage,
-      optionProps: optionProps,
       renderOption: renderOption,
-      renderGroupHeader: renderGroupHeader,
-      cls: cls,
-      snapshot: snapshot
+      renderGroupHeader: renderGroupHeader
     })]
   });
 });
