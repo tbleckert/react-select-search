@@ -1374,6 +1374,7 @@ exports[`Test SelectSearch component Focus displays options 2`] = `
               onKeyPress={[Function]}
               onMouseDown={[Function]}
               tabIndex="-1"
+              type="button"
               value="foo"
             >
               Foo
@@ -1415,6 +1416,7 @@ exports[`Test SelectSearch component Focus displays options 2`] = `
               onKeyPress={[Function]}
               onMouseDown={[Function]}
               tabIndex="-1"
+              type="button"
               value="bar"
             >
               Bar
@@ -2191,6 +2193,7 @@ exports[`Test SelectSearch component Renders with multiple 1`] = `
           onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="foo"
         >
           Foo
@@ -2210,6 +2213,7 @@ exports[`Test SelectSearch component Renders with multiple 1`] = `
           onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="bar"
         >
           Bar
@@ -2296,6 +2300,7 @@ exports[`Test SelectSearch component Renders with search and multiple 1`] = `
           onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="foo"
         >
           Foo
@@ -2315,6 +2320,7 @@ exports[`Test SelectSearch component Renders with search and multiple 1`] = `
           onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="bar"
         >
           Bar
@@ -2480,6 +2486,7 @@ exports[`Test SelectSearch component Value change works without onChange handler
               onKeyPress={[Function]}
               onMouseDown={[Function]}
               tabIndex="-1"
+              type="button"
               value="foo"
             >
               Foo
@@ -2521,6 +2528,7 @@ exports[`Test SelectSearch component Value change works without onChange handler
               onKeyPress={[Function]}
               onMouseDown={[Function]}
               tabIndex="-1"
+              type="button"
               value="bar"
             >
               Bar
