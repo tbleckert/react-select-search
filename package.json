@@ -50,6 +50,7 @@
     "@storybook/addon-storysource": "^6.0.4",
     "@storybook/addons": "^6.0.4",
     "@storybook/react": "^6.0.4",
+    "@wojtekmaj/enzyme-adapter-react-17": "^0.4.1",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.1.0",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
