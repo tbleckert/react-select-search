@@ -1,5 +1,5 @@
 import { jsx as _jsx } from "react/jsx-runtime";
-import { memo, useCallback, useContext, useEffect, useRef } from 'react';
+import { memo, useCallback, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { optionType, valueType } from '../types';
 import OptionsList from './OptionsList';
