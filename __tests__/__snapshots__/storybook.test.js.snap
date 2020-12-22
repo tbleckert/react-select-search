@@ -1010,7 +1010,7 @@ exports[`Storyshots Multiple select Group 1`] = `
           <div
             className="select-search__group-header"
           >
-            Food
+            Type: Food
           </div>
           <ul
             className="select-search__options"
@@ -1064,7 +1064,7 @@ exports[`Storyshots Multiple select Group 1`] = `
           <div
             className="select-search__group-header"
           >
-            Drinks
+            Type: Drinks
           </div>
           <ul
             className="select-search__options"
@@ -5372,6 +5372,123 @@ exports[`Storyshots Single select Group 1`] = `
       tabIndex="0"
       value=""
     />
+  </div>
+  <div
+    className="select-search__select"
+    onMouseDown={[Function]}
+  >
+    <ul
+      className="select-search__options"
+    >
+      <li
+        className="select-search__row"
+        role="none"
+      >
+        <div
+          className="select-search__group"
+        >
+          <div
+            className="select-search__group-header"
+          >
+            Food
+          </div>
+          <ul
+            className="select-search__options"
+          >
+            <ul
+              className="select-search__options"
+            >
+              <li
+                className="select-search__row"
+                data-index={0}
+                data-value="hamburger"
+                role="menuitem"
+              >
+                <button
+                  className="select-search__option"
+                  onMouseDown={[Function]}
+                  tabIndex="-1"
+                  type="button"
+                  value="hamburger"
+                >
+                  Hamburger
+                </button>
+              </li>
+              <li
+                className="select-search__row"
+                data-index={1}
+                data-value="pizza"
+                role="menuitem"
+              >
+                <button
+                  className="select-search__option"
+                  onMouseDown={[Function]}
+                  tabIndex="-1"
+                  type="button"
+                  value="pizza"
+                >
+                  Pizza
+                </button>
+              </li>
+            </ul>
+          </ul>
+        </div>
+      </li>
+      <li
+        className="select-search__row"
+        role="none"
+      >
+        <div
+          className="select-search__group"
+        >
+          <div
+            className="select-search__group-header"
+          >
+            Drinks
+          </div>
+          <ul
+            className="select-search__options"
+          >
+            <ul
+              className="select-search__options"
+            >
+              <li
+                className="select-search__row"
+                data-index={2}
+                data-value="soft"
+                role="menuitem"
+              >
+                <button
+                  className="select-search__option"
+                  onMouseDown={[Function]}
+                  tabIndex="-1"
+                  type="button"
+                  value="soft"
+                >
+                  Soft drink
+                </button>
+              </li>
+              <li
+                className="select-search__row"
+                data-index={3}
+                data-value="beer"
+                role="menuitem"
+              >
+                <button
+                  className="select-search__option"
+                  onMouseDown={[Function]}
+                  tabIndex="-1"
+                  type="button"
+                  value="beer"
+                >
+                  Beer
+                </button>
+              </li>
+            </ul>
+          </ul>
+        </div>
+      </li>
+    </ul>
   </div>
 </div>
 `;

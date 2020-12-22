@@ -82,6 +82,7 @@ export const Group = () => (
                 }]
             }
         ]}
+        renderGroupHeader={(str) => `Type: ${str}`}
         multiple
     />
 );

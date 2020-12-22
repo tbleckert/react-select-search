@@ -129,6 +129,7 @@ export const StayOnSelect = () => (
 
 export const Group = () => (
     <SelectSearch
+        printOptions="always"
         options={[
             {
                 name: 'Food',
