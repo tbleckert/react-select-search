@@ -47,7 +47,6 @@ var SelectSearch = /*#__PURE__*/(0, _react.forwardRef)(function (_ref, ref) {
       getOptions = _ref.getOptions,
       filterOptions = _ref.filterOptions,
       debounce = _ref.debounce,
-      fuse = _ref.fuse,
       emptyMessage = _ref.emptyMessage;
   var cls = (0, _useClassName["default"])(className);
 
@@ -63,7 +62,6 @@ var SelectSearch = /*#__PURE__*/(0, _react.forwardRef)(function (_ref, ref) {
     closeOnSelect: closeOnSelect && (!multiple || ['on-focus', 'always'].includes(printOptions)),
     getOptions: getOptions,
     filterOptions: filterOptions,
-    fuse: fuse,
     debounce: debounce
   }),
       snapshot = _useSelect[0],
@@ -132,10 +130,6 @@ SelectSearch.defaultProps = {
   printOptions: 'auto',
   closeOnSelect: true,
   debounce: 0,
-  fuse: {
-    keys: ['name', 'groupName'],
-    threshold: 0.3
-  },
   // Attributes
   placeholder: null,
   id: null,
@@ -166,10 +160,6 @@ SelectSearch.propTypes = process.env.NODE_ENV !== "production" ? {
   printOptions: _propTypes["default"].oneOf(['auto', 'always', 'never', 'on-focus']),
   closeOnSelect: _propTypes["default"].bool,
   debounce: _propTypes["default"].number,
-  fuse: _propTypes["default"].oneOfType([_propTypes["default"].bool, _propTypes["default"].shape({
-    keys: _propTypes["default"].arrayOf(_propTypes["default"].string),
-    threshold: _propTypes["default"].number
-  })]),
   // Attributes
   placeholder: _propTypes["default"].string,
   id: _propTypes["default"].string,

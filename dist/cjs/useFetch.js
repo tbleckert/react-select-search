@@ -13,8 +13,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 
 function useFetch(q, defaultOptions, _ref) {
   var debounceTime = _ref.debounceTime,
-      getOptions = _ref.getOptions,
-      filter = _ref.filter;
+      filterOptions = _ref.filterOptions,
+      getOptions = _ref.getOptions;
 
   var _useState = (0, _react.useState)(false),
       fetching = _useState[0],
@@ -27,9 +27,13 @@ function useFetch(q, defaultOptions, _ref) {
       setOptions = _useState2[1];
 
   var fetch = (0, _react.useMemo)(function () {
+    var filter = filterOptions ? filterOptions(defaultOptions) : function () {
+      return defaultOptions;
+    };
+
     if (!getOptions) {
       return function (s) {
-        return setOptions(filter(s, defaultOptions));
+        return setOptions((0, _flattenOptions["default"])(filter(s)));
       };
     }
 
@@ -37,12 +41,16 @@ function useFetch(q, defaultOptions, _ref) {
       var optionsReq = getOptions(s, defaultOptions);
       setFetching(true);
       Promise.resolve(optionsReq).then(function (newOptions) {
-        setOptions(filter(s, (0, _flattenOptions["default"])(newOptions)));
+        if (filterOptions) {
+          setOptions((0, _flattenOptions["default"])(filterOptions(newOptions)(s)));
+        } else {
+          setOptions((0, _flattenOptions["default"])(newOptions));
+        }
       })["finally"](function () {
         return setFetching(false);
       });
     }, debounceTime);
-  }, [getOptions, debounceTime, filter, defaultOptions]);
+  }, [filterOptions, defaultOptions, getOptions, debounceTime]);
   (0, _react.useEffect)(function () {
     return setOptions(defaultOptions);
   }, [defaultOptions]);

@@ -12,17 +12,17 @@ describe('Unit test for getOption function', () => {
     });
 
     test('Can get multiple options by value', () => {
-        const option1ToFind = friends[Math.floor(Math.random() * friends.length)];
-        const option2 = friends[Math.floor(Math.random() * friends.length)];
+        const option1 = friends[0];
+        const option2 = friends[1];
 
-        expect(getOption(option1ToFind.value, [option2], friends, true)).toStrictEqual([option2, option1ToFind]);
-        expect(getOption(option1ToFind.value, [option1ToFind], friends, true)).toStrictEqual([]);
+        expect(getOption(option1.value, [option2], friends, true)).toStrictEqual([option2, option1]);
+        expect(getOption(option1.value, [option1], friends, true)).toStrictEqual([]);
     });
 
     test('Can convert single value to multiple', () => {
-        const option1ToFind = friends[Math.floor(Math.random() * friends.length)];
-        const option2 = friends[Math.floor(Math.random() * friends.length)];
+        const option1 = friends[0];
+        const option2 = friends[1];
 
-        expect(getOption(option1ToFind.value, option2, friends, true)).toStrictEqual([option2, option1ToFind]);
+        expect(getOption(option1.value, option2, friends, true)).toStrictEqual([option2, option1]);
     });
 });

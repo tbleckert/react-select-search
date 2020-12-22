@@ -31,7 +31,6 @@ const SelectSearch = forwardRef(({
     getOptions,
     filterOptions,
     debounce,
-    fuse,
     emptyMessage,
 }, ref) => {
     const cls = useClassName(className);
@@ -47,7 +46,6 @@ const SelectSearch = forwardRef(({
         closeOnSelect: closeOnSelect && (!multiple || ['on-focus', 'always'].includes(printOptions)),
         getOptions,
         filterOptions,
-        fuse,
         debounce,
     });
 
@@ -120,10 +118,6 @@ SelectSearch.defaultProps = {
     printOptions: 'auto',
     closeOnSelect: true,
     debounce: 0,
-    fuse: {
-        keys: ['name', 'groupName'],
-        threshold: 0.3,
-    },
 
     // Attributes
     placeholder: null,
@@ -160,13 +154,6 @@ SelectSearch.propTypes = {
     printOptions: PropTypes.oneOf(['auto', 'always', 'never', 'on-focus']),
     closeOnSelect: PropTypes.bool,
     debounce: PropTypes.number,
-    fuse: PropTypes.oneOfType([
-        PropTypes.bool,
-        PropTypes.shape({
-            keys: PropTypes.arrayOf(PropTypes.string),
-            threshold: PropTypes.number,
-        }),
-    ]),
 
     // Attributes
     placeholder: PropTypes.string,

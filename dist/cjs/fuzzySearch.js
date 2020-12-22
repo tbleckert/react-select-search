@@ -2,24 +2,22 @@
 
 exports.__esModule = true;
 exports["default"] = fuzzySearch;
-var Fuse = null;
 
-try {
-  // eslint-disable-next-line global-require,import/no-extraneous-dependencies
-  Fuse = require('fuse.js');
-} catch (e) {
-  /* istanbul ignore next */
-  if (process.env.NODE_ENV !== 'production') {
-    // eslint-disable-next-line no-console
-    console.warn('React Select Search: Not using fuzzy search. Please install fuse.js to enable this feature.');
-  }
-}
+var _fuse = _interopRequireDefault(require("fuse.js"));
 
-function fuzzySearch(value, options, fuseOptions) {
-  if (!Fuse || !fuseOptions) {
-    return options;
-  }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-  var fuse = new Fuse(options, fuseOptions);
-  return fuse.search(value);
+// eslint-disable-next-line import/no-extraneous-dependencies
+function fuzzySearch(options) {
+  var fuse = new _fuse["default"](options, {
+    keys: ['name', 'groupName'],
+    threshold: 0.3
+  });
+  return function (value) {
+    if (!value.length) {
+      return options;
+    }
+
+    return fuse.search(value);
+  };
 }

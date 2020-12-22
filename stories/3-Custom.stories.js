@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import SelectSearch from '../src';
+import SelectSearch, { fuzzySearch } from '../src';
 import '../style.css';
 import classes from '../style.module.css';
 import { fontStacks, friends } from './data';
@@ -57,6 +57,7 @@ export const AvatarExample = () => (
         renderOption={renderFriend}
         multiple
         search
+        filterOptions={fuzzySearch}
         placeholder="Search friends"
     />
 );

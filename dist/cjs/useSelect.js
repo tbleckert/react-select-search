@@ -13,8 +13,6 @@ var _getOption = _interopRequireDefault(require("./lib/getOption"));
 
 var _getDisplayValue = _interopRequireDefault(require("./lib/getDisplayValue"));
 
-var _useFilter = _interopRequireDefault(require("./useFilter"));
-
 var _useFetch2 = _interopRequireDefault(require("./useFetch"));
 
 var _getValue = _interopRequireDefault(require("./lib/getValue"));
@@ -38,8 +36,6 @@ function useSelect(_ref) {
       getOptions = _ref$getOptions === void 0 ? null : _ref$getOptions,
       _ref$filterOptions = _ref.filterOptions,
       filterOptions = _ref$filterOptions === void 0 ? null : _ref$filterOptions,
-      _ref$fuse = _ref.fuse,
-      fuse = _ref$fuse === void 0 ? false : _ref$fuse,
       _ref$onChange = _ref.onChange,
       onChange = _ref$onChange === void 0 ? function () {} : _ref$onChange,
       _ref$onFocus = _ref.onFocus,
@@ -68,11 +64,9 @@ function useSelect(_ref) {
       highlighted = _useReducer[0],
       dispatchHighlighted = _useReducer[1];
 
-  var filter = (0, _useFilter["default"])(filterOptions, fuse);
-
   var _useFetch = (0, _useFetch2["default"])(search, defaultOptions, {
     getOptions: getOptions,
-    filter: filter,
+    filterOptions: filterOptions,
     debounceTime: debounce
   }),
       options = _useFetch.options,
@@ -90,7 +84,7 @@ function useSelect(_ref) {
       highlighted: highlighted,
       disabled: disabled
     };
-  }, [disabled, fetching, focus, options, highlighted, search, value]);
+  }, [disabled, fetching, focus, highlighted, search, value, options]);
   var onSelect = (0, _react.useCallback)(function (newValue) {
     var newOption = (0, _getOption["default"])(newValue, value, Array.isArray(value) ? [].concat(value, options) : options, multiple);
     setValue(newOption);

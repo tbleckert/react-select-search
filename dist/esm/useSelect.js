@@ -3,7 +3,6 @@ import groupOptions from './lib/groupOptions';
 import highlightReducer from './highlightReducer';
 import getOption from './lib/getOption';
 import getDisplayValue from './lib/getDisplayValue';
-import useFilter from './useFilter';
 import useFetch from './useFetch';
 import getValue from './lib/getValue';
 export default function useSelect({
@@ -15,7 +14,6 @@ export default function useSelect({
   closeOnSelect = true,
   getOptions = null,
   filterOptions = null,
-  fuse = false,
   onChange = () => {},
   onFocus = () => {},
   onBlur = () => {},
@@ -27,13 +25,12 @@ export default function useSelect({
   const [search, setSearch] = useState('');
   const [focus, setFocus] = useState(false);
   const [highlighted, dispatchHighlighted] = useReducer(highlightReducer, -1);
-  const filter = useFilter(filterOptions, fuse);
   const {
     options,
     fetching
   } = useFetch(search, defaultOptions, {
     getOptions,
-    filter,
+    filterOptions,
     debounceTime: debounce
   });
   const snapshot = useMemo(() => ({
@@ -46,7 +43,7 @@ export default function useSelect({
     focus,
     highlighted,
     disabled
-  }), [disabled, fetching, focus, options, highlighted, search, value]);
+  }), [disabled, fetching, focus, highlighted, search, value, options]);
   const onSelect = useCallback(newValue => {
     const newOption = getOption(newValue, value, Array.isArray(value) ? [...value, ...options] : options, multiple);
     setValue(newOption);

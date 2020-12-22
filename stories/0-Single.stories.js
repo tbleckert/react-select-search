@@ -1,4 +1,4 @@
-import SelectSearch from '../src';
+import SelectSearch, { fuzzySearch } from '../src';
 import '../style.css';
 import { countries } from './data';
 
@@ -67,6 +67,7 @@ export const Search = () => (
     <SelectSearch
         options={countries}
         search
+        filterOptions={fuzzySearch}
         placeholder="Select your country"
     />
 );
@@ -75,6 +76,7 @@ export const SearchWithEmptyMessage = () => (
     <SelectSearch
         options={countries}
         search
+        filterOptions={fuzzySearch}
         emptyMessage="Not found"
         placeholder="Select your country"
     />
@@ -84,6 +86,7 @@ export const SearchWithEmptyMessageRenderer = () => (
     <SelectSearch
         options={countries}
         search
+        filterOptions={fuzzySearch}
         emptyMessage={() => <div style={{ textAlign: 'center', fontSize: '0.8em' }}>Not found renderer</div>}
         placeholder="Select your country"
     />
@@ -94,8 +97,10 @@ export const LimitedOptions = () => (
         options={countries}
         search
         placeholder="Select your country"
-        filterOptions={(q, options) => {
-            return options.slice(0, 8);
+        filterOptions={(options) => {
+            const filter = fuzzySearch(options);
+
+            return (q) => filter(q).slice(0, 8);
         }}
     />
 );

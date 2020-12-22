@@ -32,7 +32,6 @@ const SelectSearch = /*#__PURE__*/forwardRef(({
   getOptions,
   filterOptions,
   debounce,
-  fuse,
   emptyMessage
 }, ref) => {
   const cls = useClassName(className);
@@ -48,7 +47,6 @@ const SelectSearch = /*#__PURE__*/forwardRef(({
     closeOnSelect: closeOnSelect && (!multiple || ['on-focus', 'always'].includes(printOptions)),
     getOptions,
     filterOptions,
-    fuse,
     debounce
   });
   const wrapperClass = classes({
@@ -118,10 +116,6 @@ SelectSearch.defaultProps = {
   printOptions: 'auto',
   closeOnSelect: true,
   debounce: 0,
-  fuse: {
-    keys: ['name', 'groupName'],
-    threshold: 0.3
-  },
   // Attributes
   placeholder: null,
   id: null,
@@ -152,10 +146,6 @@ SelectSearch.propTypes = process.env.NODE_ENV !== "production" ? {
   printOptions: PropTypes.oneOf(['auto', 'always', 'never', 'on-focus']),
   closeOnSelect: PropTypes.bool,
   debounce: PropTypes.number,
-  fuse: PropTypes.oneOfType([PropTypes.bool, PropTypes.shape({
-    keys: PropTypes.arrayOf(PropTypes.string),
-    threshold: PropTypes.number
-  })]),
   // Attributes
   placeholder: PropTypes.string,
   id: PropTypes.string,
