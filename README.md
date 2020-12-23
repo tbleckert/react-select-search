@@ -120,7 +120,7 @@ Below is all the available options you can pass to the component. Options withou
 | ---- | ---- | ------- | ----------- |
 | options | array | | Se the [options documentation](#the-options-object) below |
 | getOptions | function | null | Get options through a function call, can return a promise for async usage. See [get options](#get-options) for more. |
-| filterOptions | function | null | Takes the current search query (if any) and the current options and returns a new array of options. Runs after getOptions and fuzzy search (if providing a fuse object). |
+| filterOptions | function | null | Takes the current options list and should return a function that handles the filtering. Runs after getOptions. See [fuzzySearch.js](src/fuzzySearch.js) for example. |
 | value | string, array | null | The value should be an array if multiple mode. |
 | fuse | object, boolean | true | Use fuse.js to apply fuzzy search on search. Set to true to use default options or pass a fuse.js config option. If `search` is enabled and no `filterOptions` callback is passed, this will be set to `true` automatically. |
 | multiple | boolean | false | Set to true if you want to allow multiple selected options. |
