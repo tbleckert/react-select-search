@@ -3,16 +3,16 @@
 exports.__esModule = true;
 exports["default"] = getDisplayValue;
 
-function getDisplayValue(value) {
-  if (value && typeof value === 'object') {
-    if (Array.isArray(value)) {
-      return value.map(function (singleOption) {
-        return singleOption && singleOption.name;
-      }).join(', ');
-    }
+var _isOption = _interopRequireDefault(require("./isOption"));
 
-    return value.name;
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+function getDisplayValue(value) {
+  if (Array.isArray(value)) {
+    return value.map(function (o) {
+      return (0, _isOption["default"])(o) && o.name;
+    }).join(', ');
   }
 
-  return '';
+  return (0, _isOption["default"])(value) ? value.name : '';
 }

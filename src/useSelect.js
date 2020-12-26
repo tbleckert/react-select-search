@@ -7,10 +7,10 @@ import {
 } from 'react';
 import groupOptions from './lib/groupOptions';
 import highlightReducer from './highlightReducer';
-import getOption from './lib/getOption';
+import getOptions from './lib/getOptions';
 import getDisplayValue from './lib/getDisplayValue';
 import useFetch from './useFetch';
-import getValue from './lib/getValue';
+import getValues from './lib/getValues';
 
 export default function useSelect({
     value: defaultValue = null,
@@ -19,7 +19,7 @@ export default function useSelect({
     multiple = false,
     disabled = false,
     closeOnSelect = true,
-    getOptions = null,
+    getOptions: getOptionsFn = null,
     filterOptions = null,
     onChange = () => {},
     onFocus = () => {},
@@ -33,7 +33,7 @@ export default function useSelect({
     const [focus, setFocus] = useState(false);
     const [highlighted, dispatchHighlighted] = useReducer(highlightReducer, -1);
     const { options, fetching } = useFetch(search, defaultOptions, {
-        getOptions,
+        getOptions: getOptionsFn,
         filterOptions,
         debounceTime: debounce,
     });
@@ -41,7 +41,7 @@ export default function useSelect({
         options: groupOptions(options),
         option: value,
         displayValue: getDisplayValue(value),
-        value: getValue(value),
+        value: getValues(value),
         search,
         fetching,
         focus,
@@ -50,7 +50,7 @@ export default function useSelect({
     }), [disabled, fetching, focus, highlighted, search, value, options]);
 
     const onSelect = useCallback((newValue) => {
-        const newOption = getOption(
+        const newOption = getOptions(
             newValue,
             value,
             (Array.isArray(value)) ? [...value, ...options] : options,
@@ -58,7 +58,7 @@ export default function useSelect({
         );
 
         setValue(newOption);
-        onChange(getValue(newOption), newOption);
+        onChange(getValues(newOption), newOption);
 
         if (closeOnSelect) {
             ref.current.blur();
@@ -132,7 +132,7 @@ export default function useSelect({
 
         valueRef.current = defaultValue;
 
-        setValue(getOption(
+        setValue(getOptions(
             defaultValue,
             null,
             options,

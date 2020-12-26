@@ -5,7 +5,9 @@ export default function isSelected(itemValue, selectedValue) {
 
     return (
         (Array.isArray(selectedValue))
-            ? selectedValue.findIndex((item) => item.value === itemValue.value) >= 0
-            : selectedValue.value === itemValue.value
+            // eslint-disable-next-line eqeqeq
+            ? selectedValue.findIndex((item) => item.value == itemValue.value) >= 0
+            // eslint-disable-next-line eqeqeq
+            : selectedValue.value == itemValue.value
     );
 }

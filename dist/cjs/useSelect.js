@@ -9,13 +9,13 @@ var _groupOptions = _interopRequireDefault(require("./lib/groupOptions"));
 
 var _highlightReducer = _interopRequireDefault(require("./highlightReducer"));
 
-var _getOption = _interopRequireDefault(require("./lib/getOption"));
+var _getOptions = _interopRequireDefault(require("./lib/getOptions"));
 
 var _getDisplayValue = _interopRequireDefault(require("./lib/getDisplayValue"));
 
 var _useFetch2 = _interopRequireDefault(require("./useFetch"));
 
-var _getValue = _interopRequireDefault(require("./lib/getValue"));
+var _getValues = _interopRequireDefault(require("./lib/getValues"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -33,7 +33,7 @@ function useSelect(_ref) {
       _ref$closeOnSelect = _ref.closeOnSelect,
       closeOnSelect = _ref$closeOnSelect === void 0 ? true : _ref$closeOnSelect,
       _ref$getOptions = _ref.getOptions,
-      getOptions = _ref$getOptions === void 0 ? null : _ref$getOptions,
+      getOptionsFn = _ref$getOptions === void 0 ? null : _ref$getOptions,
       _ref$filterOptions = _ref.filterOptions,
       filterOptions = _ref$filterOptions === void 0 ? null : _ref$filterOptions,
       _ref$onChange = _ref.onChange,
@@ -65,7 +65,7 @@ function useSelect(_ref) {
       dispatchHighlighted = _useReducer[1];
 
   var _useFetch = (0, _useFetch2["default"])(search, defaultOptions, {
-    getOptions: getOptions,
+    getOptions: getOptionsFn,
     filterOptions: filterOptions,
     debounceTime: debounce
   }),
@@ -77,7 +77,7 @@ function useSelect(_ref) {
       options: (0, _groupOptions["default"])(options),
       option: value,
       displayValue: (0, _getDisplayValue["default"])(value),
-      value: (0, _getValue["default"])(value),
+      value: (0, _getValues["default"])(value),
       search: search,
       fetching: fetching,
       focus: focus,
@@ -86,9 +86,9 @@ function useSelect(_ref) {
     };
   }, [disabled, fetching, focus, highlighted, search, value, options]);
   var onSelect = (0, _react.useCallback)(function (newValue) {
-    var newOption = (0, _getOption["default"])(newValue, value, Array.isArray(value) ? [].concat(value, options) : options, multiple);
+    var newOption = (0, _getOptions["default"])(newValue, value, Array.isArray(value) ? [].concat(value, options) : options, multiple);
     setValue(newOption);
-    onChange((0, _getValue["default"])(newOption), newOption);
+    onChange((0, _getValues["default"])(newOption), newOption);
 
     if (closeOnSelect) {
       ref.current.blur();
@@ -166,7 +166,7 @@ function useSelect(_ref) {
     }
 
     valueRef.current = defaultValue;
-    setValue((0, _getOption["default"])(defaultValue, null, options, multiple));
+    setValue((0, _getOptions["default"])(defaultValue, null, options, multiple));
   }, [defaultValue, multiple, options]);
   return [snapshot, valueProps, optionProps, setValue];
 }
