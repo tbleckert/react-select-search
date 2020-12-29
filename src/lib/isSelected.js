@@ -5,7 +5,7 @@ export default function isSelected(itemValue, selectedValue) {
 
     return (
         (Array.isArray(selectedValue))
-            ? selectedValue.findIndex((item) => item.value === itemValue.value) >= 0
+            ? selectedValue.findIndex((item) => item && item.value === itemValue.value) >= 0
             : selectedValue.value === itemValue.value
     );
 }
