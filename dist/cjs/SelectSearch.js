@@ -29,7 +29,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var SelectSearch = (0, _react.forwardRef)(function (_ref, ref) {
+var SelectSearch = /*#__PURE__*/(0, _react.forwardRef)(function (_ref, ref) {
   var defaultValue = _ref.value,
       disabled = _ref.disabled,
       placeholder = _ref.placeholder,
@@ -38,6 +38,7 @@ var SelectSearch = (0, _react.forwardRef)(function (_ref, ref) {
       autoFocus = _ref.autoFocus,
       autoComplete = _ref.autoComplete,
       defaultOptions = _ref.options,
+      id = _ref.id,
       onChange = _ref.onChange,
       printOptions = _ref.printOptions,
       closeOnSelect = _ref.closeOnSelect,
@@ -46,8 +47,9 @@ var SelectSearch = (0, _react.forwardRef)(function (_ref, ref) {
       renderOption = _ref.renderOption,
       renderGroupHeader = _ref.renderGroupHeader,
       getOptions = _ref.getOptions,
-      fuse = _ref.fuse;
-  var selectRef = (0, _react.createRef)();
+      fuse = _ref.fuse,
+      emptyMessage = _ref.emptyMessage;
+  var selectRef = (0, _react.useRef)(null);
 
   var _useSelect = (0, _useSelect2["default"])({
     options: defaultOptions,
@@ -88,6 +90,16 @@ var SelectSearch = (0, _react.forwardRef)(function (_ref, ref) {
 
     return className.split(' ')[0] + "__" + key;
   }, [className]);
+  var renderEmptyMessage = (0, _react.useCallback)(function () {
+    if (emptyMessage === null) {
+      return null;
+    }
+
+    var content = typeof emptyMessage === 'function' ? emptyMessage() : emptyMessage;
+    return /*#__PURE__*/_react["default"].createElement("li", {
+      className: cls('not-found')
+    }, content);
+  }, [emptyMessage, cls]);
   var wrapperClass = [cls('container'), disabled ? cls('is-disabled') : false, searching ? cls('is-loading') : false, focus ? cls('has-focus') : false].filter(function (single) {
     return !!single;
   }).join(' ');
@@ -95,18 +107,11 @@ var SelectSearch = (0, _react.forwardRef)(function (_ref, ref) {
   (0, _react.useEffect)(function () {
     var current = selectRef.current;
 
-    if (!current) {
+    if (!current || multiple || highlighted < 0 && !value) {
       return;
     }
 
-    var query = null;
-
-    if (highlighted > -1) {
-      query = "[data-index=\"" + highlighted + "\"]";
-    } else if (value && !multiple) {
-      query = "[data-value=\"" + escape(value.value) + "\"]";
-    }
-
+    var query = highlighted > -1 ? "[data-index=\"" + highlighted + "\"]" : "[data-value=\"" + escape(value.value) + "\"]";
     var selected = current.querySelector(query);
 
     if (selected) {
@@ -137,7 +142,8 @@ var SelectSearch = (0, _react.forwardRef)(function (_ref, ref) {
 
   return /*#__PURE__*/_react["default"].createElement("div", {
     ref: ref,
-    className: wrapperClass
+    className: wrapperClass,
+    id: id
   }, (!multiple || placeholder || search) && /*#__PURE__*/_react["default"].createElement("div", {
     className: cls('value')
   }, renderValue(_objectSpread(_objectSpread({}, valueProps), {}, {
@@ -147,10 +153,13 @@ var SelectSearch = (0, _react.forwardRef)(function (_ref, ref) {
     value: inputValue
   }), snapshot, cls('input'))), shouldRenderOptions && /*#__PURE__*/_react["default"].createElement("div", {
     className: cls('select'),
-    ref: selectRef
+    ref: selectRef,
+    onMouseDown: function onMouseDown(e) {
+      return e.preventDefault();
+    }
   }, /*#__PURE__*/_react["default"].createElement("ul", {
     className: cls('options')
-  }, options.map(function (option) {
+  }, options.length > 0 ? options.map(function (option) {
     var isGroup = option.type === 'group';
     var items = isGroup ? option.items : [option];
     var base = {
@@ -181,7 +190,7 @@ var SelectSearch = (0, _react.forwardRef)(function (_ref, ref) {
     }
 
     return rendered;
-  }))));
+  }) : renderEmptyMessage() || null)));
 });
 SelectSearch.defaultProps = {
   className: 'select-search',
@@ -189,6 +198,7 @@ SelectSearch.defaultProps = {
   search: false,
   multiple: false,
   placeholder: null,
+  id: null,
   autoFocus: false,
   autoComplete: 'on',
   value: '',
@@ -200,6 +210,7 @@ SelectSearch.defaultProps = {
       /*#__PURE__*/
       // eslint-disable-next-line react/button-has-type
       _react["default"].createElement("button", _extends({
+        type: "button",
         className: className
       }, domProps), option.name)
     );
@@ -216,7 +227,8 @@ SelectSearch.defaultProps = {
     keys: ['name', 'groupName'],
     threshold: 0.3
   },
-  getOptions: null
+  getOptions: null,
+  emptyMessage: null
 };
 SelectSearch.propTypes = process.env.NODE_ENV !== "production" ? {
   options: _propTypes["default"].arrayOf(_types.optionType).isRequired,
@@ -227,6 +239,7 @@ SelectSearch.propTypes = process.env.NODE_ENV !== "production" ? {
   search: _propTypes["default"].bool,
   disabled: _propTypes["default"].bool,
   placeholder: _propTypes["default"].string,
+  id: _propTypes["default"].string,
   autoComplete: _propTypes["default"].string,
   autoFocus: _propTypes["default"].bool,
   onChange: _propTypes["default"].func,
@@ -238,9 +251,10 @@ SelectSearch.propTypes = process.env.NODE_ENV !== "production" ? {
   fuse: _propTypes["default"].oneOfType([_propTypes["default"].bool, _propTypes["default"].shape({
     keys: _propTypes["default"].arrayOf(_propTypes["default"].string),
     threshold: _propTypes["default"].number
-  })])
+  })]),
+  emptyMessage: _propTypes["default"].oneOfType([_propTypes["default"].string, _propTypes["default"].func])
 } : {};
 
-var _default = (0, _react.memo)(SelectSearch);
+var _default = /*#__PURE__*/(0, _react.memo)(SelectSearch);
 
 exports["default"] = _default;

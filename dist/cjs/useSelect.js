@@ -123,10 +123,10 @@ function useSelect(_ref) {
   var onSelect = (0, _react.useCallback)(function (id) {
     setState(function (prevState) {
       var prevFlat = prevState.flat,
-          prevHighlighted = prevState.highlighted; // eslint-disable-next-line no-underscore-dangle
+          prevHighlighted = prevState.highlighted; // eslint-disable-next-line eqeqeq
 
       var item = typeof id !== 'undefined' ? prevFlat.find(function (i) {
-        return i._id === id;
+        return i.value == id;
       }) : prevFlat[prevHighlighted];
 
       if (!item) {
@@ -143,12 +143,14 @@ function useSelect(_ref) {
     });
   }, [multiple]);
   var onMouseDown = (0, _react.useCallback)(function (e) {
-    if (!closeOnSelect) {
-      e.preventDefault();
+    e.preventDefault();
+
+    if (closeOnSelect && ref.current) {
+      ref.current.blur();
     }
 
     onSelect(e.currentTarget.value);
-  }, [onSelect, closeOnSelect, multiple]);
+  }, [onSelect, closeOnSelect]);
   var onKeyDown = (0, _react.useCallback)(function (e) {
     var key = e.key;
 
@@ -174,7 +176,7 @@ function useSelect(_ref) {
         onBlur();
       }
     }
-  }, [onSelect, multiple, closeOnSelect, onBlur]);
+  }, [onSelect, closeOnSelect, onBlur, closable]);
   var onKeyUp = (0, _react.useCallback)(function (_ref3) {
     var key = _ref3.key;
 

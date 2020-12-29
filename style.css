@@ -89,7 +89,8 @@
 /**
  * Option
  */
-.select-search__option {
+.select-search__option,
+.select-search__not-found {
     display: block;
     height: 36px;
     width: 100%;
@@ -198,4 +199,11 @@
     max-height: 260px;
     border-top: 1px solid #eee;
     border-radius: 0 0 3px 3px;
+}
+
+.select-search__not-found {
+    height: auto;
+    padding: 16px;
+    text-align: center;
+    color: #888;
 }

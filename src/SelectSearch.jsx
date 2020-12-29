@@ -1,7 +1,7 @@
 import React, {
     forwardRef,
     memo,
-    createRef,
+    useRef,
     useEffect,
     useCallback,
 } from 'react';
@@ -20,6 +20,7 @@ const SelectSearch = forwardRef(({
     autoFocus,
     autoComplete,
     options: defaultOptions,
+    id,
     onChange,
     printOptions,
     closeOnSelect,
@@ -29,8 +30,9 @@ const SelectSearch = forwardRef(({
     renderGroupHeader,
     getOptions,
     fuse,
+    emptyMessage,
 }, ref) => {
-    const selectRef = createRef();
+    const selectRef = useRef(null);
     const [snapshot, valueProps, optionProps] = useSelect({
         options: defaultOptions,
         value: defaultValue,
@@ -71,6 +73,16 @@ const SelectSearch = forwardRef(({
         return `${className.split(' ')[0]}__${key}`;
     }, [className]);
 
+    const renderEmptyMessage = useCallback(() => {
+        if (emptyMessage === null) {
+            return null;
+        }
+
+        const content = (typeof emptyMessage === 'function') ? emptyMessage() : emptyMessage;
+
+        return <li className={cls('not-found')}>{content}</li>;
+    }, [emptyMessage, cls]);
+
     const wrapperClass = [
         cls('container'),
         (disabled) ? cls('is-disabled') : false,
@@ -83,18 +95,11 @@ const SelectSearch = forwardRef(({
     useEffect(() => {
         const { current } = selectRef;
 
-        if (!current) {
+        if (!current || multiple || (highlighted < 0 && !value)) {
             return;
         }
 
-        let query = null;
-
-        if (highlighted > -1) {
-            query = `[data-index="${highlighted}"]`;
-        } else if (value && !multiple) {
-            query = `[data-value="${escape(value.value)}"]`;
-        }
-
+        const query = (highlighted > -1) ? `[data-index="${highlighted}"]` : `[data-value="${escape(value.value)}"]`;
         const selected = current.querySelector(query);
 
         if (selected) {
@@ -123,7 +128,7 @@ const SelectSearch = forwardRef(({
     }
 
     return (
-        <div ref={ref} className={wrapperClass}>
+        <div ref={ref} className={wrapperClass} id={id}>
             {((!multiple || placeholder) || search) && (
                 <div className={cls('value')}>
                     {renderValue(
@@ -140,37 +145,39 @@ const SelectSearch = forwardRef(({
                 </div>
             )}
             {shouldRenderOptions && (
-                <div className={cls('select')} ref={selectRef}>
+                <div className={cls('select')} ref={selectRef} onMouseDown={(e) => e.preventDefault()}>
                     <ul className={cls('options')}>
-                        {options.map((option) => {
-                            const isGroup = option.type === 'group';
-                            const items = (isGroup) ? option.items : [option];
-                            const base = { cls, optionProps, renderOption };
-                            const rendered = items.map((o) => (
-                                <Option
-                                    key={o.value}
-                                    selected={isSelected(o, value)}
-                                    highlighted={highlighted === o.index}
-                                    {...base}
-                                    {...o}
-                                />
-                            ));
+                        {options.length > 0 ? (
+                            options.map((option) => {
+                                const isGroup = option.type === 'group';
+                                const items = (isGroup) ? option.items : [option];
+                                const base = { cls, optionProps, renderOption };
+                                const rendered = items.map((o) => (
+                                    <Option
+                                        key={o.value}
+                                        selected={isSelected(o, value)}
+                                        highlighted={highlighted === o.index}
+                                        {...base}
+                                        {...o}
+                                    />
+                                ));
 
-                            if (isGroup) {
-                                return (
-                                    <li role="none" className={cls('row')} key={option.groupId}>
-                                        <div className={cls('group')}>
-                                            <div className={cls('group-header')}>{renderGroupHeader(option.name)}</div>
-                                            <ul className={cls('options')}>
-                                                {rendered}
-                                            </ul>
-                                        </div>
-                                    </li>
-                                );
-                            }
+                                if (isGroup) {
+                                    return (
+                                        <li role="none" className={cls('row')} key={option.groupId}>
+                                            <div className={cls('group')}>
+                                                <div className={cls('group-header')}>{renderGroupHeader(option.name)}</div>
+                                                <ul className={cls('options')}>
+                                                    {rendered}
+                                                </ul>
+                                            </div>
+                                        </li>
+                                    );
+                                }
 
-                            return rendered;
-                        })}
+                                return rendered;
+                            })
+                        ) : (renderEmptyMessage() || null)}
                     </ul>
                 </div>
             )}
@@ -184,6 +191,7 @@ SelectSearch.defaultProps = {
     search: false,
     multiple: false,
     placeholder: null,
+    id: null,
     autoFocus: false,
     autoComplete: 'on',
     value: '',
@@ -192,7 +200,7 @@ SelectSearch.defaultProps = {
     closeOnSelect: true,
     renderOption: (domProps, option, snapshot, className) => (
         // eslint-disable-next-line react/button-has-type
-        <button className={className} {...domProps}>
+        <button type="button" className={className} {...domProps}>
             {option.name}
         </button>
     ),
@@ -208,6 +216,7 @@ SelectSearch.defaultProps = {
         threshold: 0.3,
     },
     getOptions: null,
+    emptyMessage: null,
 };
 
 SelectSearch.propTypes = {
@@ -229,6 +238,7 @@ SelectSearch.propTypes = {
     search: PropTypes.bool,
     disabled: PropTypes.bool,
     placeholder: PropTypes.string,
+    id: PropTypes.string,
     autoComplete: PropTypes.string,
     autoFocus: PropTypes.bool,
     onChange: PropTypes.func,
@@ -243,6 +253,10 @@ SelectSearch.propTypes = {
             keys: PropTypes.arrayOf(PropTypes.string),
             threshold: PropTypes.number,
         }),
+    ]),
+    emptyMessage: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.func,
     ]),
 };
 

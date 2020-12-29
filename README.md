@@ -122,12 +122,13 @@ Below is all the available options you can pass to the component. Options withou
 | value | string, array | undefined | The value should be an array if multiple mode. |
 | multiple | boolean | false | Set to true if you want to allow multiple selected options. |
 | search | boolean | false | Set to true to enable search functionality |
+| emptyMessage | string, function | null | Set empty message for empty options list, you can provide render function without arguments instead plain string message|
 | disabled | boolean | false | Disables all functionality |
 | placeholder | string | empty string | Displayed if no option is selected and/or when search field is focused with empty value. |
 | autoComplete | string, on/off | off | Disables/Enables autoComplete functionality in search field. |
 | autoFocus | boolean | false | Autofocus on select |
 | fuse | object, boolean | true | Use fuse.js to apply fuzzy search on search. Set to true to use default options or pass a fuse.js config option. If `search` is enabled and no `filterOptions` callback is passed, this will be set to `true` automatically. |
-| className | string, function | select-search-box | Set a base class string or pass a function for complete control. Se [custom classNames](#custom-classnames) for more. |
+| className | string, function | select-search-box | Set a base class string or pass a function for complete control. Se [custom classNames](#custom-class-names) for more. |
 | onChange | function | null | Function to receive and handle value changes. |
 | printOptions | string | auto | Can be: auto, always, never, on-focus. This property controls when the options list should be rendered. |
 | closeOnSelect | boolean | true | The selectbox will blur by default when selecting an option. Set this to false to prevent this behavior. |
@@ -206,3 +207,11 @@ function getOptions(query) {
 The function runs on each search query update, so you might want to throttle the fetches.
 If you return a promise, the class `is-searching` will be applied to the main element, giving you a chance
 to change the appearance, like adding a spinner. The property `searching` is also available in the snapshot that is sent to your render callbacks.
+
+## IE11 support
+
+The main build is an ES module and targets modern browsers. In particular, it specifically excludes IE11 in the build process. If you need to support IE11, you should require the CommonJS build instead like so
+
+```js
+import SelectSearch from 'react-select-search/dist/cjs/index.js';
+```

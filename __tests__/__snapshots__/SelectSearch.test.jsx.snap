@@ -3,6 +3,7 @@
 exports[`Test SelectSearch component Class name as fn 1`] = `
 <div
   className="class-base__container"
+  id={null}
 >
   <div
     className="class-base__value"
@@ -31,6 +32,7 @@ exports[`Test SelectSearch component Class name as fn 1`] = `
 exports[`Test SelectSearch component Class name as string 1`] = `
 <div
   className="custom-select"
+  id={null}
 >
   <div
     className="custom-select__value"
@@ -121,6 +123,7 @@ exports[`Test SelectSearch component Custom renderers work 1`] = `
 >
   <div
     className="select-search"
+    id={null}
   >
     <div
       className="select-search__value"
@@ -217,6 +220,7 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
 >
   <div
     className="select-search has-focus"
+    id={null}
   >
     <div
       className="select-search__value"
@@ -246,6 +250,7 @@ exports[`Test SelectSearch component Custom renderers work 2`] = `
     </div>
     <div
       className="select-search__select"
+      onMouseDown={[Function]}
     >
       <ul
         className="select-search__options"
@@ -713,6 +718,7 @@ exports[`Test SelectSearch component Custom renderers work with search 1`] = `
 >
   <div
     className="select-search"
+    id={null}
   >
     <div
       className="select-search__value"
@@ -810,6 +816,7 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
 >
   <div
     className="select-search has-focus"
+    id={null}
   >
     <div
       className="select-search__value"
@@ -839,6 +846,7 @@ exports[`Test SelectSearch component Custom renderers work with search 2`] = `
     </div>
     <div
       className="select-search__select"
+      onMouseDown={[Function]}
     >
       <ul
         className="select-search__options"
@@ -1257,6 +1265,7 @@ exports[`Test SelectSearch component Focus displays options 1`] = `
 >
   <div
     className="select-search"
+    id={null}
   >
     <div
       className="select-search__value"
@@ -1300,6 +1309,7 @@ exports[`Test SelectSearch component Focus displays options 2`] = `
 >
   <div
     className="select-search has-focus"
+    id={null}
   >
     <div
       className="select-search__value"
@@ -1324,6 +1334,7 @@ exports[`Test SelectSearch component Focus displays options 2`] = `
     </div>
     <div
       className="select-search__select"
+      onMouseDown={[Function]}
     >
       <ul
         className="select-search__options"
@@ -1363,6 +1374,7 @@ exports[`Test SelectSearch component Focus displays options 2`] = `
               onKeyPress={[Function]}
               onMouseDown={[Function]}
               tabIndex="-1"
+              type="button"
               value="foo"
             >
               Foo
@@ -1404,6 +1416,7 @@ exports[`Test SelectSearch component Focus displays options 2`] = `
               onKeyPress={[Function]}
               onMouseDown={[Function]}
               tabIndex="-1"
+              type="button"
               value="bar"
             >
               Bar
@@ -1480,6 +1493,7 @@ exports[`Test SelectSearch component Renders groups 1`] = `
 >
   <div
     className="select-search"
+    id={null}
   >
     <div
       className="select-search__value"
@@ -1575,6 +1589,7 @@ exports[`Test SelectSearch component Renders groups 2`] = `
 >
   <div
     className="select-search has-focus"
+    id={null}
   >
     <div
       className="select-search__value"
@@ -1604,6 +1619,7 @@ exports[`Test SelectSearch component Renders groups 2`] = `
     </div>
     <div
       className="select-search__select"
+      onMouseDown={[Function]}
     >
       <ul
         className="select-search__options"
@@ -2008,6 +2024,7 @@ exports[`Test SelectSearch component Renders groups 2`] = `
 exports[`Test SelectSearch component Renders with default props 1`] = `
 <div
   className="select-search"
+  id={null}
 >
   <div
     className="select-search__value"
@@ -2036,6 +2053,7 @@ exports[`Test SelectSearch component Renders with default props 1`] = `
 exports[`Test SelectSearch component Renders with disabled 1`] = `
 <div
   className="select-search is-disabled"
+  id={null}
 >
   <div
     className="select-search__value"
@@ -2061,12 +2079,102 @@ exports[`Test SelectSearch component Renders with disabled 1`] = `
 </div>
 `;
 
+exports[`Test SelectSearch component Renders with empty message renderer 1`] = `
+<div
+  className="select-search"
+  id={null}
+>
+  <div
+    className="select-search__value"
+  >
+    <input
+      autoComplete="on"
+      autoFocus={false}
+      className="select-search__input"
+      disabled={false}
+      onBlur={[Function]}
+      onChange={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyPress={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      placeholder={null}
+      readOnly={false}
+      tabIndex="0"
+      value=""
+    />
+  </div>
+  <div
+    className="select-search__select"
+    onMouseDown={[Function]}
+  >
+    <ul
+      className="select-search__options"
+    >
+      <li
+        className="select-search__not-found"
+      >
+        <div>
+          Not found
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+`;
+
+exports[`Test SelectSearch component Renders with empty message string 1`] = `
+<div
+  className="select-search"
+  id={null}
+>
+  <div
+    className="select-search__value"
+  >
+    <input
+      autoComplete="on"
+      autoFocus={false}
+      className="select-search__input"
+      disabled={false}
+      onBlur={[Function]}
+      onChange={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyPress={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      placeholder={null}
+      readOnly={false}
+      tabIndex="0"
+      value=""
+    />
+  </div>
+  <div
+    className="select-search__select"
+    onMouseDown={[Function]}
+  >
+    <ul
+      className="select-search__options"
+    >
+      <li
+        className="select-search__not-found"
+      >
+        Not found
+      </li>
+    </ul>
+  </div>
+</div>
+`;
+
 exports[`Test SelectSearch component Renders with multiple 1`] = `
 <div
   className="select-search"
+  id={null}
 >
   <div
     className="select-search__select"
+    onMouseDown={[Function]}
   >
     <ul
       className="select-search__options"
@@ -2085,6 +2193,7 @@ exports[`Test SelectSearch component Renders with multiple 1`] = `
           onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="foo"
         >
           Foo
@@ -2104,6 +2213,7 @@ exports[`Test SelectSearch component Renders with multiple 1`] = `
           onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="bar"
         >
           Bar
@@ -2117,6 +2227,7 @@ exports[`Test SelectSearch component Renders with multiple 1`] = `
 exports[`Test SelectSearch component Renders with search 1`] = `
 <div
   className="select-search"
+  id={null}
 >
   <div
     className="select-search__value"
@@ -2145,6 +2256,7 @@ exports[`Test SelectSearch component Renders with search 1`] = `
 exports[`Test SelectSearch component Renders with search and multiple 1`] = `
 <div
   className="select-search"
+  id={null}
 >
   <div
     className="select-search__value"
@@ -2169,6 +2281,7 @@ exports[`Test SelectSearch component Renders with search and multiple 1`] = `
   </div>
   <div
     className="select-search__select"
+    onMouseDown={[Function]}
   >
     <ul
       className="select-search__options"
@@ -2187,6 +2300,7 @@ exports[`Test SelectSearch component Renders with search and multiple 1`] = `
           onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="foo"
         >
           Foo
@@ -2206,6 +2320,7 @@ exports[`Test SelectSearch component Renders with search and multiple 1`] = `
           onKeyPress={[Function]}
           onMouseDown={[Function]}
           tabIndex="-1"
+          type="button"
           value="bar"
         >
           Bar
@@ -2219,6 +2334,7 @@ exports[`Test SelectSearch component Renders with search and multiple 1`] = `
 exports[`Test SelectSearch component Renders with search and placeholder 1`] = `
 <div
   className="select-search"
+  id={null}
 >
   <div
     className="select-search__value"
@@ -2261,6 +2377,7 @@ exports[`Test SelectSearch component Value change works without onChange handler
 >
   <div
     className="select-search"
+    id={null}
   >
     <div
       className="select-search__value"
@@ -2304,6 +2421,7 @@ exports[`Test SelectSearch component Value change works without onChange handler
 >
   <div
     className="select-search has-focus"
+    id={null}
   >
     <div
       className="select-search__value"
@@ -2328,6 +2446,7 @@ exports[`Test SelectSearch component Value change works without onChange handler
     </div>
     <div
       className="select-search__select"
+      onMouseDown={[Function]}
     >
       <ul
         className="select-search__options"
@@ -2367,6 +2486,7 @@ exports[`Test SelectSearch component Value change works without onChange handler
               onKeyPress={[Function]}
               onMouseDown={[Function]}
               tabIndex="-1"
+              type="button"
               value="foo"
             >
               Foo
@@ -2408,6 +2528,7 @@ exports[`Test SelectSearch component Value change works without onChange handler
               onKeyPress={[Function]}
               onMouseDown={[Function]}
               tabIndex="-1"
+              type="button"
               value="bar"
             >
               Bar

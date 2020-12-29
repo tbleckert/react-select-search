@@ -6,13 +6,13 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-import React, { forwardRef, memo, createRef, useEffect, useCallback } from 'react';
+import React, { forwardRef, memo, useRef, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import useSelect from './useSelect';
 import { optionType } from './types';
 import Option from './Components/Option';
 import isSelected from './lib/isSelected';
-const SelectSearch = forwardRef(({
+const SelectSearch = /*#__PURE__*/forwardRef(({
   value: defaultValue,
   disabled,
   placeholder,
@@ -21,6 +21,7 @@ const SelectSearch = forwardRef(({
   autoFocus,
   autoComplete,
   options: defaultOptions,
+  id,
   onChange,
   printOptions,
   closeOnSelect,
@@ -29,9 +30,10 @@ const SelectSearch = forwardRef(({
   renderOption,
   renderGroupHeader,
   getOptions,
-  fuse
+  fuse,
+  emptyMessage
 }, ref) => {
-  const selectRef = createRef();
+  const selectRef = useRef(null);
   const [snapshot, valueProps, optionProps] = useSelect({
     options: defaultOptions,
     value: defaultValue,
@@ -69,6 +71,16 @@ const SelectSearch = forwardRef(({
 
     return className.split(' ')[0] + "__" + key;
   }, [className]);
+  const renderEmptyMessage = useCallback(() => {
+    if (emptyMessage === null) {
+      return null;
+    }
+
+    const content = typeof emptyMessage === 'function' ? emptyMessage() : emptyMessage;
+    return /*#__PURE__*/React.createElement("li", {
+      className: cls('not-found')
+    }, content);
+  }, [emptyMessage, cls]);
   const wrapperClass = [cls('container'), disabled ? cls('is-disabled') : false, searching ? cls('is-loading') : false, focus ? cls('has-focus') : false].filter(single => !!single).join(' ');
   const inputValue = focus && search ? searchValue : displayValue;
   useEffect(() => {
@@ -76,18 +88,11 @@ const SelectSearch = forwardRef(({
       current
     } = selectRef;
 
-    if (!current) {
+    if (!current || multiple || highlighted < 0 && !value) {
       return;
     }
 
-    let query = null;
-
-    if (highlighted > -1) {
-      query = "[data-index=\"" + highlighted + "\"]";
-    } else if (value && !multiple) {
-      query = "[data-value=\"" + escape(value.value) + "\"]";
-    }
-
+    const query = highlighted > -1 ? "[data-index=\"" + highlighted + "\"]" : "[data-value=\"" + escape(value.value) + "\"]";
     const selected = current.querySelector(query);
 
     if (selected) {
@@ -118,7 +123,8 @@ const SelectSearch = forwardRef(({
 
   return /*#__PURE__*/React.createElement("div", {
     ref: ref,
-    className: wrapperClass
+    className: wrapperClass,
+    id: id
   }, (!multiple || placeholder || search) && /*#__PURE__*/React.createElement("div", {
     className: cls('value')
   }, renderValue(_objectSpread(_objectSpread({}, valueProps), {}, {
@@ -128,10 +134,11 @@ const SelectSearch = forwardRef(({
     value: inputValue
   }), snapshot, cls('input'))), shouldRenderOptions && /*#__PURE__*/React.createElement("div", {
     className: cls('select'),
-    ref: selectRef
+    ref: selectRef,
+    onMouseDown: e => e.preventDefault()
   }, /*#__PURE__*/React.createElement("ul", {
     className: cls('options')
-  }, options.map(option => {
+  }, options.length > 0 ? options.map(option => {
     const isGroup = option.type === 'group';
     const items = isGroup ? option.items : [option];
     const base = {
@@ -160,7 +167,7 @@ const SelectSearch = forwardRef(({
     }
 
     return rendered;
-  }))));
+  }) : renderEmptyMessage() || null)));
 });
 SelectSearch.defaultProps = {
   className: 'select-search',
@@ -168,6 +175,7 @@ SelectSearch.defaultProps = {
   search: false,
   multiple: false,
   placeholder: null,
+  id: null,
   autoFocus: false,
   autoComplete: 'on',
   value: '',
@@ -178,6 +186,7 @@ SelectSearch.defaultProps = {
   /*#__PURE__*/
   // eslint-disable-next-line react/button-has-type
   React.createElement("button", _extends({
+    type: "button",
     className: className
   }, domProps), option.name),
   renderGroupHeader: name => name,
@@ -188,7 +197,8 @@ SelectSearch.defaultProps = {
     keys: ['name', 'groupName'],
     threshold: 0.3
   },
-  getOptions: null
+  getOptions: null,
+  emptyMessage: null
 };
 SelectSearch.propTypes = process.env.NODE_ENV !== "production" ? {
   options: PropTypes.arrayOf(optionType).isRequired,
@@ -199,6 +209,7 @@ SelectSearch.propTypes = process.env.NODE_ENV !== "production" ? {
   search: PropTypes.bool,
   disabled: PropTypes.bool,
   placeholder: PropTypes.string,
+  id: PropTypes.string,
   autoComplete: PropTypes.string,
   autoFocus: PropTypes.bool,
   onChange: PropTypes.func,
@@ -210,6 +221,7 @@ SelectSearch.propTypes = process.env.NODE_ENV !== "production" ? {
   fuse: PropTypes.oneOfType([PropTypes.bool, PropTypes.shape({
     keys: PropTypes.arrayOf(PropTypes.string),
     threshold: PropTypes.number
-  })])
+  })]),
+  emptyMessage: PropTypes.oneOfType([PropTypes.string, PropTypes.func])
 } : {};
-export default memo(SelectSearch);
+export default /*#__PURE__*/memo(SelectSearch);

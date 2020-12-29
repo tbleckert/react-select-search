@@ -79,9 +79,8 @@ export default function useSelect({
     const onSelect = useCallback((id) => {
         setState((prevState) => {
             const { flat: prevFlat, highlighted: prevHighlighted } = prevState;
-            // eslint-disable-next-line no-underscore-dangle
-            const item = (typeof id !== 'undefined') ? prevFlat.find((i) => i._id === id) : prevFlat[prevHighlighted];
-
+            // eslint-disable-next-line eqeqeq
+            const item = (typeof id !== 'undefined') ? prevFlat.find((i) => i.value == id) : prevFlat[prevHighlighted];
             if (!item) {
                 return prevState;
             }
@@ -99,12 +98,13 @@ export default function useSelect({
     }, [multiple]);
 
     const onMouseDown = useCallback((e) => {
-        if (!closeOnSelect) {
-            e.preventDefault();
-        }
+        e.preventDefault();
 
+        if (closeOnSelect && ref.current) {
+            ref.current.blur();
+        }
         onSelect(e.currentTarget.value);
-    }, [onSelect, closeOnSelect, multiple]);
+    }, [onSelect, closeOnSelect]);
 
     const onKeyDown = useCallback((e) => {
         const { key } = e;
@@ -130,7 +130,7 @@ export default function useSelect({
                 onBlur();
             }
         }
-    }, [onSelect, multiple, closeOnSelect, onBlur]);
+    }, [onSelect, closeOnSelect, onBlur, closable]);
 
     const onKeyUp = useCallback(({ key }) => {
         if (key === 'Escape') {
