@@ -38,7 +38,7 @@ export type OptionSnapshot = {
 
 
 export type DomProps = {
-    tabIndex:string
+    tabIndex?:number
     onMouseDown:(event:MouseEvent) => void
     onKeyDown:(event:KeyboardEvent) => void
     onKeyPress:(event:KeyboardEvent) => void
@@ -48,7 +48,7 @@ export type DomProps = {
 }
 
 export type ValueProps = {
-    tabIndex:string
+    tabIndex?:number
     readonly:boolean
     onMouseDown:(event:MouseEvent) => void
     onKeyDown:(event:KeyboardEvent) => void
@@ -84,10 +84,10 @@ export type SelectSearchProps = {
     autoFocus?:boolean
     fuse?:FuseOption|boolean
     className?:((classes:string) => string)|string
-    onChange?:(selectedValue:SelectedOptionValue|SelectedOptionValue[], selectedOption:SelectedOption|SelectedOption[], optionSnapshot:SelectSearchProps) => void
+    onChange?:(selectedValue:string|string[], selectedOption:SelectedOption|SelectedOption[], optionSnapshot:SelectSearchProps) => void
     printOptions?:PrintOptions
     closeOnSelect?:boolean
-    renderOption?:(domProps:DomProps, option:SelectedOption, snapshot:OptionSnapshot, className:string) => React.ReactNode
+    renderOption?:(domProps:DomProps, option:SelectSearchOption, snapshot:OptionSnapshot, className:string) => React.ReactNode
     renderValue?:(valueProps:ValueProps, snapshot:ValueSnapshot, className:string) => React.ReactNode
     renderGroupHeader?:(name:string) => string
     getOptions?: (query:string) => Promise<SelectSearchOption[]>
@@ -104,7 +104,7 @@ export function useSelect(Options: {
     search?:boolean,
     fuse?:FuseOption|boolean,
     options?:SelectSearchOption[],
-    onChange?:(selectedValue:SelectedOptionValue|SelectedOptionValue[], selectedOption:SelectedOption|SelectedOption[], optionSnapshot:SelectSearchProps) => void,
+    onChange?:(selectedValue:string|string[], selectedOption:SelectedOption|SelectedOption[], optionSnapshot:SelectSearchProps) => void,
     getOptions?:(query:string) => Promise<SelectSearchOption[]>,
     allowEmpty?:boolean,
     closeOnSelect?:boolean,
@@ -112,9 +112,9 @@ export function useSelect(Options: {
 }): [
     ValueSnapshot,
     {
-        tabIndex:string;
+        tabIndex?:number;
         readOnly:boolean;
-        onChange:(selectedValue:SelectedOptionValue|SelectedOptionValue[], selectedOption:SelectedOption|SelectedOption[], optionSnapshot:SelectSearchProps) => void;
+        onChange:(selectedValue:string|string[], selectedOption:SelectedOption|SelectedOption[], optionSnapshot:SelectSearchProps) => void;
         disabled:boolean;
         onMouseDown:(event:MouseEvent) => void;
         onKeyDown:(event:KeyboardEvent) => void;
@@ -125,7 +125,7 @@ export function useSelect(Options: {
         ref:React.MutableRefObject<any>;
     },
     {
-        tabIndex:string;
+        tabIndex?:number;
         onMouseDown:(event:MouseEvent) => void;
         onKeyDown:(event:KeyboardEvent) => void;
         onKeyPress:(event:KeyboardEvent) => void;
