@@ -71,7 +71,7 @@ const options = [
 /* Simple example */
 <SelectSearch options={options} value="sv" name="language" placeholder="Choose your language" />
 ```
-For examples you can take a look in the [stories](stories) directory.
+For example, you can take a look in the [stories](stories) directory.
 
 You will also need some CSS to make it look right. Example theme can be found in [style.css](style.css).
 
@@ -122,7 +122,6 @@ Below is all the available options you can pass to the component. Options withou
 | getOptions | function | null | Get options through a function call, can return a promise for async usage. See [get options](#get-options) for more. |
 | filterOptions | function | null | Takes the current options list and should return a function that handles the filtering. Runs after getOptions. See [fuzzySearch.js](src/fuzzySearch.js) for example. |
 | value | string, array | null | The value should be an array if multiple mode. |
-| fuse | object, boolean | true | Use fuse.js to apply fuzzy search on search. Set to true to use default options or pass a fuse.js config option. If `search` is enabled and no `filterOptions` callback is passed, this will be set to `true` automatically. |
 | multiple | boolean | false | Set to true if you want to allow multiple selected options. |
 | search | boolean | false | Set to true to enable search functionality |
 | disabled | boolean | false | Disables all functionality |
