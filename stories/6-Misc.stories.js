@@ -1,7 +1,5 @@
-import React from 'react';
 import SelectSearch from '../src';
 import '../style.css';
-import { countries } from './data';
 
 export default {
   title: 'Misc',

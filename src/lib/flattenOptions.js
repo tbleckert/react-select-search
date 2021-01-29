@@ -14,14 +14,13 @@ export default function flattenOptions(options) {
                     ...groupOption,
                     groupId: id,
                     groupName: option.name,
-                    _id: `${groupOption.value}`,
                 });
             });
 
             return;
         }
 
-        nextOptions.push({ ...option, _id: `${option.value}`, index });
+        nextOptions.push({ ...option, index });
     });
 
     return nextOptions;

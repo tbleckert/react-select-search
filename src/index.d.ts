@@ -1,13 +1,14 @@
-import React from 'react'
-
-export type FuseOption = {
-    keys:string[]
-    threshold:number
-}
+import {
+    FunctionComponent,
+    Component,
+    Ref,
+    ReactNode,
+    MutableRefObject,
+} from 'react'
 
 export type SelectSearchOption = {
     name:string
-    value:string
+    value:string|number
     type?:string
     items?:SelectSearchOption[]
     disabled?:boolean
@@ -16,7 +17,7 @@ export type SelectSearchOption = {
 
 export type SelectedOptionValue = {
     name:string
-    value:string
+    value:string|number
     index:number
     photo?:string
     disabled?:boolean
@@ -82,30 +83,30 @@ export type SelectSearchProps = {
     id?:string
     autoComplete?:'on'|'off'
     autoFocus?:boolean
-    fuse?:FuseOption|boolean
     className?:((classes:string) => string)|string
     onChange?:(selectedValue:SelectedOptionValue|SelectedOptionValue[], selectedOption:SelectedOption|SelectedOption[], optionSnapshot:SelectSearchProps) => void
     printOptions?:PrintOptions
     closeOnSelect?:boolean
-    renderOption?:(domProps:DomProps, option:SelectedOption, snapshot:OptionSnapshot, className:string) => React.ReactNode
-    renderValue?:(valueProps:ValueProps, snapshot:ValueSnapshot, className:string) => React.ReactNode
+    renderOption?:(domProps:DomProps, option:SelectedOption, snapshot:OptionSnapshot, className:string) => ReactNode
+    filterOptions?:(options: SelectSearchOption[]) => (query:string) => SelectSearchOption[],
+    renderValue?:(valueProps:ValueProps, snapshot:ValueSnapshot, className:string) => ReactNode
     renderGroupHeader?:(name:string) => string
     getOptions?: (query:string) => Promise<SelectSearchOption[]>
-    ref?:React.Ref<React.Component>
+    ref?:Ref<Component>
 }
 
 
-export const SelectSearch:React.FunctionComponent<SelectSearchProps>
+export const SelectSearch:FunctionComponent<SelectSearchProps>
 
 export function useSelect(Options: {
     value?:string|string[],
     disabled?:boolean,
     multiple?:boolean,
     search?:boolean,
-    fuse?:FuseOption|boolean,
     options?:SelectSearchOption[],
     onChange?:(selectedValue:SelectedOptionValue|SelectedOptionValue[], selectedOption:SelectedOption|SelectedOption[], optionSnapshot:SelectSearchProps) => void,
     getOptions?:(query:string) => Promise<SelectSearchOption[]>,
+    filterOptions?:(options: SelectSearchOption[]) => (query:string) => SelectSearchOption[],
     allowEmpty?:boolean,
     closeOnSelect?:boolean,
     closable?:boolean,
@@ -122,7 +123,7 @@ export function useSelect(Options: {
         onKeyPress:(event:KeyboardEvent) => void;
         onBlur:() => void;
         onFocus:() => void;
-        ref:React.MutableRefObject<any>;
+        ref:MutableRefObject<any>;
     },
     {
         tabIndex:string;
@@ -133,5 +134,7 @@ export function useSelect(Options: {
     },
     (value:string) => void
 ]
+
+export function fuzzySearch(options: SelectSearchOption[]): (query:string) => SelectSearchOption[]
 
 export default SelectSearch

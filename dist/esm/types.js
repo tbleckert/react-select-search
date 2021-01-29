@@ -8,5 +8,4 @@ export const optionType = PropTypes.oneOfType([option, PropTypes.shape({
   type: PropTypes.string.isRequired,
   items: PropTypes.arrayOf(option)
 })]);
-export const valueType = PropTypes.oneOfType([PropTypes.object, PropTypes.arrayOf(PropTypes.object)]);
-export const classNameType = PropTypes.oneOfType([PropTypes.string, PropTypes.func]);
+export const valueType = PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number]))]);

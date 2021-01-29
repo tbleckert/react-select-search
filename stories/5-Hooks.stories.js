@@ -1,4 +1,3 @@
-import React, { useMemo, useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import classes from './assets/hooks.module.css';
 import useSelect from '../src/useSelect';
@@ -17,13 +16,19 @@ const classNames = {
     exit: classes.exit,
     exitActive: classes['exit-active'],
     exitDone: classes['exit-done'],
-}
+};
+
+const options = [
+    { value: 's', name: 'Small' },
+    { value: 'm', name: 'Medium' },
+    { value: 'l', name: 'Large' },
+];
 
 const CustomSelect = ({ options, value }) => {
     const [snapshot, valueProps, optionProps] = useSelect({
         options,
-        value: null,
-        allowEmpty: false,
+        value,
+        allowEmpty: false
     });
 
     return (
@@ -37,7 +42,7 @@ const CustomSelect = ({ options, value }) => {
                                 key={option.value}
                                 {...optionProps}
                                 value={option.value}
-                                className={[classes.option, (snapshot.value.value === option.value) ? classes['is-selected'] : null].filter(Boolean).join(' ')}
+                                className={[classes.option, (snapshot.value === option.value) ? classes['is-selected'] : null].filter(Boolean).join(' ')}
                             >
                                 {option.name}
                             </button>
@@ -50,11 +55,5 @@ const CustomSelect = ({ options, value }) => {
 }
 
 export const CustomComponents = () => {
-    const options = [
-        { value: 's', name: 'Small' },
-        { value: 'm', name: 'Medium' },
-        { value: 'l', name: 'Large' },
-    ];
-
     return <CustomSelect options={options} value={null} />;
 };

@@ -1,24 +1,50 @@
 {
-  "parser": "babel-eslint",
-  "extends": "airbnb",
-  "plugins": [
-    "react-hooks"
-  ],
-  "env": {
-    "browser": true,
-    "node": true
-  },
-  "rules": {
-    "indent": ["error", 4],
-    "react/jsx-indent": ["error", 4],
-    "react/jsx-indent-props": ["error", 4],
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-    "react/jsx-props-no-spreading": 0,
-    "import/no-unresolved": [2, {"ignore": ["src/"]}],
-    "jsx-a11y/click-events-have-key-events": 0,
-    "no-mixed-operators": 0,
-    "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "warn",
-    "jsx-a11y/no-autofocus": 0
-  }
+    "parser": "babel-eslint",
+    "extends": "airbnb",
+    "plugins": [
+        "react-hooks"
+    ],
+    "env": {
+        "browser": true,
+        "node": true
+    },
+    "rules": {
+        "indent": [
+            "error",
+            4
+        ],
+        "react/jsx-indent": [
+            "error",
+            4
+        ],
+        "react/jsx-indent-props": [
+            "error",
+            4
+        ],
+        "react/jsx-filename-extension": [
+            1,
+            {
+                "extensions": [
+                    ".js",
+                    ".jsx"
+                ]
+            }
+        ],
+        "react/jsx-props-no-spreading": 0,
+        "import/no-unresolved": [
+            2,
+            {
+                "ignore": [
+                    "src/"
+                ]
+            }
+        ],
+        "jsx-a11y/click-events-have-key-events": 0,
+        "no-mixed-operators": 0,
+        "react-hooks/rules-of-hooks": "error",
+        "react-hooks/exhaustive-deps": "warn",
+        "jsx-a11y/no-autofocus": 0,
+        "react/jsx-uses-react": "off",
+        "react/react-in-jsx-scope": "off"
+    }
 }
