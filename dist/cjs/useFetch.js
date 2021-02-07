@@ -27,13 +27,15 @@ function useFetch(q, defaultOptions, _ref) {
       setOptions = _useState2[1];
 
   var fetch = (0, _react.useMemo)(function () {
-    var filter = filterOptions ? filterOptions(defaultOptions) : function () {
-      return defaultOptions;
+    var filter = filterOptions || function (op) {
+      return function () {
+        return op;
+      };
     };
 
     if (!getOptions) {
       return function (s) {
-        return setOptions((0, _flattenOptions["default"])(filter(s)));
+        return setOptions((0, _flattenOptions["default"])(filter(defaultOptions)(s)));
       };
     }
 
@@ -41,11 +43,7 @@ function useFetch(q, defaultOptions, _ref) {
       var optionsReq = getOptions(s, defaultOptions);
       setFetching(true);
       Promise.resolve(optionsReq).then(function (newOptions) {
-        if (filterOptions) {
-          setOptions((0, _flattenOptions["default"])(filterOptions(newOptions)(s)));
-        } else {
-          setOptions((0, _flattenOptions["default"])(newOptions));
-        }
+        setOptions((0, _flattenOptions["default"])(filter(newOptions)(s)));
       })["finally"](function () {
         return setFetching(false);
       });

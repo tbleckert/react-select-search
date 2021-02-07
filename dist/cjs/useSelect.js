@@ -7,8 +7,6 @@ var _react = require("react");
 
 var _groupOptions = _interopRequireDefault(require("./lib/groupOptions"));
 
-var _highlightReducer = _interopRequireDefault(require("./highlightReducer"));
-
 var _getOptions = _interopRequireDefault(require("./lib/getOptions"));
 
 var _getDisplayValue = _interopRequireDefault(require("./lib/getDisplayValue"));
@@ -17,7 +15,11 @@ var _useFetch2 = _interopRequireDefault(require("./useFetch"));
 
 var _getValues = _interopRequireDefault(require("./lib/getValues"));
 
+var _useHighlight2 = _interopRequireDefault(require("./useHighlight"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
 function useSelect(_ref) {
   var _ref$value = _ref.value,
@@ -39,12 +41,11 @@ function useSelect(_ref) {
       _ref$onChange = _ref.onChange,
       onChange = _ref$onChange === void 0 ? function () {} : _ref$onChange,
       _ref$onFocus = _ref.onFocus,
-      _onFocus = _ref$onFocus === void 0 ? function () {} : _ref$onFocus,
+      onFocus = _ref$onFocus === void 0 ? function () {} : _ref$onFocus,
       _ref$onBlur = _ref.onBlur,
-      _onBlur = _ref$onBlur === void 0 ? function () {} : _ref$onBlur,
+      onBlur = _ref$onBlur === void 0 ? function () {} : _ref$onBlur,
       _ref$debounce = _ref.debounce,
       debounce = _ref$debounce === void 0 ? 0 : _ref$debounce;
-
   var ref = (0, _react.useRef)(null);
   var valueRef = (0, _react.useRef)(undefined);
 
@@ -60,10 +61,6 @@ function useSelect(_ref) {
       focus = _useState3[0],
       setFocus = _useState3[1];
 
-  var _useReducer = (0, _react.useReducer)(_highlightReducer["default"], -1),
-      highlighted = _useReducer[0],
-      dispatchHighlighted = _useReducer[1];
-
   var _useFetch = (0, _useFetch2["default"])(search, defaultOptions, {
     getOptions: getOptionsFn,
     filterOptions: filterOptions,
@@ -71,6 +68,20 @@ function useSelect(_ref) {
   }),
       options = _useFetch.options,
       fetching = _useFetch.fetching;
+
+  var onSelect = (0, _react.useCallback)(function (newValue) {
+    var newOption = (0, _getOptions["default"])(newValue, value, Array.isArray(value) ? [].concat(value, options) : options, multiple);
+    setValue(newOption);
+    onChange((0, _getValues["default"])(newOption), newOption);
+
+    if (closeOnSelect) {
+      ref.current.blur();
+    }
+  }, [closeOnSelect, multiple, onChange, value, options]);
+
+  var _useHighlight = (0, _useHighlight2["default"])(-1, options, onSelect, ref),
+      highlighted = _useHighlight[0],
+      keyboardEvents = _useHighlight[1];
 
   var snapshot = (0, _react.useMemo)(function () {
     return {
@@ -85,75 +96,34 @@ function useSelect(_ref) {
       disabled: disabled
     };
   }, [disabled, fetching, focus, highlighted, search, value, options]);
-  var onSelect = (0, _react.useCallback)(function (newValue) {
-    var newOption = (0, _getOptions["default"])(newValue, value, Array.isArray(value) ? [].concat(value, options) : options, multiple);
-    setValue(newOption);
-    onChange((0, _getValues["default"])(newOption), newOption);
-
-    if (closeOnSelect) {
-      ref.current.blur();
-    }
-  }, [closeOnSelect, multiple, onChange, value, options]);
   var onMouseDown = (0, _react.useCallback)(function (e) {
     e.preventDefault();
     onSelect(e.currentTarget.value);
   }, [onSelect]);
-  var onKeyDown = (0, _react.useCallback)(function (e) {
-    var key = e.key;
-
-    if (['ArrowDown', 'ArrowUp'].includes(key)) {
-      e.preventDefault();
-      dispatchHighlighted({
-        key: key,
-        options: options
-      });
-    }
-  }, [options]);
-  var onKeyPress = (0, _react.useCallback)(function (e) {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      var selected = options[highlighted];
-
-      if (selected) {
-        onSelect(selected.value);
-      }
-
-      if (closeOnSelect) {
-        ref.current.blur();
-      }
-    }
-  }, [options, highlighted, closeOnSelect, onSelect]);
+  var onFocusCb = (0, _react.useCallback)(function (e) {
+    setFocus(true);
+    onFocus(e);
+  }, [onFocus]);
+  var onBlurCb = (0, _react.useCallback)(function (e) {
+    setFocus(false);
+    setSearch('');
+    onBlur(e);
+  }, [onBlur]);
   var valueProps = (0, _react.useMemo)(function () {
-    return {
+    return _extends({
       tabIndex: '0',
-      readOnly: !canSearch,
-      onFocus: function onFocus(e) {
-        setFocus(true);
-
-        _onFocus(e);
-      },
-      onBlur: function onBlur(e) {
-        setFocus(false);
-        setSearch('');
-
-        _onBlur(e);
-      },
-      onKeyPress: onKeyPress,
-      onKeyDown: onKeyDown,
-      onKeyUp: function onKeyUp(e) {
-        if (e.key === 'Escape') {
-          e.preventDefault();
-          ref.current.blur();
-        }
-      },
+      readOnly: !canSearch
+    }, keyboardEvents, {
+      onFocus: onFocusCb,
+      onBlur: onBlurCb,
       onChange: canSearch ? function (_ref2) {
         var target = _ref2.target;
         return setSearch(target.value);
       } : null,
       disabled: disabled,
       ref: ref
-    };
-  }, [canSearch, _onFocus, _onBlur, onKeyPress, onKeyDown, disabled, ref]);
+    });
+  }, [canSearch, keyboardEvents, onFocusCb, onBlurCb, disabled]);
   var optionProps = (0, _react.useMemo)(function () {
     return {
       tabIndex: '-1',

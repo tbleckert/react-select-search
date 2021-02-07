@@ -10,10 +10,10 @@ export default function useFetch(q, defaultOptions, {
     const [fetching, setFetching] = useState(false);
     const [options, setOptions] = useState(() => flattenOptions(defaultOptions));
     const fetch = useMemo(() => {
-        const filter = (filterOptions) ? filterOptions(defaultOptions) : () => defaultOptions;
+        const filter = filterOptions || ((op) => () => op);
 
         if (!getOptions) {
-            return (s) => setOptions(flattenOptions(filter(s)));
+            return (s) => setOptions(flattenOptions(filter(defaultOptions)(s)));
         }
 
         return debounce((s) => {
@@ -23,11 +23,7 @@ export default function useFetch(q, defaultOptions, {
 
             Promise.resolve(optionsReq)
                 .then((newOptions) => {
-                    if (filterOptions) {
-                        setOptions(flattenOptions(filterOptions(newOptions)(s)));
-                    } else {
-                        setOptions(flattenOptions(newOptions));
-                    }
+                    setOptions(flattenOptions(filter(newOptions)(s)));
                 })
                 .finally(() => setFetching(false));
         }, debounceTime);

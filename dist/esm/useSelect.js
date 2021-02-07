@@ -1,10 +1,12 @@
-import { useEffect, useMemo, useState, useReducer, useRef, useCallback } from 'react';
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+import { useEffect, useMemo, useState, useRef, useCallback } from 'react';
 import groupOptions from './lib/groupOptions';
-import highlightReducer from './highlightReducer';
 import getOptions from './lib/getOptions';
 import getDisplayValue from './lib/getDisplayValue';
 import useFetch from './useFetch';
 import getValues from './lib/getValues';
+import useHighlight from './useHighlight';
 export default function useSelect({
   value: defaultValue = null,
   options: defaultOptions = [],
@@ -24,7 +26,6 @@ export default function useSelect({
   const [value, setValue] = useState(null);
   const [search, setSearch] = useState('');
   const [focus, setFocus] = useState(false);
-  const [highlighted, dispatchHighlighted] = useReducer(highlightReducer, -1);
   const {
     options,
     fetching
@@ -33,6 +34,16 @@ export default function useSelect({
     filterOptions,
     debounceTime: debounce
   });
+  const onSelect = useCallback(newValue => {
+    const newOption = getOptions(newValue, value, Array.isArray(value) ? [...value, ...options] : options, multiple);
+    setValue(newOption);
+    onChange(getValues(newOption), newOption);
+
+    if (closeOnSelect) {
+      ref.current.blur();
+    }
+  }, [closeOnSelect, multiple, onChange, value, options]);
+  const [highlighted, keyboardEvents] = useHighlight(-1, options, onSelect, ref);
   const snapshot = useMemo(() => ({
     options: groupOptions(options),
     option: value,
@@ -44,72 +55,31 @@ export default function useSelect({
     highlighted,
     disabled
   }), [disabled, fetching, focus, highlighted, search, value, options]);
-  const onSelect = useCallback(newValue => {
-    const newOption = getOptions(newValue, value, Array.isArray(value) ? [...value, ...options] : options, multiple);
-    setValue(newOption);
-    onChange(getValues(newOption), newOption);
-
-    if (closeOnSelect) {
-      ref.current.blur();
-    }
-  }, [closeOnSelect, multiple, onChange, value, options]);
   const onMouseDown = useCallback(e => {
     e.preventDefault();
     onSelect(e.currentTarget.value);
   }, [onSelect]);
-  const onKeyDown = useCallback(e => {
-    const {
-      key
-    } = e;
-
-    if (['ArrowDown', 'ArrowUp'].includes(key)) {
-      e.preventDefault();
-      dispatchHighlighted({
-        key,
-        options
-      });
-    }
-  }, [options]);
-  const onKeyPress = useCallback(e => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      const selected = options[highlighted];
-
-      if (selected) {
-        onSelect(selected.value);
-      }
-
-      if (closeOnSelect) {
-        ref.current.blur();
-      }
-    }
-  }, [options, highlighted, closeOnSelect, onSelect]);
-  const valueProps = useMemo(() => ({
+  const onFocusCb = useCallback(e => {
+    setFocus(true);
+    onFocus(e);
+  }, [onFocus]);
+  const onBlurCb = useCallback(e => {
+    setFocus(false);
+    setSearch('');
+    onBlur(e);
+  }, [onBlur]);
+  const valueProps = useMemo(() => _extends({
     tabIndex: '0',
-    readOnly: !canSearch,
-    onFocus: e => {
-      setFocus(true);
-      onFocus(e);
-    },
-    onBlur: e => {
-      setFocus(false);
-      setSearch('');
-      onBlur(e);
-    },
-    onKeyPress,
-    onKeyDown,
-    onKeyUp: e => {
-      if (e.key === 'Escape') {
-        e.preventDefault();
-        ref.current.blur();
-      }
-    },
+    readOnly: !canSearch
+  }, keyboardEvents, {
+    onFocus: onFocusCb,
+    onBlur: onBlurCb,
     onChange: canSearch ? ({
       target
     }) => setSearch(target.value) : null,
     disabled,
     ref
-  }), [canSearch, onFocus, onBlur, onKeyPress, onKeyDown, disabled, ref]);
+  }), [canSearch, keyboardEvents, onFocusCb, onBlurCb, disabled]);
   const optionProps = useMemo(() => ({
     tabIndex: '-1',
     onMouseDown
