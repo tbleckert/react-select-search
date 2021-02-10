@@ -20,5 +20,5 @@ function flattenOptions(options) {
     return _extends({}, option, {
       index: i
     });
-  }).flat();
+  }).reduce((a, b) => a.concat(b), []);
 }
