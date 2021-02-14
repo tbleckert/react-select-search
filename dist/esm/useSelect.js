@@ -22,7 +22,6 @@ export default function useSelect({
   debounce = 0
 }) {
   const ref = useRef(null);
-  const valueRef = useRef(undefined);
   const [value, setValue] = useState(null);
   const [search, setSearch] = useState('');
   const [focus, setFocus] = useState(false);
@@ -85,11 +84,6 @@ export default function useSelect({
     onMouseDown
   }), [onMouseDown]);
   useEffect(() => {
-    if (valueRef.current === defaultValue) {
-      return;
-    }
-
-    valueRef.current = defaultValue;
     setValue(getOptions(defaultValue, null, options, multiple));
   }, [defaultValue, multiple, options]);
   return [snapshot, valueProps, optionProps, setValue];
