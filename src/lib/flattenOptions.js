@@ -11,5 +11,5 @@ export default function flattenOptions(options) {
         }
 
         return { ...option, index: i };
-    }).flat();
+    }).reduce((a, b) => a.concat(b), []);
 }
