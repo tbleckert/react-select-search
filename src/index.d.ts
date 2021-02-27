@@ -93,6 +93,7 @@ export type SelectSearchProps = {
     renderGroupHeader?:(name:string) => string
     getOptions?: (query:string) => Promise<SelectSearchOption[]>
     ref?:Ref<Component>
+    emptyMessage?:string
 }
 
 
