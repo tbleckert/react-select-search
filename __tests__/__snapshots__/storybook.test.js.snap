@@ -988,6 +988,34 @@ exports[`Storyshots Multiple select Default Value 1`] = `
 </div>
 `;
 
+exports[`Storyshots Multiple select Disabled 1`] = `
+<div
+  className="select-search select-search--multiple is-disabled"
+  id={null}
+>
+  <div
+    className="select-search__value"
+  >
+    <input
+      autoComplete="on"
+      autoFocus={false}
+      className="select-search__input"
+      disabled={true}
+      onBlur={[Function]}
+      onChange={null}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyPress={[Function]}
+      onKeyUp={[Function]}
+      placeholder="Select your item"
+      readOnly={true}
+      tabIndex="0"
+      value=""
+    />
+  </div>
+</div>
+`;
+
 exports[`Storyshots Multiple select Group 1`] = `
 <div
   className="select-search"
