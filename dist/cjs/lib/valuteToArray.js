@@ -8,5 +8,5 @@ function valueToArray(value) {
     return [];
   }
 
-  return !Array.isArray(value) ? [value] : value;
+  return !Array.isArray(value) ? [value] : [].concat(value);
 }
