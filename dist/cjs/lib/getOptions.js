@@ -10,32 +10,35 @@ var _getOption = _interopRequireDefault(require("./getOption"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function getOptions(value, oldValue, options, multiple) {
-  var newOption = (0, _getOption["default"])(value, options);
-
   if (!multiple) {
-    return newOption || oldValue;
+    return (0, _getOption["default"])(value, options) || oldValue;
   }
 
-  var newOptions = (0, _valuteToArray["default"])(oldValue).map(function (o) {
+  var oldOptions = (0, _valuteToArray["default"])(oldValue);
+  var newOptions = (0, _valuteToArray["default"])(value).map(function (o) {
     return (0, _getOption["default"])(o, options);
   }).filter(function (o) {
     return o !== null && o !== undefined;
   });
 
-  if (!newOption) {
+  if (!oldOptions.length) {
     return newOptions;
-  } // eslint-disable-next-line eqeqeq
-
-
-  var optionIndex = newOptions.findIndex(function (o) {
-    return o.value == newOption.value;
-  });
-
-  if (optionIndex >= 0) {
-    newOptions.splice(optionIndex, 1);
-  } else {
-    newOptions.push(newOption);
   }
 
-  return newOptions;
+  if (!newOptions.length) {
+    return oldOptions;
+  }
+
+  newOptions.forEach(function (newOption) {
+    var optionIndex = oldOptions.findIndex(function (o) {
+      return o.value == newOption.value;
+    });
+
+    if (optionIndex >= 0) {
+      oldOptions.splice(optionIndex, 1);
+    } else {
+      oldOptions.push(newOption);
+    }
+  });
+  return oldOptions;
 }

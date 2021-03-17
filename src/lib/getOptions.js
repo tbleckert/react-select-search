@@ -2,28 +2,32 @@ import valueToArray from './valuteToArray';
 import getOption from './getOption';
 
 export default function getOptions(value, oldValue, options, multiple) {
-    const newOption = getOption(value, options);
-
     if (!multiple) {
-        return newOption || oldValue;
+        return getOption(value, options) || oldValue;
     }
 
-    const newOptions = valueToArray(oldValue)
+    const oldOptions = valueToArray(oldValue);
+    const newOptions = valueToArray(value)
         .map((o) => getOption(o, options))
         .filter((o) => o !== null && o !== undefined);
 
-    if (!newOption) {
+    if (!oldOptions.length) {
         return newOptions;
     }
 
-    // eslint-disable-next-line eqeqeq
-    const optionIndex = newOptions.findIndex((o) => o.value == newOption.value);
-
-    if (optionIndex >= 0) {
-        newOptions.splice(optionIndex, 1);
-    } else {
-        newOptions.push(newOption);
+    if (!newOptions.length) {
+        return oldOptions;
     }
 
-    return newOptions;
+    newOptions.forEach((newOption) => {
+        const optionIndex = oldOptions.findIndex((o) => o.value == newOption.value);
+
+        if (optionIndex >= 0) {
+            oldOptions.splice(optionIndex, 1);
+        } else {
+            oldOptions.push(newOption);
+        }
+    });
+
+    return oldOptions;
 }
