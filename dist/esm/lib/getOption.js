@@ -4,7 +4,26 @@ export default function getOption(value, options) {
     return value;
   }
 
-  const newValue = value === null && options.length ? options[0].value : value; // eslint-disable-next-line eqeqeq
+  let newValue = value;
+
+  if (newValue === null && options.length) {
+    let i = 0;
+    let defaultOption = options[0];
+
+    while (defaultOption && defaultOption.disabled) {
+      if (options.length < i) {
+        defaultOption = false;
+      }
+
+      i += 1;
+      defaultOption = options[i];
+    }
+
+    if (defaultOption) {
+      newValue = defaultOption.value;
+    }
+  } // eslint-disable-next-line eqeqeq
+
 
   return options.find(o => o.value == newValue);
 }

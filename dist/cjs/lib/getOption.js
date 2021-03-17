@@ -12,7 +12,26 @@ function getOption(value, options) {
     return value;
   }
 
-  var newValue = value === null && options.length ? options[0].value : value; // eslint-disable-next-line eqeqeq
+  var newValue = value;
+
+  if (newValue === null && options.length) {
+    var i = 0;
+    var defaultOption = options[0];
+
+    while (defaultOption && defaultOption.disabled) {
+      if (options.length < i) {
+        defaultOption = false;
+      }
+
+      i += 1;
+      defaultOption = options[i];
+    }
+
+    if (defaultOption) {
+      newValue = defaultOption.value;
+    }
+  } // eslint-disable-next-line eqeqeq
+
 
   return options.find(function (o) {
     return o.value == newValue;

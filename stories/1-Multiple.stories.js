@@ -31,6 +31,20 @@ export const DefaultValue = () => (
     />
 );
 
+export const Disabled = () => (
+    <SelectSearch
+        className="select-search select-search--multiple"
+        disabled
+        options={[
+            { value: 'hamburger', name: 'Hamburger', disabled: true },
+            { value: 'fries', name: 'Fries' },
+            { value: 'milkshake', name: 'Milkshake' },
+        ]}
+        placeholder="Select your item"
+        multiple
+    />
+);
+
 export const WithPlaceholder = () => (
     <SelectSearch
         className="select-search select-search--multiple"

@@ -42,7 +42,7 @@ Default.args = {
     printOptions: 'auto',
     placeholder: null,
     options: [
-        { value: 's', name: 'Small' },
+        { value: 's', name: 'Small', disabled: true },
         { value: 'm', name: 'Medium' },
         { value: 'l', name: 'Large' },
     ],
