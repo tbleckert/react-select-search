@@ -4,7 +4,7 @@
 
 <p align="center">
     <a href="https://www.npmjs.com/package/react-select-search">
-        <img src="https://travis-ci.org/tbleckert/react-select-search.svg?branch=master" style="max-width:100%;" />
+        <img src="https://travis-ci.org/tbleckert/react-select-search.svg?branch=main" style="max-width:100%;" />
     </a>
     <a href='https://coveralls.io/github/tbleckert/react-select-search'>
         <img src='https://coveralls.io/repos/github/tbleckert/react-select-search/badge.svg' alt='Coverage Status' />
