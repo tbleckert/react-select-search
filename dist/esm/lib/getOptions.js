@@ -2,7 +2,13 @@ import valueToArray from './valuteToArray';
 import getOption from './getOption';
 export default function getOptions(value, oldValue, options, multiple) {
   if (!multiple) {
-    return getOption(value, options) || oldValue;
+    const newOption = getOption(value, options);
+
+    if (newOption) {
+      return newOption;
+    }
+
+    return oldValue;
   }
 
   const oldOptions = valueToArray(oldValue);

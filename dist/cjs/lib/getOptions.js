@@ -11,7 +11,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 
 function getOptions(value, oldValue, options, multiple) {
   if (!multiple) {
-    return (0, _getOption["default"])(value, options) || oldValue;
+    var newOption = (0, _getOption["default"])(value, options);
+
+    if (newOption) {
+      return newOption;
+    }
+
+    return oldValue;
   }
 
   var oldOptions = (0, _valuteToArray["default"])(oldValue);

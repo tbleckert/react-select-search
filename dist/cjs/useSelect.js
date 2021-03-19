@@ -47,6 +47,7 @@ function useSelect(_ref) {
       _ref$debounce = _ref.debounce,
       debounce = _ref$debounce === void 0 ? 0 : _ref$debounce;
   var ref = (0, _react.useRef)(null);
+  var valueRef = (0, _react.useRef)(undefined);
 
   var _useState = (0, _react.useState)(null),
       value = _useState[0],
@@ -130,6 +131,11 @@ function useSelect(_ref) {
     };
   }, [onMouseDown]);
   (0, _react.useEffect)(function () {
+    if (valueRef.current === defaultValue) {
+      return;
+    }
+
+    valueRef.current = defaultValue;
     setValue((0, _getOptions["default"])(defaultValue, null, options, multiple));
   }, [defaultValue, multiple, options]);
   return [snapshot, valueProps, optionProps, setValue];
