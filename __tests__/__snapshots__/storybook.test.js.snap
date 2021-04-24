@@ -603,13 +603,13 @@ exports[`Storyshots Custom Font Example 1`] = `
       className="select-search__input"
       disabled={false}
       onBlur={[Function]}
-      onChange={null}
+      onChange={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyPress={[Function]}
       onKeyUp={[Function]}
       placeholder={null}
-      readOnly={true}
+      readOnly={false}
       style={
         Object {
           "fontFamily": null,
