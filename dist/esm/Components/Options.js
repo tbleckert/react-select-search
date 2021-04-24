@@ -1,8 +1,8 @@
-import { jsx as _jsx } from "react/jsx-runtime";
 import { memo, useCallback, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { optionType, valueType } from '../types';
 import OptionsList from './OptionsList';
+import { jsx as _jsx } from "react/jsx-runtime";
 
 const Options = ({
   options,
@@ -37,7 +37,7 @@ const Options = ({
       return;
     }
 
-    const query = highlighted > -1 ? "[data-index=\"" + highlighted + "\"]" : "[data-value=\"" + escape(value) + "\"]";
+    const query = highlighted > -1 ? `[data-index="${highlighted}"]` : `[data-value="${escape(value)}"]`;
     const selected = current.querySelector(query);
 
     if (selected) {

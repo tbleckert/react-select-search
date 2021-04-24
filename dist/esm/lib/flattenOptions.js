@@ -3,7 +3,7 @@ function _extends() { _extends = Object.assign || function (target) { for (var i
 export default function flattenOptions(options) {
   return options.map((option, i) => {
     if (option.type === 'group') {
-      const id = option.name.replace(/\s+/g, '-').toLowerCase() + "-" + i;
+      const id = `${option.name.replace(/\s+/g, '-').toLowerCase()}-${i}`;
       return option.items.map(item => _extends({}, item, {
         groupId: id,
         groupName: option.name

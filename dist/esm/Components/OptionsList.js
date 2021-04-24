@@ -1,10 +1,10 @@
-import { jsxs as _jsxs } from "react/jsx-runtime";
-import { jsx as _jsx } from "react/jsx-runtime";
 import { memo } from 'react';
 import PropTypes from 'prop-types';
 import Option from './Option';
 import isSelected from '../lib/isSelected';
 import { optionType } from '../types';
+import { jsx as _jsx } from "react/jsx-runtime";
+import { jsxs as _jsxs } from "react/jsx-runtime";
 
 const OptionsList = ({
   options,

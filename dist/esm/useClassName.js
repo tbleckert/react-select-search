@@ -13,6 +13,6 @@ export default function useClassName(className) {
       return key;
     }
 
-    return className.split(' ')[0] + "__" + key;
+    return `${className.split(' ')[0]}__${key}`;
   }, [className]);
 }
