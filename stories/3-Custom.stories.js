@@ -11,11 +11,13 @@ export default {
 function renderFontValue(valueProps, snapshot, className) {
     const { option } = snapshot;
     const style = {
-        fontFamily: (option && 'stack' in option) ? option.stack : null,
+        fontFamily: (!snapshot.focus && option && 'stack' in option) ? option.stack : null,
     };
 
+    const inputVal = (snapshot.focus) ? snapshot.search : snapshot.displayValue;
+
     return (
-        <input {...valueProps} className={className} style={style} value={snapshot.displayValue} />
+        <input {...valueProps} className={className} style={style} value={inputVal} />
     );
 }
 
@@ -46,6 +48,8 @@ export const FontExample = () => (
         options={fontStacks}
         renderValue={renderFontValue}
         renderOption={renderFontOption}
+        search
+        filterOptions={fuzzySearch}
         value="Monoton"
     />
 );

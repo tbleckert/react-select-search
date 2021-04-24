@@ -10,7 +10,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 // eslint-disable-next-line import/no-extraneous-dependencies
 function fuzzySearch(options) {
   var fuse = new _fuse["default"](options, {
-    keys: ['name', 'groupName'],
+    keys: ['name', 'groupName', 'items.name'],
     threshold: 0.3
   });
   return function (value) {
