@@ -24,7 +24,7 @@ const SelectSearch = forwardRef(({
     onBlur,
     printOptions,
     closeOnSelect,
-    className,
+    className = 'select-search',
     renderValue,
     renderOption,
     renderGroupHeader,
