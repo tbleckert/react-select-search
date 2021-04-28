@@ -132,7 +132,7 @@ Below is all the available options you can pass to the component. Options withou
 | id | string | null | HTML ID on the top level element. |
 | autoComplete | string, on/off | off | Disables/Enables autoComplete functionality in search field. |
 | autoFocus | boolean | false | Autofocus on select |
-| className | string, function | select-search-box | Set a base class string or pass a function for complete control. Se [custom classNames](#custom-class-names) for more. |
+| className | string, function | select-search | Set a base class string or pass a function for complete control. Se [custom classNames](#custom-class-names) for more. |
 | renderOption | function | null | Function that renders the options. See [custom renderers](#custom-renderers) for more. |
 | renderGroupHeader | function | null | Function that renders the group header. See [custom renderers](#custom-renderers) for more. |
 | renderValue | function | null | Function that renders the value/search field. See [custom renderers](#custom-renderers) for more. |
