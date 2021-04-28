@@ -193,7 +193,7 @@ The optionSnapshot is an object that contains the object state: `{ selected: boo
 
 ## Get options
 
-You can fetch options asynchronously with the `getOptions` property. You can either return options directly or through a `Promise`.
+You can fetch options asynchronously with the `getOptions` property. You can either return options directly or through a `Promise`. If a falsy value is returned, options will still be controlled by the `options` prop.
 
 ```jsx
 function getOptions(query) {
