@@ -94,7 +94,7 @@ export type SelectSearchProps = {
     getOptions?: (query:string) => Promise<SelectSearchOption[]>
     debounce?: number
     ref?:Ref<Component>
-    emptyMessage?:string
+    emptyMessage?:string|(() =>string)
 }
 
 
