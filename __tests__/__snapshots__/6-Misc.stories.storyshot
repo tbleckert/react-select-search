@@ -1,0 +1,92 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots Misc Form 1`] = `
+Array [
+  <div
+    style={
+      Object {
+        "marginBottom": "16px",
+      }
+    }
+  >
+    <div
+      className="select-search"
+      id={null}
+    >
+      <div
+        className="select-search__value"
+      >
+        <input
+          autoComplete="on"
+          autoFocus={false}
+          className="select-search__input"
+          disabled={false}
+          onBlur={[Function]}
+          onChange={null}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onKeyPress={[Function]}
+          onKeyUp={[Function]}
+          placeholder="Select your items"
+          readOnly={true}
+          tabIndex="0"
+          value=""
+        />
+      </div>
+    </div>
+  </div>,
+  <div
+    className="select-search"
+    id={null}
+  >
+    <div
+      className="select-search__value"
+    >
+      <input
+        autoComplete="on"
+        autoFocus={false}
+        className="select-search__input"
+        disabled={false}
+        onBlur={[Function]}
+        onChange={null}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyPress={[Function]}
+        onKeyUp={[Function]}
+        placeholder={null}
+        readOnly={true}
+        tabIndex="0"
+        value="Small"
+      />
+    </div>
+  </div>,
+]
+`;
+
+exports[`Storyshots Misc Numeric Values 1`] = `
+<div
+  className="select-search"
+  id={null}
+>
+  <div
+    className="select-search__value"
+  >
+    <input
+      autoComplete="on"
+      autoFocus={false}
+      className="select-search__input"
+      disabled={false}
+      onBlur={[Function]}
+      onChange={null}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyPress={[Function]}
+      onKeyUp={[Function]}
+      placeholder={null}
+      readOnly={true}
+      tabIndex="0"
+      value="First"
+    />
+  </div>
+</div>
+`;

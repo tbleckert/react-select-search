@@ -1,0 +1,427 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots Single select Always Open 1`] = `
+<div
+  className="select-search"
+  id={null}
+>
+  <div
+    className="select-search__value"
+  >
+    <input
+      autoComplete="on"
+      autoFocus={false}
+      className="select-search__input"
+      disabled={false}
+      onBlur={[Function]}
+      onChange={null}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyPress={[Function]}
+      onKeyUp={[Function]}
+      placeholder={null}
+      readOnly={true}
+      tabIndex="0"
+      value="Small"
+    />
+  </div>
+  <div
+    className="select-search__select"
+    onMouseDown={[Function]}
+  >
+    <ul
+      className="select-search__options"
+    >
+      <li
+        className="select-search__row"
+        data-index={0}
+        data-value="s"
+        role="menuitem"
+      >
+        <button
+          className="select-search__option is-selected"
+          onMouseDown={[Function]}
+          tabIndex="-1"
+          type="button"
+          value="s"
+        >
+          Small
+        </button>
+      </li>
+      <li
+        className="select-search__row"
+        data-index={1}
+        data-value="m"
+        role="menuitem"
+      >
+        <button
+          className="select-search__option"
+          onMouseDown={[Function]}
+          tabIndex="-1"
+          type="button"
+          value="m"
+        >
+          Medium
+        </button>
+      </li>
+      <li
+        className="select-search__row"
+        data-index={2}
+        data-value="l"
+        role="menuitem"
+      >
+        <button
+          className="select-search__option"
+          onMouseDown={[Function]}
+          tabIndex="-1"
+          type="button"
+          value="l"
+        >
+          Large
+        </button>
+      </li>
+    </ul>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Single select Default 1`] = `
+<div
+  className="select-search"
+  id="test-id"
+>
+  <div
+    className="select-search__value"
+  >
+    <input
+      autoComplete="on"
+      autoFocus={false}
+      className="select-search__input"
+      disabled={false}
+      onBlur={[Function]}
+      onChange={null}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyPress={[Function]}
+      onKeyUp={[Function]}
+      placeholder={null}
+      readOnly={true}
+      tabIndex="0"
+      value="Medium"
+    />
+  </div>
+</div>
+`;
+
+exports[`Storyshots Single select Group 1`] = `
+<div
+  className="select-search"
+  id={null}
+>
+  <div
+    className="select-search__value"
+  >
+    <input
+      autoComplete="on"
+      autoFocus={false}
+      className="select-search__input"
+      disabled={false}
+      onBlur={[Function]}
+      onChange={null}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyPress={[Function]}
+      onKeyUp={[Function]}
+      placeholder={null}
+      readOnly={true}
+      tabIndex="0"
+      value="Hamburger"
+    />
+  </div>
+  <div
+    className="select-search__select"
+    onMouseDown={[Function]}
+  >
+    <ul
+      className="select-search__options"
+    >
+      <li
+        className="select-search__row"
+        role="none"
+      >
+        <div
+          className="select-search__group"
+        >
+          <div
+            className="select-search__group-header"
+          >
+            Food
+          </div>
+          <ul
+            className="select-search__options"
+          >
+            <ul
+              className="select-search__options"
+            >
+              <li
+                className="select-search__row"
+                data-index={0}
+                data-value="hamburger"
+                role="menuitem"
+              >
+                <button
+                  className="select-search__option is-selected"
+                  onMouseDown={[Function]}
+                  tabIndex="-1"
+                  type="button"
+                  value="hamburger"
+                >
+                  Hamburger
+                </button>
+              </li>
+              <li
+                className="select-search__row"
+                data-index={1}
+                data-value="pizza"
+                role="menuitem"
+              >
+                <button
+                  className="select-search__option"
+                  onMouseDown={[Function]}
+                  tabIndex="-1"
+                  type="button"
+                  value="pizza"
+                >
+                  Pizza
+                </button>
+              </li>
+            </ul>
+          </ul>
+        </div>
+      </li>
+      <li
+        className="select-search__row"
+        role="none"
+      >
+        <div
+          className="select-search__group"
+        >
+          <div
+            className="select-search__group-header"
+          >
+            Drinks
+          </div>
+          <ul
+            className="select-search__options"
+          >
+            <ul
+              className="select-search__options"
+            >
+              <li
+                className="select-search__row"
+                data-index={2}
+                data-value="soft"
+                role="menuitem"
+              >
+                <button
+                  className="select-search__option"
+                  onMouseDown={[Function]}
+                  tabIndex="-1"
+                  type="button"
+                  value="soft"
+                >
+                  Soft drink
+                </button>
+              </li>
+              <li
+                className="select-search__row"
+                data-index={3}
+                data-value="beer"
+                role="menuitem"
+              >
+                <button
+                  className="select-search__option"
+                  onMouseDown={[Function]}
+                  tabIndex="-1"
+                  type="button"
+                  value="beer"
+                >
+                  Beer
+                </button>
+              </li>
+            </ul>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Single select Limited Options 1`] = `
+<div
+  className="select-search"
+  id={null}
+>
+  <div
+    className="select-search__value"
+  >
+    <input
+      autoComplete="on"
+      autoFocus={false}
+      className="select-search__input"
+      disabled={false}
+      onBlur={[Function]}
+      onChange={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyPress={[Function]}
+      onKeyUp={[Function]}
+      placeholder="Select your country"
+      readOnly={false}
+      tabIndex="0"
+      value=""
+    />
+  </div>
+</div>
+`;
+
+exports[`Storyshots Single select Search 1`] = `
+<div
+  className="select-search"
+  id={null}
+>
+  <div
+    className="select-search__value"
+  >
+    <input
+      autoComplete="on"
+      autoFocus={false}
+      className="select-search__input"
+      disabled={false}
+      onBlur={[Function]}
+      onChange={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyPress={[Function]}
+      onKeyUp={[Function]}
+      placeholder="Select your country"
+      readOnly={false}
+      tabIndex="0"
+      value=""
+    />
+  </div>
+</div>
+`;
+
+exports[`Storyshots Single select Search With Empty Message 1`] = `
+<div
+  className="select-search"
+  id={null}
+>
+  <div
+    className="select-search__value"
+  >
+    <input
+      autoComplete="on"
+      autoFocus={false}
+      className="select-search__input"
+      disabled={false}
+      onBlur={[Function]}
+      onChange={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyPress={[Function]}
+      onKeyUp={[Function]}
+      placeholder="Select your country"
+      readOnly={false}
+      tabIndex="0"
+      value=""
+    />
+  </div>
+</div>
+`;
+
+exports[`Storyshots Single select Search With Empty Message Renderer 1`] = `
+<div
+  className="select-search"
+  id={null}
+>
+  <div
+    className="select-search__value"
+  >
+    <input
+      autoComplete="on"
+      autoFocus={false}
+      className="select-search__input"
+      disabled={false}
+      onBlur={[Function]}
+      onChange={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyPress={[Function]}
+      onKeyUp={[Function]}
+      placeholder="Select your country"
+      readOnly={false}
+      tabIndex="0"
+      value=""
+    />
+  </div>
+</div>
+`;
+
+exports[`Storyshots Single select Stay On Select 1`] = `
+<div
+  className="select-search"
+  id={null}
+>
+  <div
+    className="select-search__value"
+  >
+    <input
+      autoComplete="on"
+      autoFocus={false}
+      className="select-search__input"
+      disabled={false}
+      onBlur={[Function]}
+      onChange={null}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyPress={[Function]}
+      onKeyUp={[Function]}
+      placeholder={null}
+      readOnly={true}
+      tabIndex="0"
+      value="Small"
+    />
+  </div>
+</div>
+`;
+
+exports[`Storyshots Single select With Placeholder 1`] = `
+<div
+  className="select-search"
+  id={null}
+>
+  <div
+    className="select-search__value"
+  >
+    <input
+      autoComplete="on"
+      autoFocus={false}
+      className="select-search__input"
+      disabled={false}
+      onBlur={[Function]}
+      onChange={null}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyPress={[Function]}
+      onKeyUp={[Function]}
+      placeholder="Choose a size"
+      readOnly={true}
+      tabIndex="0"
+      value=""
+    />
+  </div>
+</div>
+`;

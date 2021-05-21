@@ -1,0 +1,559 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots Custom Avatar Example 1`] = `
+<div
+  className="select-search select-search--multiple"
+  id={null}
+>
+  <div
+    className="select-search__value"
+  >
+    <input
+      autoComplete="on"
+      autoFocus={false}
+      className="select-search__input"
+      disabled={false}
+      onBlur={[Function]}
+      onChange={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyPress={[Function]}
+      onKeyUp={[Function]}
+      placeholder="Search friends"
+      readOnly={false}
+      tabIndex="0"
+      value=""
+    />
+  </div>
+  <div
+    className="select-search__select"
+    onMouseDown={[Function]}
+  >
+    <ul
+      className="select-search__options"
+    >
+      <li
+        className="select-search__row"
+        data-index={0}
+        data-value="annie.cruz"
+        role="menuitem"
+      >
+        <button
+          className="select-search__option"
+          onMouseDown={[Function]}
+          tabIndex="-1"
+          type="button"
+          value="annie.cruz"
+        >
+          <span>
+            <img
+              alt=""
+              height="32"
+              src="https://randomuser.me/api/portraits/women/60.jpg"
+              style={
+                Object {
+                  "borderRadius": "50%",
+                  "marginRight": 10,
+                  "verticalAlign": "middle",
+                }
+              }
+              width="32"
+            />
+            <span>
+              Annie Cruz
+            </span>
+          </span>
+        </button>
+      </li>
+      <li
+        className="select-search__row"
+        data-index={1}
+        data-value="eli.shelton"
+        role="menuitem"
+      >
+        <button
+          className="select-search__option"
+          disabled={true}
+          onMouseDown={[Function]}
+          tabIndex="-1"
+          type="button"
+          value="eli.shelton"
+        >
+          <span>
+            <img
+              alt=""
+              height="32"
+              src="https://randomuser.me/api/portraits/men/7.jpg"
+              style={
+                Object {
+                  "borderRadius": "50%",
+                  "marginRight": 10,
+                  "verticalAlign": "middle",
+                }
+              }
+              width="32"
+            />
+            <span>
+              Eli Shelton
+            </span>
+          </span>
+        </button>
+      </li>
+      <li
+        className="select-search__row"
+        data-index={2}
+        data-value="loretta.rogers"
+        role="menuitem"
+      >
+        <button
+          className="select-search__option"
+          onMouseDown={[Function]}
+          tabIndex="-1"
+          type="button"
+          value="loretta.rogers"
+        >
+          <span>
+            <img
+              alt=""
+              height="32"
+              src="https://randomuser.me/api/portraits/women/51.jpg"
+              style={
+                Object {
+                  "borderRadius": "50%",
+                  "marginRight": 10,
+                  "verticalAlign": "middle",
+                }
+              }
+              width="32"
+            />
+            <span>
+              Loretta Rogers
+            </span>
+          </span>
+        </button>
+      </li>
+      <li
+        className="select-search__row"
+        data-index={3}
+        data-value="lloyd.fisher"
+        role="menuitem"
+      >
+        <button
+          className="select-search__option"
+          onMouseDown={[Function]}
+          tabIndex="-1"
+          type="button"
+          value="lloyd.fisher"
+        >
+          <span>
+            <img
+              alt=""
+              height="32"
+              src="https://randomuser.me/api/portraits/men/34.jpg"
+              style={
+                Object {
+                  "borderRadius": "50%",
+                  "marginRight": 10,
+                  "verticalAlign": "middle",
+                }
+              }
+              width="32"
+            />
+            <span>
+              Lloyd Fisher
+            </span>
+          </span>
+        </button>
+      </li>
+      <li
+        className="select-search__row"
+        data-index={4}
+        data-value="tiffany.gonzales"
+        role="menuitem"
+      >
+        <button
+          className="select-search__option"
+          onMouseDown={[Function]}
+          tabIndex="-1"
+          type="button"
+          value="tiffany.gonzales"
+        >
+          <span>
+            <img
+              alt=""
+              height="32"
+              src="https://randomuser.me/api/portraits/women/71.jpg"
+              style={
+                Object {
+                  "borderRadius": "50%",
+                  "marginRight": 10,
+                  "verticalAlign": "middle",
+                }
+              }
+              width="32"
+            />
+            <span>
+              Tiffany Gonzales
+            </span>
+          </span>
+        </button>
+      </li>
+      <li
+        className="select-search__row"
+        data-index={5}
+        data-value="charles.hardy"
+        role="menuitem"
+      >
+        <button
+          className="select-search__option"
+          onMouseDown={[Function]}
+          tabIndex="-1"
+          type="button"
+          value="charles.hardy"
+        >
+          <span>
+            <img
+              alt=""
+              height="32"
+              src="https://randomuser.me/api/portraits/men/12.jpg"
+              style={
+                Object {
+                  "borderRadius": "50%",
+                  "marginRight": 10,
+                  "verticalAlign": "middle",
+                }
+              }
+              width="32"
+            />
+            <span>
+              Charles Hardy
+            </span>
+          </span>
+        </button>
+      </li>
+      <li
+        className="select-search__row"
+        data-index={6}
+        data-value="rudolf.wilson"
+        role="menuitem"
+      >
+        <button
+          className="select-search__option"
+          onMouseDown={[Function]}
+          tabIndex="-1"
+          type="button"
+          value="rudolf.wilson"
+        >
+          <span>
+            <img
+              alt=""
+              height="32"
+              src="https://randomuser.me/api/portraits/men/40.jpg"
+              style={
+                Object {
+                  "borderRadius": "50%",
+                  "marginRight": 10,
+                  "verticalAlign": "middle",
+                }
+              }
+              width="32"
+            />
+            <span>
+              Rudolf Wilson
+            </span>
+          </span>
+        </button>
+      </li>
+      <li
+        className="select-search__row"
+        data-index={7}
+        data-value="emerald.hensley"
+        role="menuitem"
+      >
+        <button
+          className="select-search__option"
+          onMouseDown={[Function]}
+          tabIndex="-1"
+          type="button"
+          value="emerald.hensley"
+        >
+          <span>
+            <img
+              alt=""
+              height="32"
+              src="https://randomuser.me/api/portraits/women/1.jpg"
+              style={
+                Object {
+                  "borderRadius": "50%",
+                  "marginRight": 10,
+                  "verticalAlign": "middle",
+                }
+              }
+              width="32"
+            />
+            <span>
+              Emerald Hensley
+            </span>
+          </span>
+        </button>
+      </li>
+      <li
+        className="select-search__row"
+        data-index={8}
+        data-value="lorena.mccoy"
+        role="menuitem"
+      >
+        <button
+          className="select-search__option"
+          onMouseDown={[Function]}
+          tabIndex="-1"
+          type="button"
+          value="lorena.mccoy"
+        >
+          <span>
+            <img
+              alt=""
+              height="32"
+              src="https://randomuser.me/api/portraits/women/70.jpg"
+              style={
+                Object {
+                  "borderRadius": "50%",
+                  "marginRight": 10,
+                  "verticalAlign": "middle",
+                }
+              }
+              width="32"
+            />
+            <span>
+              Lorena McCoy
+            </span>
+          </span>
+        </button>
+      </li>
+      <li
+        className="select-search__row"
+        data-index={9}
+        data-value="alicia.lamb"
+        role="menuitem"
+      >
+        <button
+          className="select-search__option"
+          onMouseDown={[Function]}
+          tabIndex="-1"
+          type="button"
+          value="alicia.lamb"
+        >
+          <span>
+            <img
+              alt=""
+              height="32"
+              src="https://randomuser.me/api/portraits/women/22.jpg"
+              style={
+                Object {
+                  "borderRadius": "50%",
+                  "marginRight": 10,
+                  "verticalAlign": "middle",
+                }
+              }
+              width="32"
+            />
+            <span>
+              Alicia Lamb
+            </span>
+          </span>
+        </button>
+      </li>
+      <li
+        className="select-search__row"
+        data-index={10}
+        data-value="maria.waters"
+        role="menuitem"
+      >
+        <button
+          className="select-search__option"
+          onMouseDown={[Function]}
+          tabIndex="-1"
+          type="button"
+          value="maria.waters"
+        >
+          <span>
+            <img
+              alt=""
+              height="32"
+              src="https://randomuser.me/api/portraits/women/82.jpg"
+              style={
+                Object {
+                  "borderRadius": "50%",
+                  "marginRight": 10,
+                  "verticalAlign": "middle",
+                }
+              }
+              width="32"
+            />
+            <span>
+              Maria Waters
+            </span>
+          </span>
+        </button>
+      </li>
+    </ul>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Custom CSS Modules 1`] = `
+<div
+  className="container"
+  id={null}
+>
+  <div
+    className="select"
+    onMouseDown={[Function]}
+  >
+    <ul
+      className="options"
+    >
+      <li
+        className="row"
+        data-index={0}
+        data-value="hamburger"
+        role="menuitem"
+      >
+        <button
+          className="option"
+          onMouseDown={[Function]}
+          tabIndex="-1"
+          type="button"
+          value="hamburger"
+        >
+          Hamburger
+        </button>
+      </li>
+      <li
+        className="row"
+        data-index={1}
+        data-value="fries"
+        role="menuitem"
+      >
+        <button
+          className="option"
+          onMouseDown={[Function]}
+          tabIndex="-1"
+          type="button"
+          value="fries"
+        >
+          Fries
+        </button>
+      </li>
+      <li
+        className="row"
+        data-index={2}
+        data-value="milkshake"
+        role="menuitem"
+      >
+        <button
+          className="option"
+          onMouseDown={[Function]}
+          tabIndex="-1"
+          type="button"
+          value="milkshake"
+        >
+          Milkshake
+        </button>
+      </li>
+    </ul>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Custom Controllable Display 1`] = `
+<div
+  style={
+    Object {
+      "display": "flex",
+    }
+  }
+>
+  <div
+    className="select-search"
+    id={null}
+  >
+    <div
+      className="select-search__value"
+    >
+      <input
+        autoComplete="on"
+        autoFocus={false}
+        className="select-search__input"
+        disabled={false}
+        onBlur={[Function]}
+        onChange={null}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyPress={[Function]}
+        onKeyUp={[Function]}
+        placeholder={null}
+        readOnly={true}
+        tabIndex="0"
+        value="Hamburger"
+      />
+    </div>
+  </div>
+  <button
+    onClick={[Function]}
+    style={
+      Object {
+        "alignItems": "center",
+        "background": "rgb(49, 173, 122)",
+        "border": "none",
+        "borderRadius": "3px",
+        "color": "#fff",
+        "cursor": "pointer",
+        "display": "inline-flex",
+        "fontSize": "16px",
+        "height": "37px",
+        "marginLeft": "16px",
+        "outline": "none",
+        "padding": "0 16px",
+        "position": "relative",
+      }
+    }
+    type="button"
+  >
+    Display options
+  </button>
+</div>
+`;
+
+exports[`Storyshots Custom Font Example 1`] = `
+<div
+  className="select-search"
+  id={null}
+>
+  <div
+    className="select-search__value"
+  >
+    <input
+      autoComplete="on"
+      autoFocus={false}
+      className="select-search__input"
+      disabled={false}
+      onBlur={[Function]}
+      onChange={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyPress={[Function]}
+      onKeyUp={[Function]}
+      placeholder={null}
+      readOnly={false}
+      style={
+        Object {
+          "fontFamily": "Monoton, cursive",
+        }
+      }
+      tabIndex="0"
+      value="Monoton"
+    />
+  </div>
+</div>
+`;
