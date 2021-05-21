@@ -92,8 +92,9 @@ export type SelectSearchProps = {
     renderValue?:(valueProps:ValueProps, snapshot:ValueSnapshot, className:string) => ReactNode
     renderGroupHeader?:(name:string) => string
     getOptions?: (query:string) => Promise<SelectSearchOption[]>
+    debounce?: number
     ref?:Ref<Component>
-    emptyMessage?:string
+    emptyMessage?:string|(() =>string)
 }
 
 
