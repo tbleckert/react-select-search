@@ -47,24 +47,28 @@ export const FetchMultiple = () => (
 export const ControlledFetch = () => {
     const [options, setOptions] = useState([])
     const [value, setValue] = useState()
+    const [valueOption, setValueOption] = useState()
     const [query, setQuery] = useState('')
 
     useEffect(() => {
-        if (!options.length || query) {
-            fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${query}`)
-                .then(response => response.json())
-                .then(({ drinks }) => {
-                    setOptions(drinks.map(({ idDrink, strDrink }) => ({ value: idDrink, name: strDrink })))
-                })
-                .catch((e) => console.error(e));
-        }
+        fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${query}`)
+            .then(response => response.json())
+            .then(({ drinks }) => {
+                const newOptions = drinks.map(({ idDrink, strDrink }) => ({ value: idDrink, name: strDrink }))
+                if (valueOption) newOptions.unshift(valueOption)
+                setOptions(newOptions)
+            })
+            .catch((e) => console.error(e));
     }, [query])
 
     return(
         <SelectSearch
             options={options}
             value={value}
-            onChange={setValue}
+            onChange={(value) => {
+                setValue(value)
+                setValueOption(options.find((o) => value === o.value))
+            }}
             getOptions={(query) => {
                 setQuery(query)
             }}
