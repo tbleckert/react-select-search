@@ -55,6 +55,7 @@
         "@storybook/addon-storysource": "^6.2.9",
         "@storybook/addons": "^6.2.9",
         "@storybook/react": "^6.2.9",
+        "assert": "^1.5.0",
         "babel-eslint": "^10.1.0",
         "babel-loader": "^8.1.0",
         "babel-plugin-transform-react-remove-prop-types": "^0.4.24",

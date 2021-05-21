@@ -57,14 +57,6 @@ module.exports = function equal(a, b) {
         for (i = length; i-- !== 0;) {
             const key = keys[i];
 
-            if (key === '_owner' && a.$$typeof) {
-                // React-specific: avoid traversing React elements' _owner.
-                //  _owner contains circular references
-                // and is not needed when comparing the actual elements (and not their owners)
-                // eslint-disable-next-line no-continue
-                continue;
-            }
-
             if (!equal(a[key], b[key])) return false;
         }
 
