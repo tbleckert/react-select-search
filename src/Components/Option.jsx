@@ -17,10 +17,15 @@ const Option = ({
         [cls('is-highlighted')]: highlighted,
     });
 
+    const ref = useRef(null);
+    if (ref.current != null && highlighted) {
+        ref.current.scrollIntoView();
+    }
+
     return (
         <li className={cls('row')} role="menuitem" data-index={option.index} data-value={escape(option.value)} key={option.value}>
             {renderOption && renderOption(props, option, { selected, highlighted }, className)}
-            {!renderOption && <button type="button" className={className} {...props}>{option.name}</button>}
+            {!renderOption && <button type="button" ref={ref} className={className} {...props}>{option.name}</button>}
         </li>
     );
 };
