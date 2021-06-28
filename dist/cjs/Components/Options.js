@@ -43,7 +43,8 @@ var Options = function Options(_ref) {
       return;
     }
 
-    var query = highlighted > -1 ? "[data-index=\"" + highlighted + "\"]" : "[data-value=\"" + escape(value) + "\"]";
+    var val = Array.isArray(value) ? value[0] : value;
+    var query = highlighted > -1 ? "[data-index=\"" + highlighted + "\"]" : "[data-value=\"" + escape(val) + "\"]";
     var selected = current.querySelector(query);
 
     if (selected) {

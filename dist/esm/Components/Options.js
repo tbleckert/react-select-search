@@ -37,7 +37,8 @@ const Options = ({
       return;
     }
 
-    const query = highlighted > -1 ? `[data-index="${highlighted}"]` : `[data-value="${escape(value)}"]`;
+    const val = Array.isArray(value) ? value[0] : value;
+    const query = highlighted > -1 ? `[data-index="${highlighted}"]` : `[data-value="${escape(val)}"]`;
     const selected = current.querySelector(query);
 
     if (selected) {
