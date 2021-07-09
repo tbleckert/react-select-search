@@ -17,10 +17,13 @@ export default function useFetch(q, defaultOptions, {
 
     return debounce(s => {
       const optionsReq = getOptions(s, defaultOptions);
-      setFetching(true);
-      Promise.resolve(optionsReq).then(newOptions => {
-        setOptions(flattenOptions(filter(newOptions)(s)));
-      }).finally(() => setFetching(false));
+
+      if (optionsReq) {
+        setFetching(true);
+        Promise.resolve(optionsReq).then(newOptions => {
+          setOptions(flattenOptions(filter(newOptions)(s)));
+        }).finally(() => setFetching(false));
+      }
     }, debounceTime);
   }, [filterOptions, defaultOptions, getOptions, debounceTime]);
   useEffect(() => setOptions(defaultOptions), [defaultOptions]);

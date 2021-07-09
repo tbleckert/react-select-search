@@ -10,6 +10,7 @@ import getDisplayValue from './lib/getDisplayValue';
 import useFetch from './useFetch';
 import getValues from './lib/getValues';
 import useHighlight from './useHighlight';
+import equal from './lib/equal';
 
 export default function useSelect({
     value: defaultValue = null,
@@ -98,18 +99,19 @@ export default function useSelect({
     }), [onMouseDown]);
 
     useEffect(() => {
-        if (valueRef.current === defaultValue) {
-            return;
-        }
-
-        valueRef.current = defaultValue;
-
-        setValue(getOptions(
+        const newValue = getOptions(
             defaultValue,
             null,
             options,
             multiple,
-        ));
+        );
+
+        if (equal(valueRef.current, newValue)) {
+            return;
+        }
+
+        valueRef.current = newValue;
+        setValue(newValue);
     }, [defaultValue, multiple, options]);
 
     return [snapshot, valueProps, optionProps, setValue];

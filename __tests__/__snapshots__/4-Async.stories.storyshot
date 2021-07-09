@@ -1,0 +1,129 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots Async Controlled Fetch 1`] = `
+<div
+  className="select-search"
+  id={null}
+>
+  <div
+    className="select-search__value"
+  >
+    <input
+      autoComplete="on"
+      autoFocus={false}
+      className="select-search__input"
+      disabled={false}
+      onBlur={[Function]}
+      onChange={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyPress={[Function]}
+      onKeyUp={[Function]}
+      placeholder="Your favorite drink"
+      readOnly={false}
+      tabIndex="0"
+      value=""
+    />
+  </div>
+</div>
+`;
+
+exports[`Storyshots Async Controlled Fetch Multiple 1`] = `
+<div
+  className="select-search"
+  id={null}
+>
+  <div
+    className="select-search__value"
+  >
+    <input
+      autoComplete="on"
+      autoFocus={false}
+      className="select-search__input"
+      disabled={false}
+      onBlur={[Function]}
+      onChange={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyPress={[Function]}
+      onKeyUp={[Function]}
+      placeholder="Your favorite drink"
+      readOnly={false}
+      tabIndex="0"
+      value=""
+    />
+  </div>
+  <div
+    className="select-search__select"
+    onMouseDown={[Function]}
+  >
+    <ul
+      className="select-search__options"
+    />
+  </div>
+</div>
+`;
+
+exports[`Storyshots Async Fetch 1`] = `
+<div
+  className="select-search"
+  id={null}
+>
+  <div
+    className="select-search__value"
+  >
+    <input
+      autoComplete="on"
+      autoFocus={false}
+      className="select-search__input"
+      disabled={false}
+      onBlur={[Function]}
+      onChange={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyPress={[Function]}
+      onKeyUp={[Function]}
+      placeholder="Your favorite drink"
+      readOnly={false}
+      tabIndex="0"
+      value=""
+    />
+  </div>
+</div>
+`;
+
+exports[`Storyshots Async Fetch Multiple 1`] = `
+<div
+  className="select-search"
+  id={null}
+>
+  <div
+    className="select-search__value"
+  >
+    <input
+      autoComplete="on"
+      autoFocus={false}
+      className="select-search__input"
+      disabled={false}
+      onBlur={[Function]}
+      onChange={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyPress={[Function]}
+      onKeyUp={[Function]}
+      placeholder="Your favorite drink"
+      readOnly={false}
+      tabIndex="0"
+      value=""
+    />
+  </div>
+  <div
+    className="select-search__select"
+    onMouseDown={[Function]}
+  >
+    <ul
+      className="select-search__options"
+    />
+  </div>
+</div>
+`;

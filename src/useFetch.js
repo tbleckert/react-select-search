@@ -18,14 +18,15 @@ export default function useFetch(q, defaultOptions, {
 
         return debounce((s) => {
             const optionsReq = getOptions(s, defaultOptions);
+            if (optionsReq) {
+                setFetching(true);
 
-            setFetching(true);
-
-            Promise.resolve(optionsReq)
-                .then((newOptions) => {
-                    setOptions(flattenOptions(filter(newOptions)(s)));
-                })
-                .finally(() => setFetching(false));
+                Promise.resolve(optionsReq)
+                    .then((newOptions) => {
+                        setOptions(flattenOptions(filter(newOptions)(s)));
+                    })
+                    .finally(() => setFetching(false));
+            }
         }, debounceTime);
     }, [filterOptions, defaultOptions, getOptions, debounceTime]);
 

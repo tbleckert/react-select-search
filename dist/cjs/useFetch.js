@@ -41,12 +41,15 @@ function useFetch(q, defaultOptions, _ref) {
 
     return (0, _debounce["default"])(function (s) {
       var optionsReq = getOptions(s, defaultOptions);
-      setFetching(true);
-      Promise.resolve(optionsReq).then(function (newOptions) {
-        setOptions((0, _flattenOptions["default"])(filter(newOptions)(s)));
-      })["finally"](function () {
-        return setFetching(false);
-      });
+
+      if (optionsReq) {
+        setFetching(true);
+        Promise.resolve(optionsReq).then(function (newOptions) {
+          setOptions((0, _flattenOptions["default"])(filter(newOptions)(s)));
+        })["finally"](function () {
+          return setFetching(false);
+        });
+      }
     }, debounceTime);
   }, [filterOptions, defaultOptions, getOptions, debounceTime]);
   (0, _react.useEffect)(function () {

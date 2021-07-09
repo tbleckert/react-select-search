@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots Hooks Custom Components 1`] = `
+<div
+  className="button"
+  disabled={false}
+  onBlur={[Function]}
+  onChange={null}
+  onFocus={[Function]}
+  onKeyDown={[Function]}
+  onKeyPress={[Function]}
+  onKeyUp={[Function]}
+  readOnly={true}
+  tabIndex="0"
+>
+  Size: Small
+</div>
+`;

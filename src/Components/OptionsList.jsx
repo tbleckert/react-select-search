@@ -49,6 +49,11 @@ const OptionsList = ({
     </ul>
 );
 
+OptionsList.defaultProps = {
+    renderOption: null,
+    renderGroupHeader: null,
+};
+
 OptionsList.propTypes = {
     options: PropTypes.arrayOf(optionType).isRequired,
     optionProps: PropTypes.shape({}).isRequired,

@@ -1,0 +1,129 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots Events Controlled Value 1`] = `
+Array [
+  <div
+    className="select-search"
+    id={null}
+  >
+    <div
+      className="select-search__value"
+    >
+      <input
+        autoComplete="on"
+        autoFocus={false}
+        className="select-search__input"
+        disabled={false}
+        onBlur={[Function]}
+        onChange={null}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyPress={[Function]}
+        onKeyUp={[Function]}
+        placeholder="Select size"
+        readOnly={true}
+        tabIndex="0"
+        value=""
+      />
+    </div>
+  </div>,
+  <p
+    style={
+      Object {
+        "fontFamily": "\\"Nunito Sans\\", sans-serif",
+        "marginTop": "16px",
+      }
+    }
+  >
+    You have selected: 
+  </p>,
+  <button
+    onClick={[Function]}
+    style={
+      Object {
+        "alignItems": "center",
+        "background": "rgb(49, 173, 122)",
+        "border": "none",
+        "borderRadius": "3px",
+        "color": "#fff",
+        "cursor": "pointer",
+        "display": "inline-flex",
+        "fontSize": "16px",
+        "height": "40px",
+        "marginTop": "16px",
+        "outline": "none",
+        "padding": "0 16px",
+        "position": "relative",
+      }
+    }
+    type="button"
+  >
+    Click to reset
+  </button>,
+  <button
+    onClick={[Function]}
+    style={
+      Object {
+        "alignItems": "center",
+        "background": "transparent",
+        "border": "2px solid #888",
+        "borderRadius": "3px",
+        "color": "#888",
+        "cursor": "pointer",
+        "display": "inline-flex",
+        "fontSize": "16px",
+        "height": "40px",
+        "marginLeft": "8px",
+        "marginTop": "16px",
+        "outline": "none",
+        "padding": "0 16px",
+        "position": "relative",
+      }
+    }
+    type="button"
+  >
+    Set medium
+  </button>,
+]
+`;
+
+exports[`Storyshots Events On Change 1`] = `
+Array [
+  <div
+    className="select-search"
+    id={null}
+  >
+    <div
+      className="select-search__value"
+    >
+      <input
+        autoComplete="on"
+        autoFocus={false}
+        className="select-search__input"
+        disabled={false}
+        onBlur={[Function]}
+        onChange={null}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyPress={[Function]}
+        onKeyUp={[Function]}
+        placeholder="Select font size"
+        readOnly={true}
+        tabIndex="0"
+        value="Small"
+      />
+    </div>
+  </div>,
+  <h1
+    style={
+      Object {
+        "fontFamily": "\\"Nunito Sans\\", sans-serif",
+        "fontSize": "16px",
+        "marginTop": "24px",
+      }
+    }
+  >
+    Aa
+  </h1>,
+]
+`;
