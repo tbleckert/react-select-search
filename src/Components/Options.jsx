@@ -34,11 +34,12 @@ const Options = ({
     useEffect(() => {
         const { current } = selectRef;
 
-        if (!current || (highlighted < 0 && Array.isArray(value)) || value === null) {
+        if (!current || (highlighted < 0 && value === null)) {
             return;
         }
 
-        const query = (highlighted > -1) ? `[data-index="${highlighted}"]` : `[data-value="${escape(value)}"]`;
+        const val = (Array.isArray(value)) ? value[0] : value;
+        const query = (highlighted > -1) ? `[data-index="${highlighted}"]` : `[data-value="${escape(val)}"]`;
         const selected = current.querySelector(query);
 
         if (selected) {
