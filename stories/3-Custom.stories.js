@@ -1,21 +1,23 @@
-import React from 'react';
-import SelectSearch from '../src';
+import { useState } from 'react';
+import SelectSearch, { fuzzySearch } from '../src';
 import '../style.css';
 import classes from '../style.module.css';
-import { countries, fontStacks, friends } from './data';
+import { fontStacks, friends } from './data';
 
 export default {
   title: 'Custom',
 };
 
 function renderFontValue(valueProps, snapshot, className) {
-    const { value } = snapshot;
+    const { option } = snapshot;
     const style = {
-        fontFamily: (value && 'stack' in value) ? value.stack : null,
+        fontFamily: (!snapshot.focus && option && 'stack' in option) ? option.stack : null,
     };
 
+    const inputVal = (snapshot.focus) ? snapshot.search : snapshot.displayValue;
+
     return (
-        <input {...valueProps} className={className} style={style} value={snapshot.displayValue} />
+        <input {...valueProps} className={className} style={style} value={inputVal} />
     );
 }
 
@@ -46,6 +48,8 @@ export const FontExample = () => (
         options={fontStacks}
         renderValue={renderFontValue}
         renderOption={renderFontOption}
+        search
+        filterOptions={fuzzySearch}
         value="Monoton"
     />
 );
@@ -57,6 +61,7 @@ export const AvatarExample = () => (
         renderOption={renderFriend}
         multiple
         search
+        filterOptions={fuzzySearch}
         placeholder="Search friends"
     />
 );
@@ -72,3 +77,39 @@ export const CSSModules = () => (
         ]}
     />
 );
+
+const button = {
+    marginLeft: '16px',
+    display: 'inline-flex',
+    position: 'relative',
+    alignItems: 'center',
+    height: '37px',
+    padding: '0 16px',
+    borderRadius: '3px',
+    border: 'none',
+    background: 'rgb(49, 173, 122)',
+    color: '#fff',
+    fontSize: '16px',
+    cursor: 'pointer',
+    outline: 'none',
+};
+
+export const ControllableDisplay = () => {
+    const [displayOptions, setDisplayOptions] = useState(false);
+
+    return (
+        <div style={{ display: 'flex' }}>
+            <SelectSearch
+                printOptions={(displayOptions) ? 'always' : 'never'}
+                options={[
+                    { value: 'hamburger', name: 'Hamburger' },
+                    { value: 'fries', name: 'Fries' },
+                    { value: 'milkshake', name: 'Milkshake' },
+                ]}
+            />
+            <button type="button" style={button} onClick={() => setDisplayOptions(!displayOptions)}>
+                {!displayOptions ? 'Display options' : 'Hide options'}
+            </button>
+        </div>
+    );
+};

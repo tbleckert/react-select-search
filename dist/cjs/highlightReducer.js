@@ -3,9 +3,9 @@
 exports.__esModule = true;
 exports["default"] = highlightReducer;
 
-function highlightReducer(highlighted, value) {
-  var key = value.key,
-      options = value.options;
+function highlightReducer(highlighted, _ref) {
+  var key = _ref.key,
+      options = _ref.options;
   var max = options.length - 1;
   var newHighlighted = key === 'ArrowDown' ? highlighted + 1 : highlighted - 1;
 

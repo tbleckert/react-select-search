@@ -1,5 +1,4 @@
-import React from 'react';
-import SelectSearch from '../src';
+import SelectSearch, { fuzzySearch } from '../src';
 import '../style.css';
 import { countries } from './data';
 
@@ -19,6 +18,33 @@ export const Default = () => (
     />
 );
 
+export const DefaultValue = () => (
+    <SelectSearch
+        className="select-search select-search--multiple"
+        options={[
+            { value: 'hamburger', name: 'Hamburger' },
+            { value: 'fries', name: 'Fries' },
+            { value: 'milkshake', name: 'Milkshake' },
+        ]}
+        value={['hamburger', 'fries']}
+        multiple
+    />
+);
+
+export const Disabled = () => (
+    <SelectSearch
+        className="select-search select-search--multiple"
+        disabled
+        options={[
+            { value: 'hamburger', name: 'Hamburger', disabled: true },
+            { value: 'fries', name: 'Fries' },
+            { value: 'milkshake', name: 'Milkshake' },
+        ]}
+        placeholder="Select your item"
+        multiple
+    />
+);
+
 export const WithPlaceholder = () => (
     <SelectSearch
         className="select-search select-search--multiple"
@@ -29,6 +55,7 @@ export const WithPlaceholder = () => (
         ]}
         multiple
         search
+        filterOptions={fuzzySearch}
         placeholder="Select your items"
     />
 );
@@ -38,6 +65,7 @@ export const Search = () => (
         options={countries}
         multiple
         search
+        filterOptions={fuzzySearch}
         placeholder="Select your country"
     />
 );
@@ -68,6 +96,7 @@ export const Group = () => (
                 }]
             }
         ]}
+        renderGroupHeader={(str) => `Type: ${str}`}
         multiple
     />
 );

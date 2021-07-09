@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import SelectSearch from '../src';
 import '../style.css';
-import classes from '../style.module.css';
-import { countries, fontStacks, friends } from './data';
 
 export default {
   title: 'Events',
@@ -26,6 +24,7 @@ export const OnChange = () => {
     return (
         <>
             <SelectSearch
+                value={size}
                 onChange={setSize}
                 placeholder="Select font size"
                 options={[

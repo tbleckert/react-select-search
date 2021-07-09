@@ -1,79 +1,83 @@
 {
-  "name": "react-select-search",
-  "version": "2.2.4",
-  "description": "Lightweight select component for React",
-  "main": "dist/esm/index.js",
-  "types": "src/index.d.ts",
-  "scripts": {
-    "lint": "eslint src --ext .js --ext .jsx",
-    "test": "jest",
-    "test:watch": "npm test -- --watch",
-    "test:coverage": "npm test -- --coverage --silent",
-    "coveralls": "npm run test:coverage && cat ./coverage/lcov.info | coveralls",
-    "start": "start-storybook -p 6006",
-    "bundle": "npx babel --config-file=./babel.config.esm.js src --out-dir dist/esm | npx babel --config-file=./babel.config.js src --out-dir dist/cjs",
-    "storybook": "start-storybook -p 6006",
-    "build": "build-storybook --output-dir public"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/tbleckert/react-select-search.git"
-  },
-  "keywords": [
-    "react",
-    "select",
-    "js",
-    "search",
-    "react-component"
-  ],
-  "author": "Tobias Bleckert (hola@tobiasbleckert.se)",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/tbleckert/react-select-search/issues"
-  },
-  "homepage": "https://github.com/tbleckert/react-select-search",
-  "peerDependencies": {
-    "react": "^16.8.4",
-    "react-dom": "^16.8.4",
-    "prop-types": "^15.6.2"
-  },
-  "devDependencies": {
-    "@babel/cli": "^7.11.6",
-    "@babel/core": "^7.11.6",
-    "@babel/plugin-proposal-class-properties": "^7.10.4",
-    "@babel/plugin-proposal-object-rest-spread": "^7.11.0",
-    "@babel/preset-env": "^7.11.5",
-    "@babel/preset-react": "^7.10.4",
-    "@babel/register": "^7.11.5",
-    "@storybook/addon-actions": "^6.0.4",
-    "@storybook/addon-links": "^6.0.4",
-    "@storybook/addon-storysource": "^6.0.4",
-    "@storybook/addons": "^6.0.4",
-    "@storybook/react": "^6.0.4",
-    "babel-eslint": "^10.1.0",
-    "babel-loader": "^8.1.0",
-    "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
-    "browser-env": "^3.3.0",
-    "coveralls": "^3.1.0",
-    "enzyme": "^3.11.0",
-    "enzyme-adapter-react-16": "^1.15.2",
-    "enzyme-to-json": "^3.4.4",
-    "eslint": "^7.0.0",
-    "eslint-config-airbnb": "^18.1.0",
-    "eslint-plugin-import": "^2.20.2",
-    "eslint-plugin-jsx-a11y": "^6.2.3",
-    "eslint-plugin-react": "^7.20.0",
-    "eslint-plugin-react-hooks": "^4.0.2",
-    "fuse.js": "^3.4.5",
-    "jest": "^26.0.1",
-    "prop-types": "^15.7.2",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-test-renderer": "^16.13.1",
-    "react-transition-group": "^4.4.1"
-  },
-  "dependencies": {},
-  "optionalDependencies": {
-    "fuse.js": "^3.4.5"
-  }
+    "name": "react-select-search",
+    "version": "3.0.8",
+    "description": "Lightweight select component for React",
+    "main": "dist/esm/index.js",
+    "module": "dist/esm/index.js",
+    "types": "src/index.d.ts",
+    "sideEffects": false,
+    "scripts": {
+        "lint": "eslint src --ext .js --ext .jsx",
+        "test": "jest",
+        "test:watch": "npm test -- --watch",
+        "test:coverage": "npm test -- --coverage --silent",
+        "coveralls": "npm run test:coverage && cat ./coverage/lcov.info | coveralls",
+        "start": "start-storybook -p 6006",
+        "bundle": "npx babel --config-file=./babel.config.esm.js src --out-dir dist/esm | npx babel --config-file=./babel.config.js src --out-dir dist/cjs",
+        "storybook": "start-storybook -p 6006",
+        "build": "build-storybook --output-dir public"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/tbleckert/react-select-search.git"
+    },
+    "keywords": [
+        "react",
+        "select",
+        "js",
+        "search",
+        "react-component"
+    ],
+    "author": "Tobias Bleckert (hola@tobiasbleckert.se)",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/tbleckert/react-select-search/issues"
+    },
+    "homepage": "https://github.com/tbleckert/react-select-search",
+    "peerDependencies": {
+        "prop-types": "^15.7.2",
+        "react": "^17.0.1",
+        "react-dom": "^17.0.1"
+    },
+    "devDependencies": {
+        "@babel/cli": "^7.12.1",
+        "@babel/core": "^7.12.9",
+        "@babel/plugin-proposal-class-properties": "^7.12.1",
+        "@babel/plugin-proposal-object-rest-spread": "^7.12.1",
+        "@babel/plugin-transform-react-pure-annotations": "^7.12.1",
+        "@babel/preset-env": "^7.12.1",
+        "@babel/preset-react": "^7.12.7",
+        "@babel/register": "^7.12.1",
+        "@storybook/addon-actions": "^6.2.9",
+        "@storybook/addon-essentials": "^6.2.9",
+        "@storybook/addon-links": "^6.2.9",
+        "@storybook/addon-storyshots": "^6.2.9",
+        "@storybook/addon-storysource": "^6.2.9",
+        "@storybook/addons": "^6.2.9",
+        "@storybook/react": "^6.2.9",
+        "babel-eslint": "^10.1.0",
+        "babel-loader": "^8.1.0",
+        "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
+        "browser-env": "^3.3.0",
+        "coveralls": "^3.1.0",
+        "eslint": "^7.14.0",
+        "eslint-config-airbnb": "^18.2.0",
+        "eslint-plugin-import": "^2.22.0",
+        "eslint-plugin-jsx-a11y": "^6.3.1",
+        "eslint-plugin-react": "^7.21.5",
+        "eslint-plugin-react-hooks": "^4.1.2",
+        "fuse.js": "^3.4.5",
+        "identity-obj-proxy": "^3.0.0",
+        "jest": "^26.6.3",
+        "pretty": "^2.0.0",
+        "prop-types": "^15.7.2",
+        "react": "^17.0.1",
+        "react-dom": "^17.0.1",
+        "react-is": "^17.0.1",
+        "react-test-renderer": "^17.0.1",
+        "react-transition-group": "^4.4.1"
+    },
+    "optionalDependencies": {
+        "fuse.js": "^3.4.5"
+    }
 }

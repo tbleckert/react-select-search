@@ -8,7 +8,9 @@ function isSelected(itemValue, selectedValue) {
     return false;
   }
 
-  return Array.isArray(selectedValue) ? selectedValue.findIndex(function (item) {
-    return item.value === itemValue.value;
-  }) >= 0 : selectedValue.value === itemValue.value;
+  return Array.isArray(selectedValue) ? // eslint-disable-next-line eqeqeq
+  selectedValue.findIndex(function (item) {
+    return item.value == itemValue.value;
+  }) >= 0 // eslint-disable-next-line eqeqeq
+  : selectedValue.value == itemValue.value;
 }
