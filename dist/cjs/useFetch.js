@@ -28,8 +28,10 @@ function useFetch(q, defaultOptions, _ref) {
 
   var fetch = (0, _react.useMemo)(function () {
     var filter = filterOptions || function (op) {
-      return function () {
-        return op;
+      return function (s) {
+        return op.filter(function (o) {
+          return o.name.toLowerCase().includes(s.toLowerCase());
+        });
       };
     };
 
