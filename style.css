@@ -4,7 +4,7 @@
 .select-search {
     width: 300px;
     position: relative;
-    font-family: "Nunito Sans", sans-serif;
+    font-family: 'Nunito Sans', sans-serif;
     box-sizing: border-box;
 }
 
@@ -23,7 +23,7 @@
 }
 
 .select-search__value::after {
-    content: "";
+    content: '';
     display: inline-block;
     position: absolute;
     top: calc(50% - 9px);
@@ -42,10 +42,10 @@
     padding: 0 40px 0 16px;
     background: #fff;
     border: 1px solid transparent;
-    box-shadow: 0 0.0625rem 0.125rem rgba(0, 0, 0, 0.15);
+    box-shadow: 0 .0625rem .125rem rgba(0, 0, 0, 0.15);
     border-radius: 3px;
     outline: none;
-    font-family: "Noto Sans", sans-serif;
+    font-family: 'Noto Sans', sans-serif;
     font-size: 14px;
     text-align: left;
     text-overflow: ellipsis;
@@ -57,7 +57,7 @@
 .select-search__input::-webkit-search-cancel-button,
 .select-search__input::-webkit-search-results-button,
 .select-search__input::-webkit-search-results-decoration {
-    -webkit-appearance: none;
+    -webkit-appearance:none;
 }
 
 .select-search__input:not([readonly]):focus {
@@ -69,7 +69,7 @@
  */
 .select-search__select {
     background: #fff;
-    box-shadow: 0 0.0625rem 0.125rem rgba(0, 0, 0, 0.15);
+    box-shadow: 0 .0625rem .125rem rgba(0, 0, 0, 0.15);
 }
 
 /**
@@ -98,7 +98,7 @@
     background: #fff;
     border: none;
     outline: none;
-    font-family: "Noto Sans", sans-serif;
+    font-family: 'Noto Sans', sans-serif;
     font-size: 14px;
     text-align: left;
     cursor: pointer;
@@ -109,12 +109,8 @@
 }
 
 .select-search__option.is-selected {
-    background: #2fcc8b;
+    background: #2FCC8B;
     color: #fff;
-}
-
-.select-search__option:disabled {
-    cursor: not-allowed;
 }
 
 .select-search__option.is-highlighted,
@@ -126,6 +122,10 @@
 .select-search__option.is-selected:hover {
     background: #2eb378;
     color: #fff;
+}
+
+.select-search__option:disabled {
+    cursor: not-allowed;
 }
 
 /**
@@ -166,8 +166,7 @@
     overflow: hidden;
 }
 
-.select-search:not(.is-loading):not(.select-search--multiple)
-    .select-search__value::after {
+.select-search:not(.is-loading):not(.select-search--multiple) .select-search__value::after {
     transform: rotate(45deg);
     border-right: 1px solid #000;
     border-bottom: 1px solid #000;
@@ -187,8 +186,9 @@
 }
 
 .select-search:not(.select-search--multiple) .select-search__input:hover {
-    border-color: #2fcc8b;
+    border-color: #2FCC8B;
 }
+
 
 .select-search:not(.select-search--multiple) .select-search__select {
     position: absolute;
