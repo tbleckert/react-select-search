@@ -76,7 +76,8 @@
  * Options
  */
 .select-search__options {
-    list-style: none;
+    list-style-type: none;
+    display: contents;
 }
 
 /**
