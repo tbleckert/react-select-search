@@ -9,6 +9,7 @@
     "scripts": {
         "lint": "eslint src --ext .js --ext .jsx",
         "test": "jest",
+        "test:react16": "npm i --legacy-peer-deps --no-save react-16@npm:react@^16.14.0 react-dom-16@npm:react-dom@^16.14.0 && REACT_16=yup jest",
         "test:watch": "npm test -- --watch",
         "test:coverage": "npm test -- --coverage --silent",
         "coveralls": "npm run test:coverage && cat ./coverage/lcov.info | coveralls",
@@ -36,8 +37,8 @@
     "homepage": "https://github.com/tbleckert/react-select-search",
     "peerDependencies": {
         "prop-types": "^15.7.2",
-        "react": "^17.0.1",
-        "react-dom": "^17.0.1"
+        "react": "^17.0.1 || ^16.14.0",
+        "react-dom": "^17.0.1 || ^16.14.0"
     },
     "devDependencies": {
         "@babel/cli": "^7.12.1",
