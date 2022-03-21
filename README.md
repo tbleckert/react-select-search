@@ -118,7 +118,7 @@ Below is all the available options you can pass to the component. Options withou
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
-| options | array | | Se the [options documentation](#the-options-object) below |
+| options | array | | See the [options documentation](#the-options-object) below |
 | getOptions | function | null | Get options through a function call, can return a promise for async usage. See [get options](#get-options) for more. |
 | filterOptions | function | null | Takes the current options list and should return a function that handles the filtering. Runs after getOptions. See [fuzzySearch.js](src/fuzzySearch.js) for example. |
 | value | string, array | null | The value should be an array if multiple mode. |
