@@ -2,14 +2,14 @@ import { memo } from 'react';
 import PropTypes from 'prop-types';
 import classes from '../lib/classes';
 
-const Option = ({
+function Option({
     optionProps,
     highlighted,
     selected,
     option,
     cls,
     renderOption,
-}) => {
+}) {
     const props = { ...optionProps, value: option.value, disabled: option.disabled };
     const className = classes({
         [cls('option')]: true,
@@ -23,7 +23,7 @@ const Option = ({
             {!renderOption && <button type="button" className={className} {...props}>{option.name}</button>}
         </li>
     );
-};
+}
 
 Option.defaultProps = {
     renderOption: null,
