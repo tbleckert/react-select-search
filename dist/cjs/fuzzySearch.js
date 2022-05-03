@@ -18,6 +18,9 @@ function fuzzySearch(options) {
       return options;
     }
 
-    return fuse.search(value);
+    return fuse.search(value).map(function (_ref) {
+      var item = _ref.item;
+      return item;
+    });
   };
 }

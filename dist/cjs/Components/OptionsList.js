@@ -17,7 +17,7 @@ var _jsxRuntime = require("react/jsx-runtime");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-var OptionsList = function OptionsList(_ref) {
+function OptionsList(_ref) {
   var options = _ref.options,
       optionProps = _ref.optionProps,
       snapshot = _ref.snapshot,
@@ -61,8 +61,12 @@ var OptionsList = function OptionsList(_ref) {
       }, o.value);
     })
   });
-};
+}
 
+OptionsList.defaultProps = {
+  renderGroupHeader: null,
+  renderOption: null
+};
 OptionsList.propTypes = process.env.NODE_ENV !== "production" ? {
   options: _propTypes["default"].arrayOf(_types.optionType).isRequired,
   optionProps: _propTypes["default"].shape({}).isRequired,

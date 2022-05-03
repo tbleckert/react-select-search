@@ -6,14 +6,16 @@ import classes from '../lib/classes';
 import { jsx as _jsx } from "react/jsx-runtime";
 import { jsxs as _jsxs } from "react/jsx-runtime";
 
-const Option = ({
-  optionProps,
-  highlighted,
-  selected,
-  option,
-  cls,
-  renderOption
-}) => {
+function Option(_ref) {
+  let {
+    optionProps,
+    highlighted,
+    selected,
+    option,
+    cls,
+    renderOption
+  } = _ref;
+
   const props = _extends({}, optionProps, {
     value: option.value,
     disabled: option.disabled
@@ -39,7 +41,7 @@ const Option = ({
       children: option.name
     }))]
   }, option.value);
-};
+}
 
 Option.defaultProps = {
   renderOption: null

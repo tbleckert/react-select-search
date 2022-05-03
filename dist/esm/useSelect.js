@@ -7,20 +7,21 @@ import getDisplayValue from './lib/getDisplayValue';
 import useFetch from './useFetch';
 import getValues from './lib/getValues';
 import useHighlight from './useHighlight';
-export default function useSelect({
-  value: defaultValue = null,
-  options: defaultOptions = [],
-  search: canSearch = false,
-  multiple = false,
-  disabled = false,
-  closeOnSelect = true,
-  getOptions: getOptionsFn = null,
-  filterOptions = null,
-  onChange = () => {},
-  onFocus = () => {},
-  onBlur = () => {},
-  debounce = 0
-}) {
+export default function useSelect(_ref) {
+  let {
+    value: defaultValue = null,
+    options: defaultOptions = [],
+    search: canSearch = false,
+    multiple = false,
+    disabled = false,
+    closeOnSelect = true,
+    getOptions: getOptionsFn = null,
+    filterOptions = null,
+    onChange = () => {},
+    onFocus = () => {},
+    onBlur = () => {},
+    debounce = 0
+  } = _ref;
   const ref = useRef(null);
   const [value, setValue] = useState(null);
   const [search, setSearch] = useState('');
@@ -73,9 +74,12 @@ export default function useSelect({
   }, keyboardEvents, {
     onFocus: onFocusCb,
     onBlur: onBlurCb,
-    onChange: canSearch ? ({
-      target
-    }) => setSearch(target.value) : null,
+    onChange: canSearch ? _ref2 => {
+      let {
+        target
+      } = _ref2;
+      return setSearch(target.value);
+    } : null,
     disabled,
     ref
   }), [canSearch, keyboardEvents, onFocusCb, onBlurCb, disabled]);

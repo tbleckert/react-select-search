@@ -4,15 +4,16 @@ import { optionType, valueType } from '../types';
 import OptionsList from './OptionsList';
 import { jsx as _jsx } from "react/jsx-runtime";
 
-const Options = ({
-  options,
-  optionProps,
-  snapshot,
-  cls,
-  renderGroupHeader,
-  renderOption,
-  emptyMessage
-}) => {
+function Options(_ref) {
+  let {
+    options,
+    optionProps,
+    snapshot,
+    cls,
+    renderGroupHeader,
+    renderOption,
+    emptyMessage
+  } = _ref;
   const selectRef = useRef(null);
   const {
     value,
@@ -67,7 +68,7 @@ const Options = ({
       })
     })
   );
-};
+}
 
 Options.defaultProps = {
   renderOption: null,

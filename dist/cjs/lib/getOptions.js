@@ -36,6 +36,7 @@ function getOptions(value, oldValue, options, multiple) {
   }
 
   newOptions.forEach(function (newOption) {
+    // eslint-disable-next-line eqeqeq
     var optionIndex = oldOptions.findIndex(function (o) {
       return o.value == newOption.value;
     });
