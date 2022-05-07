@@ -23,6 +23,7 @@ export default function getOptions(value, oldValue, options, multiple) {
   }
 
   newOptions.forEach(newOption => {
+    // eslint-disable-next-line eqeqeq
     const optionIndex = oldOptions.findIndex(o => o.value == newOption.value);
 
     if (optionIndex >= 0) {

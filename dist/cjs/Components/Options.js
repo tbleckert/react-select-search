@@ -15,7 +15,7 @@ var _jsxRuntime = require("react/jsx-runtime");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-var Options = function Options(_ref) {
+function Options(_ref) {
   var options = _ref.options,
       optionProps = _ref.optionProps,
       snapshot = _ref.snapshot,
@@ -75,7 +75,7 @@ var Options = function Options(_ref) {
       })
     })
   );
-};
+}
 
 Options.defaultProps = {
   renderOption: null,

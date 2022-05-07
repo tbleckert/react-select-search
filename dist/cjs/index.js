@@ -1,7 +1,7 @@
 "use strict";
 
 exports.__esModule = true;
-exports.fuzzySearch = exports["default"] = exports.useSelect = void 0;
+exports.useSelect = exports.fuzzySearch = exports["default"] = void 0;
 
 var _useSelect = _interopRequireDefault(require("./useSelect"));
 

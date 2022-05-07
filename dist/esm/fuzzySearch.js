@@ -10,6 +10,11 @@ export default function fuzzySearch(options) {
       return options;
     }
 
-    return fuse.search(value);
+    return fuse.search(value).map(_ref => {
+      let {
+        item
+      } = _ref;
+      return item;
+    });
   };
 }

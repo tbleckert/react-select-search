@@ -9,30 +9,31 @@ import useClassName from './useClassName';
 import classes from './lib/classes';
 import { jsx as _jsx } from "react/jsx-runtime";
 import { jsxs as _jsxs } from "react/jsx-runtime";
-const SelectSearch = /*#__PURE__*/forwardRef(({
-  value: defaultValue,
-  disabled,
-  placeholder,
-  multiple,
-  search,
-  autoFocus,
-  autoComplete,
-  options: defaultOptions,
-  id,
-  onChange,
-  onFocus,
-  onBlur,
-  printOptions,
-  closeOnSelect,
-  className,
-  renderValue,
-  renderOption,
-  renderGroupHeader,
-  getOptions,
-  filterOptions,
-  debounce,
-  emptyMessage
-}, ref) => {
+const SelectSearch = /*#__PURE__*/forwardRef((_ref, ref) => {
+  let {
+    value: defaultValue,
+    disabled,
+    placeholder,
+    multiple,
+    search,
+    autoFocus,
+    autoComplete,
+    options: defaultOptions,
+    id,
+    onChange,
+    onFocus,
+    onBlur,
+    printOptions,
+    closeOnSelect,
+    className,
+    renderValue,
+    renderOption,
+    renderGroupHeader,
+    getOptions,
+    filterOptions,
+    debounce,
+    emptyMessage
+  } = _ref;
   const cls = useClassName(className);
   const [snapshot, valueProps, optionProps] = useSelect({
     options: defaultOptions,

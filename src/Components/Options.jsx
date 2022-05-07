@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { optionType, valueType } from '../types';
 import OptionsList from './OptionsList';
 
-const Options = ({
+function Options({
     options,
     optionProps,
     snapshot,
@@ -16,7 +16,7 @@ const Options = ({
     renderGroupHeader,
     renderOption,
     emptyMessage,
-}) => {
+}) {
     const selectRef = useRef(null);
     const { value, highlighted } = snapshot;
     const renderEmptyMessage = useCallback(() => {
@@ -69,7 +69,7 @@ const Options = ({
             )}
         </div>
     );
-};
+}
 
 Options.defaultProps = {
     renderOption: null,

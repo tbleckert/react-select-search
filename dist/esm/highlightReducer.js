@@ -1,7 +1,8 @@
-export default function highlightReducer(highlighted, {
-  key,
-  options
-}) {
+export default function highlightReducer(highlighted, _ref) {
+  let {
+    key,
+    options
+  } = _ref;
   const max = options.length - 1;
   let newHighlighted = key === 'ArrowDown' ? highlighted + 1 : highlighted - 1;
 

@@ -1,6 +1,5 @@
 import SelectSearch from '../src';
 import '../style.css';
-import { countries, fontStacks } from './data';
 
 export default {
   title: 'Async',
@@ -9,6 +8,7 @@ export default {
 export const Fetch = () => (
     <SelectSearch
         options={[]}
+        value="15997"
         getOptions={(query) => {
             return new Promise((resolve, reject) => {
                 fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${query}`)

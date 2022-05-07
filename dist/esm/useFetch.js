@@ -1,11 +1,12 @@
 import { useEffect, useMemo, useState } from 'react';
 import debounce from './lib/debounce';
 import flattenOptions from './lib/flattenOptions';
-export default function useFetch(q, defaultOptions, {
-  debounceTime,
-  filterOptions,
-  getOptions
-}) {
+export default function useFetch(q, defaultOptions, _ref) {
+  let {
+    debounceTime,
+    filterOptions,
+    getOptions
+  } = _ref;
   const [fetching, setFetching] = useState(false);
   const [options, setOptions] = useState(() => flattenOptions(defaultOptions));
   const fetch = useMemo(() => {
