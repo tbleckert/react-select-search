@@ -124,6 +124,10 @@
     color: #fff;
 }
 
+.select-search__option:disabled {
+    cursor: not-allowed;
+}
+
 /**
  * Group
  */
@@ -148,6 +152,10 @@
 
 .select-search:not(.is-disabled) .select-search__input {
     cursor: pointer;
+}
+
+.select-search.is-disabled .select-search__input:hover {
+    cursor: not-allowed;
 }
 
 /**
