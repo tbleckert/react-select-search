@@ -10,7 +10,7 @@ export default function useFetch(q, defaultOptions, _ref) {
   const [fetching, setFetching] = useState(false);
   const [options, setOptions] = useState(() => flattenOptions(defaultOptions));
   const fetch = useMemo(() => {
-    const filter = filterOptions || (op => () => op);
+    const filter = filterOptions || (op => s => op.filter(o => o.name.toLowerCase().includes(s.toLowerCase())));
 
     if (!getOptions) {
       return s => setOptions(flattenOptions(filter(defaultOptions)(s)));
