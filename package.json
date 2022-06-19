@@ -1,6 +1,6 @@
 {
     "name": "react-select-search",
-    "version": "3.0.9",
+    "version": "3.0.10",
     "description": "Lightweight select component for React",
     "main": "dist/cjs/index.js",
     "module": "dist/esm/index.js",
