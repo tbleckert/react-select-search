@@ -1,5 +1,3 @@
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
 import { useEffect, useMemo, useState, useRef, useCallback } from 'react';
 import groupOptions from './lib/groupOptions';
 import getOptions from './lib/getOptions';
@@ -68,10 +66,10 @@ export default function useSelect(_ref) {
     setSearch('');
     onBlur(e);
   }, [onBlur]);
-  const valueProps = useMemo(() => _extends({
+  const valueProps = useMemo(() => ({
     tabIndex: '0',
-    readOnly: !canSearch
-  }, keyboardEvents, {
+    readOnly: !canSearch,
+    ...keyboardEvents,
     onFocus: onFocusCb,
     onBlur: onBlurCb,
     onChange: canSearch ? _ref2 => {

@@ -1,5 +1,3 @@
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
 import { forwardRef, memo } from 'react';
 import PropTypes from 'prop-types';
 import useSelect from './useSelect';
@@ -76,23 +74,21 @@ const SelectSearch = /*#__PURE__*/forwardRef((_ref, ref) => {
   }
 
   const shouldRenderValue = !multiple || placeholder || search;
-
-  const props = _extends({}, valueProps, {
+  const props = { ...valueProps,
     placeholder,
     autoFocus,
     autoComplete,
     value: snapshot.focus && search ? snapshot.search : snapshot.displayValue
-  });
-
+  };
   return /*#__PURE__*/_jsxs("div", {
     ref: ref,
     className: wrapperClass,
     id: id,
     children: [shouldRenderValue && /*#__PURE__*/_jsxs("div", {
       className: cls('value'),
-      children: [renderValue && renderValue(props, snapshot, cls('input')), !renderValue && /*#__PURE__*/_jsx("input", _extends({}, props, {
+      children: [renderValue && renderValue(props, snapshot, cls('input')), !renderValue && /*#__PURE__*/_jsx("input", { ...props,
         className: cls('input')
-      }))]
+      })]
     }), shouldRenderOptions && /*#__PURE__*/_jsx(Options, {
       options: snapshot.options,
       optionProps: optionProps,

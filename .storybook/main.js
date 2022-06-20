@@ -1,10 +1,11 @@
 module.exports = {
     'stories': ['../stories/**/*.stories.js'],
     'addons': [
-        '@storybook/addon-links',
-        '@storybook/addon-storysource',
         '@storybook/addon-essentials'
     ],
+    features: {
+        postcss: false,
+    },
     webpackFinal: async config => {
         const devMode = process.env.NODE_ENV !== 'production';
 

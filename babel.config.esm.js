@@ -15,8 +15,6 @@ module.exports = {
         }],
     ],
     plugins: [
-        ['@babel/proposal-class-properties', { loose: true }],
-        ['@babel/proposal-object-rest-spread', { loose: true }],
         ['@babel/transform-react-pure-annotations', { loose: true }],
         ['transform-react-remove-prop-types', {
             mode: 'wrap',
