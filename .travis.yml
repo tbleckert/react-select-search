@@ -1,9 +1,0 @@
-language: node_js
-node_js:
-  - 14
-before_install: yarn install react react-dom
-install:
-  - yarn install
-script:
-  - yarn test
-  - yarn run coveralls

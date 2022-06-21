@@ -3,9 +3,6 @@
 </p>
 
 <p align="center">
-    <a href="https://www.npmjs.com/package/react-select-search">
-        <img src="https://travis-ci.org/tbleckert/react-select-search.svg?branch=main" style="max-width:100%;" />
-    </a>
     <a href='https://coveralls.io/github/tbleckert/react-select-search'>
         <img src='https://coveralls.io/repos/github/tbleckert/react-select-search/badge.svg' alt='Coverage Status' />
     </a>
@@ -19,7 +16,7 @@
         <img src="https://img.shields.io/npm/dm/react-select-search.svg" style="max-width:100%;" />
     </a>
     <a href="https://bundlephobia.com/result?p=react-select-search">
-      <img src="https://badgen.net/bundlephobia/minzip/react-select-search" />
+        <img src="https://badgen.net/bundlephobia/minzip/react-select-search" />
     </a>
 </p>
 
