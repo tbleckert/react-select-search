@@ -8,29 +8,22 @@ import {
 
 export type SelectSearchOption = {
     name:string
-    value:string|number
+    value?:string|number
     type?:string
     items?:SelectSearchOption[]
-    disabled?:boolean
-    photo?:string
-}
-
-export type SelectedOptionValue = {
-    name:string
-    value:string|number
-    index:number
-    photo?:string
-    disabled?:boolean
+    disabled?:boolean,
+    [key: string]:any
 }
 
 export type SelectedOption = {
-    defaultOptions:SelectedOptionValue[][]
-    focus:boolean
-    highlighted:null|SelectedOptionValue
-    options:SelectedOptionValue[][]
-    search:string
-    value:string
+    name:string
+    value:string|number
+    index:number
+    disabled?:boolean,
+    [key: string]:any
 }
+
+export type SelectedOptionValue = string|number;
 
 export type OptionSnapshot = {
     selected:boolean
