@@ -1,17 +1,51 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
-import Fuse from 'fuse.js';
+function fuzzy(q, text) {
+    const searchLength = q.length;
+    const textLength = text.length;
+
+    if (searchLength > textLength) {
+        return false;
+    }
+
+    if (text.indexOf(q) >= 0) {
+        return true;
+    }
+
+    let match = true;
+
+    for (let i = 0, j = 0; i < searchLength; i += 1) {
+        const ch = q.charCodeAt(i);
+
+        while (j < textLength) {
+            // eslint-disable-next-line no-plusplus
+            if (text.charCodeAt(j++) === ch) {
+                break;
+            }
+
+            match = false;
+        }
+
+        if (!match) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+function search(item, query) {
+    const name = item.name.toLowerCase();
+
+    return fuzzy(query, name);
+}
 
 export default function fuzzySearch(options) {
-    const fuse = new Fuse(options, {
-        keys: ['name', 'groupName', 'items.name'],
-        threshold: 0.3,
-    });
-
-    return (value) => {
-        if (!value.length) {
+    return (query) => {
+        if (!query.length) {
             return options;
         }
 
-        return fuse.search(value).map(({ item }) => item);
+        const q = query.toLowerCase();
+
+        return options.filter((option) => search(option, q));
     };
 }

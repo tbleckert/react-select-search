@@ -2,9 +2,13 @@
     "name": "react-select-search",
     "version": "3.0.10",
     "description": "Lightweight select component for React",
+    "source": "src/index.js",
     "main": "dist/cjs/index.js",
     "module": "dist/esm/index.js",
     "types": "src/index.d.ts",
+    "targets": {
+        "types": false
+    },
     "sideEffects": false,
     "scripts": {
         "lint": "eslint src --ext .js --ext .jsx",
@@ -14,9 +18,10 @@
         "test:coverage": "npm test -- --coverage --silent",
         "coveralls": "npm run test:coverage && cat ./coverage/lcov.info | coveralls",
         "start": "start-storybook -p 6006",
-        "bundle": "npx babel --config-file=./babel.config.esm.js src --out-dir dist/esm | npx babel --config-file=./babel.config.js src --out-dir dist/cjs",
+        "bundle": "parcel build",
         "storybook": "start-storybook -p 6006",
-        "build": "build-storybook --output-dir public"
+        "build": "build-storybook --output-dir public",
+        "size": "size-limit"
     },
     "repository": {
         "type": "git",
@@ -35,6 +40,11 @@
         "url": "https://github.com/tbleckert/react-select-search/issues"
     },
     "homepage": "https://github.com/tbleckert/react-select-search",
+    "size-limit": [
+        {
+            "path": "dist/esm/index.js"
+        }
+    ],
     "peerDependencies": {
         "prop-types": "^15.8.1",
         "react": "^18.0.1 || ^17.0.1 || ^16.14.0",
@@ -48,6 +58,7 @@
         "@babel/preset-env": "^7.17.10",
         "@babel/preset-react": "^7.16.7",
         "@babel/register": "^7.17.7",
+        "@size-limit/preset-small-lib": "^7.0.8",
         "@storybook/addon-actions": "^6.5.9",
         "@storybook/addon-essentials": "^6.5.9",
         "@storybook/addon-links": "^6.5.9",
@@ -64,18 +75,16 @@
         "eslint-plugin-jsx-a11y": "^6.5.1",
         "eslint-plugin-react": "^7.29.4",
         "eslint-plugin-react-hooks": "^4.5.0",
-        "fuse.js": "^6.6.0",
         "identity-obj-proxy": "^3.0.0",
         "jest": "^28.0.3",
+        "parcel": "^2.6.1",
         "pretty": "^2.0.0",
         "prop-types": "^15.8.1",
         "react": "^17.0.1",
         "react-dom": "^17.0.1",
         "react-is": "^17.0.1",
         "react-test-renderer": "^17.0.1",
-        "react-transition-group": "^4.4.2"
-    },
-    "optionalDependencies": {
-        "fuse.js": "^6.6.0"
+        "react-transition-group": "^4.4.2",
+        "size-limit": "^7.0.8"
     }
 }
