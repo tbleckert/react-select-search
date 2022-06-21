@@ -1,19 +1,27 @@
-import { useCallback } from 'react';
+import { useMemo } from 'react';
 
 export default function useClassName(className) {
-    return useCallback((key) => {
-        if (typeof className === 'function') {
-            return className(key);
+    return useMemo(() => {
+        if (typeof className === 'string') {
+            const [base] = className.split(' ');
+            const bem = (k) => `${base}__${k}`;
+
+            return {
+                container: className,
+                value: bem('value'),
+                input: bem('input'),
+                select: bem('select'),
+                options: bem('options'),
+                option: bem('option'),
+                group: bem('group'),
+                'group-header': bem('group-header'),
+                'is-selected': 'is-selected',
+                'is-highlighted': 'is-highlighted',
+                'is-loading': 'is-loading',
+                'has-focus': 'has-focus',
+            };
         }
 
-        if (key.indexOf('container') === 0) {
-            return key.replace('container', className);
-        }
-
-        if (key.indexOf('is-') === 0 || key.indexOf('has-') === 0) {
-            return key;
-        }
-
-        return `${className.split(' ')[0]}__${key}`;
+        return className;
     }, [className]);
 }

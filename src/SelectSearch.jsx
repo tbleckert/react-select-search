@@ -51,13 +51,6 @@ const SelectSearch = forwardRef(({
         debounce,
     });
 
-    const wrapperClass = classes({
-        [cls('container')]: true,
-        [cls('is-disabled')]: disabled,
-        [cls('is-loading')]: snapshot.fetching,
-        [cls('has-focus')]: snapshot.focus,
-    });
-
     let shouldRenderOptions;
 
     switch (printOptions) {
@@ -84,12 +77,23 @@ const SelectSearch = forwardRef(({
         value: (snapshot.focus && search) ? snapshot.search : snapshot.displayValue,
     };
 
+    console.log(cls);
+
     return (
-        <div ref={ref} className={wrapperClass} id={id}>
+        <div
+            ref={ref}
+            className={classes({
+                [cls['container']]: true,
+                [cls['is-disabled']]: disabled,
+                [cls['is-loading']]: snapshot.fetching,
+                [cls['has-focus']]: snapshot.focus,
+            })}
+            id={id}
+        >
             {shouldRenderValue && (
-                <div className={cls('value')}>
-                    {renderValue && renderValue(props, snapshot, cls('input'))}
-                    {!renderValue && <input {...props} className={cls('input')} />}
+                <div className={cls['value']}>
+                    {renderValue && renderValue(props, snapshot, cls['input'])}
+                    {!renderValue && <input {...props} className={cls['input']} />}
                 </div>
             )}
             {shouldRenderOptions && (
@@ -168,7 +172,7 @@ SelectSearch.propTypes = {
     // Design
     className: PropTypes.oneOfType([
         PropTypes.string,
-        PropTypes.func,
+        PropTypes.object,
     ]),
 
     // Renderers

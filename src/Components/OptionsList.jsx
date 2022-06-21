@@ -13,14 +13,14 @@ function OptionsList({
     cls,
 }) {
     return (
-        <ul className={cls('options')}>
+        <ul className={cls['options']}>
             {options.map((o) => {
                 if (o.type === 'group') {
                     return (
-                        <li role="none" className={cls('row')} key={o.groupId}>
-                            <div className={cls('group')}>
-                                <div className={cls('group-header')}>{(renderGroupHeader) ? renderGroupHeader(o.name) : o.name}</div>
-                                <ul className={cls('options')}>
+                        <li role="none" className={cls['row']} key={o.groupId}>
+                            <div className={cls['group']}>
+                                <div className={cls['group-header']}>{(renderGroupHeader) ? renderGroupHeader(o.name) : o.name}</div>
+                                <ul className={cls['options']}>
                                     <OptionsList
                                         optionProps={optionProps}
                                         snapshot={snapshot}

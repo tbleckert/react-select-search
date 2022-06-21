@@ -25,7 +25,7 @@ function Options({
         }
 
         return (
-            <li className={cls('not-found')}>
+            <li className={cls['not-found']}>
                 {(typeof emptyMessage === 'function') ? emptyMessage() : emptyMessage}
             </li>
         );
@@ -52,7 +52,7 @@ function Options({
 
     return (
         // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-        <div className={cls('select')} ref={selectRef} onMouseDown={(e) => e.preventDefault()}>
+        <div className={cls['select']} ref={selectRef} onMouseDown={(e) => e.preventDefault()}>
             {options.length ? (
                 <OptionsList
                     optionProps={optionProps}
@@ -63,7 +63,7 @@ function Options({
                     cls={cls}
                 />
             ) : (
-                <ul className={cls('options')}>
+                <ul className={cls['options']}>
                     {renderEmptyMessage()}
                 </ul>
             )}

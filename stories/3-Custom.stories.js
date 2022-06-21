@@ -66,7 +66,7 @@ export const AvatarExample = () => (
 
 export const CSSModules = () => (
     <SelectSearch
-        className={(key) => classes[key]}
+        className={classes}
         multiple
         options={[
             { value: 'hamburger', name: 'Hamburger' },
