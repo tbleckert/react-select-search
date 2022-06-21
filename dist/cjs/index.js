@@ -243,6 +243,7 @@ function $b4df433b5f503385$export$2e2bcd8739ae039(defaultHighlighted, options, o
 
 
 function $4bbd6d22e42ff57c$export$2e2bcd8739ae039({ value: defaultValue = null , options: defaultOptions = [] , search: canSearch = false , multiple: multiple = false , disabled: disabled = false , closeOnSelect: closeOnSelect = true , getOptions: getOptionsFn = null , filterOptions: filterOptions = null , onChange: onChange = ()=>{} , onFocus: onFocus = ()=>{} , onBlur: onBlur = ()=>{} , debounce: debounce = 0 ,  }) {
+    const initialValue = (0, $a9A1a$react.useRef)(null);
     const ref = (0, $a9A1a$react.useRef)(null);
     const [value, setValue] = (0, $a9A1a$react.useState)(null);
     const [search, setSearch] = (0, $a9A1a$react.useState)("");
@@ -329,12 +330,16 @@ function $4bbd6d22e42ff57c$export$2e2bcd8739ae039({ value: defaultValue = null ,
         onMouseDown
     ]);
     (0, $a9A1a$react.useEffect)(()=>{
+        if (defaultValue !== null && initialValue.current === defaultValue) return;
+        initialValue.current = defaultValue;
         setValue((0, $3ee920e8b5fd7d53$export$2e2bcd8739ae039)(defaultValue, null, options, multiple));
     }, [
         defaultValue,
+        initialValue,
         multiple,
         options
     ]);
+    console.log(snapshot);
     return [
         snapshot,
         valueProps,
@@ -755,6 +760,7 @@ function $b33d78a6671ffa6c$var$fuzzy(q, text) {
     for(let i = 0, j = 0; i < searchLength; i += 1){
         const ch = q.charCodeAt(i);
         while(j < textLength){
+            // eslint-disable-next-line no-plusplus
             if (text.charCodeAt(j++) === ch) break;
             match = false;
         }
@@ -764,7 +770,8 @@ function $b33d78a6671ffa6c$var$fuzzy(q, text) {
 }
 function $b33d78a6671ffa6c$var$search(item, query) {
     const name = item.name.toLowerCase();
-    return $b33d78a6671ffa6c$var$fuzzy(query, name);
+    if ($b33d78a6671ffa6c$var$fuzzy(query, name)) return true;
+    return item.groupName && $b33d78a6671ffa6c$var$fuzzy(query, item.groupName.toLowerCase());
 }
 function $b33d78a6671ffa6c$export$2e2bcd8739ae039(options) {
     return (query)=>{

@@ -228,6 +228,7 @@ function $8c63ada902e0d18e$export$2e2bcd8739ae039(defaultHighlighted, options, o
 
 
 function $0d0f732c1d5a71da$export$2e2bcd8739ae039({ value: defaultValue = null , options: defaultOptions = [] , search: canSearch = false , multiple: multiple = false , disabled: disabled = false , closeOnSelect: closeOnSelect = true , getOptions: getOptionsFn = null , filterOptions: filterOptions = null , onChange: onChange = ()=>{} , onFocus: onFocus = ()=>{} , onBlur: onBlur = ()=>{} , debounce: debounce = 0 ,  }) {
+    const initialValue = (0, $6XpKT$useRef)(null);
     const ref = (0, $6XpKT$useRef)(null);
     const [value, setValue] = (0, $6XpKT$useState)(null);
     const [search, setSearch] = (0, $6XpKT$useState)("");
@@ -314,12 +315,16 @@ function $0d0f732c1d5a71da$export$2e2bcd8739ae039({ value: defaultValue = null ,
         onMouseDown
     ]);
     (0, $6XpKT$useEffect)(()=>{
+        if (defaultValue !== null && initialValue.current === defaultValue) return;
+        initialValue.current = defaultValue;
         setValue((0, $54d060e9e68a5824$export$2e2bcd8739ae039)(defaultValue, null, options, multiple));
     }, [
         defaultValue,
+        initialValue,
         multiple,
         options
     ]);
+    console.log(snapshot);
     return [
         snapshot,
         valueProps,
@@ -740,6 +745,7 @@ function $ef504720cdfc4bdc$var$fuzzy(q, text) {
     for(let i = 0, j = 0; i < searchLength; i += 1){
         const ch = q.charCodeAt(i);
         while(j < textLength){
+            // eslint-disable-next-line no-plusplus
             if (text.charCodeAt(j++) === ch) break;
             match = false;
         }
@@ -749,7 +755,8 @@ function $ef504720cdfc4bdc$var$fuzzy(q, text) {
 }
 function $ef504720cdfc4bdc$var$search(item, query) {
     const name = item.name.toLowerCase();
-    return $ef504720cdfc4bdc$var$fuzzy(query, name);
+    if ($ef504720cdfc4bdc$var$fuzzy(query, name)) return true;
+    return item.groupName && $ef504720cdfc4bdc$var$fuzzy(query, item.groupName.toLowerCase());
 }
 function $ef504720cdfc4bdc$export$2e2bcd8739ae039(options) {
     return (query)=>{

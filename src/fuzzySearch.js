@@ -35,7 +35,11 @@ function fuzzy(q, text) {
 function search(item, query) {
     const name = item.name.toLowerCase();
 
-    return fuzzy(query, name);
+    if (fuzzy(query, name)) {
+        return true;
+    }
+
+    return item.groupName && fuzzy(query, item.groupName.toLowerCase());
 }
 
 export default function fuzzySearch(options) {
