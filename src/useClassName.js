@@ -13,11 +13,13 @@ export default function useClassName(className) {
                 select: bem('select'),
                 options: bem('options'),
                 option: bem('option'),
+                row: bem('row'),
                 group: bem('group'),
                 'group-header': bem('group-header'),
                 'is-selected': 'is-selected',
                 'is-highlighted': 'is-highlighted',
                 'is-loading': 'is-loading',
+                'is-disabled': 'is-disabled',
                 'has-focus': 'has-focus',
             };
         }
