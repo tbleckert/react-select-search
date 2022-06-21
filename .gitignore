@@ -3,3 +3,4 @@ npm-debug.log
 coverage
 .vercel
 .parcel-cache
+dist

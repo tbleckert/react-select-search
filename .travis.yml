@@ -1,9 +1,9 @@
 language: node_js
 node_js:
-  - 11
-before_install: npm install react react-dom
+  - 14
+before_install: yarn install react react-dom
 install:
-  - npm install
+  - yarn install
 script:
-  - npm test
-  - npm run coveralls
+  - yarn test
+  - yarn run coveralls
