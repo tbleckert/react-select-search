@@ -77,8 +77,6 @@ const SelectSearch = forwardRef(({
         value: (snapshot.focus && search) ? snapshot.search : snapshot.displayValue,
     };
 
-    console.log(cls);
-
     return (
         <div
             ref={ref}
