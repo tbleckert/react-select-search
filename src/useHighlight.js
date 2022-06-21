@@ -3,6 +3,7 @@ import highlightReducer from './highlightReducer';
 
 export default function useHighlight(defaultHighlighted, options, onSelect, ref) {
     const [highlighted, dispatchHighlighted] = useReducer(highlightReducer, defaultHighlighted);
+    const reset = useCallback(() => dispatchHighlighted('reset'), []);
     const onKeyDown = useCallback((e) => {
         const { key } = e;
 
@@ -31,5 +32,5 @@ export default function useHighlight(defaultHighlighted, options, onSelect, ref)
         }
     }, [ref]);
 
-    return [highlighted, { onKeyPress, onKeyDown, onKeyUp }];
+    return [highlighted, { onKeyPress, onKeyDown, onKeyUp }, reset];
 }

@@ -54,7 +54,7 @@ export default function useSelect({
         }
     }, [closeOnSelect, multiple, onChange, value, options]);
 
-    const [highlighted, keyboardEvents] = useHighlight(-1, options, onSelect, ref);
+    const [highlighted, keyboardEvents, resetHighlight] = useHighlight(-1, options, onSelect, ref);
     const snapshot = useMemo(() => ({
         options: groupOptions(options),
         option: value,
@@ -80,6 +80,7 @@ export default function useSelect({
     const onBlurCb = useCallback((e) => {
         setFocus(false);
         setSearch('');
+        resetHighlight();
         onBlur(e);
     }, [onBlur]);
 
