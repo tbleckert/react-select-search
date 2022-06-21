@@ -88,7 +88,8 @@ export type SelectSearchProps = {
     printOptions?:PrintOptions
     closeOnSelect?:boolean
     renderOption?:(domProps:DomProps, option:SelectedOption, snapshot:OptionSnapshot, className:string) => ReactNode
-    filterOptions?:(options: SelectSearchOption[]) => (query:string) => SelectSearchOption[],
+    fuzzySearch?:boolean,
+    filterOptions?:((options: SelectSearchOption[], query:string) => SelectSearchOption[])[],
     renderValue?:(valueProps:ValueProps, snapshot:ValueSnapshot, className:string) => ReactNode
     renderGroupHeader?:(name:string) => string
     getOptions?: (query:string) => Promise<SelectSearchOption[]>
@@ -96,7 +97,6 @@ export type SelectSearchProps = {
     ref?:Ref<Component>
     emptyMessage?:string|(() =>string)
 }
-
 
 export const SelectSearch:FunctionComponent<SelectSearchProps>
 
@@ -108,7 +108,8 @@ export function useSelect(Options: {
     options?:SelectSearchOption[],
     onChange?:(selectedValue:SelectedOptionValue|SelectedOptionValue[], selectedOption:SelectedOption|SelectedOption[], optionSnapshot:SelectSearchProps) => void,
     getOptions?:(query:string) => Promise<SelectSearchOption[]>,
-    filterOptions?:(options: SelectSearchOption[]) => (query:string) => SelectSearchOption[],
+    fuzzySearch?:boolean,
+    filterOptions?:((options: SelectSearchOption[], query:string) => SelectSearchOption[])[],
     allowEmpty?:boolean,
     closeOnSelect?:boolean,
     closable?:boolean,
@@ -136,7 +137,5 @@ export function useSelect(Options: {
     },
     (value:string) => void
 ]
-
-export function fuzzySearch(options: SelectSearchOption[]): (query:string) => SelectSearchOption[]
 
 export default SelectSearch
