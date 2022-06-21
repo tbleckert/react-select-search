@@ -21,7 +21,7 @@
 </p>
 
 ## Features
-* Lightweight, with zero dependencies*
+* Lightweight, with zero dependencies
 * Accessible
 * Headless mode
 * Basic HTML select functionality, including multiple
@@ -31,8 +31,6 @@
 * Keyboard support
 * Group options with group names, you can search group names
 * Fully stylable
-
-_*One optional dependency required for built-in fuzzy search_
 
 ## Demo
 
