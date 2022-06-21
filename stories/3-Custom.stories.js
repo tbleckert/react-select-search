@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import SelectSearch, { fuzzySearch } from '../src';
+import SelectSearch from '../src';
 import '../style.css';
 import classes from '../style.module.css';
 import { fontStacks, friends } from './data';
@@ -49,7 +49,6 @@ export const FontExample = () => (
         renderValue={renderFontValue}
         renderOption={renderFontOption}
         search
-        filterOptions={fuzzySearch}
         value="Monoton"
     />
 );
@@ -61,7 +60,6 @@ export const AvatarExample = () => (
         renderOption={renderFriend}
         multiple
         search
-        filterOptions={fuzzySearch}
         placeholder="Search friends"
     />
 );

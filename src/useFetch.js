@@ -1,19 +1,25 @@
 import { useEffect, useMemo, useState } from 'react';
 import debounce from './lib/debounce';
 import flattenOptions from './lib/flattenOptions';
+import fuzzySearch from './fuzzySearch';
+import reduce from './lib/reduce';
 
 export default function useFetch(q, defaultOptions, {
     debounceTime,
+    fuzzySearch: useFuzzySearch,
     filterOptions,
     getOptions,
 }) {
     const [fetching, setFetching] = useState(false);
     const [options, setOptions] = useState(() => flattenOptions(defaultOptions));
     const fetch = useMemo(() => {
-        const filter = filterOptions || ((op) => () => op);
+        const middleware = [
+            (useFuzzySearch) ? fuzzySearch : null,
+            ...((filterOptions) ? filterOptions : []),
+        ];
 
         if (!getOptions) {
-            return (s) => setOptions(flattenOptions(filter(defaultOptions)(s)));
+            return (s) => setOptions(reduce(middleware, flattenOptions(defaultOptions), s));
         }
 
         return debounce((s) => {
@@ -23,7 +29,7 @@ export default function useFetch(q, defaultOptions, {
 
             Promise.resolve(optionsReq)
                 .then((newOptions) => {
-                    setOptions(flattenOptions(filter(newOptions)(s)));
+                    setOptions(reduce(middleware, flattenOptions(newOptions), s));
                 })
                 .finally(() => setFetching(false));
         }, debounceTime);

@@ -42,14 +42,12 @@ function search(item, query) {
     return item.groupName && fuzzy(query, item.groupName.toLowerCase());
 }
 
-export default function fuzzySearch(options) {
-    return (query) => {
-        if (!query.length) {
-            return options;
-        }
+export default function fuzzySearch(options, query) {
+    if (!query.length) {
+        return options;
+    }
 
-        const q = query.toLowerCase();
+    const q = query.toLowerCase();
 
-        return options.filter((option) => search(option, q));
-    };
+    return options.filter((option) => search(option, q));
 }

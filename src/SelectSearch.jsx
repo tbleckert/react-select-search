@@ -30,6 +30,7 @@ const SelectSearch = forwardRef(({
     renderGroupHeader,
     getOptions,
     filterOptions,
+    fuzzySearch,
     debounce,
     emptyMessage,
 }, ref) => {
@@ -46,6 +47,7 @@ const SelectSearch = forwardRef(({
         closeOnSelect: closeOnSelect && (!multiple || ['on-focus', 'always'].includes(printOptions)),
         getOptions,
         filterOptions,
+        fuzzySearch,
         debounce,
     });
 
@@ -109,6 +111,7 @@ SelectSearch.defaultProps = {
     // Data
     getOptions: null,
     filterOptions: null,
+    fuzzySearch: true,
     value: null,
 
     // Interaction
@@ -144,7 +147,8 @@ SelectSearch.propTypes = {
     // Data
     options: PropTypes.arrayOf(optionType).isRequired,
     getOptions: PropTypes.func,
-    filterOptions: PropTypes.func,
+    filterOptions: PropTypes.arrayOf(PropTypes.func),
+    fuzzySearch: PropTypes.bool,
     value: valueType,
 
     // Interaction

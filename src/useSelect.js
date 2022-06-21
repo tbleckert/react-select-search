@@ -20,6 +20,7 @@ export default function useSelect({
     closeOnSelect = true,
     getOptions: getOptionsFn = null,
     filterOptions = null,
+    fuzzySearch = true,
     onChange = () => {},
     onFocus = () => {},
     onBlur = () => {},
@@ -32,6 +33,7 @@ export default function useSelect({
     const [focus, setFocus] = useState(false);
     const { options, fetching } = useFetch(search, defaultOptions, {
         getOptions: getOptionsFn,
+        fuzzySearch,
         filterOptions,
         debounceTime: debounce,
     });

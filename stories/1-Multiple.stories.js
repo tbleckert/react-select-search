@@ -1,4 +1,4 @@
-import SelectSearch, { fuzzySearch } from '../src';
+import SelectSearch from '../src';
 import '../style.css';
 import { countries } from './data';
 
@@ -55,7 +55,6 @@ export const WithPlaceholder = () => (
         ]}
         multiple
         search
-        filterOptions={fuzzySearch}
         placeholder="Select your items"
     />
 );
@@ -65,7 +64,6 @@ export const Search = () => (
         options={countries}
         multiple
         search
-        filterOptions={fuzzySearch}
         placeholder="Select your country"
     />
 );

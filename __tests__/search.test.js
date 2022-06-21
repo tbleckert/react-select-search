@@ -6,10 +6,9 @@ const options = flattenOptions(countries);
 
 describe('Unit test for search function', () => {
     test('Can search', () => {
-        const newOptions = fuzzySearch(options);
+        const newOptions = fuzzySearch(options, 'Sweden');
 
-        expect(typeof newOptions).toEqual('function');
-        expect(newOptions('sweden').length).toEqual(1);
-        expect(newOptions('sweden')[0].name).toEqual('Sweden');
+        expect(newOptions.length).toEqual(1);
+        expect(newOptions[0].name).toEqual('Sweden');
     });
 });
