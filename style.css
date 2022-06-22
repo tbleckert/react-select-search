@@ -1,6 +1,9 @@
 @import url('https://rsms.me/inter/inter.css');
 
-:root {
+/**
+ * Main wrapper
+ */
+.select-search {
     --select-search-background: #fff;
     --select-search-border: #dce0e8;
     --select-search-selected: #1e66f5;
@@ -9,23 +12,47 @@
     --select-search-inverted-text: var(--select-search-background);
     --select-search-highlight: #eff1f5;
     --select-search-font: 'Inter', sans-serif;
-}
 
-@supports (font-variation-settings: normal) {
-    :root {
-        --select-search-font: 'Inter var', sans-serif;
-    }
-}
-
-/**
- * Main wrapper
- */
-.select-search {
     width: 300px;
     position: relative;
     font-family: var(--select-search-font);
     color: var(--select-search-text);
     box-sizing: border-box;
+}
+
+@supports (font-variation-settings: normal) {
+    .select-search {
+        --select-search-font: 'Inter var', sans-serif;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    .select-search {
+        --select-search-background: #000;
+        --select-search-border: #313244;
+        --select-search-selected: #89b4fa;
+        --select-search-text: #fff;
+        --select-search-subtle-text: #a6adc8;
+        --select-search-highlight: #1e1e2e;
+    }
+}
+
+body.is-dark-mode .select-search {
+    --select-search-background: #000;
+    --select-search-border: #313244;
+    --select-search-selected: #89b4fa;
+    --select-search-text: #fff;
+    --select-search-subtle-text: #a6adc8;
+    --select-search-highlight: #1e1e2e;
+}
+
+body.is-light-mode .select-search {
+    --select-search-background: #fff;
+    --select-search-border: #dce0e8;
+    --select-search-selected: #1e66f5;
+    --select-search-text: #000;
+    --select-search-subtle-text: #6c6f85;
+    --select-search-highlight: #eff1f5;
 }
 
 .select-search *,

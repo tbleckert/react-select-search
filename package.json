@@ -71,6 +71,7 @@
         "react-dom": "^17.0.1",
         "react-test-renderer": "^18.2.0",
         "react-transition-group": "^4.4.2",
-        "size-limit": "^7.0.8"
+        "size-limit": "^7.0.8",
+        "storybook-dark-mode": "^1.1.0"
     }
 }

@@ -1,3 +1,11 @@
-body {
-    background: #fff;
+body, body.is-light-mode { background: #fff; }
+
+@media (prefers-color-scheme: dark) {
+    body {
+        background: #000;
+    }
+}
+
+body.is-dark-mode {
+    background: #000;
 }
