@@ -1,22 +1,29 @@
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/263465/71013376-e4bc3180-20f0-11ea-9768-2a21f6e1607d.png" alt="React Select Search" />
+  <img src="https://user-images.githubusercontent.com/263465/175054036-90835869-74dc-40f1-a541-adea18da9b8f.png" alt="React Select Search" />
 </p>
+
+<h6 align="center">
+  <a href="https://react-select-search.com">Demo</a>
+  ·
+  <a href="https://github.com/tbleckert/react-select-search#quick-start">Quick start</a>
+  ·
+  <a href="https://github.com/tbleckert/react-select-search#config">Config</a>
+·
+  <a href="https://github.com/tbleckert/react-select-search#headless-mode-with-hooks">Headless</a>
+</h6>
 
 <p align="center">
     <a href='https://coveralls.io/github/tbleckert/react-select-search'>
-        <img src='https://coveralls.io/repos/github/tbleckert/react-select-search/badge.svg' alt='Coverage Status' />
+        <img src='https://img.shields.io/coveralls/github/tbleckert/react-select-search?style=for-the-badge' alt='Coverage Status' />
     </a>
     <a href="https://codeclimate.com/github/tbleckert/react-select-search/maintainability">
-        <img src="https://api.codeclimate.com/v1/badges/ca5314831e777b903ca8/maintainability" />
+        <img src="https://img.shields.io/codeclimate/maintainability/tbleckert/react-select-search?style=for-the-badge" />
     </a>
     <a href="https://www.npmjs.com/package/react-select-search">
-        <img src="https://img.shields.io/npm/v/react-select-search.svg" alt="npm" style="max-width:100%;" />
-    </a>
-    <a href="https://www.npmjs.com/package/react-select-search">
-        <img src="https://img.shields.io/npm/dm/react-select-search.svg" style="max-width:100%;" />
+        <img src="https://img.shields.io/npm/dm/react-select-search.svg?style=for-the-badge" style="max-width:100%;" />
     </a>
     <a href="https://bundlephobia.com/result?p=react-select-search">
-        <img src="https://badgen.net/bundlephobia/minzip/react-select-search" />
+        <img src="https://img.shields.io/bundlephobia/minzip/react-select-search?style=for-the-badge" />
     </a>
 </p>
 
@@ -32,17 +39,11 @@
 * Group options with group names, you can search group names
 * Fully stylable
 
-## Demo
-
-Live demo can be found here: [https://react-select-search.com](https://react-select-search.com)
-  
-<img src="https://user-images.githubusercontent.com/263465/71011520-d4ef1e00-20ed-11ea-9fad-b3c952089258.png" alt="Demo" />
-
 ## Install
 
-Install it with npm (`npm install react-select-search --save`) and import it like you normally would.
+Install it with npm (`npm i react-select-search`) or yarn (`yarn add react-select-search`) and import it like you normally would.
 
-## Quick example
+## Quick start
 
 ```jsx harmony
 import SelectSearch from 'react-select-search';
@@ -66,13 +67,17 @@ const options = [
 /* Simple example */
 <SelectSearch options={options} value="sv" name="language" placeholder="Choose your language" />
 ```
-For example, you can take a look in the [stories](stories) directory.
+For more examples, you can take a look in the [stories](stories) directory.
 
-You will also need some CSS to make it look right. Example theme can be found in [style.css](style.css).
+You will also need some CSS to make it look right. Example theme can be found in [style.css](style.css). You can also import it:
+
+```javascript
+import 'react-select-search/style.css'
+```
 
 ## Use with SSR
 
-For use with SSR you might need to use the commonjs bundle (react-select-search/dist/cjs). If you want to utilise the example theme ([style.css](style.css)) you need to check if you're build script manipulates class names, for example minifies them. If that's the case, you can use CSS modules to get the class names from the style.css file and apply them using the [className function](#custom-class-names). Example can be seen [here](stories/3-Custom.stories.js#L64) as well as here https://react-select-search.com/?path=/story/custom--css-modules.
+For use with SSR you might need to use the commonjs bundle (react-select-search/dist/cjs). If you want to utilise the example theme ([style.css](style.css)) you need to check if your build script manipulates class names, for example minifies them. If that's the case, you can use CSS modules to get the class names from the style.css file and apply them using the [className object](#custom-class-names). Example can be seen [here](stories/3-Custom.stories.js#L64) as well as here https://react-select-search.com/?path=/story/custom--css-modules.
 
 ## Headless mode with hooks
 
