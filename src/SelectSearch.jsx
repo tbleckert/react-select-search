@@ -178,7 +178,7 @@ SelectSearch.propTypes = {
     renderGroupHeader: PropTypes.func,
     renderValue: PropTypes.func,
     emptyMessage: PropTypes.oneOfType([
-        PropTypes.string,
+        PropTypes.node,
         PropTypes.func,
     ]),
 

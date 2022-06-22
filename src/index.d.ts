@@ -88,7 +88,7 @@ export type SelectSearchProps = {
     getOptions?: (query:string) => Promise<SelectSearchOption[]>
     debounce?: number
     ref?:Ref<Component>
-    emptyMessage?:string|(() =>string)
+    emptyMessage?:ReactNode|(() => ReactNode)
 }
 
 export const SelectSearch:FunctionComponent<SelectSearchProps>
