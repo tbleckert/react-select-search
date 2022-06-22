@@ -25,4 +25,10 @@ describe('Unit test for getOptions function', () => {
 
         expect(getOptions(option1.value, option2, friends, true)).toStrictEqual([option2, option1]);
     });
+
+    test('Ignores new value if option can\'t be found', () => {
+        const option1 = friends[0];
+
+        expect(getOptions('foo', [option1], friends, true)).toStrictEqual([option1]);
+    });
 });

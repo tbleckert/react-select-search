@@ -9,7 +9,7 @@ export default function getOptions(value, oldValue, options, multiple) {
             return newOption;
         }
 
-        return oldValue;
+        return null;
     }
 
     const oldOptions = valueToArray(oldValue);

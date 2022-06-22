@@ -12,10 +12,6 @@ export default function getOption(value, options) {
         let defaultOption = options[0];
 
         while (defaultOption && defaultOption.disabled) {
-            if (options.length < i) {
-                defaultOption = false;
-            }
-
             i += 1;
             defaultOption = options[i];
         }
