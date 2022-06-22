@@ -63,7 +63,7 @@ OptionsList.propTypes = {
         highlighted: PropTypes.number.isRequired,
         option: PropTypes.oneOfType([optionType, PropTypes.arrayOf(optionType)]),
     }).isRequired,
-    cls: PropTypes.func.isRequired,
+    cls: PropTypes.object.isRequired,
     renderGroupHeader: PropTypes.func,
     renderOption: PropTypes.func,
 };

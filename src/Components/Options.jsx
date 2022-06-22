@@ -87,7 +87,7 @@ Options.propTypes = {
         highlighted: PropTypes.number.isRequired,
         value: valueType,
     }).isRequired,
-    cls: PropTypes.func.isRequired,
+    cls: PropTypes.object.isRequired,
     renderGroupHeader: PropTypes.func,
     renderOption: PropTypes.func,
     emptyMessage: PropTypes.oneOfType([

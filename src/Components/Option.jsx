@@ -42,7 +42,7 @@ Option.propTypes = {
         tabIndex: PropTypes.string.isRequired,
         onMouseDown: PropTypes.func.isRequired,
     }).isRequired,
-    cls: PropTypes.func.isRequired,
+    cls: PropTypes.object.isRequired,
     renderOption: PropTypes.func,
 };
 
