@@ -4,3 +4,4 @@ coverage
 .vercel
 .parcel-cache
 dist
+public
