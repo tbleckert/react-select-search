@@ -44,11 +44,11 @@ const SelectSearch = forwardRef(({
         onChange,
         onFocus,
         onBlur,
-        closeOnSelect: closeOnSelect && (!multiple || ['on-focus', 'always'].includes(printOptions)),
+        closeOnSelect,
         getOptions,
         filterOptions,
         fuzzySearch,
-        debounce,
+        debounceTime: debounce,
     });
 
     let shouldRenderOptions;
@@ -68,7 +68,6 @@ const SelectSearch = forwardRef(({
         break;
     }
 
-    const shouldRenderValue = (!multiple || placeholder) || search;
     const props = {
         ...valueProps,
         placeholder,
@@ -88,7 +87,7 @@ const SelectSearch = forwardRef(({
             })}
             id={id}
         >
-            {shouldRenderValue && (
+            {((!multiple || placeholder) || search) && (
                 <div className={cls['value']}>
                     {renderValue && renderValue(props, snapshot, cls['input'])}
                     {!renderValue && <input {...props} className={cls['input']} />}

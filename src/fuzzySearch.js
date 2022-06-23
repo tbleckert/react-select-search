@@ -10,23 +10,17 @@ function fuzzy(q, text) {
         return true;
     }
 
-    let match = true;
-
-    for (let i = 0, j = 0; i < searchLength; i += 1) {
+    mainLoop: for (let i = 0, j = 0; i < searchLength; i += 1) {
         const ch = q.charCodeAt(i);
 
         while (j < textLength) {
             // eslint-disable-next-line no-plusplus
             if (text.charCodeAt(j++) === ch) {
-                break;
+                continue mainLoop;
             }
-
-            match = false;
         }
 
-        if (!match) {
-            return false;
-        }
+        return false;
     }
 
     return true;

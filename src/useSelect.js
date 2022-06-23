@@ -9,7 +9,7 @@ import getOptions from './lib/getOptions';
 import getDisplayValue from './lib/getDisplayValue';
 import useFetch from './useFetch';
 import getValues from './lib/getValues';
-import useHighlight from './useHighlight';
+import highlight from './lib/highlight';
 
 export default function useSelect({
     value: defaultValue = null,
@@ -26,7 +26,7 @@ export default function useSelect({
     onBlur = () => {},
     debounce = 0,
 }) {
-    const initialValue = useRef(null);
+    const initialValue = useRef();
     const ref = useRef(null);
     const [value, setValue] = useState(null);
     const [search, setSearch] = useState('');
@@ -49,12 +49,13 @@ export default function useSelect({
         setValue(newOption);
         onChange(getValues(newOption), newOption);
 
-        if (closeOnSelect) {
+        if (ref.current && closeOnSelect) {
             ref.current.blur();
         }
-    }, [closeOnSelect, multiple, onChange, value, options]);
+    }, [closeOnSelect, multiple, onChange, value, options, ref]);
 
-    const [highlighted, keyboardEvents, resetHighlight] = useHighlight(-1, options, onSelect, ref);
+    const [highlighted, setHighlighted] = useState(-1);
+    const move = useCallback((key) => setHighlighted(highlight(highlighted, key.replace('Arrow', '').toLowerCase(), options)), [options, highlighted]);
     const snapshot = useMemo(() => ({
         options: groupOptions(options),
         option: value,
@@ -75,25 +76,51 @@ export default function useSelect({
     const onFocusCb = useCallback((e) => {
         setFocus(true);
         onFocus(e);
+        move('down');
     }, [onFocus]);
 
     const onBlurCb = useCallback((e) => {
         setFocus(false);
         setSearch('');
-        resetHighlight();
+        setHighlighted(-1);
         onBlur(e);
     }, [onBlur]);
+
+    const onKeyDown = useCallback((e) => {
+        const { key } = e;
+
+        if (key === 'ArrowDown' || key === 'ArrowUp') {
+            e.preventDefault();
+            move(key);
+        }
+    }, [options, highlighted, move]);
+
+    const onKeyUp = useCallback((e) => {
+        if (e.key === 'Escape') {
+            e.preventDefault();
+            ref.current.blur();
+        } else if (e.key === 'Enter') {
+            e.preventDefault();
+
+            const selected = options[highlighted];
+
+            if (selected) {
+                onSelect(selected.value);
+            }
+        }
+    }, [ref, onSelect, options, highlighted]);
 
     const valueProps = useMemo(() => ({
         tabIndex: '0',
         readOnly: !canSearch,
-        ...keyboardEvents,
+        onKeyDown,
+        onKeyUp,
         onFocus: onFocusCb,
         onBlur: onBlurCb,
         onChange: (canSearch) ? ({ target }) => setSearch(target.value) : null,
         disabled,
         ref,
-    }), [canSearch, keyboardEvents, onFocusCb, onBlurCb, disabled]);
+    }), [canSearch, onKeyDown, onKeyUp, onFocusCb, onBlurCb, disabled]);
 
     const optionProps = useMemo(() => ({
         tabIndex: '-1',
@@ -101,7 +128,7 @@ export default function useSelect({
     }), [onMouseDown]);
 
     useEffect(() => {
-        if (defaultValue !== null && initialValue.current === defaultValue) {
+        if (initialValue.current === defaultValue) {
             return;
         }
 

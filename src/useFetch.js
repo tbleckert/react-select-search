@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import debounce from './lib/debounce';
 import flattenOptions from './lib/flattenOptions';
 import fuzzySearch from './fuzzySearch';
@@ -12,14 +12,17 @@ export default function useFetch(q, defaultOptions, {
 }) {
     const [fetching, setFetching] = useState(false);
     const [options, setOptions] = useState(() => flattenOptions(defaultOptions));
-    const fetch = useMemo(() => {
+    const updateOptions = useCallback((mewOptions, s) => {
         const middleware = [
             (useFuzzySearch) ? fuzzySearch : null,
             ...((filterOptions) ? filterOptions : []),
         ];
 
+        setOptions(reduce(middleware, flattenOptions(mewOptions), s));
+    }, [useFuzzySearch, filterOptions]);
+    const fetch = useMemo(() => {
         if (!getOptions) {
-            return (s) => setOptions(reduce(middleware, flattenOptions(defaultOptions), s));
+            return (s) => updateOptions(defaultOptions, s);
         }
 
         return debounce((s) => {
@@ -28,9 +31,7 @@ export default function useFetch(q, defaultOptions, {
             setFetching(true);
 
             Promise.resolve(optionsReq)
-                .then((newOptions) => {
-                    setOptions(reduce(middleware, flattenOptions(newOptions), s));
-                })
+                .then((newOptions) => updateOptions(newOptions, s))
                 .finally(() => setFetching(false));
         }, debounceTime);
     }, [filterOptions, defaultOptions, getOptions, debounceTime]);
