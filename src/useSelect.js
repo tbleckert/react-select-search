@@ -118,9 +118,15 @@ export default function useSelect({
         onFocus: onFocusCb,
         onBlur: onBlurCb,
         onChange: (canSearch) ? ({ target }) => setSearch(target.value) : null,
+        onMouseDown: (e) => {
+            if (focus) {
+                e.preventDefault();
+                ref.current.blur();
+            }
+        },
         disabled,
         ref,
-    }), [canSearch, onKeyDown, onKeyUp, onFocusCb, onBlurCb, disabled]);
+    }), [canSearch, onKeyDown, onKeyUp, onFocusCb, onBlurCb, disabled, focus]);
 
     const optionProps = useMemo(() => ({
         tabIndex: '-1',
