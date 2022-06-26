@@ -18,6 +18,7 @@ exports[`Storyshots Async Fetch 1`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
+      onMouseDown={[Function]}
       placeholder="Your favorite drink"
       readOnly={false}
       tabIndex="0"
@@ -45,6 +46,7 @@ exports[`Storyshots Async Fetch Multiple 1`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
+      onMouseDown={[Function]}
       placeholder="Your favorite drink"
       readOnly={false}
       tabIndex="0"
@@ -80,6 +82,7 @@ exports[`Storyshots Custom Avatar Example 1`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
+      onMouseDown={[Function]}
       placeholder="Search friends"
       readOnly={false}
       tabIndex="0"
@@ -95,12 +98,11 @@ exports[`Storyshots Custom Avatar Example 1`] = `
     >
       <li
         className="select-search__row"
-        data-index={0}
-        data-value="annie.cruz"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={0}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -128,12 +130,11 @@ exports[`Storyshots Custom Avatar Example 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={1}
-        data-value="eli.shelton"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={1}
           disabled={true}
           onMouseDown={[Function]}
           tabIndex="-1"
@@ -162,12 +163,11 @@ exports[`Storyshots Custom Avatar Example 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={2}
-        data-value="loretta.rogers"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={2}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -195,12 +195,11 @@ exports[`Storyshots Custom Avatar Example 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={3}
-        data-value="lloyd.fisher"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={3}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -228,12 +227,11 @@ exports[`Storyshots Custom Avatar Example 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={4}
-        data-value="tiffany.gonzales"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={4}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -261,12 +259,11 @@ exports[`Storyshots Custom Avatar Example 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={5}
-        data-value="charles.hardy"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={5}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -294,12 +291,11 @@ exports[`Storyshots Custom Avatar Example 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={6}
-        data-value="rudolf.wilson"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={6}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -327,12 +323,11 @@ exports[`Storyshots Custom Avatar Example 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={7}
-        data-value="emerald.hensley"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={7}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -360,12 +355,11 @@ exports[`Storyshots Custom Avatar Example 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={8}
-        data-value="lorena.mccoy"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={8}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -393,12 +387,11 @@ exports[`Storyshots Custom Avatar Example 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={9}
-        data-value="alicia.lamb"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={9}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -426,12 +419,11 @@ exports[`Storyshots Custom Avatar Example 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={10}
-        data-value="maria.waters"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={10}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -476,12 +468,11 @@ exports[`Storyshots Custom CSS Modules 1`] = `
     >
       <li
         className="row"
-        data-index={0}
-        data-value="hamburger"
         role="menuitem"
       >
         <button
           className="option"
+          data-index={0}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -492,12 +483,11 @@ exports[`Storyshots Custom CSS Modules 1`] = `
       </li>
       <li
         className="row"
-        data-index={1}
-        data-value="fries"
         role="menuitem"
       >
         <button
           className="option"
+          data-index={1}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -508,12 +498,11 @@ exports[`Storyshots Custom CSS Modules 1`] = `
       </li>
       <li
         className="row"
-        data-index={2}
-        data-value="milkshake"
         role="menuitem"
       >
         <button
           className="option"
+          data-index={2}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -552,6 +541,7 @@ exports[`Storyshots Custom Controllable Display 1`] = `
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
+        onMouseDown={[Function]}
         placeholder={null}
         readOnly={true}
         tabIndex="0"
@@ -603,6 +593,7 @@ exports[`Storyshots Custom Font Example 1`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
+      onMouseDown={[Function]}
       placeholder={null}
       readOnly={false}
       style={
@@ -636,6 +627,7 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
+        onMouseDown={[Function]}
         placeholder="Select size"
         readOnly={true}
         tabIndex="0"
@@ -722,6 +714,7 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
+        onMouseDown={[Function]}
         placeholder="Select font size"
         readOnly={true}
         tabIndex="0"
@@ -752,6 +745,7 @@ exports[`Storyshots Hooks Custom Components 1`] = `
   onFocus={[Function]}
   onKeyDown={[Function]}
   onKeyUp={[Function]}
+  onMouseDown={[Function]}
   readOnly={true}
   tabIndex="0"
 >
@@ -785,6 +779,7 @@ Array [
           onFocus={[Function]}
           onKeyDown={[Function]}
           onKeyUp={[Function]}
+          onMouseDown={[Function]}
           placeholder="Select your items"
           readOnly={true}
           tabIndex="0"
@@ -810,6 +805,7 @@ Array [
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
+        onMouseDown={[Function]}
         placeholder={null}
         readOnly={true}
         tabIndex="0"
@@ -838,6 +834,7 @@ exports[`Storyshots Misc Numeric Values 1`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
+      onMouseDown={[Function]}
       placeholder={null}
       readOnly={true}
       tabIndex="0"
@@ -861,12 +858,11 @@ exports[`Storyshots Multiple select Default 1`] = `
     >
       <li
         className="select-search__row"
-        data-index={0}
-        data-value="hamburger"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={0}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -877,12 +873,11 @@ exports[`Storyshots Multiple select Default 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={1}
-        data-value="fries"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={1}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -893,12 +888,11 @@ exports[`Storyshots Multiple select Default 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={2}
-        data-value="milkshake"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={2}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -926,12 +920,11 @@ exports[`Storyshots Multiple select Default Value 1`] = `
     >
       <li
         className="select-search__row"
-        data-index={0}
-        data-value="hamburger"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={0}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -942,12 +935,11 @@ exports[`Storyshots Multiple select Default Value 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={1}
-        data-value="fries"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={1}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -958,12 +950,11 @@ exports[`Storyshots Multiple select Default Value 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={2}
-        data-value="milkshake"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={2}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -995,6 +986,7 @@ exports[`Storyshots Multiple select Disabled 1`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
+      onMouseDown={[Function]}
       placeholder="Select your item"
       readOnly={true}
       tabIndex="0"
@@ -1036,12 +1028,11 @@ exports[`Storyshots Multiple select Group 1`] = `
             >
               <li
                 className="select-search__row"
-                data-index={0}
-                data-value="hamburger"
                 role="menuitem"
               >
                 <button
                   className="select-search__option"
+                  data-index={0}
                   onMouseDown={[Function]}
                   tabIndex="-1"
                   type="button"
@@ -1052,12 +1043,11 @@ exports[`Storyshots Multiple select Group 1`] = `
               </li>
               <li
                 className="select-search__row"
-                data-index={1}
-                data-value="pizza"
                 role="menuitem"
               >
                 <button
                   className="select-search__option"
+                  data-index={1}
                   onMouseDown={[Function]}
                   tabIndex="-1"
                   type="button"
@@ -1090,12 +1080,11 @@ exports[`Storyshots Multiple select Group 1`] = `
             >
               <li
                 className="select-search__row"
-                data-index={2}
-                data-value="soft"
                 role="menuitem"
               >
                 <button
                   className="select-search__option"
+                  data-index={2}
                   onMouseDown={[Function]}
                   tabIndex="-1"
                   type="button"
@@ -1106,12 +1095,11 @@ exports[`Storyshots Multiple select Group 1`] = `
               </li>
               <li
                 className="select-search__row"
-                data-index={3}
-                data-value="beer"
                 role="menuitem"
               >
                 <button
                   className="select-search__option"
+                  data-index={3}
                   onMouseDown={[Function]}
                   tabIndex="-1"
                   type="button"
@@ -1147,6 +1135,7 @@ exports[`Storyshots Multiple select On Focus 1`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
+      onMouseDown={[Function]}
       placeholder="Select your items"
       readOnly={true}
       tabIndex="0"
@@ -1174,6 +1163,7 @@ exports[`Storyshots Multiple select Search 1`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
+      onMouseDown={[Function]}
       placeholder="Select your country"
       readOnly={false}
       tabIndex="0"
@@ -1189,12 +1179,11 @@ exports[`Storyshots Multiple select Search 1`] = `
     >
       <li
         className="select-search__row"
-        data-index={0}
-        data-value="AF"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={0}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -1205,12 +1194,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={1}
-        data-value="AX"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={1}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -1221,12 +1209,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={2}
-        data-value="AL"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={2}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -1237,12 +1224,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={3}
-        data-value="DZ"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={3}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -1253,12 +1239,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={4}
-        data-value="AS"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={4}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -1269,12 +1254,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={5}
-        data-value="AD"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={5}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -1285,12 +1269,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={6}
-        data-value="AO"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={6}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -1301,12 +1284,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={7}
-        data-value="AI"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={7}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -1317,12 +1299,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={8}
-        data-value="AQ"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={8}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -1333,12 +1314,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={9}
-        data-value="AG"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={9}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -1349,12 +1329,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={10}
-        data-value="AR"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={10}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -1365,12 +1344,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={11}
-        data-value="AM"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={11}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -1381,12 +1359,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={12}
-        data-value="AW"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={12}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -1397,12 +1374,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={13}
-        data-value="AU"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={13}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -1413,12 +1389,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={14}
-        data-value="AT"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={14}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -1429,12 +1404,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={15}
-        data-value="AZ"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={15}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -1445,12 +1419,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={16}
-        data-value="BS"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={16}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -1461,12 +1434,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={17}
-        data-value="BH"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={17}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -1477,12 +1449,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={18}
-        data-value="BD"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={18}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -1493,12 +1464,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={19}
-        data-value="BB"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={19}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -1509,12 +1479,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={20}
-        data-value="BY"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={20}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -1525,12 +1494,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={21}
-        data-value="BE"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={21}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -1541,12 +1509,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={22}
-        data-value="BZ"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={22}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -1557,12 +1524,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={23}
-        data-value="BJ"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={23}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -1573,12 +1539,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={24}
-        data-value="BM"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={24}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -1589,12 +1554,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={25}
-        data-value="BT"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={25}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -1605,12 +1569,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={26}
-        data-value="BO"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={26}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -1621,12 +1584,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={27}
-        data-value="BA"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={27}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -1637,12 +1599,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={28}
-        data-value="BW"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={28}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -1653,12 +1614,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={29}
-        data-value="BV"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={29}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -1669,12 +1629,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={30}
-        data-value="BR"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={30}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -1685,12 +1644,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={31}
-        data-value="IO"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={31}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -1701,12 +1659,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={32}
-        data-value="BN"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={32}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -1717,12 +1674,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={33}
-        data-value="BG"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={33}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -1733,12 +1689,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={34}
-        data-value="BF"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={34}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -1749,12 +1704,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={35}
-        data-value="BI"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={35}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -1765,12 +1719,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={36}
-        data-value="KH"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={36}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -1781,12 +1734,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={37}
-        data-value="CM"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={37}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -1797,12 +1749,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={38}
-        data-value="CA"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={38}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -1813,12 +1764,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={39}
-        data-value="CV"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={39}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -1829,12 +1779,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={40}
-        data-value="KY"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={40}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -1845,12 +1794,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={41}
-        data-value="CF"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={41}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -1861,12 +1809,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={42}
-        data-value="TD"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={42}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -1877,12 +1824,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={43}
-        data-value="CL"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={43}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -1893,12 +1839,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={44}
-        data-value="CN"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={44}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -1909,12 +1854,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={45}
-        data-value="CX"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={45}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -1925,12 +1869,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={46}
-        data-value="CC"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={46}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -1941,12 +1884,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={47}
-        data-value="CO"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={47}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -1957,12 +1899,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={48}
-        data-value="KM"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={48}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -1973,12 +1914,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={49}
-        data-value="CG"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={49}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -1989,12 +1929,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={50}
-        data-value="CD"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={50}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -2005,12 +1944,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={51}
-        data-value="CK"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={51}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -2021,12 +1959,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={52}
-        data-value="CR"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={52}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -2037,12 +1974,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={53}
-        data-value="CI"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={53}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -2053,12 +1989,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={54}
-        data-value="HR"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={54}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -2069,12 +2004,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={55}
-        data-value="CU"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={55}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -2085,12 +2019,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={56}
-        data-value="CY"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={56}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -2101,12 +2034,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={57}
-        data-value="CZ"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={57}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -2117,12 +2049,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={58}
-        data-value="DK"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={58}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -2133,12 +2064,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={59}
-        data-value="DJ"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={59}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -2149,12 +2079,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={60}
-        data-value="DM"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={60}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -2165,12 +2094,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={61}
-        data-value="DO"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={61}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -2181,12 +2109,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={62}
-        data-value="EC"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={62}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -2197,12 +2124,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={63}
-        data-value="EG"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={63}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -2213,12 +2139,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={64}
-        data-value="SV"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={64}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -2229,12 +2154,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={65}
-        data-value="GQ"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={65}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -2245,12 +2169,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={66}
-        data-value="ER"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={66}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -2261,12 +2184,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={67}
-        data-value="EE"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={67}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -2277,12 +2199,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={68}
-        data-value="ET"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={68}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -2293,12 +2214,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={69}
-        data-value="FK"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={69}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -2309,12 +2229,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={70}
-        data-value="FO"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={70}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -2325,12 +2244,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={71}
-        data-value="FJ"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={71}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -2341,12 +2259,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={72}
-        data-value="FI"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={72}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -2357,12 +2274,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={73}
-        data-value="FR"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={73}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -2373,12 +2289,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={74}
-        data-value="GF"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={74}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -2389,12 +2304,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={75}
-        data-value="PF"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={75}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -2405,12 +2319,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={76}
-        data-value="TF"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={76}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -2421,12 +2334,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={77}
-        data-value="GA"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={77}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -2437,12 +2349,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={78}
-        data-value="GM"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={78}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -2453,12 +2364,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={79}
-        data-value="GE"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={79}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -2469,12 +2379,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={80}
-        data-value="DE"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={80}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -2485,12 +2394,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={81}
-        data-value="GH"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={81}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -2501,12 +2409,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={82}
-        data-value="GI"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={82}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -2517,12 +2424,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={83}
-        data-value="GR"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={83}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -2533,12 +2439,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={84}
-        data-value="GL"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={84}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -2549,12 +2454,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={85}
-        data-value="GD"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={85}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -2565,12 +2469,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={86}
-        data-value="GP"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={86}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -2581,12 +2484,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={87}
-        data-value="GU"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={87}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -2597,12 +2499,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={88}
-        data-value="GT"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={88}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -2613,12 +2514,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={89}
-        data-value="GG"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={89}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -2629,12 +2529,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={90}
-        data-value="GN"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={90}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -2645,12 +2544,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={91}
-        data-value="GW"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={91}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -2661,12 +2559,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={92}
-        data-value="GY"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={92}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -2677,12 +2574,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={93}
-        data-value="HT"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={93}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -2693,12 +2589,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={94}
-        data-value="HM"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={94}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -2709,12 +2604,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={95}
-        data-value="VA"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={95}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -2725,12 +2619,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={96}
-        data-value="HN"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={96}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -2741,12 +2634,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={97}
-        data-value="HK"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={97}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -2757,12 +2649,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={98}
-        data-value="HU"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={98}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -2773,12 +2664,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={99}
-        data-value="IS"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={99}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -2789,12 +2679,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={100}
-        data-value="IN"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={100}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -2805,12 +2694,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={101}
-        data-value="ID"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={101}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -2821,12 +2709,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={102}
-        data-value="IR"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={102}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -2837,12 +2724,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={103}
-        data-value="IQ"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={103}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -2853,12 +2739,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={104}
-        data-value="IE"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={104}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -2869,12 +2754,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={105}
-        data-value="IM"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={105}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -2885,12 +2769,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={106}
-        data-value="IL"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={106}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -2901,12 +2784,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={107}
-        data-value="IT"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={107}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -2917,12 +2799,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={108}
-        data-value="JM"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={108}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -2933,12 +2814,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={109}
-        data-value="JP"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={109}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -2949,12 +2829,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={110}
-        data-value="JE"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={110}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -2965,12 +2844,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={111}
-        data-value="JO"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={111}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -2981,12 +2859,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={112}
-        data-value="KZ"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={112}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -2997,12 +2874,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={113}
-        data-value="KE"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={113}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -3013,12 +2889,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={114}
-        data-value="KI"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={114}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -3029,12 +2904,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={115}
-        data-value="KP"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={115}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -3045,12 +2919,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={116}
-        data-value="KR"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={116}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -3061,12 +2934,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={117}
-        data-value="KW"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={117}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -3077,12 +2949,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={118}
-        data-value="KG"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={118}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -3093,12 +2964,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={119}
-        data-value="LA"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={119}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -3109,12 +2979,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={120}
-        data-value="LV"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={120}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -3125,12 +2994,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={121}
-        data-value="LB"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={121}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -3141,12 +3009,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={122}
-        data-value="LS"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={122}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -3157,12 +3024,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={123}
-        data-value="LR"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={123}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -3173,12 +3039,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={124}
-        data-value="LY"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={124}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -3189,12 +3054,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={125}
-        data-value="LI"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={125}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -3205,12 +3069,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={126}
-        data-value="LT"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={126}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -3221,12 +3084,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={127}
-        data-value="LU"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={127}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -3237,12 +3099,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={128}
-        data-value="MO"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={128}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -3253,12 +3114,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={129}
-        data-value="MK"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={129}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -3269,12 +3129,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={130}
-        data-value="MG"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={130}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -3285,12 +3144,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={131}
-        data-value="MW"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={131}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -3301,12 +3159,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={132}
-        data-value="MY"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={132}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -3317,12 +3174,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={133}
-        data-value="MV"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={133}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -3333,12 +3189,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={134}
-        data-value="ML"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={134}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -3349,12 +3204,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={135}
-        data-value="MT"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={135}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -3365,12 +3219,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={136}
-        data-value="MH"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={136}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -3381,12 +3234,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={137}
-        data-value="MQ"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={137}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -3397,12 +3249,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={138}
-        data-value="MR"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={138}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -3413,12 +3264,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={139}
-        data-value="MU"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={139}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -3429,12 +3279,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={140}
-        data-value="YT"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={140}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -3445,12 +3294,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={141}
-        data-value="MX"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={141}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -3461,12 +3309,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={142}
-        data-value="FM"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={142}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -3477,12 +3324,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={143}
-        data-value="MD"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={143}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -3493,12 +3339,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={144}
-        data-value="MC"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={144}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -3509,12 +3354,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={145}
-        data-value="MN"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={145}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -3525,12 +3369,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={146}
-        data-value="MS"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={146}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -3541,12 +3384,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={147}
-        data-value="MA"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={147}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -3557,12 +3399,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={148}
-        data-value="MZ"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={148}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -3573,12 +3414,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={149}
-        data-value="MM"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={149}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -3589,12 +3429,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={150}
-        data-value="NA"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={150}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -3605,12 +3444,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={151}
-        data-value="NR"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={151}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -3621,12 +3459,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={152}
-        data-value="NP"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={152}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -3637,12 +3474,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={153}
-        data-value="NL"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={153}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -3653,12 +3489,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={154}
-        data-value="AN"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={154}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -3669,12 +3504,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={155}
-        data-value="NC"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={155}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -3685,12 +3519,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={156}
-        data-value="NZ"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={156}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -3701,12 +3534,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={157}
-        data-value="NI"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={157}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -3717,12 +3549,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={158}
-        data-value="NE"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={158}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -3733,12 +3564,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={159}
-        data-value="NG"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={159}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -3749,12 +3579,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={160}
-        data-value="NU"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={160}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -3765,12 +3594,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={161}
-        data-value="NF"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={161}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -3781,12 +3609,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={162}
-        data-value="MP"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={162}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -3797,12 +3624,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={163}
-        data-value="NO"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={163}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -3813,12 +3639,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={164}
-        data-value="OM"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={164}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -3829,12 +3654,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={165}
-        data-value="PK"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={165}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -3845,12 +3669,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={166}
-        data-value="PW"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={166}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -3861,12 +3684,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={167}
-        data-value="PS"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={167}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -3877,12 +3699,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={168}
-        data-value="PA"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={168}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -3893,12 +3714,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={169}
-        data-value="PG"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={169}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -3909,12 +3729,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={170}
-        data-value="PY"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={170}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -3925,12 +3744,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={171}
-        data-value="PE"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={171}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -3941,12 +3759,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={172}
-        data-value="PH"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={172}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -3957,12 +3774,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={173}
-        data-value="PN"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={173}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -3973,12 +3789,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={174}
-        data-value="PL"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={174}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -3989,12 +3804,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={175}
-        data-value="PT"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={175}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -4005,12 +3819,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={176}
-        data-value="PR"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={176}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -4021,12 +3834,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={177}
-        data-value="QA"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={177}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -4037,12 +3849,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={178}
-        data-value="RE"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={178}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -4053,12 +3864,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={179}
-        data-value="RO"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={179}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -4069,12 +3879,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={180}
-        data-value="RU"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={180}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -4085,12 +3894,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={181}
-        data-value="RW"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={181}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -4101,12 +3909,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={182}
-        data-value="SH"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={182}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -4117,12 +3924,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={183}
-        data-value="KN"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={183}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -4133,12 +3939,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={184}
-        data-value="LC"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={184}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -4149,12 +3954,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={185}
-        data-value="PM"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={185}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -4165,12 +3969,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={186}
-        data-value="VC"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={186}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -4181,12 +3984,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={187}
-        data-value="WS"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={187}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -4197,12 +3999,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={188}
-        data-value="SM"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={188}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -4213,12 +4014,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={189}
-        data-value="ST"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={189}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -4229,12 +4029,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={190}
-        data-value="SA"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={190}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -4245,12 +4044,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={191}
-        data-value="SN"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={191}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -4261,12 +4059,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={192}
-        data-value="CS"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={192}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -4277,12 +4074,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={193}
-        data-value="SC"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={193}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -4293,12 +4089,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={194}
-        data-value="SL"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={194}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -4309,12 +4104,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={195}
-        data-value="SG"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={195}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -4325,12 +4119,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={196}
-        data-value="SK"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={196}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -4341,12 +4134,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={197}
-        data-value="SI"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={197}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -4357,12 +4149,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={198}
-        data-value="SB"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={198}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -4373,12 +4164,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={199}
-        data-value="SO"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={199}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -4389,12 +4179,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={200}
-        data-value="ZA"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={200}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -4405,12 +4194,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={201}
-        data-value="GS"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={201}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -4421,12 +4209,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={202}
-        data-value="ES"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={202}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -4437,12 +4224,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={203}
-        data-value="LK"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={203}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -4453,12 +4239,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={204}
-        data-value="SD"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={204}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -4469,12 +4254,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={205}
-        data-value="SR"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={205}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -4485,12 +4269,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={206}
-        data-value="SJ"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={206}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -4501,12 +4284,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={207}
-        data-value="SZ"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={207}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -4517,12 +4299,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={208}
-        data-value="SE"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={208}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -4533,12 +4314,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={209}
-        data-value="CH"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={209}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -4549,12 +4329,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={210}
-        data-value="SY"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={210}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -4565,12 +4344,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={211}
-        data-value="TW"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={211}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -4581,12 +4359,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={212}
-        data-value="TJ"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={212}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -4597,12 +4374,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={213}
-        data-value="TZ"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={213}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -4613,12 +4389,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={214}
-        data-value="TH"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={214}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -4629,12 +4404,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={215}
-        data-value="TL"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={215}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -4645,12 +4419,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={216}
-        data-value="TG"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={216}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -4661,12 +4434,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={217}
-        data-value="TK"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={217}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -4677,12 +4449,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={218}
-        data-value="TO"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={218}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -4693,12 +4464,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={219}
-        data-value="TT"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={219}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -4709,12 +4479,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={220}
-        data-value="TN"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={220}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -4725,12 +4494,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={221}
-        data-value="TR"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={221}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -4741,12 +4509,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={222}
-        data-value="TM"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={222}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -4757,12 +4524,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={223}
-        data-value="TC"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={223}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -4773,12 +4539,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={224}
-        data-value="TV"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={224}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -4789,12 +4554,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={225}
-        data-value="UG"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={225}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -4805,12 +4569,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={226}
-        data-value="UA"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={226}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -4821,12 +4584,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={227}
-        data-value="AE"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={227}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -4837,12 +4599,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={228}
-        data-value="GB"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={228}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -4853,12 +4614,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={229}
-        data-value="US"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={229}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -4869,12 +4629,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={230}
-        data-value="UM"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={230}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -4885,12 +4644,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={231}
-        data-value="UY"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={231}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -4901,12 +4659,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={232}
-        data-value="UZ"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={232}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -4917,12 +4674,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={233}
-        data-value="VU"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={233}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -4933,12 +4689,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={234}
-        data-value="VE"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={234}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -4949,12 +4704,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={235}
-        data-value="VN"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={235}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -4965,12 +4719,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={236}
-        data-value="VG"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={236}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -4981,12 +4734,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={237}
-        data-value="VI"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={237}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -4997,12 +4749,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={238}
-        data-value="WF"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={238}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -5013,12 +4764,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={239}
-        data-value="EH"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={239}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -5029,12 +4779,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={240}
-        data-value="YE"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={240}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -5045,12 +4794,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={241}
-        data-value="ZM"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={241}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -5061,12 +4809,11 @@ exports[`Storyshots Multiple select Search 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={242}
-        data-value="ZW"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={242}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -5098,6 +4845,7 @@ exports[`Storyshots Multiple select Stay On Select 1`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
+      onMouseDown={[Function]}
       placeholder="Select your items"
       readOnly={true}
       tabIndex="0"
@@ -5125,6 +4873,7 @@ exports[`Storyshots Multiple select Stay On Select With Multiple Initial Value 1
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
+      onMouseDown={[Function]}
       placeholder="Select your items"
       readOnly={true}
       tabIndex="0"
@@ -5152,6 +4901,7 @@ exports[`Storyshots Multiple select Stay On Select With Single Initial Value 1`]
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
+      onMouseDown={[Function]}
       placeholder="Select your items"
       readOnly={true}
       tabIndex="0"
@@ -5179,6 +4929,7 @@ exports[`Storyshots Multiple select With Placeholder 1`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
+      onMouseDown={[Function]}
       placeholder="Select your items"
       readOnly={false}
       tabIndex="0"
@@ -5194,12 +4945,11 @@ exports[`Storyshots Multiple select With Placeholder 1`] = `
     >
       <li
         className="select-search__row"
-        data-index={0}
-        data-value="hamburger"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={0}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -5210,12 +4960,11 @@ exports[`Storyshots Multiple select With Placeholder 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={1}
-        data-value="fries"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={1}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -5226,12 +4975,11 @@ exports[`Storyshots Multiple select With Placeholder 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={2}
-        data-value="milkshake"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={2}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -5263,6 +5011,7 @@ exports[`Storyshots Single select Always Open 1`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
+      onMouseDown={[Function]}
       placeholder={null}
       readOnly={true}
       tabIndex="0"
@@ -5278,12 +5027,11 @@ exports[`Storyshots Single select Always Open 1`] = `
     >
       <li
         className="select-search__row"
-        data-index={0}
-        data-value="s"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={0}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -5294,12 +5042,11 @@ exports[`Storyshots Single select Always Open 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={1}
-        data-value="m"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={1}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -5310,12 +5057,11 @@ exports[`Storyshots Single select Always Open 1`] = `
       </li>
       <li
         className="select-search__row"
-        data-index={2}
-        data-value="l"
         role="menuitem"
       >
         <button
           className="select-search__option"
+          data-index={2}
           onMouseDown={[Function]}
           tabIndex="-1"
           type="button"
@@ -5347,6 +5093,7 @@ exports[`Storyshots Single select Default 1`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
+      onMouseDown={[Function]}
       placeholder={null}
       readOnly={true}
       tabIndex="0"
@@ -5374,128 +5121,12 @@ exports[`Storyshots Single select Group 1`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
+      onMouseDown={[Function]}
       placeholder={null}
       readOnly={true}
       tabIndex="0"
       value=""
     />
-  </div>
-  <div
-    className="select-search__select"
-    onMouseDown={[Function]}
-  >
-    <ul
-      className="select-search__options"
-    >
-      <li
-        className="select-search__row"
-        role="none"
-      >
-        <div
-          className="select-search__group"
-        >
-          <div
-            className="select-search__group-header"
-          >
-            Food
-          </div>
-          <ul
-            className="select-search__options"
-          >
-            <ul
-              className="select-search__options"
-            >
-              <li
-                className="select-search__row"
-                data-index={0}
-                data-value="hamburger"
-                role="menuitem"
-              >
-                <button
-                  className="select-search__option"
-                  onMouseDown={[Function]}
-                  tabIndex="-1"
-                  type="button"
-                  value="hamburger"
-                >
-                  Hamburger
-                </button>
-              </li>
-              <li
-                className="select-search__row"
-                data-index={1}
-                data-value="pizza"
-                role="menuitem"
-              >
-                <button
-                  className="select-search__option"
-                  onMouseDown={[Function]}
-                  tabIndex="-1"
-                  type="button"
-                  value="pizza"
-                >
-                  Pizza
-                </button>
-              </li>
-            </ul>
-          </ul>
-        </div>
-      </li>
-      <li
-        className="select-search__row"
-        role="none"
-      >
-        <div
-          className="select-search__group"
-        >
-          <div
-            className="select-search__group-header"
-          >
-            Drinks
-          </div>
-          <ul
-            className="select-search__options"
-          >
-            <ul
-              className="select-search__options"
-            >
-              <li
-                className="select-search__row"
-                data-index={2}
-                data-value="soft"
-                role="menuitem"
-              >
-                <button
-                  className="select-search__option"
-                  onMouseDown={[Function]}
-                  tabIndex="-1"
-                  type="button"
-                  value="soft"
-                >
-                  Soft drink
-                </button>
-              </li>
-              <li
-                className="select-search__row"
-                data-index={3}
-                data-value="beer"
-                role="menuitem"
-              >
-                <button
-                  className="select-search__option"
-                  onMouseDown={[Function]}
-                  tabIndex="-1"
-                  type="button"
-                  value="beer"
-                >
-                  Beer
-                </button>
-              </li>
-            </ul>
-          </ul>
-        </div>
-      </li>
-    </ul>
   </div>
 </div>
 `;
@@ -5518,6 +5149,7 @@ exports[`Storyshots Single select Limited Options 1`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
+      onMouseDown={[Function]}
       placeholder="Select your country"
       readOnly={false}
       tabIndex="0"
@@ -5545,6 +5177,7 @@ exports[`Storyshots Single select Search 1`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
+      onMouseDown={[Function]}
       placeholder="Select your country"
       readOnly={false}
       tabIndex="0"
@@ -5572,6 +5205,7 @@ exports[`Storyshots Single select Search With Empty Message 1`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
+      onMouseDown={[Function]}
       placeholder="Select your country"
       readOnly={false}
       tabIndex="0"
@@ -5599,6 +5233,7 @@ exports[`Storyshots Single select Search With Empty Message Renderer 1`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
+      onMouseDown={[Function]}
       placeholder="Select your country"
       readOnly={false}
       tabIndex="0"
@@ -5626,6 +5261,7 @@ exports[`Storyshots Single select Stay On Select 1`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
+      onMouseDown={[Function]}
       placeholder={null}
       readOnly={true}
       tabIndex="0"
@@ -5653,6 +5289,7 @@ exports[`Storyshots Single select With Placeholder 1`] = `
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
+      onMouseDown={[Function]}
       placeholder="Choose a size"
       readOnly={true}
       tabIndex="0"

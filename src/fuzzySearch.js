@@ -27,13 +27,9 @@ function fuzzy(q, text) {
 }
 
 function search(item, query) {
-    const name = item.name.toLowerCase();
+    const name = `${item.name} ${item.groupName || ''}`.trim().toLowerCase();
 
-    if (fuzzy(query, name)) {
-        return true;
-    }
-
-    return item.groupName && fuzzy(query, item.groupName.toLowerCase());
+    return fuzzy(query, name);
 }
 
 export default function fuzzySearch(options, query) {

@@ -42,7 +42,7 @@ export default function useSelect({
         const newOption = getOptions(
             newValue,
             value,
-            (Array.isArray(value)) ? [...value, ...options] : options,
+            options,
             multiple,
         );
 
@@ -76,8 +76,13 @@ export default function useSelect({
     const onFocusCb = useCallback((e) => {
         setFocus(true);
         onFocus(e);
-        move('down');
-    }, [onFocus]);
+
+        if (value && !multiple) {
+            setHighlighted(value.index);
+        } else {
+            move('down');
+        }
+    }, [onFocus, value, multiple, move]);
 
     const onBlurCb = useCallback((e) => {
         setFocus(false);
@@ -134,18 +139,16 @@ export default function useSelect({
     }), [onMouseDown]);
 
     useEffect(() => {
-        if (initialValue.current === defaultValue) {
-            return;
+        if (initialValue.current !== defaultValue && options.length) {
+            initialValue.current = defaultValue;
+
+            setValue(getOptions(
+                defaultValue,
+                null,
+                options,
+                multiple,
+            ));
         }
-
-        initialValue.current = defaultValue;
-
-        setValue(getOptions(
-            defaultValue,
-            null,
-            options,
-            multiple,
-        ));
     }, [defaultValue, initialValue, multiple, options]);
 
     return [snapshot, valueProps, optionProps, setValue];

@@ -11,15 +11,14 @@ export default function useFetch(q, defaultOptions, {
     getOptions,
 }) {
     const [fetching, setFetching] = useState(false);
-    const [options, setOptions] = useState(() => flattenOptions(defaultOptions));
-    const updateOptions = useCallback((mewOptions, s) => {
-        const middleware = [
-            (useFuzzySearch) ? fuzzySearch : null,
-            ...((filterOptions) ? filterOptions : []),
-        ];
-
-        setOptions(reduce(middleware, flattenOptions(mewOptions), s));
-    }, [useFuzzySearch, filterOptions]);
+    const middleware = useMemo(() => ([
+        (useFuzzySearch) ? fuzzySearch : null,
+        ...((filterOptions) ? filterOptions : []),
+    ]), [useFuzzySearch, filterOptions]);
+    const [options, setOptions] = useState(() => reduce(middleware, flattenOptions(defaultOptions), q));
+    const updateOptions = useCallback((newOptions, s) => {
+        setOptions(reduce(middleware, flattenOptions(newOptions), s));
+    }, [middleware]);
     const fetch = useMemo(() => {
         if (!getOptions) {
             return (s) => updateOptions(defaultOptions, s);
@@ -36,7 +35,6 @@ export default function useFetch(q, defaultOptions, {
         }, debounceTime);
     }, [filterOptions, defaultOptions, getOptions, debounceTime]);
 
-    useEffect(() => setOptions(defaultOptions), [defaultOptions]);
     useEffect(() => fetch(q), [fetch, q]);
 
     return { options, setOptions, fetching };
