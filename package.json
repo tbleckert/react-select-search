@@ -12,7 +12,7 @@
     "sideEffects": false,
     "scripts": {
         "lint": "eslint src --ext .js --ext .jsx",
-        "test": "jest",
+        "test": "yarn build && jest && size-limit",
         "test:watch": "yarn test -- --watch",
         "test:coverage": "yarn test -- --coverage --silent",
         "coveralls": "yarn test:coverage && cat ./coverage/lcov.info | coveralls",
@@ -42,7 +42,8 @@
     "homepage": "https://github.com/tbleckert/react-select-search",
     "size-limit": [
         {
-            "path": "dist/esm/index.js"
+            "path": "dist/esm/index.js",
+            "limit": "3.5 kB"
         }
     ],
     "peerDependencies": {
