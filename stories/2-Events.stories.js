@@ -3,7 +3,7 @@ import SelectSearch from '../src';
 import '../style.css';
 
 export default {
-  title: 'Events',
+    title: 'Events',
 };
 
 export const OnChange = () => {
@@ -17,7 +17,8 @@ export const OnChange = () => {
         style.fontSize = '16px';
     } else if (size === 'm') {
         style.fontSize = '32px';
-    } if (size === 'l') {
+    }
+    if (size === 'l') {
         style.fontSize = '64px';
     }
 
@@ -82,8 +83,16 @@ export const ControlledValue = () => {
                 ]}
             />
             <p style={style}>You have selected: {size}</p>
-            <button type="button" style={button} onClick={() => setSize(null)}>Click to reset</button>
-            <button type="button" style={buttonTwo} onClick={() => setSize('medium')}>Set medium</button>
+            <button type="button" style={button} onClick={() => setSize(null)}>
+                Click to reset
+            </button>
+            <button
+                type="button"
+                style={buttonTwo}
+                onClick={() => setSize('medium')}
+            >
+                Set medium
+            </button>
         </>
     );
 };

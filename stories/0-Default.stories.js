@@ -3,11 +3,8 @@ import '../style.css';
 import { colors, countries, food } from './data';
 
 export default {
-    title: 'Multiple',
+    title: 'Default',
     component: SelectSearch,
-    args: {
-        multiple: true,
-    },
 };
 
 const Template = (args) => <SelectSearch {...args} />;

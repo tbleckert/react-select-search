@@ -2,12 +2,12 @@ import SelectSearch from '../src';
 import '../style.css';
 
 export default {
-  title: 'Misc',
+    title: 'Misc',
 };
 
 export const NumericValues = () => (
     <SelectSearch
-        value={0}
+        defaultValue={0}
         options={[
             { value: 1, name: 'Second' },
             { value: 0, name: 'First' },

@@ -12,7 +12,7 @@
     "sideEffects": false,
     "scripts": {
         "lint": "eslint src --ext .js --ext .jsx",
-        "test": "yarn build && jest && size-limit",
+        "test": "yarn build && size-limit && jest",
         "test:watch": "yarn test -- --watch",
         "test:coverage": "yarn test -- --coverage --silent",
         "coveralls": "yarn test:coverage && cat ./coverage/lcov.info | coveralls",
@@ -21,7 +21,8 @@
         "storybook": "start-storybook -p 6006",
         "build-storybook": "build-storybook --output-dir public",
         "size": "size-limit",
-        "publish": "npm run build && npm publish"
+        "publish": "npm run build && npm publish",
+        "eslint": "eslint src --ext .jsx --ext .js"
     },
     "repository": {
         "type": "git",
@@ -43,7 +44,7 @@
     "size-limit": [
         {
             "path": "dist/esm/index.js",
-            "limit": "3.5 kB"
+            "limit": "3 kB"
         }
     ],
     "peerDependencies": {
@@ -64,10 +65,14 @@
         "babel-jest": "^28.1.1",
         "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
         "coveralls": "^3.1.1",
+        "eslint": "^8.18.0",
+        "eslint-config-prettier": "^8.5.0",
+        "eslint-plugin-react": "^7.30.1",
         "identity-obj-proxy": "^3.0.0",
         "jest": "^28.1.1",
         "jest-environment-jsdom": "^28.1.1",
         "parcel": "^2.6.1",
+        "prettier": "^2.7.1",
         "prop-types": "^15.8.1",
         "react": "^17.0.1",
         "react-dom": "^17.0.1",

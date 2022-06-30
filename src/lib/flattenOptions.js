@@ -1,15 +1,15 @@
 export default function flattenOptions(options) {
-    return options.map((option, i) => {
-        if (option.type === 'group') {
-            const id = `${option.name.replace(/\s+/g, '-').toLowerCase()}-${i}`;
+    let index = 0;
 
-            return option.items.map((item) => ({
-                ...item,
-                groupId: id,
-                groupName: option.name,
+    return options.map((option) => {
+        if (option.type === 'group') {
+            return option.items.map((o) => ({
+                ...o,
+                group: option.name,
+                index: index++,
             }));
         }
 
-        return { ...option, index: i };
+        return { ...option, index: index++ };
     }).flat();
 }

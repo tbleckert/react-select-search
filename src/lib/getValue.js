@@ -1,5 +1,9 @@
-import isOption from './isOption';
-
 export default function getValue(option) {
-    return isOption(option) ? option.value : null;
+    if (!option) return null;
+
+    if (Array.isArray(option)) {
+        return option.filter(Boolean).map((o) => o.value);
+    }
+
+    return option.value || null;
 }

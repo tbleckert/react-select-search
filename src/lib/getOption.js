@@ -1,26 +1,9 @@
-import isOption from './isOption';
-
 export default function getOption(value, options) {
-    if (isOption(value)) {
-        return value;
+    if (Array.isArray(value)) {
+        return value
+            .map((v) => options.find((o) => String(o.value) === String(v)))
+            .filter((o) => o);
     }
 
-    let newValue = value;
-
-    if (newValue === null && options.length) {
-        let i = 0;
-        let defaultOption = options[0];
-
-        while (defaultOption && defaultOption.disabled) {
-            i += 1;
-            defaultOption = options[i];
-        }
-
-        if (defaultOption) {
-            newValue = defaultOption.value;
-        }
-    }
-
-    // eslint-disable-next-line eqeqeq
-    return options.find((o) => o.value == newValue);
+    return options.find((o) => String(o.value) === String(value)) || null;
 }

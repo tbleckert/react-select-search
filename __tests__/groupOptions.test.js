@@ -5,8 +5,7 @@ describe('Unit test for GroupOptions function', () => {
         {
             "name": "Monoton",
             "value": "monoton",
-            "groupId": "v6kufti7z",
-            "groupName": "Cursive"
+            "group": "Cursive"
         },
         {
             "name": "Helvetica",
@@ -15,8 +14,7 @@ describe('Unit test for GroupOptions function', () => {
         {
             "name": "Gloria Hallelujah",
             "value": "gloria",
-            "groupId": "v6kufti7z",
-            "groupName": "Cursive"
+            "group": "Cursive"
         },
     ];
 
@@ -27,7 +25,8 @@ describe('Unit test for GroupOptions function', () => {
     });
 
     test('First item should be a group', () => {
-        expect(groupedOptions[0].groupId).toEqual('v6kufti7z');
+        expect(groupedOptions[0].type).toEqual('group');
+        expect(groupedOptions[0].name).toEqual('Cursive');
         expect('items' in groupedOptions[0]).toEqual(true);
     });
 

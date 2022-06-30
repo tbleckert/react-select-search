@@ -4,8 +4,9 @@ export default function highlight(current, dir, options) {
     let i = -1;
     let newHighlighted = current;
 
-    while (i <= max && (!option || option.disabled)) {
-        newHighlighted = (dir === 'down') ? newHighlighted + 1 : newHighlighted - 1;
+    while (i++ <= max && (!option || option.disabled)) {
+        newHighlighted =
+            dir === 'down' ? newHighlighted + 1 : newHighlighted - 1;
 
         if (newHighlighted < 0) {
             newHighlighted = max;
@@ -14,7 +15,6 @@ export default function highlight(current, dir, options) {
         }
 
         option = options[newHighlighted];
-        i += 1;
     }
 
     return newHighlighted;

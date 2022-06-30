@@ -3,7 +3,7 @@ import classes from './assets/hooks.module.css';
 import useSelect from '../src/useSelect';
 
 export default {
-  title: 'Hooks',
+    title: 'Hooks',
 };
 
 const classNames = {
@@ -27,14 +27,23 @@ const options = [
 const CustomSelect = ({ options, value }) => {
     const [snapshot, valueProps, optionProps] = useSelect({
         options,
-        value,
-        allowEmpty: false
+        defaultValue: value,
+        allowEmpty: false,
     });
 
     return (
         <>
-            <div {...valueProps} className={classes.button}>{`Size: ${snapshot.displayValue}`}</div>
-            <CSSTransition in={snapshot.focus} timeout={200} mountOnEnter unmountOnExit classNames={classNames}>
+            <div
+                {...valueProps}
+                className={classes.button}
+            >{`Size: ${snapshot.displayValue}`}</div>
+            <CSSTransition
+                in={snapshot.focus}
+                timeout={200}
+                mountOnEnter
+                unmountOnExit
+                classNames={classNames}
+            >
                 <div className={classes.select}>
                     <div className={classes.options}>
                         {snapshot.options.map((option) => (
@@ -42,7 +51,14 @@ const CustomSelect = ({ options, value }) => {
                                 key={option.value}
                                 {...optionProps}
                                 value={option.value}
-                                className={[classes.option, (snapshot.value === option.value) ? classes['is-selected'] : null].filter(Boolean).join(' ')}
+                                className={[
+                                    classes.option,
+                                    snapshot.value === option.value
+                                        ? classes['is-selected']
+                                        : null,
+                                ]
+                                    .filter(Boolean)
+                                    .join(' ')}
                             >
                                 {option.name}
                             </button>
@@ -51,8 +67,8 @@ const CustomSelect = ({ options, value }) => {
                 </div>
             </CSSTransition>
         </>
-    )
-}
+    );
+};
 
 export const CustomComponents = () => {
     return <CustomSelect options={options} value={null} />;

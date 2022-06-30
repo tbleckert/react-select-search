@@ -1,4 +1,4 @@
-import fuzzySearch from '../src/fuzzySearch';
+import fuzzySearch from '../src/lib/fuzzySearch';
 import flattenOptions from '../src/lib/flattenOptions';
 import { countries, fontStacks } from './data';
 

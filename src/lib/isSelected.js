@@ -1,13 +1,7 @@
-export default function isSelected(itemValue, selectedValue) {
-    if (!selectedValue) {
-        return false;
-    }
+export default function isSelected(option, selectedOption) {
+    if (!selectedOption) return false;
 
-    return (
-        (Array.isArray(selectedValue))
-            // eslint-disable-next-line eqeqeq
-            ? selectedValue.findIndex((item) => item.value == itemValue.value) >= 0
-            // eslint-disable-next-line eqeqeq
-            : selectedValue.value == itemValue.value
-    );
+    return Array.isArray(selectedOption)
+        ? selectedOption.findIndex((o) => o.value === option.value) >= 0
+        : selectedOption.value === option.value;
 }

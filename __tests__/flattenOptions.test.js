@@ -25,10 +25,10 @@ describe('Unit test for FlattenOptions function', () => {
     });
 
     test('First item should be a group', () => {
-        expect('groupId' in flattenOptions[0]).toEqual(true);
+        expect('group' in flattenOptions[0]).toEqual(true);
     });
 
     test('Second item should not be a group', () => {
-        expect('groupId' in flattenOptions[1]).toEqual(false);
+        expect('group' in flattenOptions[1]).toEqual(false);
     });
 });

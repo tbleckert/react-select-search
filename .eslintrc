@@ -1,50 +1,18 @@
 {
-    "parser": "@babel/eslint-parser",
-    "extends": "airbnb",
-    "plugins": [
-        "react-hooks"
-    ],
+    "extends": ["eslint:recommended", "plugin:react/recommended", "prettier"],
     "env": {
         "browser": true,
-        "node": true
+        "node": true,
+        "es6": true
+    },
+    "parserOptions": {
+        "ecmaVersion": "latest",
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "jsx": true
+        }
     },
     "rules": {
-        "indent": [
-            "error",
-            4
-        ],
-        "react/jsx-indent": [
-            "error",
-            4
-        ],
-        "react/jsx-indent-props": [
-            "error",
-            4
-        ],
-        "react/jsx-filename-extension": [
-            1,
-            {
-                "extensions": [
-                    ".js",
-                    ".jsx"
-                ]
-            }
-        ],
-        "react/jsx-props-no-spreading": 0,
-        "import/no-unresolved": [
-            2,
-            {
-                "ignore": [
-                    "src/"
-                ]
-            }
-        ],
-        "jsx-a11y/click-events-have-key-events": 0,
-        "no-mixed-operators": 0,
-        "react-hooks/rules-of-hooks": "error",
-        "react-hooks/exhaustive-deps": "warn",
-        "jsx-a11y/no-autofocus": 0,
-        "react/jsx-uses-react": "off",
         "react/react-in-jsx-scope": "off"
     }
 }

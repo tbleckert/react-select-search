@@ -1,4 +1,4 @@
-function fuzzy(q, text) {
+function search(q, text) {
     const searchLength = q.length;
     const textLength = text.length;
 
@@ -14,7 +14,6 @@ function fuzzy(q, text) {
         const ch = q.charCodeAt(i);
 
         while (j < textLength) {
-            // eslint-disable-next-line no-plusplus
             if (text.charCodeAt(j++) === ch) {
                 continue mainLoop;
             }
@@ -26,18 +25,13 @@ function fuzzy(q, text) {
     return true;
 }
 
-function search(item, query) {
-    const name = `${item.name} ${item.groupName || ''}`.trim().toLowerCase();
-
-    return fuzzy(query, name);
-}
-
 export default function fuzzySearch(options, query) {
-    if (!query.length) {
-        return options;
-    }
-
-    const q = query.toLowerCase();
-
-    return options.filter((option) => search(option, q));
+    return !query.length
+        ? options
+        : options.filter((o) =>
+              search(
+                  query.toLowerCase(),
+                  `${o.name} ${o.group || ''}`.trim().toLowerCase(),
+              ),
+          );
 }

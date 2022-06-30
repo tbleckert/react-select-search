@@ -1,21 +1,17 @@
 export default function groupOptions(options) {
     const nextOptions = [];
 
-    options.forEach((option, i) => {
-        if ('groupId' in option) {
-            const nextOption = { ...option };
-            const groupIndex = nextOptions.findIndex((el) => 'groupId' in el && el.groupId === nextOption.groupId);
+    options.forEach((option) => {
+        if (option.group) {
+            const group = nextOptions.findIndex((o) => o.type === 'group' && o.name === option.group);
 
-            nextOption.index = i;
-
-            if (groupIndex > -1) {
-                nextOptions[groupIndex].items.push(nextOption);
+            if (group >= 0) {
+                nextOptions[group].items.push(option);
             } else {
                 nextOptions.push({
-                    items: [nextOption],
-                    groupId: option.groupId,
+                    items: [option],
                     type: 'group',
-                    name: option.groupName,
+                    name: option.group,
                 });
             }
         } else {

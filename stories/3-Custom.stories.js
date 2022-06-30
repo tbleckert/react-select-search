@@ -1,23 +1,30 @@
-import { useState } from 'react';
 import SelectSearch from '../src';
 import '../style.css';
 import classes from '../style.module.css';
 import { fontStacks, friends } from './data';
 
 export default {
-  title: 'Custom',
+    title: 'Custom',
 };
 
 function renderFontValue(valueProps, snapshot, className) {
     const { option } = snapshot;
     const style = {
-        fontFamily: (!snapshot.focus && option && 'stack' in option) ? option.stack : null,
+        fontFamily:
+            !snapshot.focus && option && 'stack' in option
+                ? option.stack
+                : null,
     };
 
-    const inputVal = (snapshot.focus) ? snapshot.search : snapshot.displayValue;
+    const inputVal = snapshot.focus ? snapshot.search : snapshot.displayValue;
 
     return (
-        <input {...valueProps} className={className} style={style} value={inputVal} />
+        <input
+            {...valueProps}
+            className={className}
+            style={style}
+            defaultValue={inputVal}
+        />
     );
 }
 
@@ -38,7 +45,16 @@ function renderFriend(props, option, snapshot, className) {
 
     return (
         <button {...props} className={className} type="button">
-            <span><img alt="" style={imgStyle} width="32" height="32" src={option.photo} /><span>{option.name}</span></span>
+            <span>
+                <img
+                    alt=""
+                    style={imgStyle}
+                    width="28"
+                    height="28"
+                    src={option.photo}
+                />
+                <span>{option.name}</span>
+            </span>
         </button>
     );
 }
@@ -49,13 +65,13 @@ export const FontExample = () => (
         renderValue={renderFontValue}
         renderOption={renderFontOption}
         search
-        value="Monoton"
+        defaultValue="Monoton"
     />
 );
 
 export const AvatarExample = () => (
     <SelectSearch
-        className="select-search select-search--multiple"
+        className="select-search"
         options={friends}
         renderOption={renderFriend}
         multiple
@@ -75,39 +91,3 @@ export const CSSModules = () => (
         ]}
     />
 );
-
-const button = {
-    marginLeft: '16px',
-    display: 'inline-flex',
-    position: 'relative',
-    alignItems: 'center',
-    height: '37px',
-    padding: '0 16px',
-    borderRadius: '3px',
-    border: 'none',
-    background: 'rgb(49, 173, 122)',
-    color: '#fff',
-    fontSize: '16px',
-    cursor: 'pointer',
-    outline: 'none',
-};
-
-export const ControllableDisplay = () => {
-    const [displayOptions, setDisplayOptions] = useState(false);
-
-    return (
-        <div style={{ display: 'flex' }}>
-            <SelectSearch
-                printOptions={(displayOptions) ? 'always' : 'never'}
-                options={[
-                    { value: 'hamburger', name: 'Hamburger' },
-                    { value: 'fries', name: 'Fries' },
-                    { value: 'milkshake', name: 'Milkshake' },
-                ]}
-            />
-            <button type="button" style={button} onClick={() => setDisplayOptions(!displayOptions)}>
-                {!displayOptions ? 'Display options' : 'Hide options'}
-            </button>
-        </div>
-    );
-};
