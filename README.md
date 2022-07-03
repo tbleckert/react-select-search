@@ -116,30 +116,29 @@ const CustomSelect = ({ options, value, multiple, disabled }) => {
 
 Below is all the available options you can pass to the component. Options without defaults are required.
 
-| Name | Type             | Default | Description                                                                                                                                                       |
-| ---- |------------------| ------- |-------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| options | array            | | See the [options documentation](#the-options-object) below                                                                                                        |
-| getOptions | function         | null | Get options through a function call, can return a promise for async usage. See [get options](#get-options) for more.                                              |
-| filterOptions | array            | null | An array of functions that takes the last filtered options and a search query if any. Runs after getOptions. |
-| value | string, array    | null | The value should be an array if multiple mode.                                                                                                                    |
-| multiple | boolean          | false | Set to true if you want to allow multiple selected options.                                                                                                       |
-| search | boolean          | false | Set to true to enable search functionality                                                                                                                        |
-| disabled | boolean          | false | Disables all functionality                                                                                                                                        |
-| printOptions | string           | auto | Can be: auto, always, never, on-focus. This property controls when the options list should be rendered.                                                           |
-| closeOnSelect | boolean          | true | The selectbox will blur by default when selecting an option. Set this to false to prevent this behavior.                                                          |
-| debounce | number           | 0 | Number of ms to wait until calling [get options](#get-options) when searching.                                                                                    |
-| placeholder | string           | empty string | Displayed if no option is selected and/or when search field is focused with empty value.                                                                          |
-| id | string           | null | HTML ID on the top level element.                                                                                                                                 |
-| autoComplete | string, on/off   | off | Disables/Enables autoComplete functionality in search field.                                                                                                      |
-| autoFocus | boolean          | false | Autofocus on select                                                                                                                                               |
-| className | string, function | select-search-box | Set a base class string or pass a function for complete control. Se [custom classNames](#custom-class-names) for more.                                            |
-| renderOption | function         | null | Function that renders the options. See [custom renderers](#custom-renderers) for more.                                                                            |
-| renderGroupHeader | function         | null | Function that renders the group header. See [custom renderers](#custom-renderers) for more.                                                                       |
-| renderValue | function         | null | Function that renders the value/search field. See [custom renderers](#custom-renderers) for more.                                                                 |
-| emptyMessage | string, function | null | Set empty message for empty options list, you can provide render function without arguments instead plain string message                                          |
-| onChange | function         | null | Function to receive and handle value changes.                                                                                                                     |
-| onFocus | function         | null | Focus callback.                                                                                                                                                   |
-| onBlur | function         | null | Blur callback.                                                                                                                                                    |
+| Name | Type           | Default | Description                                                                                                                                                       |
+| ---- |----------------| ------- |-------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| options | array          | | See the [options documentation](#the-options-object) below                                                                                                        |
+| getOptions | function       | null | Get options through a function call, can return a promise for async usage. See [get options](#get-options) for more.                                              |
+| filterOptions | array          | null | An array of functions that takes the last filtered options and a search query if any. Runs after getOptions. |
+| value | string, array  | null | The value should be an array if multiple mode.                                                                                                                    |
+| multiple | boolean        | false | Set to true if you want to allow multiple selected options.                                                                                                       |
+| search | boolean        | false | Set to true to enable search functionality                                                                                                                        |
+| disabled | boolean        | false | Disables all functionality                                                                                                                                        |
+| closeOnSelect | boolean        | true | The selectbox will blur by default when selecting an option. Set this to false to prevent this behavior.                                                          |
+| debounce | number         | 0 | Number of ms to wait until calling [get options](#get-options) when searching.                                                                                    |
+| placeholder | string         | empty string | Displayed if no option is selected and/or when search field is focused with empty value.                                                                          |
+| id | string         | null | HTML ID on the top level element.                                                                                                                                 |
+| autoComplete | string, on/off | off | Disables/Enables autoComplete functionality in search field.                                                                                                      |
+| autoFocus | boolean        | false | Autofocus on select                                                                                                                                               |
+| className | string, object | select-search-box | Set a base class string or pass a function for complete control. Se [custom classNames](#custom-class-names) for more.                                            |
+| renderOption | function       | null | Function that renders the options. See [custom renderers](#custom-renderers) for more.                                                                            |
+| renderGroupHeader | function       | null | Function that renders the group header. See [custom renderers](#custom-renderers) for more.                                                                       |
+| renderValue | function       | null | Function that renders the value/search field. See [custom renderers](#custom-renderers) for more.                                                                 |
+| emptyMessage | React node     | null | Set empty message for empty options list, you can provide render function without arguments instead plain string message                                          |
+| onChange | function       | null | Function to receive and handle value changes.                                                                                                                     |
+| onFocus | function       | null | Focus callback.                                                                                                                                                   |
+| onBlur | function       | null | Blur callback.                                                                                                                                                    |
 
 ## The options object
 
@@ -155,31 +154,33 @@ The options object can contain any properties and values you like. The only requ
 
 ## Custom class names
 
-If you set a string as the `className` attribute value, the component will use that as a base and BEM-ify the class names for all elements.
-If you want to fully control the class names you can pass a function that takes a key and returns a class name. The following keys exists:
+If you set a string as the `className` attribute value, the component will use that as a base for all elements.
+If you want to fully control the class names you can pass an object with classnames. The following keys exists:
 
 * container
 * value
 * input
 * select
 * options
+* row
 * option
 * group
 * group-header
 * is-selected
 * is-highlighted
 * is-loading
+* is-multiple
 * has-focus
 
 ## Custom renderers
 
 If CSS isn't enough, you can also control the HTML for the different parts of the component.
 
-| Callback | Args | Description |
-| -------- | ---- | ----------- |
-| renderOption | optionsProps: object, optionData: object, optionSnapshot: object | Controls the rendering of the options. |
-| renderGroupHeader | name: string | Controls the rendering of the group header name |
-| renderValue | valueProps: object, ref: React.ref, selectedValue: object | Controls the rendering of the value/input element |
+| Callback | Args                                                                                | Description |
+| -------- |-------------------------------------------------------------------------------------| ----------- |
+| renderOption | optionsProps: object, optionData: object, optionSnapshot: object, className: string | Controls the rendering of the options. |
+| renderGroupHeader | name: string                                                                        | Controls the rendering of the group header name |
+| renderValue | valueProps: object, snapshot: object, className: string                             | Controls the rendering of the value/input element |
 
 The optionProps and the valueProps are needed for the component you render to work. For example:
 
@@ -209,5 +210,5 @@ function getOptions(query) {
 ```
 
 The function runs on each search query update, so you might want to throttle the fetches.
-If you return a promise, the class `is-searching` will be applied to the main element, giving you a chance
-to change the appearance, like adding a spinner. The property `searching` is also available in the snapshot that is sent to your render callbacks.
+If you return a promise, the class `is-loading` will be applied to the main element, giving you a chance
+to change the appearance, like adding a spinner. The property `fetching` is also available in the snapshot that is sent to your render callbacks.
