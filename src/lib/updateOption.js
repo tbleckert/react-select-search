@@ -1,5 +1,5 @@
 export default function updateOption(newOption, oldOption, multiple) {
-    if (newOption === undefined || newOption === null) {
+    if (!newOption) {
         return oldOption;
     }
 
