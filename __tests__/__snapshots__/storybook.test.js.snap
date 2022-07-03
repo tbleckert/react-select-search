@@ -558,7 +558,9 @@ exports[`Storyshots Custom Font Example 1`] = `
           <div
             className="select-search-group-header"
           >
-            Sans serif
+            <strong>
+              Sans serif
+            </strong>
           </div>
           <ul
             className="select-search-options"
@@ -622,7 +624,9 @@ exports[`Storyshots Custom Font Example 1`] = `
           <div
             className="select-search-group-header"
           >
-            Serif
+            <strong>
+              Serif
+            </strong>
           </div>
           <ul
             className="select-search-options"
@@ -663,7 +667,9 @@ exports[`Storyshots Custom Font Example 1`] = `
           <div
             className="select-search-group-header"
           >
-            Cursive
+            <strong>
+              Cursive
+            </strong>
           </div>
           <ul
             className="select-search-options"
@@ -727,7 +733,9 @@ exports[`Storyshots Custom Font Example 1`] = `
           <div
             className="select-search-group-header"
           >
-            Monospace
+            <strong>
+              Monospace
+            </strong>
           </div>
           <ul
             className="select-search-options"
@@ -4765,7 +4773,7 @@ Array [
       }
     }
   >
-    You have selected:
+    You have selected: 
   </p>,
   <button
     onClick={[Function]}

@@ -126,6 +126,7 @@ export function useSelect(Options: {
     allowEmpty?: boolean;
     closeOnSelect?: boolean;
     closable?: boolean;
+    debounce?: number;
 }): [
     Snapshot,
     {

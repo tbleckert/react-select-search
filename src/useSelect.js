@@ -25,7 +25,7 @@ export default function useSelect({
     getOptions,
     filterOptions,
     useFuzzySearch = true,
-    debounceTime,
+    debounce,
 }) {
     const ref = useRef();
     const [state, update] = useState(() => ({
@@ -38,7 +38,7 @@ export default function useSelect({
     const [options, fetching] = useOptions(
         defaultOptions,
         getOptions,
-        debounceTime,
+        debounce,
         state.search,
     );
 

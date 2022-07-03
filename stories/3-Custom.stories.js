@@ -64,6 +64,7 @@ export const FontExample = () => (
         options={fontStacks}
         renderValue={renderFontValue}
         renderOption={renderFontOption}
+        renderGroupHeader={(str) => <strong>{str}</strong>}
         search
         defaultValue="Monoton"
     />

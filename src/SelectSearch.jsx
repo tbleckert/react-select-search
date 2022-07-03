@@ -1,61 +1,41 @@
-import { memo, forwardRef, useCallback, useEffect, useRef } from 'react';
+import { memo, forwardRef, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import useSelect from './useSelect';
 import classes from './lib/classes';
-import isSelected from './lib/isSelected';
-import Option from './components/Option';
+import Options from './components/Options';
 
 const nullCb = () => {};
 
 const SelectSearch = forwardRef(
     (
         {
-            defaultValue,
-            value: controlledValue,
             disabled,
             placeholder,
             multiple,
             search,
             autoFocus,
             autoComplete,
-            options: defaultOptions,
             id,
-            onChange,
-            onFocus,
-            onBlur,
             closeOnSelect,
             className,
             renderValue,
             renderOption,
             renderGroupHeader,
-            getOptions,
-            filterOptions,
             fuzzySearch,
-            debounce,
             emptyMessage,
+            ...hookProps
         },
         ref,
     ) => {
         const selectRef = useRef(null);
-        const cls = useCallback(
-            (classNames) => classes(classNames, className),
-            [className],
-        );
+        const cls = (classNames) => classes(classNames, className);
         const [snapshot, valueProps, optionProps] = useSelect({
-            options: defaultOptions,
-            defaultValue,
-            value: controlledValue,
             placeholder,
             multiple,
             search,
-            onChange,
-            onFocus,
-            onBlur,
             closeOnSelect: closeOnSelect && !multiple,
-            getOptions,
-            filterOptions,
             useFuzzySearch: fuzzySearch,
-            debounceTime: debounce,
+            ...hookProps,
         });
         const { highlighted, value, fetching, focus } = snapshot;
 
@@ -115,88 +95,26 @@ const SelectSearch = forwardRef(
                     ref={selectRef}
                     onMouseDown={(e) => e.preventDefault()}
                 >
-                    <ul className={cls('options')}>
-                        {snapshot.options.length > 0 &&
-                            snapshot.options.map((o) => {
-                                if (o.type === 'group') {
-                                    return (
-                                        <li
-                                            role="none"
-                                            className={cls('row')}
-                                            key={o.name}
-                                        >
-                                            <div className={cls('group')}>
-                                                <div
-                                                    className={cls(
-                                                        'group-header',
-                                                    )}
-                                                >
-                                                    {renderGroupHeader
-                                                        ? renderGroupHeader(
-                                                              o.name,
-                                                          )
-                                                        : o.name}
-                                                </div>
-                                                <ul className={cls('options')}>
-                                                    {o.items.map(
-                                                        (groupOption) => (
-                                                            <Option
-                                                                key={
-                                                                    groupOption.value
-                                                                }
-                                                                option={
-                                                                    groupOption
-                                                                }
-                                                                optionProps={
-                                                                    optionProps
-                                                                }
-                                                                cls={cls}
-                                                                renderOption={
-                                                                    renderOption
-                                                                }
-                                                                selected={isSelected(
-                                                                    groupOption,
-                                                                    snapshot.option,
-                                                                )}
-                                                                highlighted={
-                                                                    snapshot.highlighted ===
-                                                                    groupOption.index
-                                                                }
-                                                                disabled={
-                                                                    groupOption.disabled ||
-                                                                    disabled
-                                                                }
-                                                            />
-                                                        ),
-                                                    )}
-                                                </ul>
-                                            </div>
-                                        </li>
-                                    );
-                                }
-
-                                return (
-                                    <Option
-                                        key={o.value}
-                                        option={o}
-                                        optionProps={optionProps}
-                                        cls={cls}
-                                        renderOption={renderOption}
-                                        selected={isSelected(
-                                            o,
-                                            snapshot.option,
-                                        )}
-                                        highlighted={
-                                            snapshot.highlighted === o.index
-                                        }
-                                        disabled={o.disabled || disabled}
-                                    />
-                                );
-                            })}
-                        {!snapshot.options.length && emptyMessage && (
-                            <li className={cls('not-found')}>{emptyMessage}</li>
-                        )}
-                    </ul>
+                    {snapshot.options.length > 0 && (
+                        <Options
+                            options={snapshot.options}
+                            optionProps={optionProps}
+                            renderOption={renderOption}
+                            renderGroupHeader={renderGroupHeader}
+                            disabled={disabled}
+                            snapshot={snapshot}
+                            cls={cls}
+                        />
+                    )}
+                    {!snapshot.options.length && (
+                        <ul className={cls('options')}>
+                            {!snapshot.options.length && emptyMessage && (
+                                <li className={cls('not-found')}>
+                                    {emptyMessage}
+                                </li>
+                            )}
+                        </ul>
+                    )}
                 </div>
             </div>
         );
