@@ -1,9 +1,9 @@
+const isString = (str) => typeof str === 'string';
 const getClassName = (str, className) =>
-    typeof className === 'string' ? `${className}-${str}` : className[str];
+    isString(className) ? `${className}-${str}` : className[str];
 
 export default function classes(classNames, className) {
-    if (typeof classNames === 'string')
-        return getClassName(classNames, className);
+    if (isString(classNames)) return getClassName(classNames, className);
 
     return Object.entries(classNames)
         .filter(([cls, display]) => cls && display)

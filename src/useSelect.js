@@ -30,7 +30,6 @@ export default function useSelect({
     const ref = useRef();
     const [state, update] = useState(() => ({
         option: null,
-        value: value === undefined ? defaultValue : value,
         search: '',
         focus: false,
     }));
@@ -48,16 +47,14 @@ export default function useSelect({
             state.option,
             multiple,
         );
-        const newValue = getValue(newOption);
 
         if (value === undefined) {
             setState({
                 option: newOption,
-                value: newValue,
             });
         }
 
-        onChange(newValue, newOption);
+        onChange(getValue(newOption), newOption);
 
         setTimeout(() => {
             if (ref.current && closeOnSelect) {
@@ -78,6 +75,7 @@ export default function useSelect({
 
     const snapshot = {
         ...state,
+        value: getValue(state.option),
         fetching,
         highlighted,
         options: groupOptions(reduce(middleware, options, state.search)),
@@ -120,11 +118,11 @@ export default function useSelect({
     };
 
     useEffect(() => {
-        const newValue = value === undefined ? defaultValue : value;
-
         setState({
-            option: getOption(newValue, options),
-            value: newValue,
+            option: getOption(
+                value === undefined ? defaultValue : value,
+                options,
+            ),
         });
     }, [value, defaultValue]);
 

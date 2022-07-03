@@ -1,3 +1,6 @@
+import isSame from './isSame';
+import toArray from './toArray';
+
 export default function updateOption(newOption, oldOption, multiple) {
     if (!newOption) {
         return oldOption;
@@ -8,12 +11,12 @@ export default function updateOption(newOption, oldOption, multiple) {
     }
 
     if (!oldOption) {
-        return Array.isArray(newOption) ? newOption : [newOption];
+        return toArray(newOption);
     }
 
-    const nextOption = Array.isArray(oldOption) ? oldOption : [oldOption];
-    const newOptionIndex = nextOption.findIndex(
-        (o) => o.value === newOption.value,
+    const nextOption = toArray(oldOption);
+    const newOptionIndex = nextOption.findIndex((o) =>
+        isSame(o.value, newOption.value),
     );
 
     if (newOptionIndex >= 0) {

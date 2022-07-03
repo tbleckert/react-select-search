@@ -3,11 +3,13 @@ export default function getDisplayValue(option, options, placeholder) {
         return options && options.length ? options[0].name || '' : '';
     }
 
-    if (!option && !Array.isArray(option)) {
+    const isMultiple = Array.isArray(option);
+
+    if (!option && !isMultiple) {
         return '';
     }
 
-    return Array.isArray(option)
+    return isMultiple
         ? option
               .map((o) => o.name)
               .filter(Boolean)
