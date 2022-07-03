@@ -4,8 +4,6 @@ import useSelect from './useSelect';
 import classes from './lib/classes';
 import Options from './components/Options';
 
-const nullCb = () => {};
-
 const SelectSearch = forwardRef(
     (
         {
@@ -136,11 +134,6 @@ SelectSearch.defaultProps = {
 
     // Design
     className: 'select-search',
-
-    // Events
-    onChange: nullCb,
-    onFocus: nullCb,
-    onBlur: nullCb,
 };
 
 SelectSearch.propTypes = {
