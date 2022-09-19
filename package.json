@@ -21,7 +21,7 @@
         "storybook": "start-storybook -p 6006",
         "build-storybook": "build-storybook --output-dir public",
         "size": "size-limit",
-        "publish": "npm run build && npm publish",
+        "pub": "npm run build && npm publish",
         "eslint": "eslint src --ext .jsx --ext .js"
     },
     "repository": {
