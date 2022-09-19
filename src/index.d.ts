@@ -118,7 +118,7 @@ export function useSelect(Options: {
         optionSnapshot: SelectSearchProps,
     ) => void;
     getOptions?: (query: string) => Promise<SelectSearchOption[]>;
-    fuzzySearch?: boolean;
+    useFuzzySearch?: boolean;
     filterOptions?: ((
         options: SelectSearchOption[],
         query: string,
