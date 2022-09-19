@@ -56,12 +56,12 @@
         "@babel/preset-env": "^7.18.2",
         "@babel/preset-react": "^7.17.12",
         "@size-limit/preset-small-lib": "^7.0.8",
-        "@storybook/addon-actions": "^6.5.9",
-        "@storybook/addon-essentials": "^6.5.9",
-        "@storybook/addon-links": "^6.5.9",
-        "@storybook/addon-storyshots": "^6.5.9",
-        "@storybook/addons": "^6.5.9",
-        "@storybook/react": "^6.5.9",
+        "@storybook/addon-actions": "^6.5.12",
+        "@storybook/addon-essentials": "^6.5.12",
+        "@storybook/addon-links": "^6.5.12",
+        "@storybook/addon-storyshots": "^6.5.12",
+        "@storybook/addons": "^6.5.12",
+        "@storybook/react": "^6.5.12",
         "babel-jest": "^28.1.1",
         "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
         "coveralls": "^3.1.1",
@@ -79,6 +79,6 @@
         "react-test-renderer": "^18.2.0",
         "react-transition-group": "^4.4.2",
         "size-limit": "^7.0.8",
-        "storybook-dark-mode": "^1.1.0"
+        "storybook-dark-mode": "^1.1.2"
     }
 }
