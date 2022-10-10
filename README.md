@@ -25,6 +25,9 @@
     <a href="https://bundlephobia.com/result?p=react-select-search">
         <img src="https://img.shields.io/bundlephobia/minzip/react-select-search?style=for-the-badge" />
     </a>
+    <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+    [![All Contributors](https://img.shields.io/badge/all_contributors-13-orange.svg?style=for-the-badge)](#contributors)
+    <!-- ALL-CONTRIBUTORS-BADGE:END -->
 </p>
 
 ## Features
@@ -212,3 +215,14 @@ function getOptions(query) {
 The function runs on each search query update, so you might want to throttle the fetches.
 If you return a promise, the class `is-loading` will be applied to the main element, giving you a chance
 to change the appearance, like adding a spinner. The property `fetching` is also available in the snapshot that is sent to your render callbacks.
+
+## Contributors
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
