@@ -16,18 +16,15 @@
     <a href='https://coveralls.io/github/tbleckert/react-select-search'>
         <img src='https://img.shields.io/coveralls/github/tbleckert/react-select-search?style=for-the-badge' alt='Coverage Status' />
     </a>
-    <a href="https://codeclimate.com/github/tbleckert/react-select-search/maintainability">
-        <img src="https://img.shields.io/codeclimate/maintainability/tbleckert/react-select-search?style=for-the-badge" />
-    </a>
     <a href="https://www.npmjs.com/package/react-select-search">
         <img src="https://img.shields.io/npm/dm/react-select-search.svg?style=for-the-badge" style="max-width:100%;" />
     </a>
     <a href="https://bundlephobia.com/result?p=react-select-search">
         <img src="https://img.shields.io/bundlephobia/minzip/react-select-search?style=for-the-badge" />
     </a>
-    <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-    [![All Contributors](https://img.shields.io/badge/all_contributors-13-orange.svg?style=for-the-badge)](#contributors)
-    <!-- ALL-CONTRIBUTORS-BADGE:END -->
+    <a href="#contributors">
+        <img src="https://img.shields.io/github/contributors/tbleckert/react-select-search?style=for-the-badge" />
+    </a>
 </p>
 
 ## Features
@@ -218,11 +215,8 @@ to change the appearance, like adding a spinner. The property `fetching` is also
 
 ## Contributors
 
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore-start -->
-<!-- markdownlint-disable -->
+<a href="https://github.com/tbleckert/react-select-search/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=tbleckert/react-select-search" />
+</a>
 
-<!-- markdownlint-restore -->
-<!-- prettier-ignore-end -->
-
-<!-- ALL-CONTRIBUTORS-LIST:END -->
+Made with [contrib.rocks](https://contrib.rocks).
