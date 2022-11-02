@@ -16,14 +16,14 @@
     <a href='https://coveralls.io/github/tbleckert/react-select-search'>
         <img src='https://img.shields.io/coveralls/github/tbleckert/react-select-search?style=for-the-badge' alt='Coverage Status' />
     </a>
-    <a href="https://codeclimate.com/github/tbleckert/react-select-search/maintainability">
-        <img src="https://img.shields.io/codeclimate/maintainability/tbleckert/react-select-search?style=for-the-badge" />
-    </a>
     <a href="https://www.npmjs.com/package/react-select-search">
         <img src="https://img.shields.io/npm/dm/react-select-search.svg?style=for-the-badge" style="max-width:100%;" />
     </a>
     <a href="https://bundlephobia.com/result?p=react-select-search">
         <img src="https://img.shields.io/bundlephobia/minzip/react-select-search?style=for-the-badge" />
+    </a>
+    <a href="#contributors">
+        <img src="https://img.shields.io/github/contributors/tbleckert/react-select-search?style=for-the-badge" />
     </a>
 </p>
 
@@ -212,3 +212,11 @@ function getOptions(query) {
 The function runs on each search query update, so you might want to throttle the fetches.
 If you return a promise, the class `is-loading` will be applied to the main element, giving you a chance
 to change the appearance, like adding a spinner. The property `fetching` is also available in the snapshot that is sent to your render callbacks.
+
+## Contributors
+
+<a href="https://github.com/tbleckert/react-select-search/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=tbleckert/react-select-search" />
+</a>
+
+Made with [contrib.rocks](https://contrib.rocks).

@@ -74,7 +74,7 @@ export type SelectSearchProps = {
     id?: string;
     autoComplete?: 'on' | 'off';
     autoFocus?: boolean;
-    className?: ((classes: string) => string) | string;
+    className?: ((classes: string) => string) | string | { readonly [key: string]: string; };
     onChange?: (
         selectedValue: SelectedOptionValue | SelectedOptionValue[],
         selectedOption: SelectedOption | SelectedOption[],
