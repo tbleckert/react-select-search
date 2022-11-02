@@ -1,8 +1,26 @@
 import SelectSearch from '../src';
 import '../style.css';
+import { useEffect, useState } from "react";
+import { colors } from "./data";
 
 export default {
     title: 'Misc',
+};
+
+export const StateOptions = () => {
+    const [options, setOptions] = useState([]);
+
+    useEffect(() => {
+        setOptions(colors);
+    }, []);
+
+    return (
+        <SelectSearch
+            defaultValue={colors[0].value}
+            options={options}
+            multiple
+        />
+    );
 };
 
 export const NumericValues = () => (

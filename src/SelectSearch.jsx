@@ -1,4 +1,4 @@
-import { memo, forwardRef, useEffect, useRef } from 'react';
+import { memo, forwardRef, useEffect, useRef, useState } from "react";
 import PropTypes from 'prop-types';
 import useSelect from './useSelect';
 import classes from './lib/classes';
@@ -21,13 +21,16 @@ const SelectSearch = forwardRef(
             renderGroupHeader,
             fuzzySearch,
             emptyMessage,
+            value,
             ...hookProps
         },
         ref,
     ) => {
         const selectRef = useRef(null);
         const cls = (classNames) => classes(classNames, className);
+        const [controlledValue, setControlledValue] = useState(value);
         const [snapshot, valueProps, optionProps] = useSelect({
+            value: controlledValue,
             placeholder,
             multiple,
             search,
@@ -35,7 +38,7 @@ const SelectSearch = forwardRef(
             useFuzzySearch: fuzzySearch,
             ...hookProps,
         });
-        const { highlighted, value, fetching, focus } = snapshot;
+        const { highlighted, value: snapValue, fetching, focus } = snapshot;
 
         const props = {
             ...valueProps,
@@ -48,7 +51,7 @@ const SelectSearch = forwardRef(
             const { current } = selectRef;
 
             if (current) {
-                const val = Array.isArray(value) ? value[0] : value;
+                const val = Array.isArray(snapValue) ? snapValue[0] : snapValue;
                 const selected = current.querySelector(
                     highlighted > -1
                         ? `[data-index="${highlighted}"]`
@@ -65,7 +68,9 @@ const SelectSearch = forwardRef(
                         selectedRect.height / 2;
                 }
             }
-        }, [value, highlighted, selectRef.current]);
+        }, [snapValue, highlighted, selectRef.current]);
+
+        useEffect(() => setControlledValue(value), [value]);
 
         return (
             <div

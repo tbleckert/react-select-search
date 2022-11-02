@@ -7,9 +7,7 @@ export default function useOptions(
     debounceTime,
     search,
 ) {
-    const [options, setOptions] = useState(() =>
-        flattenOptions(defaultOptions),
-    );
+    const [options, setOptions] = useState(() => flattenOptions(defaultOptions));
     const [fetching, setFetching] = useState(false);
 
     useEffect(() => {
@@ -33,6 +31,10 @@ export default function useOptions(
             clearTimeout(timeout);
         };
     }, [search]);
+
+    useEffect(() => {
+        setOptions(flattenOptions(defaultOptions));
+    }, [defaultOptions]);
 
     return [options, fetching];
 }

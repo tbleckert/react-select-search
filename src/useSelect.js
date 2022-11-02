@@ -124,7 +124,7 @@ export default function useSelect({
                 options,
             ),
         });
-    }, [value, defaultValue]);
+    }, [value]);
 
     return [snapshot, valueProps, optionProps];
 }

@@ -16,14 +16,11 @@ function renderFontValue(valueProps, snapshot, className) {
                 : null,
     };
 
-    const inputVal = snapshot.focus ? snapshot.search : snapshot.displayValue;
-
     return (
         <input
             {...valueProps}
             className={className}
             style={style}
-            defaultValue={inputVal}
         />
     );
 }
