@@ -16,7 +16,7 @@ export const StateOptions = () => {
 
     return (
         <SelectSearch
-            defaultValue={colors[0].value}
+            defaultValue={colors[1].value}
             options={options}
             multiple
         />
