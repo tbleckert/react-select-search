@@ -17,7 +17,7 @@
         "test:coverage": "yarn test -- --coverage --silent",
         "coveralls": "yarn test:coverage && cat ./coverage/lcov.info | coveralls",
         "start": "start-storybook -p 6006",
-        "build": "parcel build",
+        "build": "parcel build --no-cache",
         "storybook": "start-storybook -p 6006",
         "build-storybook": "build-storybook --output-dir public",
         "size": "size-limit",
