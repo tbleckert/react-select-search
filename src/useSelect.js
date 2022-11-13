@@ -28,30 +28,25 @@ export default function useSelect({
     debounce,
 }) {
     const ref = useRef();
-    const [state, update] = useState(() => ({
-        option: null,
-        search: '',
-        focus: false,
-    }));
-    const setState = (u) => update({ ...state, ...u });
+    const [option, setOption] = useState(null);
+    const [q, setSearch] = useState('');
+    const [focus, setFocus] = useState(false);
     const [options, fetching] = useOptions(
         defaultOptions,
         getOptions,
         debounce,
-        state.search,
+        q,
     );
 
     const onSelect = (v) => {
         const newOption = updateOption(
             getOption(decodeURIComponent(v), options),
-            state.option,
+            option,
             multiple,
         );
 
         if (value === undefined) {
-            setState({
-                option: newOption,
-            });
+            setOption(newOption);
         }
 
         onChange(getValue(newOption), newOption);
@@ -74,38 +69,41 @@ export default function useSelect({
     ];
 
     const snapshot = {
-        ...state,
-        value: getValue(state.option),
+        search: q,
+        focus,
+        option,
+        value: getValue(option),
         fetching,
         highlighted,
-        options: groupOptions(reduce(middleware, options, state.search)),
-        displayValue: getDisplayValue(state.option, options, placeholder),
+        options: groupOptions(reduce(middleware, options, q)),
+        displayValue: getDisplayValue(option, options, placeholder),
     };
 
     const valueProps = {
         tabIndex: '0',
         readOnly: !search,
         placeholder,
-        value: state.focus && search ? state.search : snapshot.displayValue,
+        value: focus && search ? q : snapshot.displayValue,
         ref,
         ...keyHandlers,
         onFocus: (e) => {
-            setState({ focus: true });
+            setFocus(true);
             onFocus(e);
         },
         onBlur: (e) => {
-            setState({ focus: false, search: '' });
+            setFocus(false);
+            setSearch('');
             setHighlighted(-1);
             onBlur(e);
         },
         onMouseDown: (e) => {
-            if (state.focus) {
+            if (focus) {
                 e.preventDefault();
                 ref.current.blur();
             }
         },
         onChange: search
-            ? ({ target }) => setState({ search: target.value })
+            ? ({ target }) => setSearch(target.value)
             : null,
     };
 
@@ -118,12 +116,10 @@ export default function useSelect({
     };
 
     useEffect(() => {
-        setState({
-            option: getOption(
-                value === undefined ? defaultValue : value,
-                options,
-            ),
-        });
+        setOption(getOption(
+            value === undefined ? defaultValue : value,
+            options,
+        ));
     }, [value, options]);
 
     return [snapshot, valueProps, optionProps];
