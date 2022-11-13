@@ -524,7 +524,6 @@ exports[`Storyshots Custom Font Example 1`] = `
     <input
       autoComplete="on"
       className="select-search-input"
-      defaultValue="Roboto"
       onBlur={[Function]}
       onChange={[Function]}
       onFocus={[Function]}
@@ -5172,6 +5171,21 @@ exports[`Storyshots Misc Numeric Values 1`] = `
         </button>
       </li>
     </ul>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Misc State Options 1`] = `
+<div
+  className="select-search-container select-search-is-multiple"
+>
+  <div
+    className="select-search-select"
+    onMouseDown={[Function]}
+  >
+    <ul
+      className="select-search-options"
+    />
   </div>
 </div>
 `;
