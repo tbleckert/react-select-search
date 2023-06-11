@@ -92,7 +92,7 @@ export default function useSelect({
         },
         onBlur: (e) => {
             setFocus(false);
-            setSearch('');
+            !option && setSearch('');
             setHighlighted(-1);
             onBlur(e);
         },
