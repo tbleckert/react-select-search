@@ -1,0 +1,85 @@
+{
+    "name": "react-select-search",
+    "version": "4.1.6",
+    "description": "Lightweight select component for React",
+    "source": "src/index.js",
+    "main": "dist/cjs/index.js",
+    "module": "dist/esm/index.js",
+    "types": "src/index.d.ts",
+    "targets": {
+        "types": false
+    },
+    "sideEffects": false,
+    "scripts": {
+        "lint": "eslint src --ext .js --ext .jsx",
+        "test": "yarn build && size-limit && jest",
+        "test:watch": "yarn test -- --watch",
+        "test:coverage": "yarn test -- --coverage --silent",
+        "coveralls": "yarn test:coverage && cat ./coverage/lcov.info | coveralls",
+        "start": "start-storybook -p 6006",
+        "build": "parcel build --no-cache",
+        "storybook": "start-storybook -p 6006",
+        "build-storybook": "build-storybook --output-dir public",
+        "size": "size-limit",
+        "pub": "npm run build && npm publish",
+        "eslint": "eslint src --ext .jsx --ext .js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/tbleckert/react-select-search.git"
+    },
+    "keywords": [
+        "react",
+        "select",
+        "js",
+        "search",
+        "react-component"
+    ],
+    "author": "Tobias Bleckert (hola@tobiasbleckert.se)",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/tbleckert/react-select-search/issues"
+    },
+    "homepage": "https://github.com/tbleckert/react-select-search",
+    "size-limit": [
+        {
+            "path": "dist/esm/index.js",
+            "limit": "3 kB"
+        }
+    ],
+    "peerDependencies": {
+        "prop-types": "^15.8.1",
+        "react": "^18.0.1 || ^17.0.1",
+        "react-dom": "^18.0.1 || ^17.0.1"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.12.0",
+        "@babel/preset-env": "^7.18.2",
+        "@babel/preset-react": "^7.17.12",
+        "@size-limit/preset-small-lib": "^7.0.8",
+        "@storybook/addon-actions": "^6.5.12",
+        "@storybook/addon-essentials": "^6.5.12",
+        "@storybook/addon-links": "^6.5.12",
+        "@storybook/addon-storyshots": "^6.5.12",
+        "@storybook/addons": "^6.5.12",
+        "@storybook/react": "^6.5.12",
+        "babel-jest": "^28.1.1",
+        "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
+        "coveralls": "^3.1.1",
+        "eslint": "^8.18.0",
+        "eslint-config-prettier": "^8.5.0",
+        "eslint-plugin-react": "^7.30.1",
+        "identity-obj-proxy": "^3.0.0",
+        "jest": "^28.1.1",
+        "jest-environment-jsdom": "^28.1.1",
+        "parcel": "^2.6.1",
+        "prettier": "^2.7.1",
+        "prop-types": "^15.8.1",
+        "react": "^17.0.1",
+        "react-dom": "^17.0.1",
+        "react-test-renderer": "^18.2.0",
+        "react-transition-group": "^4.4.2",
+        "size-limit": "^7.0.8",
+        "storybook-dark-mode": "^1.1.2"
+    }
+}
