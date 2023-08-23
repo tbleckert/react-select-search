@@ -58,15 +58,16 @@ export default function useSelect({
         }, 0);
     };
 
-    const [keyHandlers, highlighted, setHighlighted] = useHighlight(
-        options,
-        onSelect,
-        ref,
-    );
     const middleware = [
         useFuzzySearch ? fuzzySearch : null,
         ...(filterOptions ? filterOptions : []),
     ];
+    const filteredOptions = groupOptions(reduce(middleware, options, q));
+    const [keyHandlers, highlighted, setHighlighted] = useHighlight(
+        filteredOptions,
+        onSelect,
+        ref,
+    );
 
     const snapshot = {
         search: q,
@@ -75,7 +76,7 @@ export default function useSelect({
         value: getValue(option),
         fetching,
         highlighted,
-        options: groupOptions(reduce(middleware, options, q)),
+        options: filteredOptions,
         displayValue: getDisplayValue(option, options, placeholder),
     };
 
