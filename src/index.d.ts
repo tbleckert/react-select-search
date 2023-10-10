@@ -102,6 +102,8 @@ export type SelectSearchProps = {
     debounce?: number;
     ref?: Ref<Component>;
     emptyMessage?: ReactNode | (() => ReactNode);
+    onBlur: (event: Event) => void;
+    onFocus: (event: Event) => void;
 };
 
 export const SelectSearch: FunctionComponent<SelectSearchProps>;
