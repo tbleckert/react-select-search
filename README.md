@@ -1,3 +1,11 @@
+## ⚠️ Looking for maintainers
+
+First of all, I want to thank you all for the amazing support over the years. This was one of my first open source projects and also my first successful one. I am beyond grateful for all the [33! contributors](https://github.com/tbleckert/react-select-search/graphs/contributors), wouldn't have been possible to run this project without you.
+
+A lot happened last year. I had my first born son, I had a few time consuming freelance gigs and a few startups that grew. This took time away from open source and I feel I can't do this component justice anymore. Not by myself at least.
+
+I still believe in a tiny, super fast and zero-dependency select component. If there's anyone out there that wants to co-maintain this with me, please reach out to discuss the next steps. Send me an email at hola@tobiasbleckert.se or hit me up on [Twitter](https://twitter.com/tbleckert)
+
 <p align="center">
   <img src="https://user-images.githubusercontent.com/263465/175054036-90835869-74dc-40f1-a541-adea18da9b8f.png" alt="React Select Search" />
 </p>
