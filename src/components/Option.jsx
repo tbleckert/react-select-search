@@ -1,5 +1,4 @@
-/* eslint-disable react/prop-types */
-import { memo } from 'react';
+import React from 'react';
 
 function Option({
     optionProps,
@@ -39,4 +38,4 @@ function Option({
     );
 }
 
-export default memo(Option);
+export default Option;

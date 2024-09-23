@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState } from 'react';
 import SelectSearch from '../src';
 import '../style.css';

@@ -14,7 +14,7 @@ export default function updateOption(newOption, oldOption, multiple) {
         return toArray(newOption);
     }
 
-    const nextOption = toArray(oldOption);
+    const nextOption = [...toArray(oldOption)];
     const newOptionIndex = nextOption.findIndex((o) =>
         isSame(o.value, newOption.value),
     );

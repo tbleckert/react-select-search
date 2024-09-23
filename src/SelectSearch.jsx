@@ -1,4 +1,4 @@
-import { memo, forwardRef, useEffect, useRef, useState } from "react";
+import React, { forwardRef, useEffect, useRef, useState } from "react";
 import PropTypes from 'prop-types';
 import useSelect from './useSelect';
 import classes from './lib/classes';
@@ -12,16 +12,19 @@ const SelectSearch = forwardRef(
             multiple,
             search,
             autoFocus,
-            autoComplete,
+            autoComplete = 'on',
             id,
-            closeOnSelect,
-            className,
+            closeOnSelect = true,
+            className = 'select-search',
             renderValue,
             renderOption,
             renderGroupHeader,
-            fuzzySearch,
+            fuzzySearch = true,
             emptyMessage,
             value,
+            debounce = 250,
+            printOptions = 'auto',
+            options = [],
             ...hookProps
         },
         ref,
@@ -36,6 +39,9 @@ const SelectSearch = forwardRef(
             search,
             closeOnSelect: closeOnSelect && !multiple,
             useFuzzySearch: fuzzySearch,
+            options,
+            printOptions,
+            debounce,
             ...hookProps,
         });
         const { highlighted, value: snapValue, fetching, focus } = snapshot;
@@ -124,23 +130,6 @@ const SelectSearch = forwardRef(
     },
 );
 
-SelectSearch.defaultProps = {
-    // Data
-    options: [],
-    fuzzySearch: true,
-
-    // Interaction´
-    printOptions: 'auto',
-    closeOnSelect: true,
-    debounce: 250,
-
-    // Attributes
-    autoComplete: 'on',
-
-    // Design
-    className: 'select-search',
-};
-
 SelectSearch.propTypes = {
     // Data
     options: PropTypes.arrayOf(
@@ -186,4 +175,4 @@ SelectSearch.propTypes = {
 
 SelectSearch.displayName = 'SelectSearch';
 
-export default memo(SelectSearch);
+export default SelectSearch;
