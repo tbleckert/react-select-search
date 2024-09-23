@@ -62,7 +62,6 @@
         "@storybook/addon-actions": "^8.3.2",
         "@storybook/addon-essentials": "^8.3.2",
         "@storybook/addon-links": "^8.3.2",
-        "@storybook/addon-storyshots": "^7.6.17",
         "@storybook/addon-webpack5-compiler-swc": "^1.0.5",
         "@storybook/addons": "^7.6.17",
         "@storybook/react": "^8.3.2",
