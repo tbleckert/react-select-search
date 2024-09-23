@@ -7,4 +7,4 @@ export const parameters = {
         lightClass: 'is-light-mode'
     }
 };
-export const tags = ['autodocs'];
+export const tags = ['autodocs', 'autodocs'];

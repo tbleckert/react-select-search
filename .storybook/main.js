@@ -4,8 +4,8 @@ module.exports = {
     'addons': [
         '@storybook/addon-essentials',
         'storybook-dark-mode',
-        '@storybook/addon-webpack5-compiler-swc',
-        '@chromatic-com/storybook'
+        '@chromatic-com/storybook',
+        '@storybook/addon-webpack5-compiler-babel'
     ],
 
     features: {
