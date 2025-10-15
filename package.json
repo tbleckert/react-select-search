@@ -49,8 +49,8 @@
   ],
   "peerDependencies": {
     "prop-types": "^15.8.1",
-    "react": "^18.0.1 || ^17.0.1",
-    "react-dom": "^18.0.1 || ^17.0.1"
+    "react": "^19.0.0 || ^18.0.1 || ^17.0.1",
+    "react-dom": "^19.0.0 || ^18.0.1 || ^17.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
