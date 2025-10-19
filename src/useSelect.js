@@ -4,7 +4,7 @@ import updateOption from './lib/updateOption';
 import getDisplayValue from './lib/getDisplayValue';
 import getValue from './lib/getValue';
 import groupOptions from './lib/groupOptions';
-import fuzzySearch from './lib/fuzzySearch';
+import {fuzzySearch,fulltextSearch} from './lib/fuzzySearch';
 import reduce from './lib/reduce';
 import useOptions from './useOptions';
 import useHighlight from './useHighlight';
@@ -59,7 +59,7 @@ export default function useSelect({
     };
 
     const middleware = [
-        useFuzzySearch ? fuzzySearch : null,
+        useFuzzySearch ? fuzzySearch : fulltextSearch,
         ...(filterOptions ? filterOptions : []),
     ];
     const filteredOptions = groupOptions(reduce(middleware, options, q));
